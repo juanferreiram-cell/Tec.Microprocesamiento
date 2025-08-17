@@ -1,6 +1,6 @@
 # 🧪 Laboratorios de Tecnología de Microprocesamiento
 
-Este repositorio contiene los trabajos prácticos y códigos desarrollados en la materia **Tecnología de Microprocesamiento**.
+Este repositorio contiene los trabajos prácticos y códigos desarrollados en la UC **Tecnología de Microprocesamiento**.
 
 # 👨‍💻 Integrantes
 
