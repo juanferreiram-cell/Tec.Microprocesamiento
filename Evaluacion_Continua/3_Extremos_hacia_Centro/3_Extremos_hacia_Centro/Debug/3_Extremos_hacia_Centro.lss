@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm Thu Aug 28 18:25:26 2025
+AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm Thu Aug 28 19:15:23 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm(9): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
@@ -1043,18 +1043,20 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Cont
                                  .org    0x0000
 000000 c000                      rjmp    DECLARAR_VARIABLES
                                  
-                                 ;Se declararan los pines en el R16 y el Timer el R17
+                                 ; Se declararan los pines en el R16 y el Timer el R17
                                  DECLARAR_VARIABLES:
                                         
+                                 	   ; Stack Pointer
 000001 e008                              ldi     r16, high(RAMEND)
 000002 bf0e                              out     SPH, r16
 000003 ef0f                              ldi     r16, low(RAMEND)
 000004 bf0d                              out     SPL, r16
                                  
-                                   
+                                     ; Declaracion de pines
 000005 ef0f                              ldi     r16, (1<<DDD0) | (1<<DDD1) | (1<<DDD2) | (1<<DDD3) | (1<<DDD4) | (1<<DDD5) | (1<<DDD6) | (1<<DDD7)
 000006 b90a                              out     DDRD, r16
-                                 		
+                                 	
+                                 	; Declaracion del Timer
 000007 e010                      		LDI R17,0
 000008 9310 0080                         STS TCCR1A,R17
 00000a e014                              LDI R17,(1<<CS12)
@@ -1070,55 +1072,59 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Cont
 000019 9478                              SEI
 00001a c000                      		rjmp    MAIN
                                  
-                                 ; Main principal del cdoigo
+                                 ; Main principal del codigo con funcionamiento del mismo
                                  
                                  MAIN:
 00001b e801                      		ldi r16, (1<<PORTD0) |(1<<PORTD7)
 00001c b90b                              out PORTD, r16          
 00001d e402                      		ldi r16, (1<<PORTD1) |(1<<PORTD6)
 00001e b90b                              out PORTD, r16
-00001f 940e 0042                 		call APAGARLEDS
-000021 940e 0044                 		call DELAY
-000023 e204                      		ldi r16, (1<<PORTD2) |(1<<PORTD5)
-000024 b90b                              out PORTD, r16          
-000025 940e 0042                 		call APAGARLEDS
-000027 940e 0044                 		call DELAY
-000029 e108                      		ldi r16, (1<<PORTD3) |(1<<PORTD4)
-00002a b90b                              out PORTD, r16
-00002b 940e 0042                 		call APAGARLEDS
-00002d 940e 0044                 		call DELAY
-00002f e204                      		ldi r16, (1<<PORTD2) |(1<<PORTD5)
-000030 b90b                              out PORTD, r16          
-000031 940e 0042                 		call APAGARLEDS
-000033 940e 0044                 		call DELAY
-000035 e402                      		ldi r16, (1<<PORTD1) |(1<<PORTD6)
-000036 b90b                              out PORTD, r16
-000037 940e 0042                 		call APAGARLEDS
-000039 940e 0044                 		call DELAY
-00003b e801                      		ldi r16, (1<<PORTD0) |(1<<PORTD7)
-00003c b90b                              out PORTD, r16
-00003d 940e 0042                 		call APAGARLEDS
-00003f 940e 0044                 		call DELAY
-000041 cfd9                      		rjmp MAIN
+00001f 940e 0050                 		call DELAY
+000021 940e 004e                 		call APAGARLEDS
+000023 940e 0050                 		call DELAY
+000025 e204                      		ldi r16, (1<<PORTD2) |(1<<PORTD5)
+000026 b90b                              out PORTD, r16          
+000027 940e 0050                 		call DELAY
+000029 940e 004e                 		call APAGARLEDS
+00002b 940e 0050                 		call DELAY
+00002d e108                      		ldi r16, (1<<PORTD3) |(1<<PORTD4)
+00002e b90b                              out PORTD, r16
+00002f 940e 0050                 		call DELAY
+000031 940e 004e                 		call APAGARLEDS
+000033 940e 0050                 		call DELAY
+000035 e204                      		ldi r16, (1<<PORTD2) |(1<<PORTD5)
+000036 b90b                              out PORTD, r16          
+000037 940e 0050                 		call DELAY
+000039 940e 004e                 		call APAGARLEDS
+00003b 940e 0050                 		call DELAY
+00003d e402                      		ldi r16, (1<<PORTD1) |(1<<PORTD6)
+00003e b90b                              out PORTD, r16
+00003f 940e 0050                 		call DELAY
+000041 940e 004e                 		call APAGARLEDS
+000043 940e 0050                 		call DELAY
+000045 e801                      		ldi r16, (1<<PORTD0) |(1<<PORTD7)
+000046 b90b                              out PORTD, r16
+000047 940e 0050                 		call DELAY
+000049 940e 004e                 		call APAGARLEDS
+00004b 940e 0050                 		call DELAY
+00004d cfcd                      		rjmp MAIN
                                  
                                  
                                  ; Funcion que apaga los LEDS
                                  APAGARLEDS:
-000042 e000                                  ldi     r16, 0        
-000043 b90b                      			out     PORTD, r16
+00004e e000                                  ldi     r16, 0        
+00004f b90b                      			out     PORTD, r16
                                  
-                                 ;Funcion para el Delay
+                                 ; Funcion para el Delay
                                  DELAY:
-000044 9bb0                              SBIS TIFR1,TOV1
-000045 cffe                              RJMP DELAY
-000046 9ab0                              SBI TIFR1,TOV1
-000047 e00b                              LDI R16,HIGH(3036)
-000048 9300 0085                         STS TCNT1H,R16
-00004a ed0c                              LDI R16,LOW(3036)
-00004b 9300 0084                         STS TCNT1L,R16
-00004d 9508                              RET
-                                 
-                                 
+000050 9bb0                              SBIS TIFR1,TOV1
+000051 cffe                              RJMP DELAY
+000052 9ab0                              SBI TIFR1,TOV1
+000053 e00b                              LDI R16,HIGH(3036)
+000054 9300 0085                         STS TCNT1H,R16
+000056 ed0c                              LDI R16,LOW(3036)
+000057 9300 0084                         STS TCNT1L,R16
+000059 9508                              RET
 
 
 RESOURCE USE INFORMATION
@@ -1149,7 +1155,7 @@ andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  12 cbi   :   0 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  18 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
@@ -1168,7 +1174,7 @@ Instructions used: 9 out of 113 (8.0%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00009c    156      0    156   32768   0.5%
+[.cseg] 0x000000 0x0000b4    180      0    180   32768   0.5%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
