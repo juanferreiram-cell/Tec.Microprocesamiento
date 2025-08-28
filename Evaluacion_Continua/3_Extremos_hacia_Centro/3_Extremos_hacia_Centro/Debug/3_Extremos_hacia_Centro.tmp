@@ -1,0 +1,31 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\Debug\3_Extremos_hacia_Centro.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>3_Extremos_hacia_Centro.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>3_Extremos_hacia_Centro.map</FILE>
+  <FILE>3_Extremos_hacia_Centro.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <DECLARAR_VARIABLES><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>16</LINE></DECLARAR_VARIABLES>
+  <MAIN><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>44</LINE></MAIN>
+  <APAGARLEDS><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>75</LINE></APAGARLEDS>
+  <DELAY><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>80</LINE></DELAY>
+ </LABELS>
+</ASSEMBLER_INFO>
