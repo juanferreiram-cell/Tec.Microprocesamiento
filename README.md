@@ -1,6 +1,6 @@
 # 🧪 Laboratorios de Tecnología de Microprocesamiento
 
-Este repositorio contiene los archivos correspondientes a cada labarotario de la UC
+Este repositorio contiene los archivos correspondientes a las actividades realizadas en el UC
 
 # 👨‍💻 Integrantes
 
