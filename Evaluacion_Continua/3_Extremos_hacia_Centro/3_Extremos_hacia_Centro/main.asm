@@ -48,41 +48,33 @@ DECLARAR_VARIABLES:
 MAIN:
 		ldi r16, (1<<PORTB0) | (1<<PORTB1)
         out PORTB, r16     
-		call DELAY
-		call APAGARLEDS
-		call DELAY     
-		ldi r16, (1<<PORTD7)   |(1<<PORTD6)
+		call DELAY   
+		ldi r16, (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
         out PORTD, r16
+		out PORTB, r16
 		call DELAY
-		call APAGARLEDS
+		ldi r16, (1<<PORTD2) |(1<<PORTD5) | (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
+        out PORTD, r16   
+		out PORTB, r16       
 		call DELAY
-		ldi r16, (1<<PORTD2) |(1<<PORTD5)
-        out PORTD, r16          
+		ldi r16, (1<<PORTD3) |(1<<PORTD4) | (1<<PORTD2) |(1<<PORTD5) | (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
+		out PORTB, r16
+		out PORTD, r16
 		call DELAY
-		call APAGARLEDS
+		ldi r16, (1<<PORTD2) |(1<<PORTD5) | (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
+        out PORTD, r16   
+		out PORTB, r16
 		call DELAY
-		ldi r16, (1<<PORTD3) |(1<<PORTD4)
+		ldi r16, (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
         out PORTD, r16
-		call DELAY
-		call APAGARLEDS
-		call DELAY
-		ldi r16, (1<<PORTD2) |(1<<PORTD5)
-        out PORTD, r16          
-		call DELAY
-		call APAGARLEDS
-		call DELAY
-		ldi r16, (1<<PORTD7) |(1<<PORTD6)
-        out PORTD, r16
-		call DELAY
-		call APAGARLEDS
+		out PORTB, r16
 		call DELAY
 		ldi r16, (1<<PORTB0) | (1<<PORTB1)
-        out PORTD, r16
-		call DELAY
+		out PORTD, r16
+        out PORTB, r16     
+		call DELAY 
 		call APAGARLEDS
-		call DELAY
 		rjmp MAIN
-
 
 ; Funcion que apaga los LEDS
 APAGARLEDS:
@@ -95,8 +87,8 @@ DELAY:
         SBIS TIFR1,TOV1
         RJMP DELAY
         SBI TIFR1,TOV1
-        LDI R16,HIGH(1500)
+        LDI R16,HIGH(1518)
         STS TCNT1H,R16
-        LDI R16,LOW(1500)
+        LDI R16,LOW(1518)
         STS TCNT1L,R16
         RET
