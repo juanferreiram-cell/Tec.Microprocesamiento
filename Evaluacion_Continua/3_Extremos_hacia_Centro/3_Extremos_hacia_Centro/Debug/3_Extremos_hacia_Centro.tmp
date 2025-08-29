@@ -24,8 +24,8 @@
  </OUTPUT_FILES>
  <LABELS>
   <DECLARAR_VARIABLES><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>16</LINE></DECLARAR_VARIABLES>
-  <MAIN><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>46</LINE></MAIN>
-  <DELAY><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>88</LINE></DELAY>
-  <APAGARLEDS><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>83</LINE></APAGARLEDS>
+  <MAIN><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>48</LINE></MAIN>
+  <DELAY><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>94</LINE></DELAY>
+  <APAGARLEDS><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm</FILE><LINE>88</LINE></APAGARLEDS>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm Thu Aug 28 19:15:23 2025
+AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm Thu Aug 28 21:54:48 2025
 
 
 EQU  SIGNATURE_000 0000001e
@@ -696,6 +696,6 @@ EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG DECLARAR_VARIABLES 00000001
-CSEG MAIN         0000001b
-CSEG DELAY        00000050
-CSEG APAGARLEDS   0000004e
+CSEG MAIN         0000001d
+CSEG DELAY        00000059
+CSEG APAGARLEDS   00000056

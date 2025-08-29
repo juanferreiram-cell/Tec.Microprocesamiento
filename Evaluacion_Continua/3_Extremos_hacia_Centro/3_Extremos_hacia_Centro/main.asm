@@ -22,8 +22,10 @@ DECLARAR_VARIABLES:
         out     SPL, r16
 
     ; Declaracion de pines del 0 al 8 del Arduino
-        ldi     r16, (1<<DDD0) | (1<<DDD1) | (1<<DDD2) | (1<<DDD3) | (1<<DDD4) | (1<<DDD5) | (1<<DDD6) | (1<<DDD7)
+        ldi     r16, (1<<DDD2) | (1<<DDD3) | (1<<DDD4) | (1<<DDD5) | (1<<DDD6) | (1<<DDD7)
         out     DDRD, r16
+		ldi     r16, (1<<DDB0) | (1<<DDB1)                            
+        out     DDRB, r16
 	
 	; Declaracion del Timer
 		LDI R17,0
@@ -44,9 +46,12 @@ DECLARAR_VARIABLES:
 ; Main principal del codigo con funcionamiento del mismo
 
 MAIN:
-		ldi r16, (1<<PORTD0) |(1<<PORTD7)
-        out PORTD, r16          
-		ldi r16, (1<<PORTD1) |(1<<PORTD6)
+		ldi r16, (1<<PORTB0) | (1<<PORTB1)
+        out PORTB, r16     
+		call DELAY
+		call APAGARLEDS
+		call DELAY     
+		ldi r16, (1<<PORTD7)   |(1<<PORTD6)
         out PORTD, r16
 		call DELAY
 		call APAGARLEDS
@@ -66,12 +71,12 @@ MAIN:
 		call DELAY
 		call APAGARLEDS
 		call DELAY
-		ldi r16, (1<<PORTD1) |(1<<PORTD6)
+		ldi r16, (1<<PORTD7) |(1<<PORTD6)
         out PORTD, r16
 		call DELAY
 		call APAGARLEDS
 		call DELAY
-		ldi r16, (1<<PORTD0) |(1<<PORTD7)
+		ldi r16, (1<<PORTB0) | (1<<PORTB1)
         out PORTD, r16
 		call DELAY
 		call APAGARLEDS
@@ -83,14 +88,15 @@ MAIN:
 APAGARLEDS:
             ldi     r16, 0        
 			out     PORTD, r16
+			out     PORTB, r16
 
 ; Funcion para el Delay
 DELAY:
         SBIS TIFR1,TOV1
         RJMP DELAY
         SBI TIFR1,TOV1
-        LDI R16,HIGH(3036)
+        LDI R16,HIGH(1500)
         STS TCNT1H,R16
-        LDI R16,LOW(3036)
+        LDI R16,LOW(1500)
         STS TCNT1L,R16
         RET
