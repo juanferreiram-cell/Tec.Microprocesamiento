@@ -1,0 +1,32 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\Debug\SecuenciaMantieneLeds.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>SecuenciaMantieneLeds.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>SecuenciaMantieneLeds.map</FILE>
+  <FILE>SecuenciaMantieneLeds.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>7</LINE></reset>
+  <loop><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>26</LINE></loop>
+  <delay><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>117</LINE></delay>
+  <delay1><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>120</LINE></delay1>
+  <delay2><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>122</LINE></delay2>
+ </LABELS>
+</ASSEMBLER_INFO>

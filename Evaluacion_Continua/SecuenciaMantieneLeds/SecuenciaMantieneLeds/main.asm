@@ -24,6 +24,12 @@ ldi r23, (1 << PD7)   ; Defino el pin D8 como salida
 out DDRD, r23         
 
 loop:
+
+    ; Inicia con el LED 0 apagado
+    ldi r16, (0 << PD0)     
+    out PORTD, r16           
+    call delay         
+
     ; Prende el LED 0 
     ldi r16, (1 << PD0)     
     out PORTD, r16           
@@ -64,6 +70,61 @@ loop:
     out PORTD, r16
     call delay
 
+	 ; Prende el LED 6 y deja los anteriores prendidos
+    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6)
+    out PORTD, r16
+    call delay
+
+	
+    ; Prende el LED 5 y deja los anteriores prendidos
+    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5)
+    out PORTD, r16
+    call delay
+
+	; Prende el LED 4 y deja los anteriores prendidos
+    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4)
+    out PORTD, r16
+    call delay
+
+	
+    ; Prende el LED 3 y deja los anteriores prendidos
+    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3)
+    out PORTD, r16
+    call delay
+
+	; Prende el LED 2 y deja los anteriores prendidos
+    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2)
+    out PORTD, r16
+    call delay
+
+	; Prende el LED 1 y deja los anteriores prendidos
+    ldi r16, (1 << PD0) | (1 << PD1)   
+    out PORTD, r16                
+    call delay                     
+	
+    ; Prende el LED 0 
+    ldi r16, (1 << PD0)     
+    out PORTD, r16           
+    call delay         
+
+	; Apaga el LED 0
+    ldi r16, (0 << PD0)     
+    out PORTD, r16           
+    call delay
+
 	rjmp loop 
 
+	delay:
+    ldi r25, 250       ; Carga valor inicial para el contador principal
+    ldi r26, 250       ; Carga valor inicial para el segundo contador
+delay1:
+    ldi r27, 250       ; Carga valor inicial para el tercer contador
+delay2:
+    dec r27            ; Decrementa r27
+    brne delay2   ; Si r27 no es 0, repite
+    dec r26            ; Decrementa r26
+    brne delay1   ; Si r26 no es 0, repite
+    dec r25            ; Decrementa r25
+    brne delay         ; Si r25 no es 0, repite
+    ret                ; Retorna de la función de retardo
 
