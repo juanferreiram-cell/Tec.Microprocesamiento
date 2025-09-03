@@ -1,12 +1,12 @@
 
-AVRASM ver. 2.2.8  C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm Wed Sep 03 01:19:21 2025
+AVRASM ver. 2.2.8  C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication1\AssemblerApplication1\main.asm Thu Aug 28 22:08:32 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication1\AssemblerApplication1\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication1\AssemblerApplication1\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
                                  
-                                 .include "m328pdef.inc"
+                                 .include "m328pdef.inc"   ; Incluir las definiciones del microcontrolador ATmega328P
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -1032,135 +1032,97 @@ C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion
                                  ; ***** END OF FILE ******************************************************
                                  
                                  .cseg
-                                 .org 0x0000
-000000 c000                          rjmp reset
+                                 .org 0x0000               ; Dirección de arranque (reset)
+000000 c000                      rjmp reset                ; Salta a la rutina de inicio
                                  
                                  reset:
-                                     ; Defino de PD0 a PD7 como salidas
-000001 ef0f                          ldi r16, 0xFF
-000002 b90a                          out DDRD, r16
-                                 
-                                     ; El Timer1 en modo normal con el prescaler en 256
-                                   
-000003 e010                          ldi r17, 0x00
-000004 9310 0080                     sts TCCR1A, r17
-000006 e014                          ldi r17, (1<<CS12)      ; Prescaler 256
-000007 9310 0081                     sts TCCR1B, r17
-000009 e000                          ldi r16, 0x00
-00000a 9300 0082                     sts TCCR1C, r16
-00000c e010                          ldi r17, 0x00           ; Sin interrupciones del Timer1
-00000d 9310 006f                     sts TIMSK1, r17
-                                 
-                                     ; Carga inicial de TCNT1 = 3036 (1s con 16 MHz / 256 del prescaler)
-00000f e01b                          ldi r17, HIGH(3036)
-000010 9310 0085                     sts TCNT1H, r17
-000012 ed1c                          ldi r17, LOW(3036)
-000013 9310 0084                     sts TCNT1L, r17
-                                 
-000015 9478                          sei                     
-000016 c000                          rjmp loop
+                                     ; Definir todos los pines de PD0 a PD7 como salidas
+000001 ef0f                          ldi r16, 0xFF         ; Carga 0xFF (11111111 en binario) en r16
+000002 b90a                          out DDRD, r16         ; Configura todos los pines de PD0 a PD7 como salidas
                                  
                                  loop:
-                                     ; Secuencia de subida
+                                     ; Secuencia de encendido de LEDs
+000003 e001                          ldi r16, (1 << PD0)      
+000004 b90b                          out PORTD, r16           
+000005 940e 0044                     call delay              
                                  
-                                     ; Prende el LED 0
-000017 e001                          ldi r16, 0x01
+000007 e003                          ldi r16, (1 << PD0) | (1 << PD1)   
+000008 b90b                          out PORTD, r16                
+000009 940e 0044                     call delay                      
+                                 
+00000b e007                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2)
+00000c b90b                          out PORTD, r16
+00000d 940e 0044                     call delay
+                                 
+00000f e00f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3)
+000010 b90b                          out PORTD, r16
+000011 940e 0044                     call delay
+                                 
+000013 e10f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4)
+000014 b90b                          out PORTD, r16
+000015 940e 0044                     call delay
+                                 
+000017 e30f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5)
 000018 b90b                          out PORTD, r16
-000019 940e 0058                     call delay
+000019 940e 0044                     call delay
                                  
-                                     ; Prende el LED 1 y deja los anteriores prendidos
-00001b e003                          ldi r16, 0x03
+00001b e70f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6)
 00001c b90b                          out PORTD, r16
-00001d 940e 0058                     call delay
+00001d 940e 0044                     call delay
                                  
-                                     ; Prende el LED 2 y deja los anteriores prendidos
-00001f e007                          ldi r16, 0x07
+00001f ef0f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
 000020 b90b                          out PORTD, r16
-000021 940e 0058                     call delay
+000021 940e 0044                     call delay
                                  
-                                     ; Prende el LED 3 y deja los anteriores prendidos
-000023 e00f                          ldi r16, 0x0F
+                                     ; Secuencia de apagado de LEDs
+000023 e70f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6)
 000024 b90b                          out PORTD, r16
-000025 940e 0058                     call delay
+000025 940e 0044                     call delay
                                  
-                                     ; Prende el LED 4 y deja los anteriores prendidos
-000027 e10f                          ldi r16, 0x1F
+000027 e30f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5)
 000028 b90b                          out PORTD, r16
-000029 940e 0058                     call delay
+000029 940e 0044                     call delay
                                  
-                                     ; Prende el LED 5 y deja los anteriores prendidos
-00002b e30f                          ldi r16, 0x3F
+00002b e10f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4)
 00002c b90b                          out PORTD, r16
-00002d 940e 0058                     call delay
+00002d 940e 0044                     call delay
                                  
-                                     ; Prende el LED 6 y deja los anteriores prendidos
-00002f e70f                          ldi r16, 0x7F
+00002f e00f                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3)
 000030 b90b                          out PORTD, r16
-000031 940e 0058                     call delay
+000031 940e 0044                     call delay
                                  
-                                     ; Prende el LED 7 y deja los anteriores prendidos
-000033 ef0f                          ldi r16, 0xFF
+000033 e007                          ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2)
 000034 b90b                          out PORTD, r16
-000035 940e 0058                     call delay
+000035 940e 0044                     call delay
                                  
-                                     ; Secuencia de bajada
-                                 
-                                     ; Prende hasta el LED 6 y deja los anteriores prendidos
-000037 e70f                          ldi r16, 0x7F
+000037 e003                          ldi r16, (1 << PD0) | (1 << PD1)
 000038 b90b                          out PORTD, r16
-000039 940e 0058                     call delay
+000039 940e 0044                     call delay
                                  
-                                     ; Prende hasta el LED 5 y deja los anteriores prendidos
-00003b e30f                          ldi r16, 0x3F
+00003b e001                          ldi r16, (1 << PD0)
 00003c b90b                          out PORTD, r16
-00003d 940e 0058                     call delay
+00003d 940e 0044                     call delay
                                  
-                                     ; Prende hasta el LED 4 y deja los anteriores prendidos
-00003f e10f                          ldi r16, 0x1F
+00003f e000                          ldi r16, 0x00             ; Apaga todos los LEDs
 000040 b90b                          out PORTD, r16
-000041 940e 0058                     call delay
+000041 940e 0044                     call delay
                                  
-                                     ; Prende hasta el LED 3 y deja los anteriores prendidos
-000043 e00f                          ldi r16, 0x0F
-000044 b90b                          out PORTD, r16
-000045 940e 0058                     call delay
+000043 cfbf                          rjmp loop                 ; Vuelve al inicio del bucle
                                  
-                                     ; Prende hasta el LED 2 y deja los anteriores prendidos
-000047 e007                          ldi r16, 0x07
-000048 b90b                          out PORTD, r16
-000049 940e 0058                     call delay
-                                 
-                                     ; Prende hasta el LED 1 y deja los anteriores prendidos
-00004b e003                          ldi r16, 0x03
-00004c b90b                          out PORTD, r16
-00004d 940e 0058                     call delay
-                                 
-                                     ; Prende solo el LED 0
-00004f e001                          ldi r16, 0x01
-000050 b90b                          out PORTD, r16
-000051 940e 0058                     call delay
-                                 
-                                     ; Apaga el LED 0 (Están todos apagados)
-000053 e000                          ldi r16, 0x00
-000054 b90b                          out PORTD, r16
-000055 940e 0058                     call delay
-                                 
-000057 cfbf                          rjmp loop
-                                 
-                                 ; Delay de 1 s usando el Timer1
-                                 ; Espera al overflow, limpia el flag y recarga la precarga en 3036.
+                                 ; Rutina de retardo
                                  delay:
-000058 9bb0                          SBIS TIFR1, TOV1        ; Si TOV1=1 es que hubo overflow, saltando a la siguiente instrucción
-000059 cffe                          RJMP delay              
-                                 
-00005a 9ab0                          SBI  TIFR1, TOV1        ; Limpia el flag TOV1 
-                                 
-00005b e00b                          LDI  R16, HIGH(3036)    ; Precarga TCNT1 = 3036 (la parte alta)
-00005c 9300 0085                     STS  TCNT1H, R16
-00005e ed0c                          LDI  R16, LOW(3036)     ; Precarga TCNT1 = 3036 (la parte baja)
-00005f 9300 0084                     STS  TCNT1L, R16
-                                 
-000061 9508                          RET             
+000044 ef9a                          ldi r25, 250              ; Carga un valor para el retardo
+000045 efaa                          ldi r26, 250
+                                 delay1:
+000046 efba                          ldi r27, 250
+                                 delay2:
+000047 95ba                          dec r27                   ; Decrementa r27
+000048 f7f1                          brne delay2               ; Si no es cero, repite
+000049 95aa                          dec r26                   ; Decrementa r26
+00004a f7d9                          brne delay1               ; Si no es cero, repite
+00004b 959a                          dec r25                   ; Decrementa r25
+00004c f7b9                          brne delay                ; Si no es cero, repite
+00004d 9508                          ret                       ; Retorna de la función
 
 
 RESOURCE USE INFORMATION
@@ -1180,37 +1142,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  40 r17:  10 r18:   0 r19:   0 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  34 r17:   0 r18:   0 r19:   0 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   2 r26:   2 r27:   2 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 2 out of 35 (5.7%)
+Registers used: 4 out of 35 (11.4%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :  16 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   0 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  25 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  20 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  17 pop   :   0 
-push  :   0 rcall :   0 ret   :   1 reti  :   0 rjmp  :   4 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   1 
+push  :   0 rcall :   0 ret   :   1 reti  :   0 rjmp  :   2 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
-sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   8 
+sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 9 out of 113 (8.0%)
+Instructions used: 7 out of 113 (6.2%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000c4    196      0    196   32768   0.6%
+[.cseg] 0x000000 0x00009c    156      0    156   32768   0.5%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

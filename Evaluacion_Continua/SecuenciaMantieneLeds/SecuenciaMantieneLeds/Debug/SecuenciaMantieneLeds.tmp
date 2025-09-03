@@ -24,9 +24,7 @@
  </OUTPUT_FILES>
  <LABELS>
   <reset><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>7</LINE></reset>
-  <loop><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>26</LINE></loop>
-  <delay><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>117</LINE></delay>
-  <delay1><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>120</LINE></delay1>
-  <delay2><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>122</LINE></delay2>
+  <loop><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>32</LINE></loop>
+  <delay><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm</FILE><LINE>121</LINE></delay>
  </LABELS>
 </ASSEMBLER_INFO>

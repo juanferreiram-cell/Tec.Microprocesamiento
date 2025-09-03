@@ -1,0 +1,42 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\Debug\AssemblerApplication2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>AssemblerApplication2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>AssemblerApplication2.map</FILE>
+  <FILE>AssemblerApplication2.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>7</LINE></reset>
+  <main><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>24</LINE></main>
+  <esperar><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>35</LINE></esperar>
+  <ajustar><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>40</LINE></ajustar>
+  <comenzar><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>48</LINE></comenzar>
+  <bucle><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>49</LINE></bucle>
+  <ret50><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>86</LINE></ret50>
+  <subir><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>64</LINE></subir>
+  <bajar><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>75</LINE></bajar>
+  <continuar><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>58</LINE></continuar>
+  <soltar_subir><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>69</LINE></soltar_subir>
+  <deb15><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>101</LINE></deb15>
+  <soltar_bajar><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>80</LINE></soltar_bajar>
+  <d50><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>91</LINE></d50>
+  <db15><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>106</LINE></db15>
+ </LABELS>
+</ASSEMBLER_INFO>

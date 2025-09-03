@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\SecuenciaMantieneLeds\SecuenciaMantieneLeds\main.asm Wed Sep 03 01:19:21 2025
+AVRASM ver. 2.2.8  C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\AssemblerApplication1\AssemblerApplication1\main.asm Thu Aug 28 22:08:32 2025
 
 
 EQU  SIGNATURE_000 0000001e
@@ -696,5 +696,7 @@ EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG reset        00000001
-CSEG loop         00000017
-CSEG delay        00000058
+CSEG loop         00000003
+CSEG delay        00000044
+CSEG delay1       00000046
+CSEG delay2       00000047

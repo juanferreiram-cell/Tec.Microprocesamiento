@@ -1,130 +1,132 @@
 .include "m328pdef.inc"
 
-.cseg 
+.cseg
 .org 0x0000
-rjmp reset
+    rjmp reset
 
 reset:
+    ; Defino de PD0 a PD7 como salidas
+    ldi r16, 0xFF
+    out DDRD, r16
 
-ldi r16, (1 << PD0)   ; Defino el pin D0 como salida
-out DDRD, r16             
-ldi r17, (1 << PD1)   ; Defino el pin D1 como salida   
-out DDRD, r17             
-ldi r18, (1 << PD2)   ; Defino el pin D3 como salida   
-out DDRD, r18             
-ldi r19, (1 << PD3)   ; Defino el pin D4 como salida   
-out DDRD, r19             
-ldi r20, (1 << PD4)   ; Defino el pin D5 como salida   
-out DDRD, r20             
-ldi r21, (1 << PD5)   ; Defino el pin D6 como salida   
-out DDRD, r21             
-ldi r22, (1 << PD6)   ; Defino el pin D7 como salida 
-out DDRD, r22          
-ldi r23, (1 << PD7)   ; Defino el pin D8 como salida  
-out DDRD, r23         
+    ; El Timer1 en modo normal con el prescaler en 256
+  
+    ldi r17, 0x00
+    sts TCCR1A, r17
+    ldi r17, (1<<CS12)      ; Prescaler 256
+    sts TCCR1B, r17
+    ldi r16, 0x00
+    sts TCCR1C, r16
+    ldi r17, 0x00           ; Sin interrupciones del Timer1
+    sts TIMSK1, r17
+
+    ; Carga inicial de TCNT1 = 3036 (1s con 16 MHz / 256 del prescaler)
+    ldi r17, HIGH(3036)
+    sts TCNT1H, r17
+    ldi r17, LOW(3036)
+    sts TCNT1L, r17
+
+    sei                     
+    rjmp loop
 
 loop:
+    ; Secuencia de subida
 
-    ; Inicia con el LED 0 apagado
-    ldi r16, (0 << PD0)     
-    out PORTD, r16           
-    call delay         
+    ; Prende el LED 0
+    ldi r16, 0x01
+    out PORTD, r16
+    call delay
 
-    ; Prende el LED 0 
-    ldi r16, (1 << PD0)     
-    out PORTD, r16           
-    call delay         
-
-	; Prende el LED 1 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1)   
-    out PORTD, r16                
-    call delay                     
+    ; Prende el LED 1 y deja los anteriores prendidos
+    ldi r16, 0x03
+    out PORTD, r16
+    call delay
 
     ; Prende el LED 2 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2)
+    ldi r16, 0x07
     out PORTD, r16
     call delay
 
     ; Prende el LED 3 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3)
+    ldi r16, 0x0F
     out PORTD, r16
     call delay
 
     ; Prende el LED 4 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4)
+    ldi r16, 0x1F
     out PORTD, r16
     call delay
 
     ; Prende el LED 5 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5)
+    ldi r16, 0x3F
     out PORTD, r16
     call delay
 
     ; Prende el LED 6 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6)
+    ldi r16, 0x7F
     out PORTD, r16
     call delay
 
     ; Prende el LED 7 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6) | (1 << PD7)
+    ldi r16, 0xFF
     out PORTD, r16
     call delay
 
-	 ; Prende el LED 6 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5) | (1 << PD6)
+    ; Secuencia de bajada
+
+    ; Prende hasta el LED 6 y deja los anteriores prendidos
+    ldi r16, 0x7F
     out PORTD, r16
     call delay
 
-	
-    ; Prende el LED 5 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4) | (1 << PD5)
+    ; Prende hasta el LED 5 y deja los anteriores prendidos
+    ldi r16, 0x3F
     out PORTD, r16
     call delay
 
-	; Prende el LED 4 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3) | (1 << PD4)
+    ; Prende hasta el LED 4 y deja los anteriores prendidos
+    ldi r16, 0x1F
     out PORTD, r16
     call delay
 
-	
-    ; Prende el LED 3 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2) | (1 << PD3)
+    ; Prende hasta el LED 3 y deja los anteriores prendidos
+    ldi r16, 0x0F
     out PORTD, r16
     call delay
 
-	; Prende el LED 2 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1) | (1 << PD2)
+    ; Prende hasta el LED 2 y deja los anteriores prendidos
+    ldi r16, 0x07
     out PORTD, r16
     call delay
 
-	; Prende el LED 1 y deja los anteriores prendidos
-    ldi r16, (1 << PD0) | (1 << PD1)   
-    out PORTD, r16                
-    call delay                     
-	
-    ; Prende el LED 0 
-    ldi r16, (1 << PD0)     
-    out PORTD, r16           
-    call delay         
-
-	; Apaga el LED 0
-    ldi r16, (0 << PD0)     
-    out PORTD, r16           
+    ; Prende hasta el LED 1 y deja los anteriores prendidos
+    ldi r16, 0x03
+    out PORTD, r16
     call delay
 
-	rjmp loop 
+    ; Prende solo el LED 0
+    ldi r16, 0x01
+    out PORTD, r16
+    call delay
 
-	delay:
-    ldi r25, 250       ; Carga valor inicial para el contador principal
-    ldi r26, 250       ; Carga valor inicial para el segundo contador
-delay1:
-    ldi r27, 250       ; Carga valor inicial para el tercer contador
-delay2:
-    dec r27            ; Decrementa r27
-    brne delay2   ; Si r27 no es 0, repite
-    dec r26            ; Decrementa r26
-    brne delay1   ; Si r26 no es 0, repite
-    dec r25            ; Decrementa r25
-    brne delay         ; Si r25 no es 0, repite
-    ret                ; Retorna de la función de retardo
+    ; Apaga el LED 0 (Están todos apagados)
+    ldi r16, 0x00
+    out PORTD, r16
+    call delay
 
+    rjmp loop
+
+; Delay de 1s usando el Timer1
+; Espera al overflow, limpia el flag y recarga la precarga en 3036.
+delay:
+    SBIS TIFR1, TOV1        ; Si TOV1=1 es que hubo overflow, salta a la siguiente instrucción
+    RJMP delay              
+
+    SBI  TIFR1, TOV1        ; Limpia el flag
+
+    LDI  R16, HIGH(3036)    ; Precarga TCNT1 = 3036 (la parte alta)
+    STS  TCNT1H, R16
+    LDI  R16, LOW(3036)     ; Precarga TCNT1 = 3036 (la parte baja)
+    STS  TCNT1L, R16
+
+    RET             
