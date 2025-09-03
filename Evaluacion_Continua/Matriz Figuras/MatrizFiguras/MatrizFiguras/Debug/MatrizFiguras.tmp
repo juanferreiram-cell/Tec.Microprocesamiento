@@ -1,0 +1,45 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\Debug\MatrizFiguras.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>MatrizFiguras.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>MatrizFiguras.map</FILE>
+  <FILE>MatrizFiguras.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INICIO><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>23</LINE></INICIO>
+  <SONRISA><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>13</LINE></SONRISA>
+  <TRISTE><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>15</LINE></TRISTE>
+  <BUCLE><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>62</LINE></BUCLE>
+  <MOSTRAR_3S><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>75</LINE></MOSTRAR_3S>
+  <MOSTRAR_L><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>80</LINE></MOSTRAR_L>
+  <APAGAR_FILAS><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>99</LINE></APAGAR_FILAS>
+  <PONER_COLUMNAS><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>109</LINE></PONER_COLUMNAS>
+  <ACTIVAR_FILA><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>135</LINE></ACTIVAR_FILA>
+  <ESPERAR_1MS><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>189</LINE></ESPERAR_1MS>
+  <FilaOK><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>93</LINE></FilaOK>
+  <FilaB><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>163</LINE></FilaB>
+  <DESPLAZAR_PC><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>148</LINE></DESPLAZAR_PC>
+  <FIN_DESPLAZAR_PC><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>154</LINE></FIN_DESPLAZAR_PC>
+  <FilaEnd><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>182</LINE></FilaEnd>
+  <DESPLAZAR_PB><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>168</LINE></DESPLAZAR_PB>
+  <FIN_DESPLAZAR_PB><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>174</LINE></FIN_DESPLAZAR_PB>
+  <W1><FILE>C:\Users\ender\OneDrive\Escritorio\Repositorio\Tec.Microprocesamiento\Evaluacion_Continua\Matriz Figuras\MatrizFiguras\MatrizFiguras\main.asm</FILE><LINE>192</LINE></W1>
+ </LABELS>
+</ASSEMBLER_INFO>
