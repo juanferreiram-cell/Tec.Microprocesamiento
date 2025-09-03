@@ -1,12 +1,12 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm Fri Aug 29 18:08:21 2025
+AVRASM ver. 2.2.8  C:\Users\felip\OneDrive\Desktop\UTEC\TecMicro\Laboratorio\Tec.Microprocesamiento\Evaluacion_Continua\DesplazamientoDeLed\DesplazamientoDeLed\main.asm Tue Sep 02 22:47:36 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm(9): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\Users\felip\OneDrive\Desktop\UTEC\TecMicro\Laboratorio\Tec.Microprocesamiento\Evaluacion_Continua\DesplazamientoDeLed\DesplazamientoDeLed\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\3_Extremos_hacia_Centro\3_Extremos_hacia_Centro\main.asm(9): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\Users\felip\OneDrive\Desktop\UTEC\TecMicro\Laboratorio\Tec.Microprocesamiento\Evaluacion_Continua\DesplazamientoDeLed\DesplazamientoDeLed\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
                                  
-                                 ;
+                                 .include "m328pdef.inc"
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -987,14 +987,6 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Cont
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; 3_Extremos_hacia_Centro.asm
-                                 ;
-                                 ; Created: 28/8/2025
-                                 ; Author : Lucas Elizalde, Juan Manuel Ferreira, Felipe Morrudo
-                                 ;
-                                 
-                                 
-                                 .include "m328pdef.inc"
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -1039,89 +1031,60 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Cont
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 .cseg
-                                 .org    0x0000
-000000 c000                      rjmp    DECLARAR_VARIABLES
+                                 .org 0x0000
+000000 c000                          rjmp DECLARACIONES
                                  
-                                 ; Se declararan los pines en el R16 y el Timer el R17
-                                 DECLARAR_VARIABLES:
-                                        
-                                 	   ; Stack Pointer
-000001 e008                              ldi     r16, high(RAMEND)
-000002 bf0e                              out     SPH, r16
-000003 ef0f                              ldi     r16, low(RAMEND)
-000004 bf0d                              out     SPL, r16
+                                 DECLARACIONES:
+                                     ; Stack Pointer
+000001 e008                          ldi r16, high(RAMEND)
+000002 bf0e                          out SPH, r16
+000003 ef0f                          ldi r16, low(RAMEND)
+000004 bf0d                          out SPL, r16
                                  
-                                     ; Declaracion de pines del 0 al 8 del Arduino
-000005 ef0c                              ldi     r16, (1<<DDD2) | (1<<DDD3) | (1<<DDD4) | (1<<DDD5) | (1<<DDD6) | (1<<DDD7)
-000006 b90a                              out     DDRD, r16
-000007 e003                      		ldi     r16, (1<<DDB0) | (1<<DDB1)                            
-000008 b904                              out     DDRB, r16
-                                 	
-                                 	; Declaracion del Timer
-000009 e010                      		LDI R17,0
-00000a 9310 0080                         STS TCCR1A,R17
-00000c e014                              LDI R17,(1<<CS12)
-00000d 9310 0081                         STS TCCR1B,R17
-00000f e000                              LDI R16,0
-000010 9310 0082                         STS TCCR1C,R17
-000012 e010                              LDI R17,0
-000013 9310 006f                         STS TIMSK1,R17
-000015 e01b                              LDI R17,HIGH(3036)
-000016 9310 0085                         STS TCNT1H,R17
-000018 ed1c                              LDI R17,LOW(3036)
-000019 9310 0084                         STS TCNT1L,R17
-00001b 9478                              SEI
-00001c c000                      		rjmp    MAIN
+                                     ; Se declaran todos los LEDS como salida y se ponen en 0
+000005 ef0f                          ldi r16, 0xFF
+000006 b90a                          out DDRD, r16
+000007 2700                          clr r16
+000008 b90b                          out PORTD, r16
                                  
-                                 ; Main principal del codigo con funcionamiento del mismo
+                                     ; Se configura el Timer1 en CTC para medio segundo
+000009 e000                          ldi r16, 0
+00000a 9300 0080                     sts TCCR1A, r16
+00000c e00c                          ldi r16, (1<<WGM12)|(1<<CS12)
+00000d 9300 0081                     sts TCCR1B, r16
+00000f e70a                          ldi r16, high(31249)
+000010 9300 0089                     sts OCR1AH, r16
+000012 e101                          ldi r16, low(31249)
+000013 9300 0088                     sts OCR1AL, r16
                                  
+                                     ; Carga el LED en P0
+000015 e041                          ldi r20, 0x01
+                                 
+                                 	; Con lsl se va desplazando el LED
                                  MAIN:
-00001d e003                      		ldi r16, (1<<PORTB0) | (1<<PORTB1)
-00001e b905                              out PORTB, r16     
-00001f 940e 0045                 		call DELAY   
-000021 ec03                      		ldi r16, (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
-000022 b90b                              out PORTD, r16
-000023 b905                      		out PORTB, r16
-000024 940e 0045                 		call DELAY
-000026 ee07                      		ldi r16, (1<<PORTD2) |(1<<PORTD5) | (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
-000027 b90b                              out PORTD, r16   
-000028 b905                      		out PORTB, r16       
-000029 940e 0045                 		call DELAY
-00002b ef0f                      		ldi r16, (1<<PORTD3) |(1<<PORTD4) | (1<<PORTD2) |(1<<PORTD5) | (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
-00002c b905                      		out PORTB, r16
-00002d b90b                      		out PORTD, r16
-00002e 940e 0045                 		call DELAY
-000030 ee07                      		ldi r16, (1<<PORTD2) |(1<<PORTD5) | (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
-000031 b90b                              out PORTD, r16   
-000032 b905                      		out PORTB, r16
-000033 940e 0045                 		call DELAY
-000035 ec03                      		ldi r16, (1<<PORTD7) |(1<<PORTD6) | (1<<PORTB0) | (1<<PORTB1)
-000036 b90b                              out PORTD, r16
-000037 b905                      		out PORTB, r16
-000038 940e 0045                 		call DELAY
-00003a e003                      		ldi r16, (1<<PORTB0) | (1<<PORTB1)
-00003b b90b                      		out PORTD, r16
-00003c b905                              out PORTB, r16     
-00003d 940e 0045                 		call DELAY 
-00003f 940e 0042                 		call APAGARLEDS
-000041 cfdb                      		rjmp MAIN
+000016 b94b                          out PORTD, r20
+000017 d004                          rcall delay
+000018 0f44                          lsl r20
+000019 f7e1                          brne MAIN
+00001a e041                          ldi r20, 0x01
+00001b cffa                          rjmp MAIN
                                  
-                                 ; Funcion que apaga los LEDS
-                                 APAGARLEDS:
-000042 e000                                  ldi     r16, 0        
-000043 b90b                      			out     PORTD, r16
-000044 b905                      			out     PORTB, r16
-                                 
-                                 ; Funcion para el Delay
+                                 ; Se pone medio segundo de delay entre encendido de los LEDs
                                  DELAY:
-000045 9bb0                              SBIS TIFR1,TOV1
-000046 cffe                              RJMP DELAY
-000047 9ab0                              SBI TIFR1,TOV1
-000048 e005                              LDI R16,HIGH(1518)
-000049 9300 0085                         STS TCNT1H,R16
-00004b ee0e                              LDI R16,LOW(1518)
-00004c 9300 0084                         STS TCNT1L,R16
+00001c 2700                          clr r16
+00001d 9300 0085                     sts TCNT1H, r16
+00001f 9300 0084                     sts TCNT1L, r16
+000021 e002                          ldi r16, (1<<OCF1A)
+000022 bb06                          out TIFR1, r16
+                                 
+                                 ; Espera a que el timer ponga la bandera OCF1A en 1
+                                 ESPERA:
+000023 b316                          in  r17, TIFR1
+000024 ff11                          sbrs r17, OCF1A
+000025 cffd                          rjmp ESPERA
+000026 e002                          ldi r16, (1<<OCF1A)  ; Limpia la bandera
+000027 bb06                          out TIFR1, r16
+000028 9508                          ret
 
 
 RESOURCE USE INFORMATION
@@ -1141,37 +1104,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  36 r17:  11 r18:   0 r19:   0 r20:   0 
+r13:   0 r14:   0 r15:   0 r16:  23 r17:   2 r18:   0 r19:   0 r20:   4 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 2 out of 35 (5.7%)
+Registers used: 3 out of 35 (8.6%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   8 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
+brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   2 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  20 lds   :   0 lpm   :   0 lsl   :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  11 lds   :   0 lpm   :   0 lsl   :   1 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  19 pop   :   0 
-push  :   0 rcall :   0 ret   :   1 reti  :   0 rjmp  :   4 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   1 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
-sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   8 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   7 pop   :   0 
+push  :   0 rcall :   1 ret   :   1 reti  :   0 rjmp  :   3 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
+sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   1 sec   :   0 seh   :   0 
+sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   6 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 9 out of 113 (8.0%)
+Instructions used: 11 out of 113 (9.7%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00009e    158      0    158   32768   0.5%
+[.cseg] 0x000000 0x000052     82      0     82   32768   0.3%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
