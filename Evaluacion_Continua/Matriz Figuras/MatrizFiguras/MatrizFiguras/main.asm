@@ -14,9 +14,15 @@ SONRISA:
     .db 0x3C,0x42,0xA5,0x81,0xA5,0x99,0x42,0x3C
 TRISTE:
     .db 0x3C,0x42,0xA5,0x81,0x99,0xA5,0x42,0x3C
+CORAZON:
+    .db 0x00,0x66,0xFF,0xFF,0xFF,0x7E,0x3C,0x18
+ROMBO:
+    .db 0x18,0x3C,0x7E,0xFF,0xFF,0x7E,0x3C,0x18
+ALIEN:
+    .db 0x3C,0x7E,0xDB,0xFF,0xFF,0x24,0x5A,0x81
 
-; r20 = patrón de columnas
-; r21 = índice de fila activa
+; r20 = patr?n de columnas
+; r21 = ?ndice de fila activa
 ; r22 = contador de fila
 ; r24:r25 = contador de 3s
 
@@ -32,10 +38,10 @@ INICIO:
     in   r16, DDRD
     ori  r16, 0b11111100      ; PD2 a PD7
     out  DDRD, r16
-    ldi  r16, 0b00111111      ; PB0 a PB5
+    ldi  r16, 0b00111111      ; PB0 a PB5 (C7, C8 y F1..F4)
     out  DDRB, r16
     in   r16, DDRC
-    ori  r16, 0b00001111      ; PC0 a PC3 
+    ori  r16, 0b00001111      ; PC0 a PC3 (F5 a F8)
     out  DDRC, r16
 
     ; Columnas en LOW, filas en HIGH
@@ -54,7 +60,7 @@ INICIO:
     ; 1 ms de timer
     ldi  r16, (1<<WGM01)
     out  TCCR0A, r16
-    ldi  r16, 249             ; 16 MHz / 64 = 250 kHz = 1 ms
+    ldi  r16, 249             ; 16 MHz / 64 = 250 kHz -> 1 ms
     out  OCR0A, r16
     ldi  r16, (1<<CS01)|(1<<CS00)
     out  TCCR0B, r16
@@ -68,18 +74,30 @@ BUCLE:
     ldi  ZL, low(TRISTE<<1)
     ldi  ZH, high(TRISTE<<1)
     rcall MOSTRAR_3S
+    ; Coraz?n
+    ldi  ZL, low(CORAZON<<1)
+    ldi  ZH, high(CORAZON<<1)
+    rcall MOSTRAR_3S
+    ; Rombo
+    ldi  ZL, low(ROMBO<<1)
+    ldi  ZH, high(ROMBO<<1)
+    rcall MOSTRAR_3S
+    ; Alien de Space Invader 
+    ldi  ZL, low(ALIEN<<1)
+    ldi  ZH, high(ALIEN<<1)
+    rcall MOSTRAR_3S
 
     rjmp BUCLE
 
 ; Muestra la figura apuntada por Z durante 3s
 MOSTRAR_3S:
-    movw r26, r30
+    movw r26, r30             ; X = base de la figura
     ldi  r25, 0x0B            ; 0x0BB8 = 3000
     ldi  r24, 0xB8
-    clr  r22
+    clr  r22                  ; Fila = 0
 MOSTRAR_L:
     rcall APAGAR_FILAS
-    lpm  r20, Z+
+    lpm  r20, Z+              ; Patr?n de la fila actual
     rcall PONER_COLUMNAS
     mov  r21, r22
     rcall ACTIVAR_FILA
@@ -89,7 +107,7 @@ MOSTRAR_L:
     cpi  r22, 8
     brlo FilaOK
     clr  r22
-    movw r30, r26
+    movw r30, r26             ; Reiniciar puntero
 FilaOK:
     sbiw r24, 1
     brne MOSTRAR_L
@@ -142,8 +160,8 @@ ACTIVAR_FILA:
 
     ; F5 a F8 en PORTC
     subi r21, 4
-    ldi  r18, FILASC_OFF
-    ldi  r19, 0x01
+    ldi  r18, FILASC_OFF      
+    ldi  r19, 0x01            
     mov  r20, r21
 DESPLAZAR_PC:
     tst  r20
@@ -152,7 +170,7 @@ DESPLAZAR_PC:
     dec  r20
     rjmp DESPLAZAR_PC
 FIN_DESPLAZAR_PC:
-    com  r19
+    com  r19                  ; dejar 0 en la fila elegida
     and  r18, r19
     in   r17, PORTC
     andi r17, 0b11110000
@@ -162,8 +180,8 @@ FIN_DESPLAZAR_PC:
 
 FilaB:
     ; F1 a F4 en PORTB
-    ldi  r18, FILASB_OFF
-    ldi  r19, 0x04
+    ldi  r18, FILASB_OFF     
+    ldi  r19, 0x04            ; PB2
     mov  r20, r21
 DESPLAZAR_PB:
     tst  r20
