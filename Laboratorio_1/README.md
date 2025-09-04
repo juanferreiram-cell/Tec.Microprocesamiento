@@ -1,1 +1,1 @@
-Laboratorio 1
+# 🗂️ Carpeta correspondiente al Laboratorio 1
