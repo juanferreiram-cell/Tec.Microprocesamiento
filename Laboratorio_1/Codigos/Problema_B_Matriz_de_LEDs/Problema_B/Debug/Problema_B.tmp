@@ -1,0 +1,71 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\Debug\Problema_B.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Problema_B.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Problema_B.map</FILE>
+  <FILE>Problema_B.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INICIO><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>86</LINE></INICIO>
+  <M><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>12</LINE></M>
+  <E><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>15</LINE></E>
+  <ESPACIO><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>18</LINE></ESPACIO>
+  <G><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>21</LINE></G>
+  <U><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>24</LINE></U>
+  <S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>27</LINE></S>
+  <T><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>30</LINE></T>
+  <A><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>33</LINE></A>
+  <ESPACIO1><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>36</LINE></ESPACIO1>
+  <C><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>39</LINE></C>
+  <O><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>42</LINE></O>
+  <M1><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>45</LINE></M1>
+  <E2><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>48</LINE></E2>
+  <R><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>51</LINE></R>
+  <ESPACIO2><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>54</LINE></ESPACIO2>
+  <A1><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>57</LINE></A1>
+  <S1><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>60</LINE></S1>
+  <A2><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>63</LINE></A2>
+  <D><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>66</LINE></D>
+  <O1><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>69</LINE></O1>
+  <ESPACIO3><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>72</LINE></ESPACIO3>
+  <FIGTAB><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>77</LINE></FIGTAB>
+  <CARGAR_FIGURA_Y_SIGUIENTE><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>218</LINE></CARGAR_FIGURA_Y_SIGUIENTE>
+  <MAIN_LOOP><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>132</LINE></MAIN_LOOP>
+  <APAGAR_FILAS><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>248</LINE></APAGAR_FILAS>
+  <SOLO_B_CON_ESPACIO><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>180</LINE></SOLO_B_CON_ESPACIO>
+  <A_LISTO><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>161</LINE></A_LISTO>
+  <A_SHIFT><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>157</LINE></A_SHIFT>
+  <B_LISTO><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>172</LINE></B_LISTO>
+  <B_SHIFT><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>168</LINE></B_SHIFT>
+  <COMPOSICION_COMPLETA><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>184</LINE></COMPOSICION_COMPLETA>
+  <PONER_COLUMNAS><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>257</LINE></PONER_COLUMNAS>
+  <ACTIVAR_FILA><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>283</LINE></ACTIVAR_FILA>
+  <ESPERAR_1MS><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>335</LINE></ESPERAR_1MS>
+  <SIGUIENTE_OK><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>213</LINE></SIGUIENTE_OK>
+  <IDX_OK><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>236</LINE></IDX_OK>
+  <FILA_B><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>310</LINE></FILA_B>
+  <DESPLAZAR_PC><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>295</LINE></DESPLAZAR_PC>
+  <FIN_PC><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>301</LINE></FIN_PC>
+  <FIN_FILA><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>329</LINE></FIN_FILA>
+  <DESPLAZAR_PB><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>315</LINE></DESPLAZAR_PB>
+  <FIN_PB><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>321</LINE></FIN_PB>
+  <ESPERAR><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm</FILE><LINE>338</LINE></ESPERAR>
+ </LABELS>
+</ASSEMBLER_INFO>
