@@ -11,9 +11,9 @@
     <OutputFileExtension>.obj</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <Language>ASSEMBLY</Language>
-    <AssemblyName>Problema_B_Conversor_2R_R</AssemblyName>
-    <Name>Problema_B_Conversor_2R_R</Name>
-    <RootNamespace>Problema_B_Conversor_2R_R</RootNamespace>
+    <AssemblyName>Problema_C_Conversion_2R_R</AssemblyName>
+    <Name>Problema_C_Conversion_2R_R</Name>
+    <RootNamespace>Problema_C_Conversion_2R_R</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <EntryFile>$(MSBuildProjectDirectory)\main.asm</EntryFile>
     <KeepTimersRunning>true</KeepTimersRunning>
