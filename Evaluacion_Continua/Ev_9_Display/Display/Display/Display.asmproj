@@ -11,9 +11,9 @@
     <OutputFileExtension>.obj</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <Language>ASSEMBLY</Language>
-    <AssemblyName>Problema_B</AssemblyName>
-    <Name>Problema_B</Name>
-    <RootNamespace>Problema_B</RootNamespace>
+    <AssemblyName>Display</AssemblyName>
+    <Name>Display</Name>
+    <RootNamespace>Display</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <EntryFile>$(MSBuildProjectDirectory)\main.asm</EntryFile>
     <KeepTimersRunning>true</KeepTimersRunning>

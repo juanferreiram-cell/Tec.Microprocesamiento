@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\Debug\Display.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Display.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Display.map</FILE>
+  <FILE>Display.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <inicio><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm</FILE><LINE>97</LINE></inicio>
+  <inicializar_puertos><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm</FILE><LINE>14</LINE></inicializar_puertos>
+  <cargar_tablas><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm</FILE><LINE>49</LINE></cargar_tablas>
+  <obtener_numero><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm</FILE><LINE>24</LINE></obtener_numero>
+  <mostrar_numero><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm</FILE><LINE>28</LINE></mostrar_numero>
+  <bucle><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm</FILE><LINE>102</LINE></bucle>
+ </LABELS>
+</ASSEMBLER_INFO>

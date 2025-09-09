@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_de_LEDs\Problema_B\main.asm Fri Sep 05 14:20:33 2025
+AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm Tue Sep 09 14:18:19 2025
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,30 +695,15 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-CSEG Inicio       00000001
-EQU  F_CPU        00f42400
-EQU  baud         00002580
-EQU  bps          00000067
-CSEG initUART     0000003d
-CSEG msgInicio    0000005c
-CSEG puts         00000056
-CSEG main_loop    0000000b
-CSEG getc         0000004f
-CSEG caso_1       0000001b
-CSEG caso_2       0000001f
-CSEG caso_3       00000023
-CSEG caso_4       00000027
-CSEG caso_5       0000002b
-CSEG caso_6       0000002f
-CSEG caso_7       00000033
-CSEG caso_default 00000037
-CSEG txtUno       000000df
-CSEG fin_switch   0000003c
-CSEG txtDos       000000e8
-CSEG txtTres      000000f1
-CSEG txtCuatro    000000fb
-CSEG txtCinco     00000106
-CSEG txtSeis      00000110
-CSEG txtSiete     0000011a
-CSEG putc         00000048
-CSEG fin_puts     0000005b
+CSEG inicio       0000004b
+EQU  TABLA_B_DIR  00000100
+EQU  TABLA_D_DIR  00000110
+EQU  MASCARA_B    00000018
+EQU  MASCARA_D    0000007c
+EQU  INV_MASCARA_B 000000e7
+EQU  INV_MASCARA_D 00000083
+CSEG inicializar_puertos 00000001
+CSEG cargar_tablas 0000001e
+CSEG obtener_numero 00000009
+CSEG mostrar_numero 0000000b
+CSEG bucle        0000004e
