@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm Tue Sep 09 14:18:19 2025
+AVRASM ver. 2.2.8  C:\LaboratorioMicro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm Wed Sep 10 21:36:03 2025
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,7 +695,7 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-CSEG inicio       0000004b
+CSEG inicio       00000058
 EQU  TABLA_B_DIR  00000100
 EQU  TABLA_D_DIR  00000110
 EQU  MASCARA_B    00000018
@@ -703,7 +703,12 @@ EQU  MASCARA_D    0000007c
 EQU  INV_MASCARA_B 000000e7
 EQU  INV_MASCARA_D 00000083
 CSEG inicializar_puertos 00000001
-CSEG cargar_tablas 0000001e
-CSEG obtener_numero 00000009
-CSEG mostrar_numero 0000000b
-CSEG bucle        0000004e
+CSEG cargar_tablas 0000002b
+CSEG pausa_5ms    00000009
+CSEG d5_externo   0000000a
+CSEG d5_interno   0000000b
+CSEG pausa_200ms  00000010
+CSEG d200_bucle   00000011
+CSEG obtener_numero 00000015
+CSEG mostrar_numero 00000018
+CSEG bucle        0000005b

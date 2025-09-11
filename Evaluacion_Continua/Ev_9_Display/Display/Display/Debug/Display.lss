@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm Tue Sep 09 14:18:19 2025
+AVRASM ver. 2.2.8  C:\LaboratorioMicro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm Wed Sep 10 21:36:03 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\LaboratorioMicro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\LaboratorioMicro\Tec.Microprocesamiento\Evaluacion_Continua\Ev_9_Display\Display\Display\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
                                  
                                  .include "m328pdef.inc"
                                  
@@ -1032,7 +1032,7 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Cont
                                  ; ***** END OF FILE ******************************************************
                                  
                                  .org 0x0000
-000000 c04a                          rjmp inicio
+000000 c057                          rjmp inicio
                                  
                                  .equ TABLA_B_DIR  = 0x0100
                                  .equ TABLA_D_DIR  = 0x0110
@@ -1049,91 +1049,116 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Evaluacion_Cont
 000004 b14a                          in      r20, DDRD
 000005 674c                          ori     r20, MASCARA_D
 000006 b94a                          out     DDRD, r20
-000007 d016                          rcall   cargar_tablas
+000007 d023                          rcall   cargar_tablas
 000008 9508                          ret
                                  
+                                 pausa_5ms:
+000009 e461                          ldi     r22, 65
+                                 d5_externo:
+00000a ef7f                          ldi     r23, 255
+                                 d5_interno:
+00000b 957a                          dec     r23
+00000c f7f1                          brne    d5_interno
+00000d 956a                          dec     r22
+00000e f7d9                          brne    d5_externo
+00000f 9508                          ret
+                                 
+                                 pausa_200ms:
+000010 ef8f                          ldi     r24, 255
+                                 d200_bucle:
+000011 dff7                          rcall   pausa_5ms
+000012 958a                          dec     r24
+000013 f7e9                          brne    d200_bucle
+000014 9508                          ret
+                                 
                                  obtener_numero:
-000009 2f50                          mov     r21, r16
-00000a 9508                          ret
+000015 2f50                          mov     r21, r16
+000016 705f                          andi    r21, 0x0F
+000017 9508                          ret
                                  
                                  mostrar_numero:
-00000b e0c0                          ldi     r28, LOW(TABLA_B_DIR)
-00000c e0d1                          ldi     r29, HIGH(TABLA_B_DIR)
-00000d 0fc5                          add     r28, r21
-00000e 1dd1                          adc     r29, r1
-00000f 8168                          ld      r22, Y
-000010 e1c0                          ldi     r28, LOW(TABLA_D_DIR)
-000011 e0d1                          ldi     r29, HIGH(TABLA_D_DIR)
-000012 0fc5                          add     r28, r21
-000013 1dd1                          adc     r29, r1
-000014 8178                          ld      r23, Y
-000015 b195                          in      r25, PORTB
-000016 7e97                          andi    r25, INV_MASCARA_B
-000017 2b96                          or      r25, r22
-000018 b995                          out     PORTB, r25
-000019 b19b                          in      r25, PORTD
-00001a 7893                          andi    r25, INV_MASCARA_D
-00001b 2b97                          or      r25, r23
-00001c b99b                          out     PORTD, r25
-00001d 9508                          ret
+000018 e0c0                          ldi     r28, LOW(TABLA_B_DIR)
+000019 e0d1                          ldi     r29, HIGH(TABLA_B_DIR)
+00001a 0fc5                          add     r28, r21
+00001b 1dd1                          adc     r29, r1
+00001c 8168                          ld      r22, Y
+00001d e1c0                          ldi     r28, LOW(TABLA_D_DIR)
+00001e e0d1                          ldi     r29, HIGH(TABLA_D_DIR)
+00001f 0fc5                          add     r28, r21
+000020 1dd1                          adc     r29, r1
+000021 8178                          ld      r23, Y
+000022 b195                          in      r25, PORTB
+000023 7e97                          andi    r25, INV_MASCARA_B
+000024 2b96                          or      r25, r22
+000025 b995                          out     PORTB, r25
+000026 b19b                          in      r25, PORTD
+000027 7893                          andi    r25, INV_MASCARA_D
+000028 2b97                          or      r25, r23
+000029 b99b                          out     PORTD, r25
+00002a 9508                          ret
                                  
                                  cargar_tablas:
-00001e e0c0                          ldi     r28, LOW(TABLA_B_DIR)
-00001f e0d1                          ldi     r29, HIGH(TABLA_B_DIR)
-000020 e148                          ldi     r20, 0b00011000
-000021 9349                          st      Y+, r20
-000022 e048                          ldi     r20, 0b00001000
-000023 9349                          st      Y+, r20
-000024 e148                          ldi     r20, 0b00011000
-000025 9349                          st      Y+, r20
-000026 e148                          ldi     r20, 0b00011000
-000027 9349                          st      Y+, r20
-000028 e048                          ldi     r20, 0b00001000
-000029 9349                          st      Y+, r20
-00002a e140                          ldi     r20, 0b00010000
-00002b 9349                          st      Y+, r20
-00002c e140                          ldi     r20, 0b00010000
-00002d 9349                          st      Y+, r20
-00002e e148                          ldi     r20, 0b00011000
-00002f 9349                          st      Y+, r20
-000030 e148                          ldi     r20, 0b00011000
-000031 9349                          st      Y+, r20
-000032 e148                          ldi     r20, 0b00011000
-000033 9349                          st      Y+, r20
+00002b e0c0                          ldi     r28, LOW(TABLA_B_DIR)
+00002c e0d1                          ldi     r29, HIGH(TABLA_B_DIR)
+00002d e148                          ldi     r20, 0b00011000
+00002e 9349                          st      Y+, r20
+00002f e048                          ldi     r20, 0b00001000
+000030 9349                          st      Y+, r20
+000031 e148                          ldi     r20, 0b00011000
+000032 9349                          st      Y+, r20
+000033 e148                          ldi     r20, 0b00011000
+000034 9349                          st      Y+, r20
+000035 e048                          ldi     r20, 0b00001000
+000036 9349                          st      Y+, r20
+000037 e140                          ldi     r20, 0b00010000
+000038 9349                          st      Y+, r20
+000039 e140                          ldi     r20, 0b00010000
+00003a 9349                          st      Y+, r20
+00003b e148                          ldi     r20, 0b00011000
+00003c 9349                          st      Y+, r20
+00003d e148                          ldi     r20, 0b00011000
+00003e 9349                          st      Y+, r20
+00003f e148                          ldi     r20, 0b00011000
+000040 9349                          st      Y+, r20
                                  
-000034 e1c0                          ldi     r28, LOW(TABLA_D_DIR)
-000035 e0d1                          ldi     r29, HIGH(TABLA_D_DIR)
-000036 e748                          ldi     r20, 0b01111000
-000037 9349                          st      Y+, r20
-000038 e440                          ldi     r20, 0b01000000
-000039 9349                          st      Y+, r20
-00003a e344                          ldi     r20, 0b00110100
-00003b 9349                          st      Y+, r20
-00003c e644                          ldi     r20, 0b01100100
-00003d 9349                          st      Y+, r20
-00003e e44c                          ldi     r20, 0b01001100
-00003f 9349                          st      Y+, r20
-000040 e64c                          ldi     r20, 0b01101100
-000041 9349                          st      Y+, r20
-000042 e74c                          ldi     r20, 0b01111100
-000043 9349                          st      Y+, r20
-000044 e440                          ldi     r20, 0b01000000
-000045 9349                          st      Y+, r20
-000046 e74c                          ldi     r20, 0b01111100
-000047 9349                          st      Y+, r20
-000048 e64c                          ldi     r20, 0b01101100
-000049 9349                          st      Y+, r20
-00004a 9508                          ret
+000041 e1c0                          ldi     r28, LOW(TABLA_D_DIR)
+000042 e0d1                          ldi     r29, HIGH(TABLA_D_DIR)
+000043 e748                          ldi     r20, 0b01111000
+000044 9349                          st      Y+, r20
+000045 e440                          ldi     r20, 0b01000000
+000046 9349                          st      Y+, r20
+000047 e344                          ldi     r20, 0b00110100
+000048 9349                          st      Y+, r20
+000049 e644                          ldi     r20, 0b01100100
+00004a 9349                          st      Y+, r20
+00004b e44c                          ldi     r20, 0b01001100
+00004c 9349                          st      Y+, r20
+00004d e64c                          ldi     r20, 0b01101100
+00004e 9349                          st      Y+, r20
+00004f e74c                          ldi     r20, 0b01111100
+000050 9349                          st      Y+, r20
+000051 e440                          ldi     r20, 0b01000000
+000052 9349                          st      Y+, r20
+000053 e74c                          ldi     r20, 0b01111100
+000054 9349                          st      Y+, r20
+000055 e64c                          ldi     r20, 0b01101100
+000056 9349                          st      Y+, r20
+000057 9508                          ret
                                  
                                  inicio:
-00004b 2411                          clr     r1
-00004c dfb4                          rcall   inicializar_puertos
-00004d 2700                          clr     r16
+000058 2411                          clr     r1
+000059 dfa7                          rcall   inicializar_puertos
+00005a 2700                          clr     r16
                                  
                                  bucle:
-00004e dfba                          rcall   obtener_numero
-00004f dfbb                          rcall   mostrar_numero
-000050 cffd                          rjmp    bucle
+00005b dfb9                          rcall   obtener_numero
+00005c dfbb                          rcall   mostrar_numero
+00005d dfb2                          rcall   pausa_200ms
+00005e 9503                          inc     r16
+00005f 300a                          cpi     r16, 10
+000060 f3d0                          brlo    bucle
+000061 2700                          clr     r16
+000062 cff8                          rjmp    bucle
 
 
 RESOURCE USE INFORMATION
@@ -1153,37 +1178,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :  22 z  :   0 r0 :   0 r1 :   3 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   2 r17:   0 r18:   0 r19:   0 r20:  46 
-r21:   3 r22:   2 r23:   2 r24:   0 r25:   8 r26:   0 r27:   0 r28:   6 
+r13:   0 r14:   0 r15:   0 r16:   5 r17:   0 r18:   0 r19:   0 r20:  46 
+r21:   4 r22:   4 r23:   4 r24:   2 r25:   8 r26:   0 r27:   0 r28:   6 
 r29:   6 r30:   0 r31:   0 
-Registers used: 10 out of 35 (28.6%)
+Registers used: 11 out of 35 (31.4%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   2 add   :   2 adiw  :   0 and   :   0 
-andi  :   2 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+andi  :   3 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
+brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   2 cls   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   3 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   4 inc   :   0 jmp   :   0 
-ld    :   2 ldd   :   0 ldi   :  28 lds   :   0 lpm   :   0 lsl   :   0 
+cpi   :   1 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   4 inc   :   1 jmp   :   0 
+ld    :   2 ldd   :   0 ldi   :  31 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   1 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   2 ori   :   2 out   :   4 pop   :   0 
-push  :   0 rcall :   4 ret   :   4 reti  :   0 rjmp  :   2 rol   :   0 
+push  :   0 rcall :   6 ret   :   6 reti  :   0 rjmp  :   2 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :  20 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 15 out of 113 (13.3%)
+Instructions used: 20 out of 113 (17.7%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000a2    162      0    162   32768   0.5%
+[.cseg] 0x000000 0x0000c6    198      0    198   32768   0.6%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

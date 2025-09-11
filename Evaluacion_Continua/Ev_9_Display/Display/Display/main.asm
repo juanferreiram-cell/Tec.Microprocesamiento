@@ -21,8 +21,28 @@ inicializar_puertos:
     rcall   cargar_tablas
     ret
 
+pausa_5ms:
+    ldi     r22, 65
+d5_externo:
+    ldi     r23, 255
+d5_interno:
+    dec     r23
+    brne    d5_interno
+    dec     r22
+    brne    d5_externo
+    ret
+
+pausa_200ms:
+    ldi     r24, 255
+d200_bucle:
+    rcall   pausa_5ms
+    dec     r24
+    brne    d200_bucle
+    ret
+
 obtener_numero:
     mov     r21, r16
+    andi    r21, 0x0F
     ret
 
 mostrar_numero:
@@ -102,4 +122,9 @@ inicio:
 bucle:
     rcall   obtener_numero
     rcall   mostrar_numero
+    rcall   pausa_200ms
+    inc     r16
+    cpi     r16, 10
+    brlo    bucle
+    clr     r16
     rjmp    bucle
