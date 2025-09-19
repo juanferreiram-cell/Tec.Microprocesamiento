@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Fri Sep 19 11:16:22 2025
+AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Fri Sep 19 18:38:24 2025
 
 
 EQU  SIGNATURE_000 0000001e
@@ -696,12 +696,12 @@ EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG Inicio       0000000f
-CSEG Interrupcion 00000027
+CSEG Interrupcion 00000029
 DEF  aux1         r16
 DEF  aux2         r17
 DEF  valor        r18
 EQU  OCR2A_VAL    0000001e
-CSEG Tabla        00000031
-CSEG Bucle        00000026
-CSEG TablaFin     00000051
-CSEG seguir       00000030
+CSEG Tabla        00000033
+CSEG Bucle        00000028
+CSEG TablaFin     000000b3
+CSEG seguir       00000032

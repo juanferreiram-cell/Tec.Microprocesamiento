@@ -1,12 +1,12 @@
 
-AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Fri Sep 19 11:16:22 2025
+AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Fri Sep 19 18:38:24 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm(7): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm(6): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
-C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm(7): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
+C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm(6): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
                                  
-                                 ; --- Señal 7 (64 muestras) con DAC R-2R en PORTD usando Timer2 ---
+                                 ; Senial 7 (64 muestras) con DAC R-2R en PORTD usando Timer2
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -987,10 +987,9 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; Reloj: 16 MHz
-                                 ; Salida buscada: ~1 kHz
-                                 ; Se usan 64 muestras -> fs = 64 kHz
-                                 ; Con prescaler=8 y OCR2A=30: fs ~64.5 kHz -> fout ~1.0 kHz
+                                 ; Microcontrolador: ATmega328P y Frecuencia_CPU = 16 MHz
+                                 ; Fout = 1 kHz (64 muestras que es fs = 64 kHz)
+                                 ; Fs = F_CPU / (presc * (1 + OCR2A)) = 16x10^-6 / (8 * (1 + 30)) ? 64.516 kHz
                                  
                                  .include "m328pdef.inc"
                                  
@@ -1039,99 +1038,198 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
                                  
                                  .cseg
                                  .org 0x0000
-000000 c00e                          rjmp Inicio             ; arranque
+000000 c00e                          rjmp Inicio                  ; Reset vector
                                  .org OC2Aaddr
-00000e c018                          rjmp Interrupcion       ; salto a la ISR de Timer2
+00000e c01a                          rjmp Interrupcion            ; TIMER2_COMPA
                                  
-                                 ; Definiciones
-                                 .def aux1    = r16
-                                 .def aux2    = r17
-                                 .def valor   = r18          ; valor leído de la tabla
+                                 ; Registros de trabajo
+                                 .def aux1  = r16
+                                 .def aux2  = r17
+                                 .def valor = r18                 ; Byte leido de tabla
                                  
-                                 .equ OCR2A_VAL = 30         ; valor para OCR2A
+                                 .equ OCR2A_VAL = 30              ; Se varia segun la Fout buscada
                                  
                                  Inicio:
-                                     ; configurar stack
+                                     ; Stack
 00000f e008                          ldi aux1, high(RAMEND)
 000010 bf0e                          out SPH, aux1
 000011 ef0f                          ldi aux1, low(RAMEND)
 000012 bf0d                          out SPL, aux1
                                  
-                                     ; PORTD como salida (8 bits al R-2R)
+                                     ; GPIO: PORTD salida (8 bits al R-2R)
 000013 ef0f                          ldi aux1, 0xFF
 000014 b90a                          out DDRD, aux1
 000015 e000                          ldi aux1, 0x00
 000016 b90b                          out PORTD, aux1
                                  
-                                     ; configurar Timer2 en modo CTC con prescaler=8
-000017 e002                          ldi aux1, (1<<WGM21)        ; modo CTC
-000018 9300 00b0                     sts TCCR2A, aux1
-00001a e002                          ldi aux1, (1<<CS21)         ; prescaler = 8
-00001b 9300 00b1                     sts TCCR2B, aux1
-00001d e10e                          ldi aux1, OCR2A_VAL
-00001e 9300 00b3                     sts OCR2A, aux1
-000020 e002                          ldi aux1, (1<<OCIE2A)       ; habilitar interrupción COMPA
-000021 9300 0070                     sts TIMSK2, aux1
+                                     ; Timer2 en CTC
+000017 e10e                          ldi aux1, OCR2A_VAL
+000018 9300 00b3                     sts OCR2A, aux1              ; Valor de comparacion
+00001a e002                          ldi aux1, (1<<WGM21)
+00001b 9300 00b0                     sts TCCR2A, aux1             ; CTC con OCR2A
+00001d e002                          ldi aux1, (1<<OCF2A)
+00001e bb07                          out TIFR2, aux1              ; Limpiar OCF2AW1C)
+00001f e002                          ldi aux1, (1<<OCIE2A)
+000020 9300 0070                     sts TIMSK2, aux1             ; Habilitar interrupci?n COMPA
+000022 e002                          ldi aux1, (1<<CS21)
+000023 9300 00b1                     sts TCCR2B, aux1             ; Prescaler = 8 
                                  
-                                     ; apuntar Z al inicio de la tabla
-000023 e6e2                          ldi ZL, low(Tabla*2)
-000024 e0f0                          ldi ZH, high(Tabla*2)
+                                     ; Puntero de tabla en FLASH 
+000025 e6e6                          ldi ZL, low(Tabla*2)
+000026 e0f0                          ldi ZH, high(Tabla*2)
                                  
-000025 9478                          sei                         ; habilitar interrupciones
+000027 9478                          sei                           ; Habilitar interrupciones
+                                 
                                  Bucle:
-000026 cfff                          rjmp Bucle                  ; loop infinito
+000028 cfff                          rjmp Bucle                  
                                  
-                                 ; --- Interrupción Timer2 COMPA ---
+                                 ; Interrupci?n Timer2 COMPA
                                  Interrupcion:
-000027 9125                          lpm  valor, Z+              ; leer dato de la tabla y avanzar
-000028 b92b                          out  PORTD, valor           ; mandar a PORTD
+                                     
+000029 9125                          lpm  valor, Z+                ; Leer siguiente muestra
+00002a b92b                          out  PORTD, valor             ; Salida a 2R-R
                                  
-                                     ; si llegamos al final de la tabla, volver al inicio
-000029 ea02                          ldi  aux1,  low(TablaFin*2)
-00002a e010                          ldi  aux2,  high(TablaFin*2)
-00002b 17e0                          cp   ZL, aux1
-00002c 07f1                          cpc  ZH, aux2
-00002d f010                          brlo seguir
-00002e e6e2                          ldi  ZL, low(Tabla*2)
-00002f e0f0                          ldi  ZH, high(Tabla*2)
+                                     ; Volver al inicio si Z llego al fin de tabla
+00002b e606                          ldi  aux1,  low(TablaFin*2)
+00002c e011                          ldi  aux2,  high(TablaFin*2)
+00002d 17e0                          cp   ZL, aux1
+00002e 07f1                          cpc  ZH, aux2
+00002f f010                          brlo seguir
+000030 e6e6                          ldi  ZL, low(Tabla*2)
+000031 e0f0                          ldi  ZH, high(Tabla*2)
                                  seguir:
-000030 9518                          reti
+000032 9518                          reti
                                  
-                                 ; --- Tabla Señal 7 (64 muestras) ---
+                                 ; Tabla Senial 7 (64 muestras) Piramide
                                  Tabla:
-000031 0800
-000032 1810
-000033 2820
-000034 3830                          .db 0x00,0x08,0x10,0x18,0x20,0x28,0x30,0x38
-000035 4840
-000036 5850
-000037 6860
-000038 7870                          .db 0x40,0x48,0x50,0x58,0x60,0x68,0x70,0x78
-000039 8880
-00003a 9890
-00003b a8a0
-00003c b8b0                          .db 0x80,0x88,0x90,0x98,0xA0,0xA8,0xB0,0xB8
-00003d c8c0
-00003e d8d0
-00003f e8e0
-000040 f8f0                          .db 0xC0,0xC8,0xD0,0xD8,0xE0,0xE8,0xF0,0xF8
-000041 f7ff
-000042 e7ef
-000043 d7df
-000044 c7cf                          .db 0xFF,0xF7,0xEF,0xE7,0xDF,0xD7,0xCF,0xC7
-000045 b7bf
-000046 a7af
-000047 979f
-000048 878f                          .db 0xBF,0xB7,0xAF,0xA7,0x9F,0x97,0x8F,0x87
-000049 777f
-00004a 676f
-00004b 575f
-00004c 474f                          .db 0x7F,0x77,0x6F,0x67,0x5F,0x57,0x4F,0x47
-00004d 373f
-00004e 272f
-00004f 171f
-000050 070f                          .db 0x3F,0x37,0x2F,0x27,0x1F,0x17,0x0F,0x07
-                                 TablaFin:
+000033 feff
+000034 fcfd
+000035 fafb
+000036 f8f9
+000037 f6f7
+000038 f4f5
+000039 f2f3
+00003a f0f1                          .db 0xff,0xfe,0xfd,0xfc,0xfb,0xfa,0xf9,0xf8,0xf7,0xf6,0xf5,0xf4,0xf3,0xf2,0xf1,0xf0
+00003b eeef
+00003c eced
+00003d eaeb
+00003e e8e9
+00003f e6e7
+000040 e4e5
+000041 e2e3
+000042 e0e1                          .db 0xef,0xee,0xed,0xec,0xeb,0xea,0xe9,0xe8,0xe7,0xe6,0xe5,0xe4,0xe3,0xe2,0xe1,0xe0
+000043 dedf
+000044 dcdd
+000045 dadb
+000046 d8d9
+000047 d6d7
+000048 d4d5
+000049 d2d3
+00004a d0d1                          .db 0xdf,0xde,0xdd,0xdc,0xdb,0xda,0xd9,0xd8,0xd7,0xd6,0xd5,0xd4,0xd3,0xd2,0xd1,0xd0
+00004b cecf
+00004c cccd
+00004d cacb
+00004e c8c9
+00004f c6c7
+000050 c4c5
+000051 c2c3
+000052 c0c1                          .db 0xcf,0xce,0xcd,0xcc,0xcb,0xca,0xc9,0xc8,0xc7,0xc6,0xc5,0xc4,0xc3,0xc2,0xc1,0xc0
+000053 bebf
+000054 bcbd
+000055 babb
+000056 b8b9
+000057 b6b7
+000058 b4b5
+000059 b2b3
+00005a b0b1                          .db 0xbf,0xbe,0xbd,0xbc,0xbb,0xba,0xb9,0xb8,0xb7,0xb6,0xb5,0xb4,0xb3,0xb2,0xb1,0xb0
+00005b aeaf
+00005c acad
+00005d aaab
+00005e a8a9
+00005f a6a7
+000060 a4a5
+000061 a2a3
+000062 a0a1                          .db 0xaf,0xae,0xad,0xac,0xab,0xaa,0xa9,0xa8,0xa7,0xa6,0xa5,0xa4,0xa3,0xa2,0xa1,0xa0
+000063 9e9f
+000064 9c9d
+000065 9a9b
+000066 9899
+000067 9697
+000068 9495
+000069 9293
+00006a 9091                          .db 0x9f,0x9e,0x9d,0x9c,0x9b,0x9a,0x99,0x98,0x97,0x96,0x95,0x94,0x93,0x92,0x91,0x90
+00006b 8e8f
+00006c 8c8d
+00006d 8a8b
+00006e 8889
+00006f 8687
+000070 8485
+000071 8283
+000072 8081                          .db 0x8f,0x8e,0x8d,0x8c,0x8b,0x8a,0x89,0x88,0x87,0x86,0x85,0x84,0x83,0x82,0x81,0x80
+000073 7e7f
+000074 7c7d
+000075 7a7b
+000076 7879
+000077 7677
+000078 7475
+000079 7273
+00007a 7071                          .db 0x7f,0x7e,0x7d,0x7c,0x7b,0x7a,0x79,0x78,0x77,0x76,0x75,0x74,0x73,0x72,0x71,0x70
+00007b 6e6f
+00007c 6c6d
+00007d 6a6b
+00007e 6869
+00007f 6667
+000080 6465
+000081 6263
+000082 6061                          .db 0x6f,0x6e,0x6d,0x6c,0x6b,0x6a,0x69,0x68,0x67,0x66,0x65,0x64,0x63,0x62,0x61,0x60
+000083 5e5f
+000084 5c5d
+000085 5a5b
+000086 5859
+000087 5657
+000088 5455
+000089 5253
+00008a 5051                          .db 0x5f,0x5e,0x5d,0x5c,0x5b,0x5a,0x59,0x58,0x57,0x56,0x55,0x54,0x53,0x52,0x51,0x50
+00008b 4e4f
+00008c 4c4d
+00008d 4a4b
+00008e 4849
+00008f 4647
+000090 4445
+000091 4243
+000092 4041                          .db 0x4f,0x4e,0x4d,0x4c,0x4b,0x4a,0x49,0x48,0x47,0x46,0x45,0x44,0x43,0x42,0x41,0x40
+000093 3e3f
+000094 3c3d
+000095 3a3b
+000096 3839
+000097 3637
+000098 3435
+000099 3233
+00009a 3031                          .db 0x3f,0x3e,0x3d,0x3c,0x3b,0x3a,0x39,0x38,0x37,0x36,0x35,0x34,0x33,0x32,0x31,0x30
+00009b 2e2f
+00009c 2c2d
+00009d 2a2b
+00009e 2829
+00009f 2627
+0000a0 2425
+0000a1 2223
+0000a2 2021                          .db 0x2f,0x2e,0x2d,0x2c,0x2b,0x2a,0x29,0x28,0x27,0x26,0x25,0x24,0x23,0x22,0x21,0x20
+0000a3 1e1f
+0000a4 1c1d
+0000a5 1a1b
+0000a6 1819
+0000a7 1617
+0000a8 1415
+0000a9 1213
+0000aa 1011                          .db 0x1f,0x1e,0x1d,0x1c,0x1b,0x1a,0x19,0x18,0x17,0x16,0x15,0x14,0x13,0x12,0x11,0x10
+0000ab 0e0f
+0000ac 0c0d
+0000ad 0a0b
+0000ae 0809
+0000af 0607
+0000b0 0405
+0000b1 0203
+0000b2 0001                          .db 0x0f,0x0e,0x0d,0x0c,0x0b,0x0a,0x09,0x08,0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00
 
 
 RESOURCE USE INFORMATION
@@ -1151,7 +1249,7 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  18 r17:   2 r18:   2 r19:   0 r20:   0 
+r13:   0 r14:   0 r15:   0 r16:  20 r17:   2 r18:   2 r19:   0 r20:   0 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   3 r31:   3 
 Registers used: 6 out of 35 (17.1%)
@@ -1167,9 +1265,9 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   1 
 cpi   :   0 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  14 lds   :   0 lpm   :   1 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  15 lds   :   0 lpm   :   1 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   5 pop   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   6 pop   :   0 
 push  :   0 rcall :   0 ret   :   0 reti  :   1 rjmp  :   3 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
@@ -1181,7 +1279,7 @@ Instructions used: 10 out of 113 (8.8%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000a2     72     64    136   32768   0.4%
+[.cseg] 0x000000 0x000166     76    256    332   32768   1.0%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

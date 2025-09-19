@@ -23,11 +23,11 @@
   <FILE>Problema_C_Conversion_2R_R.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <Inicio><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>22</LINE></Inicio>
-  <Interrupcion><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>54</LINE></Interrupcion>
-  <Tabla><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>70</LINE></Tabla>
-  <Bucle><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>50</LINE></Bucle>
-  <TablaFin><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>79</LINE></TablaFin>
-  <seguir><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>66</LINE></seguir>
+  <Inicio><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>21</LINE></Inicio>
+  <Interrupcion><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>56</LINE></Interrupcion>
+  <Tabla><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>73</LINE></Tabla>
+  <Bucle><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>52</LINE></Bucle>
+  <TablaFin><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>90</LINE></TablaFin>
+  <seguir><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>69</LINE></seguir>
  </LABELS>
 </ASSEMBLER_INFO>
