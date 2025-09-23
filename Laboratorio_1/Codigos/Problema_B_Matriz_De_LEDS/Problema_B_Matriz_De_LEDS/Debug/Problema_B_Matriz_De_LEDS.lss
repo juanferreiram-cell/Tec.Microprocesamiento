@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_De_LEDS\Problema_B_Matriz_De_LEDS\main.asm Tue Sep 23 02:30:43 2025
+AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_De_LEDS\Problema_B_Matriz_De_LEDS\main.asm Tue Sep 23 02:33:14 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_B_Matriz_De_LEDS\Problema_B_Matriz_De_LEDS\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
@@ -1032,428 +1032,333 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\C
                                  ; ***** END OF FILE ******************************************************
                                  
                                  .org 0x0000
-000000 c069                          rjmp INICIO
+000000 c000                          rjmp Inicio
                                  
-                                 .equ FILASB_OFF       = 0x3C   
-                                 .equ FILASC_OFF       = 0x0F   
-                                 .equ FRAMES_POR_PASO  = 10   // Velocidad a la que se produce el scroll, a menos numero mayor velocidad  
-                                 .equ NUMFIG           = 21
+                                 .equ F_CPU = 16000000
+                                 .equ baud  = 9600
+                                 .equ bps   = (F_CPU/16/baud) - 1
                                  
+                                 Inicio:
+000001 e008                          ldi r16, HIGH(RAMEND)
+000002 bf0e                          out SPH, r16
+000003 ef0f                          ldi r16, LOW(RAMEND)
+000004 bf0d                          out SPL, r16
                                  
-                                 M:    ; M 
-000001 c381
-000002 99a5
-000003 8181
-000004 8181                          .db 0x81, 0xc3, 0xa5, 0x99, 0x81, 0x81, 0x81, 0x81
+000005 e607                          ldi r16, LOW(bps)
+000006 e010                          ldi r17, HIGH(bps)
+000007 d035                          rcall initUART
                                  
-                                 E:     ; E
-000005 017f
-000006 0101
-000007 011f
-000008 7f01                          .db 0x7f, 0x01, 0x01, 0x01, 0x1f, 0x01, 0x01, 0x7f
+000008 e0f0                          ldi ZH, high(msgInicio<<1)
+000009 ebe8                          ldi ZL, low(msgInicio<<1)
+00000a d04b                          rcall puts
                                  
-                                 ESPACIO:     ; Espacio
-000009 0000
-00000a 0000
-00000b 0000
-00000c 0000                          .db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+                                 main_loop:
+00000b d043                          rcall getc
+00000c 3301                          cpi  r16, '1'
+00000d f069                          breq caso_1
+00000e 3302                          cpi  r16, '2'
+00000f f079                          breq caso_2
+000010 3303                          cpi  r16, '3'
+000011 f089                          breq caso_3
+000012 3304                          cpi  r16, '4'
+000013 f099                          breq caso_4
+000014 3305                          cpi  r16, '5'
+000015 f0a9                          breq caso_5
+000016 3306                          cpi  r16, '6'
+000017 f0b9                          breq caso_6
+000018 3307                          cpi  r16, '7'
+000019 f0c9                          breq caso_7
+00001a c01c                          rjmp caso_default
                                  
-                                 G:    ; G
-00000d 017f
-00000e 0101
-00000f 4179
-000010 7f41                          .db 0x7f, 0x01, 0x01, 0x01, 0x79, 0x41, 0x41, 0x7f
+                                 caso_1:
+00001b e0f1                          ldi ZH, high(txtUno<<1)
+00001c ebee                          ldi ZL, low(txtUno<<1)
+00001d d038                          rcall puts
+00001e c01d                          rjmp fin_switch
                                  
-                                 U:      ; U
-000011 4141
-000012 4141
-000013 4141
-000014 7f41                          .db 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x7f
+                                 caso_2:
+00001f e0f1                          ldi ZH, high(txtDos<<1)
+000020 ede0                          ldi ZL, low(txtDos<<1)
+000021 d034                          rcall puts
+000022 c019                          rjmp fin_switch
                                  
-                                 S:      ; S
-000015 017f
-000016 0101
-000017 407f
-000018 7f40                          .db 0x7f, 0x01, 0x01, 0x01, 0x7f, 0x40, 0x40, 0x7f
+                                 caso_3:
+000023 e0f1                          ldi ZH, high(txtTres<<1)
+000024 eee2                          ldi ZL, low(txtTres<<1)
+000025 d030                          rcall puts
+000026 c015                          rjmp fin_switch
                                  
-                                 T:      ; T
-000019 087f
-00001a 0808
-00001b 0808
-00001c 0808                          .db 0x7f, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08
+                                 caso_4:
+000027 e0f1                          ldi ZH, high(txtCuatro<<1)
+000028 efe6                          ldi ZL, low(txtCuatro<<1)
+000029 d02c                          rcall puts
+00002a c011                          rjmp fin_switch
                                  
-                                 A:      ; A
-00001d 817e
-00001e ff81
-00001f 8181
-000020 8181                          .db 0x7e, 0x81, 0x81, 0xff, 0x81, 0x81, 0x81, 0x81
+                                 caso_5:
+00002b e0f2                          ldi ZH, high(txtCinco<<1)
+00002c e0ec                          ldi ZL, low(txtCinco<<1)
+00002d d028                          rcall puts
+00002e c00d                          rjmp fin_switch
                                  
-                                 ESPACIO1:     ; Espacio
-000021 0000
-000022 0000
-000023 0000
-000024 0000                          .db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+                                 caso_6:
+00002f e0f2                          ldi ZH, high(txtSeis<<1)
+000030 e2e0                          ldi ZL, low(txtSeis<<1)
+000031 d024                          rcall puts
+000032 c009                          rjmp fin_switch
                                  
-                                 C:      ; C
-000025 017f
-000026 0101
-000027 0101
-000028 7f01                          .db 0x7f, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x7f
+                                 caso_7:
+000033 e0f2                          ldi ZH, high(txtSiete<<1)
+000034 e3e4                          ldi ZL, low(txtSiete<<1)
+000035 d020                          rcall puts
+000036 c005                          rjmp fin_switch
                                  
-                                 O:      ; O
-000029 81ff
-00002a 8181
-00002b 8181
-00002c ff81                          .db 0xff, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0xff
-                                 
-                                 M1:      ; M
-00002d c381
-00002e 99a5
-00002f 8181
-000030 8181                          .db 0x81, 0xc3, 0xa5, 0x99, 0x81, 0x81, 0x81, 0x81
-                                 
-                                 E2:      ; E
-000031 017f
-000032 0101
-000033 011f
-000034 7f01                          .db 0x7f, 0x01, 0x01, 0x01, 0x1f, 0x01, 0x01, 0x7f
-                                 
-                                 R:      ; R
-000035 417f
-000036 4141
-000037 117f
-000038 4121                          .db 0x7f, 0x41, 0x41, 0x41, 0x7f, 0x11, 0x21, 0x41
-                                 
-                                 ESPACIO2:     ; Espacio
-000039 0000
-00003a 0000
-00003b 0000
-00003c 0000                          .db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-                                 
-                                 A1:      ; A
-00003d 817e
-00003e ff81
-00003f 8181
-000040 8181                          .db 0x7e, 0x81, 0x81, 0xff, 0x81, 0x81, 0x81, 0x81
-                                 
-                                 S1:      ; S
-000041 017f
-000042 0101
-000043 407f
-000044 7f40                          .db 0x7f, 0x01, 0x01, 0x01, 0x7f, 0x40, 0x40, 0x7f
-                                 
-                                 A2:      ; A
-000045 817e
-000046 ff81
-000047 8181
-000048 8181                          .db 0x7e, 0x81, 0x81, 0xff, 0x81, 0x81, 0x81, 0x81
-                                 
-                                 D:      ; D
-000049 211f
-00004a 4141
-00004b 4141
-00004c 1f21                          .db 0x1f, 0x21, 0x41, 0x41, 0x41, 0x41, 0x21, 0x1f
-                                 
-                                 O1:      ; O
-00004d 81ff
-00004e 8181
-00004f 8181
-000050 ff81                          .db 0xff, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0xff
-                                 
-                                 ESPACIO3:     ; Espacio
-000051 0000
-000052 0000
-000053 0000
-000054 0000                          .db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-                                 
-                                 
-                                 
-                                 FIGTAB:
-000055 0002
-000056 000a
-000057 0012
-000058 001a
-000059 0022
-00005a 002a
-00005b 0032
-00005c 003a
-00005d 0042
-00005e 004a
-00005f 0052
-000060 005a
-000061 0062
-000062 006a
-000063 0072
-000064 007a
-000065 0082
-000066 008a
-000067 0092
-000068 009a
-000069 00a2                           .dw (M<<1), (E<<1), (ESPACIO<<1), (G<<1), (U<<1), (S<<1), (T<<1), (A<<1), (ESPACIO1<<1), (C<<1), (O<<1), (M1<<1), (E2<<1), (R<<1), (ESPACIO2<<1), (A1<<1), (S1<<1), (A2<<1), (D<<1), (O1<<1), (ESPACIO3<<1)
-                                 
-                                 
-                                 .def SHIFTX   = r23  
-                                 .def FRMCNT   = r24   
-                                 .def FIGIDX   = r19   
-                                 .def SHCNT    = r25   
-                                 
-                                 INICIO:
-00006a e008                          ldi  r16, HIGH(RAMEND)
-00006b bf0e                          out  SPH, r16
-00006c ef0f                          ldi  r16, LOW(RAMEND)
-00006d bf0d                          out  SPL, r16
-00006e 2411                          clr  r1
-                                 
+                                 caso_default:
                                      
-00006f b10a                          in   r16, DDRD
-000070 6f0c                          ori  r16, 0b11111100
-000071 b90a                          out  DDRD, r16
-000072 e30f                          ldi  r16, 0b00111111
-000073 b904                          out  DDRB, r16
-000074 b107                          in   r16, DDRC
-000075 600f                          ori  r16, 0b00001111
-000076 b907                          out  DDRC, r16
+000037 d010                          rcall putc
+000038 e00d                          ldi  r16, 13
+000039 d00e                          rcall putc
+00003a e00a                          ldi  r16, 10
+00003b d00c                          rcall putc
                                  
-                                     
-000077 b10b                          in   r16, PORTD
-000078 7003                          andi r16, 0b00000011
-000079 b90b                          out  PORTD, r16
-00007a b105                          in   r16, PORTB
-00007b 7c00                          andi r16, 0b11000000
-00007c 630c                          ori  r16, FILASB_OFF
-00007d b905                          out  PORTB, r16
-00007e b108                          in   r16, PORTC
-00007f 7f00                          andi r16, 0b11110000
-000080 600f                          ori  r16, FILASC_OFF
-000081 b908                          out  PORTC, r16
-                                 
-                                     
-000082 e002                          ldi  r16, (1<<WGM01)
-000083 bd04                          out  TCCR0A, r16
-000084 ef09                          ldi  r16, 249
-000085 bd07                          out  OCR0A, r16
-000086 e003                          ldi  r16, (1<<CS01)|(1<<CS00)
-000087 bd05                          out  TCCR0B, r16
-                                 
-                                     
-000088 2733                          clr  FIGIDX
-000089 d037                          rcall CARGAR_FIGURA_Y_SIGUIENTE
-00008a e070                          ldi  SHIFTX, 0
-00008b e08a                          ldi  FRMCNT, FRAMES_POR_PASO
-00008c 2766                          clr  r22
+                                 fin_switch:
+00003c cfce                          rjmp main_loop
                                  
                                  
-                                 MAIN_LOOP:
-00008d d04c                          rcall APAGAR_FILAS   
-00008e 01fd                          movw r30, r26
-00008f 2f26                          mov  r18, r22
-000090 0fe2                          add  ZL, r18
-000091 1df1                          adc  ZH, r1
-000092 9144                          lpm  r20, Z
+                                 initUART:
+00003d 9300 00c4                     sts UBRR0L, r16
+00003f 9310 00c5                     sts UBRR0H, r17
+000041 e108                          ldi r16, (1<<RXEN0)|(1<<TXEN0)
+000042 9300 00c1                     sts UCSR0B, r16
+000044 e006                          ldi r16, (1<<UCSZ01)|(1<<UCSZ00) 
+000045 9300 00c2                     sts UCSR0C, r16
+000047 9508                          ret
                                  
-                                     
-000093 01fe                          movw r30, r28
-000094 2f26                          mov  r18, r22
-000095 0fe2                          add  ZL, r18
-000096 1df1                          adc  ZH, r1
-000097 9004                          lpm  r0, Z
+                                 putc:
+000048 9110 00c0                     lds r17, UCSR0A
+00004a ff15                          sbrs r17, UDRE0
+00004b cffc                          rjmp putc
+00004c 9300 00c6                     sts UDR0, r16
+00004e 9508                          ret
                                  
-                                     
-000098 2f27                          mov  r18, SHIFTX
+                                 getc:
+00004f 9110 00c0                     lds r17, UCSR0A
+000051 ff17                          sbrs r17, RXC0
+000052 cffc                          rjmp getc
+000053 9100 00c6                     lds r16, UDR0
+000055 9508                          ret
                                  
-                                     
-000099 3028                          cpi  r18, 8
-00009a f079                          breq SOLO_B_CON_ESPACIO
+                                 puts:
+000056 9105                          lpm r16, Z+
+000057 3000                          cpi r16, 0
+000058 f011                          breq fin_puts
+000059 dfee                          rcall putc
+00005a cffb                          rjmp puts
+                                 fin_puts:
+00005b 9508                          ret
                                  
-                                     
-00009b 2322                          tst  r18
-00009c f019                          breq A_LISTO
+                                 .cseg
+                                 ; Mensajes en el monitor Serial
+                                 msgInicio:
+00005c 6942
+00005d 6e65
+00005e 6576
+00005f 696e
+000060 6f64
+000061 2021
+000062 6e49
+000063 7267
+000064 7365
+000065 2065
+000066 6c65
+000067 6e20
+000068 6d75
+000069 7265
+00006a 206f
+00006b 6170
+00006c 6172
+00006d 6c20
+00006e 2061
+00006f 6361
+000070 6963
+000071 6e6f
+000072 7120
+000073 6575
+000074 7120
+000075 6975
+000076 7265
+000077 2065
+000078 6572
+000079 6c61
+00007a 7a69
+00007b 7261                          .db "Bienvenido! Ingrese el numero para la accion que quiere realizar", 13, 10, \
+00007c 0a0d
+00007d 2031
+00007e 202d
+00007f 6f4d
+000080 7473
+000081 6172
+000082 2072
+000083 6c65
+000084 4d20
+000085 6e65
+000086 6173
+000087 656a                              "1 - Mostrar el Mensaje", 13, 10, \
+000088 0a0d
+000089 2032
+00008a 202d
+00008b 6f4d
+00008c 7473
+00008d 6172
+00008e 2072
+00008f 6143
+000090 6172
+000091 4620
+000092 6c65
+000093 7a69                              "2 - Mostrar Cara Feliz", 13, 10, \
+000094 0a0d
+000095 2033
+000096 202d
+000097 6f4d
+000098 7473
+000099 6172
+00009a 2072
+00009b 6143
+00009c 6172
+00009d 5420
+00009e 6972
+00009f 7473
+0000a0 0d65                              "3 - Mostrar Cara Triste", 13, 10, \
+0000a1 340a
+0000a2 2d20
+0000a3 4d20
+0000a4 736f
+0000a5 7274
+0000a6 7261
+0000a7 5220
+0000a8 6d6f
+0000a9 6f62                              "4 - Mostrar Rombo", 13, 10, \
+0000aa 0a0d
+0000ab 2035
+0000ac 202d
+0000ad 6f4d
+0000ae 7473
+0000af 6172
+0000b0 2072
+0000b1 6f43
+0000b2 6172
+0000b3 6f7a
+0000b4 0d6e                              "5 - Mostrar Corazon", 13, 10, \
+0000b5 360a
+0000b6 2d20
+0000b7 4d20
+0000b8 736f
+0000b9 7274
+0000ba 7261
+0000bb 4120
+0000bc 696c
+0000bd 6e65
+0000be 6420
+0000bf 2065
+0000c0 7053
+0000c1 6361
+0000c2 2065
+0000c3 6e49
+0000c4 6176
+0000c5 6564
+0000c6 7372                              "6 - Mostrar Alien de Space Invaders", 13, 10, \
+0000c7 0a0d
+0000c8 2037
+0000c9 202d
+0000ca 6f4d
+0000cb 7473
+0000cc 6172
+0000cd 2072
+0000ce 616c
+0000cf 2073
+0000d0 2035
+0000d1 6966
+0000d2 7567
+0000d3 6172
+0000d4 2073
+0000d5 6f63
+0000d6 206e
+0000d7 6e75
+0000d8 6920
+0000d9 746e
+0000da 7265
+0000db 6176
+0000dc 6f6c
+0000dd 0a0d
+0000de 0000                              "7 - Mostrar las 5 figuras con un intervalo", 13, 10, 0, 0   
                                  
-                                 A_SHIFT:
-00009d 9546                          lsr  r20
-00009e 952a                          dec  r18
-00009f f7e9                          brne A_SHIFT
-                                 A_LISTO:
-                                 
-                                     
-0000a0 e098                          ldi  SHCNT, 8
-0000a1 1b97                          sub  SHCNT, SHIFTX
-0000a2 2399                          tst  SHCNT
-0000a3 f019                          breq B_LISTO
-                                 B_SHIFT:
-0000a4 0c00                          lsl  r0
-0000a5 959a                          dec  SHCNT
-0000a6 f7e9                          brne B_SHIFT
-                                 B_LISTO:
-                                 
-                                     
-0000a7 0c00                          lsl  r0              
-                                 
-0000a8 2940                          or   r20, r0
-0000a9 c002                          rjmp COMPOSICION_COMPLETA
-                                 
-                                 SOLO_B_CON_ESPACIO:
-0000aa 2d40                          mov  r20, r0
-0000ab 0f44                          lsl  r20             
-                                 
-                                 COMPOSICION_COMPLETA:
-                                     
-0000ac d034                          rcall PONER_COLUMNAS
-0000ad 2f56                          mov  r21, r22
-0000ae d047                          rcall ACTIVAR_FILA
-0000af d06d                          rcall ESPERAR_1MS
-                                 
-                                     
-0000b0 9563                          inc  r22
-0000b1 3068                          cpi  r22, 8
-0000b2 f2d0                          brlo MAIN_LOOP
-                                 
-                                     
-0000b3 2766                          clr  r22
-0000b4 958a                          dec  FRMCNT
-0000b5 f6b9                          brne MAIN_LOOP
-                                 
-                                   
-0000b6 e08a                          ldi  FRMCNT, FRAMES_POR_PASO
-0000b7 9573                          inc  SHIFTX
-0000b8 3079                          cpi  SHIFTX, 9           
-0000b9 f298                          brlo MAIN_LOOP
-                                 
-                                     
-0000ba 2777                          clr  SHIFTX
-0000bb 9533                          inc  FIGIDX
-0000bc 3135                          cpi  FIGIDX, NUMFIG
-0000bd f008                          brlo SIGUIENTE_OK
-0000be 2733                          clr  FIGIDX
-                                 SIGUIENTE_OK:
-0000bf d001                          rcall CARGAR_FIGURA_Y_SIGUIENTE
-0000c0 cfcc                          rjmp MAIN_LOOP
-                                 
-                                 
-                                 CARGAR_FIGURA_Y_SIGUIENTE:
-                                   
-0000c1 eaea                          ldi  ZL, low(FIGTAB<<1)
-0000c2 e0f0                          ldi  ZH, high(FIGTAB<<1)
-0000c3 2f23                          mov  r18, FIGIDX
-0000c4 0f22                          lsl  r18
-0000c5 0fe2                          add  ZL, r18
-0000c6 1df1                          adc  ZH, r1
-0000c7 9005                          lpm  r0, Z+
-0000c8 2da0                          mov  r26, r0
-0000c9 9004                          lpm  r0, Z
-0000ca 2db0                          mov  r27, r0
-                                 
-0000cb 2f23                          mov  r18, FIGIDX
-0000cc 9523                          inc  r18
-0000cd 3125                          cpi  r18, NUMFIG
-0000ce f008                          brlo IDX_OK
-0000cf 2722                          clr  r18
-                                 IDX_OK:
-0000d0 eaea                          ldi  ZL, low(FIGTAB<<1)
-0000d1 e0f0                          ldi  ZH, high(FIGTAB<<1)
-0000d2 0f22                          lsl  r18
-0000d3 0fe2                          add  ZL, r18
-0000d4 1df1                          adc  ZH, r1
-0000d5 9005                          lpm  r0, Z+
-0000d6 2dc0                          mov  r28, r0
-0000d7 9004                          lpm  r0, Z
-0000d8 2dd0                          mov  r29, r0
-0000d9 9508                          ret
-                                 
-                                 APAGAR_FILAS:
-0000da b105                          in   r16, PORTB
-0000db 630c                          ori  r16, FILASB_OFF
-0000dc b905                          out  PORTB, r16
-0000dd b108                          in   r16, PORTC
-0000de 600f                          ori  r16, FILASC_OFF
-0000df b908                          out  PORTC, r16
-0000e0 9508                          ret
-                                 
-                                 PONER_COLUMNAS:
-                                     
-0000e1 2f04                          mov  r16, r20
-0000e2 730f                          andi r16, 0x3F
-0000e3 0f00                          lsl  r16
-0000e4 0f00                          lsl  r16
-0000e5 b11b                          in   r17, PORTD
-0000e6 7013                          andi r17, 0x03
-0000e7 2b10                          or   r17, r16
-0000e8 b91b                          out  PORTD, r17
-                                 
-                                     
-0000e9 2f04                          mov  r16, r20
-0000ea 7c00                          andi r16, 0xC0
-0000eb 9506                          lsr  r16
-0000ec 9506                          lsr  r16
-0000ed 9506                          lsr  r16
-0000ee 9506                          lsr  r16
-0000ef 9506                          lsr  r16
-0000f0 9506                          lsr  r16
-0000f1 b115                          in   r17, PORTB
-0000f2 7f1c                          andi r17, 0b11111100
-0000f3 2b10                          or   r17, r16
-0000f4 b915                          out  PORTB, r17
-0000f5 9508                          ret
-                                 
-                                 ACTIVAR_FILA:
-0000f6 932f                          push r18
-0000f7 933f                          push r19
-0000f8 934f                          push r20
-0000f9 3054                          cpi  r21, 4
-0000fa f084                          brlt FILA_B
-                                 
-                                     
-0000fb 5054                          subi r21, 4
-0000fc e02f                          ldi  r18, FILASC_OFF
-0000fd e031                          ldi  r19, 0x01
-0000fe 2f45                          mov  r20, r21
-                                 DESPLAZAR_PC:
-0000ff 2344                          tst  r20
-000100 f019                          breq FIN_PC
-000101 0f33                          lsl  r19
-000102 954a                          dec  r20
-000103 cffb                          rjmp DESPLAZAR_PC
-                                 FIN_PC:
-000104 9530                          com  r19
-000105 2323                          and  r18, r19
-000106 b118                          in   r17, PORTC
-000107 7f10                          andi r17, 0b11110000
-000108 2b12                          or   r17, r18
-000109 b918                          out  PORTC, r17
-00010a c00e                          rjmp FIN_FILA
-                                 
-                                 FILA_B:
-                                   
-00010b e32c                          ldi  r18, FILASB_OFF
-00010c e034                          ldi  r19, 0x04
-00010d 2f45                          mov  r20, r21
-                                 DESPLAZAR_PB:
-00010e 2344                          tst  r20
-00010f f019                          breq FIN_PB
-000110 0f33                          lsl  r19
-000111 954a                          dec  r20
-000112 cffb                          rjmp DESPLAZAR_PB
-                                 FIN_PB:
-000113 9530                          com  r19
-000114 2323                          and  r18, r19
-000115 b115                          in   r17, PORTB
-000116 7c13                          andi r17, 0b11000011
-000117 2b12                          or   r17, r18
-000118 b915                          out  PORTB, r17
-                                 
-                                 FIN_FILA:
-000119 914f                          pop  r20
-00011a 913f                          pop  r19
-00011b 912f                          pop  r18
-00011c 9508                          ret
-                                 
-                                 ESPERAR_1MS:
-00011d e002                          ldi  r16, (1<<OCF0A)
-00011e bb05                          out  TIFR0, r16
-                                 ESPERAR:
-00011f b315                          in   r17, TIFR0
-000120 ff11                          sbrs r17, OCF0A
-000121 cffd                          rjmp ESPERAR
+0000df 6148
+0000e0 2073
+0000e1 6c65
+0000e2 6765
+0000e3 6469
+0000e4 206f
+0000e5 4e55
+0000e6 0d4f
+0000e7 000a                      txtUno:    .db "Has elegido UNO",      13, 10, 0          
+0000e8 6148
+0000e9 2073
+0000ea 6c65
+0000eb 6765
+0000ec 6469
+0000ed 206f
+0000ee 4f44
+0000ef 0d53
+0000f0 000a                      txtDos:    .db "Has elegido DOS",      13, 10, 0          
+0000f1 6148
+0000f2 2073
+0000f3 6c65
+0000f4 6765
+0000f5 6469
+0000f6 206f
+0000f7 5254
+0000f8 5345
+0000f9 0a0d
+0000fa 0000                      txtTres:   .db "Has elegido TRES",     13, 10, 0, 0       
+0000fb 6148
+0000fc 2073
+0000fd 6c65
+0000fe 6765
+0000ff 6469
+000100 206f
+000101 5543
+000102 5441
+000103 4f52
+000104 0a0d
+000105 0000                      txtCuatro: .db "Has elegido CUATRO",   13, 10, 0, 0       
+000106 6148
+000107 2073
+000108 6c65
+000109 6765
+00010a 6469
+00010b 206f
+00010c 4943
+00010d 434e
+00010e 0d4f
+00010f 000a                      txtCinco:  .db "Has elegido CINCO",    13, 10, 0          
+000110 6148
+000111 2073
+000112 6c65
+000113 6765
+000114 6469
+000115 206f
+000116 4553
+000117 5349
+000118 0a0d
+000119 0000                      txtSeis:   .db "Has elegido SEIS",     13, 10, 0, 0       
+00011a 6148
+00011b 2073
+00011c 6c65
+00011d 6765
+00011e 6469
+00011f 206f
+000120 4953
+000121 5445
+000122 0d45
 
 
 RESOURCE USE INFORMATION
@@ -1471,39 +1376,39 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-x  :   0 y  :   0 z  :   6 r0 :  13 r1 :   5 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  51 r17:  18 r18:  25 r19:  16 r20:  15 
-r21:   5 r22:   7 r23:   6 r24:   3 r25:   4 r26:   2 r27:   1 r28:   2 
-r29:   1 r30:   8 r31:   6 
-Registers used: 19 out of 35 (54.3%)
+r13:   0 r14:   0 r15:   0 r16:  23 r17:   6 r18:   0 r19:   0 r20:   0 
+r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   8 r31:   8 
+Registers used: 5 out of 35 (14.3%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   4 add   :   4 adiw  :   0 and   :   2 
-andi  :   9 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   5 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :   4 brlt  :   1 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
+andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   8 brge  :   0 brhc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
+brne  :   0 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   7 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   2 cp    :   0 cpc   :   0 
-cpi   :   6 cpse  :   0 dec   :   5 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :  12 inc   :   4 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  19 lds   :   0 lpm   :  10 lsl   :   9 
-lsr   :   7 mov   :  15 movw  :   2 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   5 ori   :   6 out   :  18 pop   :   3 
-push  :   3 rcall :   6 ret   :   5 reti  :   0 rjmp  :   7 rol   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
+cpi   :   8 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  24 lds   :   3 lpm   :   1 lsl   :   0 
+lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 pop   :   0 
+push  :   0 rcall :  14 ret   :   4 reti  :   0 rjmp  :  13 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   1 sec   :   0 seh   :   0 
+sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   2 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
-sub   :   1 subi  :   1 swap  :   0 tst   :   4 wdr   :   0 
-Instructions used: 32 out of 113 (28.3%)
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   5 
+sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
+Instructions used: 11 out of 113 (9.7%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000246    372    210    582   32768   1.8%
+[.cseg] 0x000000 0x000248    184    400    584   32768   1.8%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
