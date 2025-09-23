@@ -1,0 +1,51 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\Debug\Problema_D_Plotter.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Problema_D_Plotter.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Problema_D_Plotter.map</FILE>
+  <FILE>Problema_D_Plotter.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <RESET><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>6</LINE></RESET>
+  <MAIN><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>36</LINE></MAIN>
+  <DELAY_10S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>114</LINE></DELAY_10S>
+  <DELAY_2S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>84</LINE></DELAY_2S>
+  <DELAY_4_9S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>166</LINE></DELAY_4_9S>
+  <DELAY_5S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>189</LINE></DELAY_5S>
+  <D2_LOOP><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>86</LINE></D2_LOOP>
+  <D2_WAIT><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>91</LINE></D2_WAIT>
+  <DELAY_15S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>99</LINE></DELAY_15S>
+  <D15_LOOP><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>101</LINE></D15_LOOP>
+  <D15_WAIT><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>106</LINE></D15_WAIT>
+  <D10_LOOP><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>116</LINE></D10_LOOP>
+  <D10_WAIT><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>121</LINE></D10_WAIT>
+  <DELAY_1_4S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>129</LINE></DELAY_1_4S>
+  <D14_WAIT1><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>134</LINE></D14_WAIT1>
+  <D14_WAIT2><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>143</LINE></D14_WAIT2>
+  <DELAY_6S><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>150</LINE></DELAY_6S>
+  <D6_LOOP><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>152</LINE></D6_LOOP>
+  <D6_WAIT><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>157</LINE></D6_WAIT>
+  <D49_LOOP><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>168</LINE></D49_LOOP>
+  <D49_WAIT1><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>173</LINE></D49_WAIT1>
+  <D49_WAIT2><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>183</LINE></D49_WAIT2>
+  <D5_LOOP><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>191</LINE></D5_LOOP>
+  <D5_WAIT><FILE>C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm</FILE><LINE>198</LINE></D5_WAIT>
+ </LABELS>
+</ASSEMBLER_INFO>
