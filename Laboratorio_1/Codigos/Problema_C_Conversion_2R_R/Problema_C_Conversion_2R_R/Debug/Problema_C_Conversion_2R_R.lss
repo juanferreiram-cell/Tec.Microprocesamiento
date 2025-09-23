@@ -1,12 +1,12 @@
 
-AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Fri Sep 19 18:38:24 2025
+AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Sat Sep 20 16:43:19 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm(6): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm(6): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
                                  
-                                 ; Senial 7 (64 muestras) con DAC R-2R en PORTD usando Timer2
+                                 ; Senial 4 (256 muestras) con DAC R-2R en PORTD usando Timer2
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -988,8 +988,8 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
                                  ; ***** END OF FILE ******************************************************
                                  
                                  ; Microcontrolador: ATmega328P y Frecuencia_CPU = 16 MHz
-                                 ; Fout = 1 kHz (64 muestras que es fs = 64 kHz)
-                                 ; Fs = F_CPU / (presc * (1 + OCR2A)) = 16x10^-6 / (8 * (1 + 30)) ? 64.516 kHz
+                                 ; Fout ? 1 kHz (256 muestras,  fs = 256 kHz)
+                                 ; Fs = F_CPU / (presc * (1 + OCR2A)) = 16x10^6 / (1 * (1 + 62)) ? 253.97 kHz
                                  
                                  .include "m328pdef.inc"
                                  
@@ -1047,7 +1047,7 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
                                  .def aux2  = r17
                                  .def valor = r18                 ; Byte leido de tabla
                                  
-                                 .equ OCR2A_VAL = 30              ; Se varia segun la Fout buscada
+                                 .equ OCR2A_VAL = 62              ; Se varia segun la Fout buscada
                                  
                                  Inicio:
                                      ; Stack
@@ -1063,16 +1063,16 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
 000016 b90b                          out PORTD, aux1
                                  
                                      ; Timer2 en CTC
-000017 e10e                          ldi aux1, OCR2A_VAL
+000017 e30e                          ldi aux1, OCR2A_VAL
 000018 9300 00b3                     sts OCR2A, aux1              ; Valor de comparacion
 00001a e002                          ldi aux1, (1<<WGM21)
 00001b 9300 00b0                     sts TCCR2A, aux1             ; CTC con OCR2A
 00001d e002                          ldi aux1, (1<<OCF2A)
-00001e bb07                          out TIFR2, aux1              ; Limpiar OCF2AW1C)
+00001e bb07                          out TIFR2, aux1              ; Limpiar OCF2A 
 00001f e002                          ldi aux1, (1<<OCIE2A)
-000020 9300 0070                     sts TIMSK2, aux1             ; Habilitar interrupci?n COMPA
-000022 e002                          ldi aux1, (1<<CS21)
-000023 9300 00b1                     sts TCCR2B, aux1             ; Prescaler = 8 
+000020 9300 0070                     sts TIMSK2, aux1             ; Habilitar interrupcion COMPA
+000022 e001                          ldi aux1, (1<<CS20)
+000023 9300 00b1                     sts TCCR2B, aux1             ; Prescaler = 1 
                                  
                                      ; Puntero de tabla en FLASH 
 000025 e6e6                          ldi ZL, low(Tabla*2)
@@ -1083,7 +1083,7 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
                                  Bucle:
 000028 cfff                          rjmp Bucle                  
                                  
-                                 ; Interrupci?n Timer2 COMPA
+                                 ; Interrupcion Timer2 COMPA
                                  Interrupcion:
                                      
 000029 9125                          lpm  valor, Z+                ; Leer siguiente muestra
@@ -1100,7 +1100,7 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
                                  seguir:
 000032 9518                          reti
                                  
-                                 ; Tabla Senial 7 (64 muestras) Piramide
+                                 ; Tabla Senial 4 (256 muestras) rampa descendente
                                  Tabla:
 000033 feff
 000034 fcfd
@@ -1230,6 +1230,7 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
 0000b0 0405
 0000b1 0203
 0000b2 0001                          .db 0x0f,0x0e,0x0d,0x0c,0x0b,0x0a,0x09,0x08,0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00
+                                 TablaFin:
 
 
 RESOURCE USE INFORMATION
