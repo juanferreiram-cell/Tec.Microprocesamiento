@@ -3,37 +3,46 @@
 .equ F_CPU     = 16000000
 .equ BAUD      = 9600
 .equ UBRR_VAL  = 103
+.equ T_FIN_MS = 3000 ; Este es el tiempo que el sistema esta en terminado antes de arrancar de vuelta
 
-; Asignacion de pines para los dos motores (M1 es la cinta y M3 es el de la punzadora)
+; Pines de los motores en PORTD
+
 .equ M1_A_BIT  = 3
 .equ M1_B_BIT  = 5
 .equ M3_A_BIT  = 4
 .equ M3_B_BIT  = 0
 
+; Pines de los LEDS en PORTC
+
+.equ LED_ESPERA_BIT = 0
+.equ LED_FUNCIONANDO_BIT  = 1
+.equ LED_TERMINO_BIT = 2
+.equ LED_LIGERA_BIT  = 3
+.equ LED_MEDIANA_BIT  = 4
+.equ LED_PESADA_BIT  = 5
+
 ; Tiempos
 
-.equ T_M3_MEDIO = 370    ; Tiempo para que la punzadora descienda y ascienda con una media vuelta de la palanca
+.equ T_M3_MEDIA = 370 ; Tiempo aproximado para que la palanca de la punzadora de media vuelta (esto hay veces que hay que cambiarlo porque no siempre es el mismo)
 
 ; Ligera
-
-.equ L_AVANCE   = 3000
-.equ L_PAUSA    = 2000
-.equ L_PRESIONAR = 2000
-.equ L_VOLVER  = 3000
+.equ L_AVANCE     = 3000
+.equ L_PAUSA      = 2000
+.equ L_PRESIONAR  = 2000
+.equ L_VOLVER     = 3000
 
 ; Mediana
-
-.equ M_AVANCE   = 4000
-.equ M_PAUSA    = 2000
-.equ M_PRESIONAR = 3000
-.equ M_VOLVER  = 4000
+.equ M_AVANCE     = 4000
+.equ M_PAUSA      = 2000
+.equ M_PRESIONAR  = 3000
+.equ M_VOLVER     = 4000
 
 ; Pesada
+.equ P_AVANCE     = 5000
+.equ P_PAUSA      = 3000
+.equ P_PRESIONAR  = 4000
+.equ P_VOLVER     = 5000
 
-.equ P_AVANCE   = 5000
-.equ P_PAUSA    = 3000
-.equ P_PRESIONAR = 4000
-.equ P_VOLVER  = 5000
 
 .dseg
 tipo_carga:   .byte 1
@@ -41,13 +50,14 @@ piezas:       .byte 2
 t_avance:     .byte 2
 t_pausa:      .byte 2
 t_mantener:   .byte 2
-t_volver:    .byte 2
+t_volver:     .byte 2
 
 .cseg
 .org 0x0000
     rjmp RESET
 
 RESET:
+    ; Stack pointer
     ldi  r16, high(RAMEND)
     out  SPH, r16
     ldi  r16, low(RAMEND)
@@ -59,6 +69,16 @@ RESET:
     or   r17, r16
     out  DDRD, r17
     sbi  DDRB, M3_B_BIT
+
+    ; Apaga los LEDS y prende el de espera
+
+    ldi  r16, (1<<LED_ESPERA_BIT)|(1<<LED_FUNCIONANDO_BIT)|(1<<LED_TERMINO_BIT) \
+             |(1<<LED_LIGERA_BIT)|(1<<LED_MEDIANA_BIT)|(1<<LED_PESADA_BIT)
+    in   r17, DDRC
+    or   r17, r16
+    out  DDRC, r17
+    rcall LEDS_APAGAR_TODOS
+    sbi  PORTC, LED_ESPERA_BIT
 
     rcall M1_PARAR
     rcall M3_PARAR
@@ -74,7 +94,8 @@ RESET:
     ldi  r16, (1<<UCSZ01)|(1<<UCSZ00)
     sts  UCSR0C, r16
 
-; Timer1 a 1 ms
+; Timer1 a 1ms
+
     ldi  r16, 0x00
     sts  TCCR1A, r16
     ldi  r16, (1<<WGM12)|(1<<CS11)|(1<<CS10)
@@ -84,18 +105,18 @@ RESET:
     ldi  r16, high(249)
     sts  OCR1AH, r16
 
-; Mensaje de arriba
-
     ldi  ZL, low(msg_arriba<<1)
     ldi  ZH, high(msg_arriba<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
 
 PRINCIPAL:
+    rcall LEDS_ESPERANDO
 
-    ; Esperar 'A'
+    ; Espera a que la persona mande una "A"
+
     ldi  ZL, low(msg_pedir_A<<1)
     ldi  ZH, high(msg_pedir_A<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
 ESPERA_A:
     rcall USART_RX
     cpi  r16, 'A'
@@ -109,35 +130,40 @@ A_OK:
     ldi  r16, 10
     rcall USART_TX
 
-    ; Elegir el tipo de carga
+    ; Despues de la "A" el sistema esta funcionando
+    rcall LEDS_FUNCIONANDO
 
+    ; Se pide el tipo de carga a mandar
     ldi  ZL, low(msg_pedir_carga<<1)
     ldi  ZH, high(msg_pedir_carga<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
 LEE_CARGA:
     rcall USART_RX
     mov  r18, r16
     cpi  r18, '1'
-    breq SET_LIG
+    breq CARGA_LIGERA
     cpi  r18, '2'
-    breq SET_MED
+    breq CARGA_MEDIANA
     cpi  r18, '3'
-    breq SET_PES
+    breq CARGA_PESADA
     rjmp LEE_CARGA
 
-SET_LIG:
+CARGA_LIGERA:
     ldi  r16, 1
     sts  tipo_carga, r16
-    rjmp CARGA_ECO
-SET_MED:
+    rcall LEDS_LIGERA
+    rjmp CARGA_CONFIRMADA
+CARGA_MEDIANA:
     ldi  r16, 2
     sts  tipo_carga, r16
-    rjmp CARGA_ECO
-SET_PES:
+    rcall LEDS_MEDIANA
+    rjmp CARGA_CONFIRMADA
+CARGA_PESADA:
     ldi  r16, 3
     sts  tipo_carga, r16
+    rcall LEDS_PESADA
 
-CARGA_ECO:
+CARGA_CONFIRMADA:
     mov  r16, r18
     rcall USART_TX
     ldi  r16, 13
@@ -145,22 +171,19 @@ CARGA_ECO:
     ldi  r16, 10
     rcall USART_TX
 
-    ; Cantidad de piezas
-
+    ; Se pide la cantidad de piezas a mandar
     ldi  ZL, low(msg_pedir_piezas_1dig<<1)
     ldi  ZH, high(msg_pedir_piezas_1dig<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
 
-    rcall LEER_UN_DIGITO          
+    rcall LEER_UN_DIGITO
     sts  piezas,   r18
     sts  piezas+1, r19
     rcall USART_FLUSH_RX
 
     ldi  ZL, low(msg_iniciando<<1)
     ldi  ZH, high(msg_iniciando<<1)
-    rcall USART_PUTS_P
-
-    ; Cargar tiempos y preparar contador
+    rcall USART_MANDAR_CADENA
 
     rcall CARGAR_TIEMPOS
     lds  r26, piezas
@@ -170,13 +193,13 @@ CARGA_ECO:
     brne TIENE_P
     tst  r27
     brne TIENE_P
-    rjmp FIN_CICLO 
+    rjmp FIN_CICLO
 TIENE_P:
 
-LOOP_PIEZAS:
+BUCLE_PIEZAS:
     ldi  ZL, low(msg_pieza<<1)
     ldi  ZH, high(msg_pieza<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
     mov  r16, r26
     subi r16, -'0'
     rcall USART_TX
@@ -185,11 +208,10 @@ LOOP_PIEZAS:
     ldi  r16, 10
     rcall USART_TX
 
-    ; Alimentación
-
+    ; Alimentacion
     ldi  ZL, low(msg_alimentacion<<1)
     ldi  ZH, high(msg_alimentacion<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
     rcall M1_ADELANTE
     lds  r24, t_avance
     lds  r25, t_avance+1
@@ -198,43 +220,41 @@ LOOP_PIEZAS:
     rcall M1_PARAR
     ldi  ZL, low(msg_pausa<<1)
     ldi  ZH, high(msg_pausa<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
     lds  r24, t_pausa
     lds  r25, t_pausa+1
     rcall DELAY_MS
 
-    ; Punzado de la pieza
-
+    ; Punzado
     ldi  ZL, low(msg_bajar<<1)
     ldi  ZH, high(msg_bajar<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
     rcall M3_BAJAR
-    ldi  r24, low(T_M3_MEDIO)
-    ldi  r25, high(T_M3_MEDIO)
+    ldi  r24, low(T_M3_MEDIA)
+    ldi  r25, high(T_M3_MEDIA)
     rcall DELAY_MS
     rcall M3_PARAR
 
     ldi  ZL, low(msg_mantener<<1)
     ldi  ZH, high(msg_mantener<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
     lds  r24, t_mantener
     lds  r25, t_mantener+1
     rcall DELAY_MS
 
     ldi  ZL, low(msg_subir<<1)
     ldi  ZH, high(msg_subir<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
     rcall M3_SUBIR
-    ldi  r24, low(T_M3_MEDIO)
-    ldi  r25, high(T_M3_MEDIO)
+    ldi  r24, low(T_M3_MEDIA)
+    ldi  r25, high(T_M3_MEDIA)
     rcall DELAY_MS
     rcall M3_PARAR
 
-    ; Descarga de la pieza
-
+    ; Descarga
     ldi  ZL, low(msg_descarga<<1)
     ldi  ZH, high(msg_descarga<<1)
-    rcall USART_PUTS_P
+    rcall USART_MANDAR_CADENA
     rcall M1_ATRAS
     lds  r24, t_volver
     lds  r25, t_volver+1
@@ -242,13 +262,22 @@ LOOP_PIEZAS:
     rcall M1_PARAR
 
     sbiw r26, 1
-    brne LOOP_PIEZAS
+    brne BUCLE_PIEZAS
 
 FIN_CICLO:
-    ldi  ZL, low(msg_listo<<1)
-    ldi  ZH, high(msg_listo<<1)
-    rcall USART_PUTS_P
+    rcall LEDS_APAGAR_CARGAS
+
+    rcall LEDS_TERMINO
+    ldi  ZL, low(msg_ciclo_final<<1)
+    ldi  ZH, high(msg_ciclo_final<<1)
+    rcall USART_MANDAR_CADENA
+
+    ldi  r24, low(T_FIN_MS)
+    ldi  r25, high(T_FIN_MS)
+    rcall DELAY_MS
+
     rjmp PRINCIPAL
+
 
 ; Tiempos para cada carga
 
@@ -259,7 +288,6 @@ CARGAR_TIEMPOS:
     cpi  r16, 2
     breq CARGA_MED
 
-; Pesada
     ldi  r24, low(P_AVANCE)
     ldi  r25, high(P_AVANCE)
     sts  t_avance, r24
@@ -272,13 +300,11 @@ CARGAR_TIEMPOS:
     ldi  r25, high(P_PRESIONAR)
     sts  t_mantener, r24
     sts  t_mantener+1, r25
-    ldi  r24, low(P_volver)
-    ldi  r25, high(P_volver)
+    ldi  r24, low(P_VOLVER)
+    ldi  r25, high(P_VOLVER)
     sts  t_volver, r24
     sts  t_volver+1, r25
     ret
-
-; Mediana
 
 CARGA_MED:
     ldi  r24, low(M_AVANCE)
@@ -293,13 +319,11 @@ CARGA_MED:
     ldi  r25, high(M_PRESIONAR)
     sts  t_mantener, r24
     sts  t_mantener+1, r25
-    ldi  r24, low(M_volver)
-    ldi  r25, high(M_volver)
+    ldi  r24, low(M_VOLVER)
+    ldi  r25, high(M_VOLVER)
     sts  t_volver, r24
     sts  t_volver+1, r25
     ret
-
-; Ligera
 
 CARGA_LIG:
     ldi  r24, low(L_AVANCE)
@@ -320,7 +344,7 @@ CARGA_LIG:
     sts  t_volver+1, r25
     ret
 
-; Motores de la punzadora y de la cinta
+; Motores
 
 M1_ADELANTE:
     cbi PORTD, M1_A_BIT
@@ -348,6 +372,55 @@ M3_PARAR:
     cbi PORTB, M3_B_BIT
     ret
 
+; LEDs
+
+LEDS_APAGAR_TODOS:
+    in   r17, PORTC
+    andi r17, ~((1<<LED_ESPERA_BIT)|(1<<LED_FUNCIONANDO_BIT)|(1<<LED_TERMINO_BIT) \
+               |(1<<LED_LIGERA_BIT)|(1<<LED_MEDIANA_BIT)|(1<<LED_PESADA_BIT))
+    out  PORTC, r17
+    ret
+
+LEDS_APAGAR_ESTADOS:              ; Apaga los leds que indican el estado (o sea, esperando, funcionando,ternmino)
+    in   r17, PORTC
+    andi r17, ~((1<<LED_ESPERA_BIT)|(1<<LED_FUNCIONANDO_BIT)|(1<<LED_TERMINO_BIT))
+    out  PORTC, r17
+    ret
+
+LEDS_ESPERANDO:
+    rcall LEDS_APAGAR_ESTADOS
+    sbi  PORTC, LED_ESPERA_BIT
+    ret
+
+LEDS_FUNCIONANDO:
+    rcall LEDS_APAGAR_ESTADOS
+    sbi  PORTC, LED_FUNCIONANDO_BIT
+    ret
+
+LEDS_TERMINO:
+    rcall LEDS_APAGAR_ESTADOS
+    sbi  PORTC, LED_TERMINO_BIT
+    ret
+
+LEDS_APAGAR_CARGAS:              ; Apaga los leds que indican la carga (ligera, mediana y pesada)
+    in   r17, PORTC
+    andi r17, ~((1<<LED_LIGERA_BIT)|(1<<LED_MEDIANA_BIT)|(1<<LED_PESADA_BIT))
+    out  PORTC, r17
+    ret
+
+LEDS_LIGERA:
+    rcall LEDS_APAGAR_CARGAS
+    sbi  PORTC, LED_LIGERA_BIT
+    ret
+LEDS_MEDIANA:
+    rcall LEDS_APAGAR_CARGAS
+    sbi  PORTC, LED_MEDIANA_BIT
+    ret
+LEDS_PESADA:
+    rcall LEDS_APAGAR_CARGAS
+    sbi  PORTC, LED_PESADA_BIT
+    ret
+
 ; Delays
 
 DELAY_MS:
@@ -372,7 +445,7 @@ DLY_FIN:
     ret
 
 
-;  USART
+; USART
 
 USART_TX:
 ESPERAR_UDRE:
@@ -398,24 +471,24 @@ FLUSH_LOOP:
     lds  r16, UDR0
     rjmp FLUSH_LOOP
 
-USART_PUTS_P:
+USART_MANDAR_CADENA:
     lpm  r16, Z+
     tst  r16
-    breq PUTS_FIN
+    breq FIN_CADENA
     rcall USART_TX
-    rjmp USART_PUTS_P
-PUTS_FIN:
+    rjmp USART_MANDAR_CADENA
+FIN_CADENA:
     ret
 
-; Lee el digito cuando ingresan el numero de piezas
+; Leer el digito para la cantidad de piezas a mandar
 
 LEER_UN_DIGITO:
-LEE_D_LOOP:
+LEE_D_BUCLE:
     rcall USART_RX
     cpi  r16, '0'
-    brlo LEE_D_LOOP
+    brlo LEE_D_BUCLE
     cpi  r16, '9'+1
-    brsh LEE_D_LOOP
+    brsh LEE_D_BUCLE
     rcall USART_TX
     ldi  r19, 0
     subi r16, '0'
@@ -426,8 +499,7 @@ LEE_D_LOOP:
     rcall USART_TX
     ret
 
-; Mensajes en el monitor
-
+; Mensajes
 msg_arriba:        .db "Cinta transportadora con punzadora",13,10,0,0
 msg_pedir_A:       .db "En espera, enviar 'A' para inicializar",13,10,0,0
 msg_pedir_carga:   .db "Carga: 1=Ligera  2=Media  3=Pesada",13,10,0,0
@@ -441,5 +513,4 @@ msg_mantener:      .db "Presionando",13,10,0
 msg_subir:         .db "Punzon: Subiendo",13,10,0,0
 msg_descarga:      .db "Descarga (cinta retrocediendo)",13,10,0,0
 msg_listo:         .db "Proceso finalizado.",13,10,0
-
-	
+msg_ciclo_final:   .db "Ciclo finalizado",13,10,0,0
