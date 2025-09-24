@@ -25,9 +25,9 @@
  <LABELS>
   <Inicio><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>21</LINE></Inicio>
   <Interrupcion><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>56</LINE></Interrupcion>
-  <Tabla><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>73</LINE></Tabla>
+  <LUT><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>73</LINE></LUT>
   <Bucle><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>52</LINE></Bucle>
-  <TablaFin><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>90</LINE></TablaFin>
+  <LUTFin><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>90</LINE></LUTFin>
   <seguir><FILE>C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm</FILE><LINE>69</LINE></seguir>
  </LABELS>
 </ASSEMBLER_INFO>

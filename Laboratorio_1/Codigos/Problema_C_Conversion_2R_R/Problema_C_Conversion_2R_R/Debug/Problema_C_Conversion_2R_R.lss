@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Tue Sep 23 22:02:00 2025
+AVRASM ver. 2.2.8  C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm Tue Sep 23 22:06:05 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversion_2R_R\Problema_C_Conversion_2R_R\main.asm(6): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
@@ -1045,7 +1045,7 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
                                  ; Registros de trabajo
                                  .def aux1  = r16
                                  .def aux2  = r17
-                                 .def valor = r18                 ; Byte leido de tabla
+                                 .def valor = r18                 ; Byte leido de LUT
                                  
                                  .equ OCR2A_VAL = 62              ; Se varia segun la Fout buscada
                                  
@@ -1074,9 +1074,9 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
 000022 e001                          ldi aux1, (1<<CS20)
 000023 9300 00b1                     sts TCCR2B, aux1             ; Prescaler = 1 
                                  
-                                     ; Puntero de tabla en FLASH 
-000025 e6e6                          ldi ZL, low(Tabla*2)
-000026 e0f0                          ldi ZH, high(Tabla*2)
+                                     ; Puntero de LUT en FLASH 
+000025 e6e6                          ldi ZL, low(LUT*2)
+000026 e0f0                          ldi ZH, high(LUT*2)
                                  
 000027 9478                          sei                           ; Habilitar interrupciones
                                  
@@ -1089,19 +1089,19 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
 000029 9125                          lpm  valor, Z+                ; Leer siguiente muestra
 00002a b92b                          out  PORTD, valor             ; Salida a 2R-R
                                  
-                                     ; Volver al inicio si Z llego al fin de tabla
-00002b e606                          ldi  aux1,  low(TablaFin*2)
-00002c e011                          ldi  aux2,  high(TablaFin*2)
+                                     ; Volver al inicio si Z llego al fin de LUT
+00002b e606                          ldi  aux1,  low(LUTFin*2)
+00002c e011                          ldi  aux2,  high(LUTFin*2)
 00002d 17e0                          cp   ZL, aux1
 00002e 07f1                          cpc  ZH, aux2
 00002f f010                          brlo seguir
-000030 e6e6                          ldi  ZL, low(Tabla*2)
-000031 e0f0                          ldi  ZH, high(Tabla*2)
+000030 e6e6                          ldi  ZL, low(LUT*2)
+000031 e0f0                          ldi  ZH, high(LUT*2)
                                  seguir:
 000032 9518                          reti
                                  
-                                 ; Tabla Senial 4 (256 muestras) rampa descendente
-                                 Tabla:
+                                 ; LUT Senial 4 (256 muestras) rampa descendente
+                                 LUT:
 000033 feff
 000034 fcfd
 000035 fafb
@@ -1230,7 +1230,7 @@ C:\Repositorio\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_C_Conversio
 0000b0 0405
 0000b1 0203
 0000b2 0001                          .db 0x0f,0x0e,0x0d,0x0c,0x0b,0x0a,0x09,0x08,0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00
-                                 TablaFin:
+                                 LUTFin:
 
 
 RESOURCE USE INFORMATION
