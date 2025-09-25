@@ -4,175 +4,105 @@
         rjmp    RESET
 
 RESET:
-
-        ; Declaración del Stack Pointer
+        ; Stack Pointer
         ldi     r16, high(RAMEND)
         out     SPH, r16
         ldi     r16, low(RAMEND)
         out     SPL, r16
 
-        ; Se definen los pines del PD2 al PD7 como salidas
+       
+	    ; Declaraciones de pines
         ldi     r16, (1<<PD2)|(1<<PD3)|(1<<PD4)|(1<<PD5)|(1<<PD6)|(1<<PD7)
-        out     DDRD, r16
+        out     DDRD, r16                 
         clr     r16
-        out     PORTD, r16
+        out     PORTD, r16               
 
-        ; Configuración del Timer1: modo normal, prescaler 256
+		; Declaracion de los pines
         ldi     r17, 0
-        sts     TCCR1A, r17               ; Modo normal
-        ldi     r17, (1<<CS12)            ; Prescaler 256
+        sts     TCCR1A, r17              
+        ldi     r17, (1<<CS12)            
         sts     TCCR1B, r17
         ldi     r17, 0
-        sts     TCCR1C, r17
+        sts     TCCR1C, r17               
         ldi     r17, 0
-        sts     TIMSK1, r17               ; Sin interrupciones (Polling)
-
-        ; Configuración del Timer1 para base de 1/3 s: 65536 - (62500/3) ? 44703
-        ldi     r17, HIGH(60328)
+        sts     TIMSK1, r17               
+		     
+        ldi     r17, HIGH(3036)
         sts     TCNT1H, r17
-        ldi     r17, LOW(60328)
+        ldi     r17, LOW(3036)
         sts     TCNT1L, r17
-
         rjmp    MAIN
 
 MAIN:
-        ; Establece la posición inicial (PD7 encendido)
+
+        ; Se posciona el Plotter 
         ldi     r16, (1 <<PD7)
         out     PORTD, r16
-        rcall   DELAY_INICIO1
+        rcall   DELAY_15S
 
-        ; Establece la posición en PD4
-        ldi     r16, (1 <<PD4)
+		ldi     r16, (1<<PD4)
         out     PORTD, r16
-        rcall   DELAY_INICIO
-
-        ; Baja el solenoide (PD2 encendido)
-        ldi     r16, (1 <<PD2)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ; Ciclo de encendido y apagado de pines para formar el patrón
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_12S
-
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_4S
-
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD6)
+        rcall   DELAY_5S
+		
+		;Se baja el selenoide
+		ldi     r16, (1<<PD2)
         out     PORTD, r16
         rcall   DELAY_2S
 
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
+		; Se hace una diagonal
+		ldi     r16, (1<<PD4) | (1<<PD7)
+        out     PORTD, r16 
+        rcall   DELAY_5S
 
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_2S
-
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD6)
+		; Se levanta el selenoide
+		ldi     r16, (1<<PD3)
         out     PORTD, r16
         rcall   DELAY_2S
 
-        ldi     r16, (1 <<PD4)
+		; Se mueve hacia arriba el selenoide sin bajar
+		ldi     r16, (1<<PD5) 
         out     PORTD, r16
-        rcall   DELAY_1S
+        rcall   DELAY_5S
 
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_1S
 
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD6)
+		; Se baja el selenoide
+		ldi     r16, (1<<PD2)
         out     PORTD, r16
         rcall   DELAY_2S
 
-        ldi     r16, (1 <<PD4)
+		; Se hace la otra diagonal de la cruz
+		ldi     r16, (1<<PD4) | (1<<PD6)
+        out     PORTD, r16 
+        rcall   DELAY_5S
+
+		; Se levanta el selenoide y se pone fin al dibujo
+		ldi     r16, (1<<PD3)
         out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_2S
-
-        ldi     r16, (1 <<PD6)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD4)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-        ldi     r16, (1 <<PD7)
-        out     PORTD, r16
-        rcall   DELAY_4S
-
-        ; Sube el solenoide (PD3 encendido)
-        ldi     r16, (1 <<PD3)
-        out     PORTD, r16
-        rcall   DELAY_1S
-
-
-; Delays
-
-DELAY_1S:
-        ldi     r18, 1
-D1_LOOP:
-        ldi     r16, HIGH(60328)
+        rcall   DELAY_15S
+ 
+; Delay de 5 segundos
+DELAY_5S:
+        ldi     r18, 5                    
+D5_LOOP:
+        ldi     r16, HIGH(3036)
         sts     TCNT1H, r16
-        ldi     r16, LOW(60328)
+        ldi     r16, LOW(3036)
         sts     TCNT1L, r16
-D1_WAIT:
+D5_WAIT:
         sbis    TIFR1, TOV1
-        rjmp    D1_WAIT
-        sbi     TIFR1, TOV1
+        rjmp    D5_WAIT
+        sbi     TIFR1, TOV1              
         dec     r18
-        brne    D1_LOOP
+        brne    D5_LOOP
         ret
 
+; Delay de 2 segundos
 DELAY_2S:
-        ldi     r18, 2
+        ldi     r18, 1
 D2_LOOP:
-        ldi     r16, HIGH(60328)
+        ldi     r16, HIGH(3036)
         sts     TCNT1H, r16
-        ldi     r16, LOW(60328)
+        ldi     r16, LOW(3036)
         sts     TCNT1L, r16
 D2_WAIT:
         sbis    TIFR1, TOV1
@@ -182,62 +112,35 @@ D2_WAIT:
         brne    D2_LOOP
         ret
 
-DELAY_4S:
-        ldi     r18, 4
-D4S_LOOP:
-        ldi     r16, HIGH(60328)
+; Delay de 15 segundos
+DELAY_15S:
+        ldi     r18, 15
+D15_LOOP:
+        ldi     r16, HIGH(3036)
         sts     TCNT1H, r16
-        ldi     r16, LOW(60328)
+        ldi     r16, LOW(3036)
         sts     TCNT1L, r16
-D4S_WAIT:
+D15_WAIT:
         sbis    TIFR1, TOV1
-        rjmp    D4S_WAIT
+        rjmp    D15_WAIT
         sbi     TIFR1, TOV1
         dec     r18
-        brne    D4S_LOOP
+        brne    D15_LOOP
         ret
 
-DELAY_12S:
-        ldi     r18, 12
-D12S_LOOP:
-        ldi     r16, HIGH(60328)
-        sts     TCNT1H, r16
-        ldi     r16, LOW(60328)
-        sts     TCNT1L, r16
-D12S_WAIT:
-        sbis    TIFR1, TOV1
-        rjmp    D12S_WAIT
-        sbi     TIFR1, TOV1
-        dec     r18
-        brne    D12S_LOOP
-        ret
 
-DELAY_INICIO:
-        ldi     r18, 80
-DINICIO_LOOP:
-        ldi     r16, HIGH(60328)
+DELAY_10S:
+        ldi     r18, 10            
+D10_LOOP:
+        
+        ldi     r16, HIGH(3036)
         sts     TCNT1H, r16
-        ldi     r16, LOW(60328)
+        ldi     r16, LOW(3036)
         sts     TCNT1L, r16
-DINICIO_WAIT:
-        sbis    TIFR1, TOV1
-        rjmp    DINICIO_WAIT
-        sbi     TIFR1, TOV1
+D10_WAIT:
+        sbis    TIFR1, TOV1              ; espera overflow
+        rjmp    D10_WAIT
+        sbi     TIFR1, TOV1              ; limpiar flag
         dec     r18
-        brne    DINICIO_LOOP
-        ret
-
-DELAY_INICIO1:
-        ldi     r18, 100
-DINICIO1_LOOP:
-        ldi     r16, HIGH(60328)
-        sts     TCNT1H, r16
-        ldi     r16, LOW(60328)
-        sts     TCNT1L, r16
-DINICIO1_WAIT:
-        sbis    TIFR1, TOV1
-        rjmp    DINICIO1_WAIT
-        sbi     TIFR1, TOV1
-        dec     r18
-        brne    DINICIO1_LOOP
+        brne    D10_LOOP
         ret
