@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm Thu Sep 25 03:23:39 2025
+AVRASM ver. 2.2.8  C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm Fri Sep 26 03:51:27 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\Codigos\Problema_D_Plotter\Problema_D_Plotter\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328pdef.inc'
@@ -1031,150 +1031,1992 @@ C:\Users\juanm\Desktop\Laboratorios\Micro\Tec.Microprocesamiento\Laboratorio_1\C
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 .org    0x0000
-000000 c000                              rjmp    RESET
+                                 .org 0x0000
+000000 c000                          rjmp Inicio
                                  
-                                 RESET:
-                                         ; Stack Pointer
-000001 e008                              ldi     r16, high(RAMEND)
-000002 bf0e                              out     SPH, r16
-000003 ef0f                              ldi     r16, low(RAMEND)
-000004 bf0d                              out     SPL, r16
-                                 
-                                        
-                                 	    ; Declaraciones de pines
-000005 ef0c                              ldi     r16, (1<<PD2)|(1<<PD3)|(1<<PD4)|(1<<PD5)|(1<<PD6)|(1<<PD7)
-000006 b90a                              out     DDRD, r16                 
-000007 2700                              clr     r16
-000008 b90b                              out     PORTD, r16               
-                                 
-                                 		; Declaracion de los pines
-000009 e010                              ldi     r17, 0
-00000a 9310 0080                         sts     TCCR1A, r17              
-00000c e014                              ldi     r17, (1<<CS12)            
-00000d 9310 0081                         sts     TCCR1B, r17
-00000f e010                              ldi     r17, 0
-000010 9310 0082                         sts     TCCR1C, r17               
-000012 e010                              ldi     r17, 0
-000013 9310 006f                         sts     TIMSK1, r17               
-                                 		     
-000015 e01b                              ldi     r17, HIGH(3036)
-000016 9310 0085                         sts     TCNT1H, r17
-000018 ed1c                              ldi     r17, LOW(3036)
-000019 9310 0084                         sts     TCNT1L, r17
-00001b c000                              rjmp    MAIN
-                                 
-                                 MAIN:
-                                 
-                                         ; Se posciona el Plotter 
-00001c e800                              ldi     r16, (1 <<PD7)
-00001d b90b                              out     PORTD, r16
-00001e d032                              rcall   DELAY_15S
-                                 
-00001f e100                      		ldi     r16, (1<<PD4)
-000020 b90b                              out     PORTD, r16
-000021 d015                              rcall   DELAY_5S
-                                 		
-                                 		; Se baja el selenoide
-000022 e004                      		ldi     r16, (1<<PD2)
-000023 b90b                              out     PORTD, r16
-000024 d01f                              rcall   DELAY_2S
-                                 
-                                 		; Se hace una diagonal
-000025 e900                      		ldi     r16, (1<<PD4) | (1<<PD7)
-000026 b90b                              out     PORTD, r16 
-000027 d00f                              rcall   DELAY_5S
-                                 
-                                 		; Se levanta el selenoide
-000028 e008                      		ldi     r16, (1<<PD3)
-000029 b90b                              out     PORTD, r16
-00002a d019                              rcall   DELAY_2S
-                                 
-                                 		; Se mueve hacia arriba el selenoide sin bajar
-00002b e200                      		ldi     r16, (1<<PD5) 
-00002c b90b                              out     PORTD, r16
-00002d d009                              rcall   DELAY_5S
+                                 .equ F_CPU = 16000000
+                                 .equ baud  = 9600
+                                 .equ bps   = (F_CPU/16/baud) - 1
                                  
                                  
-                                 		; Se baja el selenoide
-00002e e004                      		ldi     r16, (1<<PD2)
-00002f b90b                              out     PORTD, r16
-000030 d013                              rcall   DELAY_2S
+                                 Inicio:
+                                     ; Inicar stack
+000001 e008                          ldi r16, HIGH(RAMEND)
+000002 bf0e                          out SPH, r16
+000003 ef0f                          ldi r16, LOW(RAMEND)
+000004 bf0d                          out SPL, r16
                                  
-                                 		; Se hace la otra diagonal de la cruz
-000031 e500                      		ldi     r16, (1<<PD4) | (1<<PD6)
-000032 b90b                              out     PORTD, r16 
-000033 d003                              rcall   DELAY_5S
+                                     ; UART 9600
+000005 e607                          ldi r16, LOW(bps)
+000006 e010                          ldi r17, HIGH(bps)
+000007 d043                          rcall iniciarUART
                                  
-                                 		; Se levanta el selenoide y se pone fin al dibujo
-000034 e008                      		ldi     r16, (1<<PD3)
-000035 b90b                              out     PORTD, r16
-000036 d01a                              rcall   DELAY_15S
+                                 	; Definicion de los Pines PD como salida
+000008 ef4c                          ldi     r20, (1<<PD2)|(1<<PD3)|(1<<PD4)|(1<<PD5)|(1<<PD6)|(1<<PD7)
+000009 b94a                          out     DDRD, r20                
+00000a 2744                          clr     r20
+00000b b94b                          out     PORTD, r20  
+                                 	
+                                 	    
+00000c e050                      	ldi     r21, 0
+00000d 9350 0080                     sts     TCCR1A, r21               
+00000f e054                          ldi     r21, (1<<CS12)           
+000010 9350 0081                     sts     TCCR1B, r21
+000012 e050                          ldi     r21, 0
+000013 9350 0082                     sts     TCCR1C, r21               
+000015 e050                          ldi     r21, 0
+000016 9350 006f                     sts     TIMSK1, r21               
+                                 
+                                         
+000018 ef15                          ldi     r17, HIGH(62932)
+000019 9350 0085                     sts     TCNT1H, r21
+00001b ed14                          ldi     r17, LOW(62932)
+00001c 9350 0084                     sts     TCNT1L, r21
                                   
-                                 ; Delay de 5 segundos
-                                 DELAY_5S:
-000037 e025                              ldi     r18, 5                    
-                                 D5_LOOP:
-000038 e00b                              ldi     r16, HIGH(3036)
-000039 9300 0085                         sts     TCNT1H, r16
-00003b ed0c                              ldi     r16, LOW(3036)
-00003c 9300 0084                         sts     TCNT1L, r16
-                                 D5_WAIT:
-00003e 9bb0                              sbis    TIFR1, TOV1
-00003f cffe                              rjmp    D5_WAIT
-000040 9ab0                              sbi     TIFR1, TOV1              
-000041 952a                              dec     r18
-000042 f7a9                              brne    D5_LOOP
-000043 9508                              ret
+                                     ; Mensaje de bienvenida + Menu
+00001e e0f9                          ldi ZH, high(msgInicio<<1)
+00001f e0e4                          ldi ZL, low(msgInicio<<1)
+000020 d043                          rcall enviarCadenaFlash
                                  
-                                 ; Delay de 2 segundos
+                                 main_loop:
+000021 d03b                          rcall recibirCaracter               ; lee tecla en r16
+                                 
+                                     ; Switch: '1','2','3','T'/'t'
+000022 3301                          cpi  r16, '1'
+000023 f049                          breq caso_triangulo
+000024 3302                          cpi  r16, '2'
+000025 f061                          breq caso_circulo
+000026 3303                          cpi  r16, '3'
+000027 f079                          breq caso_cruz
+000028 3504                          cpi  r16, 'T'
+000029 f091                          breq caso_todas
+00002a 3704                          cpi  r16, 't'
+00002b f081                          breq caso_todas
+                                 
+00002c c014                          rjmp caso_default
+                                 
+                                 ; Casos
+                                 caso_triangulo:
+                                     ; Texto para Triangulo
+00002d e0f9                          ldi ZH, high(txtTriangulo<<1)
+00002e e9e2                          ldi ZL, low(txtTriangulo<<1)
+00002f d034                          rcall enviarCadenaFlash
+                                     ; Dibuja Triangulo
+000030 d238                          rcall figura_triangulo
+000031 c018                          rjmp fin_switch
+                                 
+                                 caso_circulo:
+                                 	; Texto en USART para Circulo
+000032 e0f9                          ldi ZH, high(txtCirculo<<1)
+000033 eaec                          ldi ZL, low(txtCirculo<<1)
+000034 d02f                          rcall enviarCadenaFlash ; envia el caracter correcto para la USART
+                                 	; Dibuja Circulo
+000035 d255                          rcall figura_circulo
+000036 c013                          rjmp fin_switch
+                                 
+                                 caso_cruz:
+                                 	; Texto en USART para Cruz
+000037 e0f9                          ldi ZH, high(txtCruz<<1)
+000038 ece4                          ldi ZL, low(txtCruz<<1)
+000039 d02a                          rcall enviarCadenaFlash
+                                 	; Dibuja Cruz
+00003a d422                          rcall figura_cruz
+00003b c00e                          rjmp fin_switch
+                                 
+                                 caso_todas:
+                                 	; Texto para todas las Figuras
+00003c e0f9                          ldi ZH, high(txtTodas<<1)
+00003d ede8                          ldi ZL, low(txtTodas<<1)
+00003e d025                          rcall enviarCadenaFlash 
+                                 	; Dibuja las 3 figuras
+00003f d02a                          rcall figuras_todas
+000040 c009                      	rjmp fin_switch
+                                 
+                                 caso_default:
+000041 d014                          rcall enviarCaracter          ; envia el caracter inv?lido en r16
+000042 e00d                          ldi  r16, 13
+000043 d012                          rcall enviarCaracter
+000044 e00a                          ldi  r16, 10
+000045 d010                          rcall enviarCaracter
+                                 	; Imprime la opcion invalida
+000046 e0f9                          ldi ZH, high(msgOpcionInvalida<<1)
+000047 e6ee                          ldi ZL, low(msgOpcionInvalida<<1)
+000048 d01b                          rcall enviarCadenaFlash
+000049 c000                          rjmp fin_switch
+                                 
+                                 fin_switch:
+00004a cfd6                          rjmp main_loop
+                                 
+                                 
+                                 ;r16 = dato a TX en enviarCaracter
+                                 ;r16 <= dato RX en recibirCaracter
+                                 
+                                 ; Deja listo el puerto serie para poder enviar y recibir.
+                                 iniciarUART:
+00004b 9300 00c4                     sts UBRR0L, r16
+00004d 9310 00c5                     sts UBRR0H, r17
+00004f e108                          ldi r16, (1<<RXEN0)|(1<<TXEN0)
+000050 9300 00c1                     sts UCSR0B, r16
+000052 e006                          ldi r16, (1<<UCSZ01)|(1<<UCSZ00)   
+000053 9300 00c2                     sts UCSR0C, r16
+000055 9508                          ret
+                                 
+                                 ; Env?a un byte por el puerto serie (espera hasta que se pueda y lo manda).
+                                 enviarCaracter:
+000056 9110 00c0                     lds r17, UCSR0A
+000058 ff15                          sbrs r17, UDRE0
+000059 cffc                          rjmp enviarCaracter
+00005a 9300 00c6                     sts UDR0, r16
+00005c 9508                          ret
+                                 
+                                 ; Lee un byte que lleg? por el puerto serie (espera a que llegue y lo toma).
+                                 recibirCaracter:
+00005d 9110 00c0                     lds r17, UCSR0A
+00005f ff17                          sbrs r17, RXC0
+000060 cffc                          rjmp recibirCaracter
+000061 9100 00c6                     lds r16, UDR0
+000063 9508                          ret
+                                 
+                                 ; Env?a un texto guardado en la memoria de programa hasta encontrar el 0 final.
+                                 enviarCadenaFlash:
+000064 9105                          lpm r16, Z+
+000065 3000                          cpi r16, 0
+000066 f011                          breq fin_enviarCadenaFlash
+000067 dfee                          rcall enviarCaracter
+000068 cffb                          rjmp enviarCadenaFlash
+                                 fin_enviarCadenaFlash:
+000069 9508                          ret
+                                 
+                                 figuras_todas:
+                                 		; Ubicacion del Selenoide para Dibujar
+00006a e840                              ldi     r20, (1<<PD7)
+00006b b94b                              out     PORTD, r20
+00006c d56b                              rcall   DELAY_20S_LARGO
+                                 
+00006d e840                      		ldi     r20, (1<<PD7)
+00006e b94b                              out     PORTD, r20
+00006f d55b                              rcall   DELAY_10S_LARGO
+                                 
+000070 e140                              ldi     r20, (1<<PD4)
+000071 b94b                              out     PORTD, r20
+000072 d558                              rcall   DELAY_10S_LARGO
+                                 
+000073 e140                      		ldi     r20, (1<<PD4)
+000074 b94b                              out     PORTD, r20
+000075 d555                              rcall   DELAY_10S_LARGO
+                                 
+                                 		;TRIANGULO
+                                 		; Baja el selenoide
+000076 e044                              ldi     r20, (1 <<PD2) 
+000077 b94b                              out     PORTD, r20
+000078 d529                              rcall   DELAY_2S_LARGO
+                                 
+                                 		; Realizar el Dibujo del Triangulo
+000079 e140                              ldi     r20, (1<<PD4)
+00007a b94b                              out     PORTD, r20
+00007b d535                              rcall   DELAY_5S_LARGO
+                                 
+00007c e840                              ldi     r20, (1<<PD7)
+00007d b94b                              out     PORTD, r20
+00007e d532                              rcall   DELAY_5S_LARGO
+                                 
+00007f e640                              ldi     r20, (1<<PD6) | (1<<PD5)
+000080 b94b                              out     PORTD, r20
+000081 d52f                              rcall   DELAY_5S_LARGO
+                                 
+                                 		; LEVANTA SELENOIDE
+000082 e048                              ldi     r20, (1<<PD3)
+000083 b94b                              out     PORTD, r20
+000084 d478                              rcall   DELAY_1S
+                                 
+                                 		; SE MUEVE HACIA LA IZQUIERDA
+                                 
+000085 e440                      		ldi     r20, (1<<PD6)
+000086 b94b                              out     PORTD, r20
+000087 d529                              rcall   DELAY_5S_LARGO
+                                 		
+                                 
+                                        ; BAJA SELENOIDE
+000088 e044                              ldi     r20, (1<<PD2)
+000089 b94b                              out     PORTD, r20
+00008a d517                              rcall   DELAY_2S_LARGO
+                                 
+                                        ;CIRCULO
+00008b e440                              ldi     r20, (1<<PD6)
+00008c b94b                              out     PORTD, r20
+00008d d4f6                              rcall   DELAY_12S
+                                 
+00008e e140                      		ldi     r20, (1<<PD4)
+00008f b94b                              out     PORTD, r20
+000090 d46c                              rcall   DELAY_1S
+                                 
+000091 e440                      		ldi     r20, (1<<PD6)
+000092 b94b                              out     PORTD, r20
+000093 d4e1                              rcall   DELAY_4S
+                                 
+000094 e140                      		ldi     r20, (1 <<PD4)
+000095 b94b                              out     PORTD, r20
+000096 d466                              rcall   DELAY_1S
+                                 
+000097 e440                      		ldi     r20, (1 <<PD6)
+000098 b94b                              out     PORTD, r20
+000099 d481                              rcall   DELAY_2S
+                                 
+00009a e140                      		ldi     r20, (1 <<PD4)
+00009b b94b                              out     PORTD, r20
+00009c d460                              rcall   DELAY_1S
+                                 
+00009d e440                      		ldi     r20, (1 <<PD6)
+00009e b94b                              out     PORTD, r20
+00009f d47b                              rcall   DELAY_2S
+                                 
+0000a0 e140                      		ldi     r20, (1 <<PD4)
+0000a1 b94b                              out     PORTD, r20
+0000a2 d45a                              rcall   DELAY_1S
+                                 
+0000a3 e440                      		ldi     r20, (1 <<PD6)
+0000a4 b94b                              out     PORTD, r20
+0000a5 d475                              rcall   DELAY_2S
+                                 
+0000a6 e140                      		ldi     r20, (1 <<PD4)
+0000a7 b94b                              out     PORTD, r20
+0000a8 d454                              rcall   DELAY_1S
+                                 
+0000a9 e440                      		ldi     r20, (1 <<PD6)
+0000aa b94b                              out     PORTD, r20
+0000ab d46f                              rcall   DELAY_2S
+                                 
+0000ac e140                      		ldi     r20, (1 <<PD4)
+0000ad b94b                              out     PORTD, r20
+0000ae d44e                              rcall   DELAY_1S
+                                 
+0000af e440                      		ldi     r20, (1 <<PD6)
+0000b0 b94b                              out     PORTD, r20
+0000b1 d44b                              rcall   DELAY_1S
+                                 
+0000b2 e140                      		ldi     r20, (1 <<PD4)
+0000b3 b94b                              out     PORTD, r20
+0000b4 d448                              rcall   DELAY_1S
+                                 
+0000b5 e440                      		ldi     r20, (1 <<PD6)
+0000b6 b94b                              out     PORTD, r20
+0000b7 d445                              rcall   DELAY_1S
+                                 
+0000b8 e140                      		ldi     r20, (1 <<PD4)
+0000b9 b94b                              out     PORTD, r20
+0000ba d442                              rcall   DELAY_1S
+                                 
+0000bb e440                      		ldi     r20, (1 <<PD6)
+0000bc b94b                              out     PORTD, r20
+0000bd d45d                              rcall   DELAY_2S
+                                 
+0000be e140                      		ldi     r20, (1 <<PD4)
+0000bf b94b                              out     PORTD, r20
+0000c0 d43c                              rcall   DELAY_1S
+                                 
+0000c1 e440                      		ldi     r20, (1 <<PD6)
+0000c2 b94b                              out     PORTD, r20
+0000c3 d439                              rcall   DELAY_1S
+                                 
+0000c4 e140                      		ldi     r20, (1 <<PD4)
+0000c5 b94b                              out     PORTD, r20
+0000c6 d436                              rcall   DELAY_1S
+                                 
+0000c7 e440                      		ldi     r20, (1 <<PD6)
+0000c8 b94b                              out     PORTD, r20
+0000c9 d433                              rcall   DELAY_1S
+                                 		
+0000ca e140                      		ldi     r20, (1 <<PD4)
+0000cb b94b                              out     PORTD, r20
+0000cc d44e                              rcall   DELAY_2S
+                                 
+0000cd e440                      		ldi     r20, (1 <<PD6)
+0000ce b94b                              out     PORTD, r20
+0000cf d42d                              rcall   DELAY_1S
+                                 
+0000d0 e140                      		ldi     r20, (1 <<PD4)
+0000d1 b94b                              out     PORTD, r20
+0000d2 d42a                              rcall   DELAY_1S
+                                 
+0000d3 e440                      		ldi     r20, (1 <<PD6)
+0000d4 b94b                              out     PORTD, r20
+0000d5 d427                              rcall   DELAY_1S
+                                 
+0000d6 e140                      		ldi     r20, (1 <<PD4)
+0000d7 b94b                              out     PORTD, r20
+0000d8 d424                              rcall   DELAY_1S
+                                 
+0000d9 e440                      		ldi     r20, (1 <<PD6)
+0000da b94b                              out     PORTD, r20
+0000db d421                              rcall   DELAY_1S
+                                 
+0000dc e140                      		ldi     r20, (1 <<PD4)
+0000dd b94b                              out     PORTD, r20
+0000de d43c                              rcall   DELAY_2S
+                                 		
+0000df e440                      		ldi     r20, (1 <<PD6)
+0000e0 b94b                              out     PORTD, r20
+0000e1 d41b                              rcall   DELAY_1S
+                                 
+0000e2 e140                      		ldi     r20, (1 <<PD4)
+0000e3 b94b                              out     PORTD, r20
+0000e4 d436                              rcall   DELAY_2S
+                                 
+0000e5 e440                      		ldi     r20, (1 <<PD6)
+0000e6 b94b                              out     PORTD, r20
+0000e7 d415                              rcall   DELAY_1S
+                                 
+0000e8 e140                      		ldi     r20, (1 <<PD4)
+0000e9 b94b                              out     PORTD, r20
+0000ea d430                              rcall   DELAY_2S
+                                 
+0000eb e440                      		ldi     r20, (1 <<PD6)
+0000ec b94b                              out     PORTD, r20
+0000ed d40f                              rcall   DELAY_1S
+                                 
+0000ee e140                      		ldi     r20, (1 <<PD4)
+0000ef b94b                              out     PORTD, r20
+0000f0 d42a                              rcall   DELAY_2S
+                                 
+0000f1 e440                      		ldi     r20, (1 <<PD6)
+0000f2 b94b                              out     PORTD, r20
+0000f3 d409                              rcall   DELAY_1S
+                                 
+0000f4 e140                      		ldi     r20, (1 <<PD4)
+0000f5 b94b                              out     PORTD, r20
+0000f6 d47e                              rcall   DELAY_4S
+                                 
+0000f7 e440                      		ldi     r20, (1 <<PD6)
+0000f8 b94b                              out     PORTD, r20
+0000f9 d403                              rcall   DELAY_1S
+                                 
+0000fa e140                      		ldi     r20, (1 <<PD4)
+0000fb b94b                              out     PORTD, r20
+0000fc d487                              rcall   DELAY_12S
+                                 
+0000fd e840                      		ldi     r20, (1 <<PD7)
+0000fe b94b                              out     PORTD, r20
+0000ff d3fd                              rcall   DELAY_1S
+                                 
+000100 e140                      		ldi     r20, (1 <<PD4)
+000101 b94b                              out     PORTD, r20
+000102 d472                              rcall   DELAY_4S
+                                 
+000103 e840                      		ldi     r20, (1 <<PD7)
+000104 b94b                              out     PORTD, r20
+000105 d3f7                              rcall   DELAY_1S
+                                 
+000106 e140                      		ldi     r20, (1 <<PD4)
+000107 b94b                              out     PORTD, r20
+000108 d412                              rcall   DELAY_2S
+                                 
+000109 e840                      		ldi     r20, (1 <<PD7)
+00010a b94b                              out     PORTD, r20
+00010b d3f1                              rcall   DELAY_1S
+                                 
+00010c e140                      		ldi     r20, (1 <<PD4)
+00010d b94b                              out     PORTD, r20
+00010e d40c                              rcall   DELAY_2S
+                                 
+00010f e840                      		ldi     r20, (1 <<PD7)
+000110 b94b                              out     PORTD, r20
+000111 d3eb                              rcall   DELAY_1S
+                                 
+000112 e140                      		ldi     r20, (1 <<PD4)
+000113 b94b                              out     PORTD, r20
+000114 d406                              rcall   DELAY_2S
+                                 
+000115 e840                      		ldi     r20, (1 <<PD7)
+000116 b94b                              out     PORTD, r20
+000117 d3e5                              rcall   DELAY_1S
+                                 
+000118 e140                      		ldi     r20, (1 <<PD4)
+000119 b94b                              out     PORTD, r20
+00011a d400                              rcall   DELAY_2S
+                                 
+00011b e840                      		ldi     r20, (1 <<PD7)
+00011c b94b                              out     PORTD, r20
+00011d d3df                              rcall   DELAY_1S
+                                 
+00011e e140                      		ldi     r20, (1 <<PD4)
+00011f b94b                              out     PORTD, r20
+000120 d3dc                              rcall   DELAY_1S
+                                 
+000121 e840                      		ldi     r20, (1 <<PD7)
+000122 b94b                              out     PORTD, r20
+000123 d3d9                              rcall   DELAY_1S
+                                 
+000124 e140                      		ldi     r20, (1 <<PD4)
+000125 b94b                              out     PORTD, r20
+000126 d3d6                              rcall   DELAY_1S
+                                 
+000127 e840                      		ldi     r20, (1 <<PD7)
+000128 b94b                              out     PORTD, r20
+000129 d3d3                              rcall   DELAY_1S
+                                 
+00012a e140                      		ldi     r20, (1 <<PD4)
+00012b b94b                              out     PORTD, r20
+00012c d3ee                              rcall   DELAY_2S
+                                 
+00012d e840                      		ldi     r20, (1 <<PD7)
+00012e b94b                              out     PORTD, r20
+00012f d3cd                              rcall   DELAY_1S
+                                 
+000130 e140                      		ldi     r20, (1 <<PD4)
+000131 b94b                              out     PORTD, r20
+000132 d3ca                              rcall   DELAY_1S
+                                 
+000133 e840                      		ldi     r20, (1 <<PD7)
+000134 b94b                              out     PORTD, r20
+000135 d3c7                              rcall   DELAY_1S
+                                 
+000136 e140                      		ldi     r20, (1 <<PD4)
+000137 b94b                              out     PORTD, r20
+000138 d3c4                              rcall   DELAY_1S
+                                 
+000139 e840                      		ldi     r20, (1 <<PD7)
+00013a b94b                              out     PORTD, r20
+00013b d3df                              rcall   DELAY_2S
+                                 
+00013c e140                      		ldi     r20, (1 <<PD4)
+00013d b94b                              out     PORTD, r20
+00013e d3be                              rcall   DELAY_1S
+                                 
+00013f e840                      		ldi     r20, (1 <<PD7)
+000140 b94b                              out     PORTD, r20
+000141 d3bb                              rcall   DELAY_1S
+                                 
+000142 e140                      		ldi     r20, (1 <<PD4)
+000143 b94b                              out     PORTD, r20
+000144 d3b8                              rcall   DELAY_1S
+                                 
+000145 e840                      		ldi     r20, (1 <<PD7)
+000146 b94b                              out     PORTD, r20
+000147 d3b5                              rcall   DELAY_1S
+                                 
+000148 e140                      		ldi     r20, (1 <<PD4)
+000149 b94b                              out     PORTD, r20
+00014a d3b2                              rcall   DELAY_1S
+                                 
+00014b e840                      		ldi     r20, (1 <<PD7)
+00014c b94b                              out     PORTD, r20
+00014d d3cd                              rcall   DELAY_2S
+                                 
+00014e e140                      		ldi     r20, (1 <<PD4)
+00014f b94b                              out     PORTD, r20
+000150 d3ac                              rcall   DELAY_1S
+                                 
+000151 e840                      		ldi     r20, (1 <<PD7)
+000152 b94b                              out     PORTD, r20
+000153 d3c7                              rcall   DELAY_2S
+                                 
+000154 e140                      		ldi     r20, (1 <<PD4)
+000155 b94b                              out     PORTD, r20
+000156 d3a6                              rcall   DELAY_1S
+                                 
+000157 e840                      		ldi     r20, (1 <<PD7)
+000158 b94b                              out     PORTD, r20
+000159 d3c1                              rcall   DELAY_2S
+                                 
+00015a e140                      		ldi     r20, (1 <<PD4)
+00015b b94b                              out     PORTD, r20
+00015c d3a0                              rcall   DELAY_1S
+                                 
+00015d e840                      		ldi     r20, (1 <<PD7)
+00015e b94b                              out     PORTD, r20
+00015f d3bb                              rcall   DELAY_2S
+                                 
+000160 e140                      		ldi     r20, (1 <<PD4)
+000161 b94b                              out     PORTD, r20
+000162 d39a                              rcall   DELAY_1S
+                                 
+000163 e840                      		ldi     r20, (1 <<PD7)
+000164 b94b                              out     PORTD, r20
+000165 d40f                              rcall   DELAY_4S
+                                 
+000166 e140                      		ldi     r20, (1 <<PD4)
+000167 b94b                              out     PORTD, r20
+000168 d394                              rcall   DELAY_1S
+                                 
+000169 e840                      		ldi     r20, (1 <<PD7)
+00016a b94b                              out     PORTD, r20
+00016b d418                              rcall   DELAY_12S
+                                 
+00016c e240                      		ldi     r20, (1 <<PD5)
+00016d b94b                              out     PORTD, r20
+00016e d38e                              rcall   DELAY_1S
+                                 
+00016f e840                              ldi     r20, (1 <<PD7)
+000170 b94b                              out     PORTD, r20
+000171 d403                              rcall   DELAY_4S
+                                 
+000172 e240                              ldi     r20, (1 <<PD5)
+000173 b94b                              out     PORTD, r20
+000174 d388                              rcall   DELAY_1S
+                                 
+000175 e840                              ldi     r20, (1 <<PD7)
+000176 b94b                              out     PORTD, r20
+000177 d3a3                              rcall   DELAY_2S
+                                 
+000178 e240                              ldi     r20, (1 <<PD5)
+000179 b94b                              out     PORTD, r20
+00017a d382                              rcall   DELAY_1S
+                                 
+00017b e840                              ldi     r20, (1 <<PD7)
+00017c b94b                              out     PORTD, r20
+00017d d39d                              rcall   DELAY_2S
+                                 
+00017e e240                              ldi     r20, (1 <<PD5)
+00017f b94b                              out     PORTD, r20
+000180 d37c                              rcall   DELAY_1S
+                                 
+000181 e840                              ldi     r20, (1 <<PD7)
+000182 b94b                              out     PORTD, r20
+000183 d397                              rcall   DELAY_2S
+                                 
+000184 e240                              ldi     r20, (1 <<PD5)
+000185 b94b                              out     PORTD, r20
+000186 d376                              rcall   DELAY_1S
+                                 
+000187 e840                              ldi     r20, (1 <<PD7)
+000188 b94b                              out     PORTD, r20
+000189 d391                              rcall   DELAY_2S
+                                 
+00018a e240                              ldi     r20, (1 <<PD5)
+00018b b94b                              out     PORTD, r20
+00018c d370                              rcall   DELAY_1S
+                                 
+00018d e840                              ldi     r20, (1 <<PD7)
+00018e b94b                              out     PORTD, r20
+00018f d36d                              rcall   DELAY_1S
+                                 
+000190 e240                              ldi     r20, (1 <<PD5)
+000191 b94b                              out     PORTD, r20
+000192 d36a                              rcall   DELAY_1S
+                                 
+000193 e840                              ldi     r20, (1 <<PD7)
+000194 b94b                              out     PORTD, r20
+000195 d367                              rcall   DELAY_1S
+                                 
+000196 e240                              ldi     r20, (1 <<PD5)
+000197 b94b                              out     PORTD, r20
+000198 d364                              rcall   DELAY_1S
+                                 
+000199 e840                              ldi     r20, (1 <<PD7)
+00019a b94b                              out     PORTD, r20
+00019b d37f                              rcall   DELAY_2S
+                                 
+00019c e240                              ldi     r20, (1 <<PD5)
+00019d b94b                              out     PORTD, r20
+00019e d35e                              rcall   DELAY_1S
+                                 
+00019f e840                              ldi     r20, (1 <<PD7)
+0001a0 b94b                              out     PORTD, r20
+0001a1 d35b                              rcall   DELAY_1S
+                                 
+0001a2 e240                              ldi     r20, (1 <<PD5)
+0001a3 b94b                              out     PORTD, r20
+0001a4 d358                              rcall   DELAY_1S
+                                 
+0001a5 e840                              ldi     r20, (1 <<PD7)
+0001a6 b94b                              out     PORTD, r20
+0001a7 d355                              rcall   DELAY_1S
+                                 		
+0001a8 e240                              ldi     r20, (1 <<PD5)
+0001a9 b94b                              out     PORTD, r20
+0001aa d370                              rcall   DELAY_2S
+                                 
+0001ab e840                              ldi     r20, (1 <<PD7)
+0001ac b94b                              out     PORTD, r20
+0001ad d34f                              rcall   DELAY_1S
+                                 
+0001ae e240                              ldi     r20, (1 <<PD5)
+0001af b94b                              out     PORTD, r20
+0001b0 d34c                              rcall   DELAY_1S
+                                 
+0001b1 e840                              ldi     r20, (1 <<PD7)
+0001b2 b94b                              out     PORTD, r20
+0001b3 d349                              rcall   DELAY_1S
+                                 
+0001b4 e240                              ldi     r20, (1 <<PD5)
+0001b5 b94b                              out     PORTD, r20
+0001b6 d346                              rcall   DELAY_1S
+                                 
+0001b7 e840                              ldi     r20, (1 <<PD7)
+0001b8 b94b                              out     PORTD, r20
+0001b9 d343                              rcall   DELAY_1S
+                                 
+0001ba e240                              ldi     r20, (1 <<PD5)
+0001bb b94b                              out     PORTD, r20
+0001bc d35e                              rcall   DELAY_2S
+                                 		
+0001bd e840                              ldi     r20, (1 <<PD7)
+0001be b94b                              out     PORTD, r20
+0001bf d33d                              rcall   DELAY_1S
+                                 
+0001c0 e240                              ldi     r20, (1 <<PD5)
+0001c1 b94b                              out     PORTD, r20
+0001c2 d358                              rcall   DELAY_2S
+                                 
+0001c3 e840                              ldi     r20, (1 <<PD7)
+0001c4 b94b                              out     PORTD, r20
+0001c5 d337                              rcall   DELAY_1S
+                                 
+0001c6 e240                              ldi     r20, (1 <<PD5)
+0001c7 b94b                              out     PORTD, r20
+0001c8 d352                              rcall   DELAY_2S
+                                 
+0001c9 e840                              ldi     r20, (1 <<PD7)
+0001ca b94b                              out     PORTD, r20
+0001cb d331                              rcall   DELAY_1S
+                                 
+0001cc e240                              ldi     r20, (1 <<PD5)
+0001cd b94b                              out     PORTD, r20
+0001ce d34c                              rcall   DELAY_2S
+                                 
+0001cf e840                              ldi     r20, (1 <<PD7)
+0001d0 b94b                              out     PORTD, r20
+0001d1 d32b                              rcall   DELAY_1S
+                                 
+0001d2 e240                              ldi     r20, (1 <<PD5)
+0001d3 b94b                              out     PORTD, r20
+0001d4 d3a0                              rcall   DELAY_4S
+                                 
+0001d5 e840                              ldi     r20, (1 <<PD7)
+0001d6 b94b                              out     PORTD, r20
+0001d7 d325                              rcall   DELAY_1S
+                                 
+0001d8 e240                              ldi     r20, (1 <<PD5)
+0001d9 b94b                              out     PORTD, r20
+0001da d3a9                              rcall   DELAY_12S
+                                 
+0001db e440                              ldi     r20, (1 <<PD6)
+0001dc b94b                              out     PORTD, r20
+0001dd d31f                              rcall   DELAY_1S
+                                 
+0001de e240                              ldi     r20, (1 <<PD5)
+0001df b94b                              out     PORTD, r20
+0001e0 d394                              rcall   DELAY_4S
+                                 
+0001e1 e440                              ldi     r20, (1 <<PD6)
+0001e2 b94b                              out     PORTD, r20
+0001e3 d319                              rcall   DELAY_1S
+                                 
+0001e4 e240                              ldi     r20, (1 <<PD5)
+0001e5 b94b                              out     PORTD, r20
+0001e6 d334                              rcall   DELAY_2S
+                                 
+0001e7 e440                              ldi     r20, (1 <<PD6)
+0001e8 b94b                              out     PORTD, r20
+0001e9 d313                              rcall   DELAY_1S
+                                 
+0001ea e240                              ldi     r20, (1 <<PD5)
+0001eb b94b                              out     PORTD, r20
+0001ec d32e                              rcall   DELAY_2S
+                                 
+0001ed e440                              ldi     r20, (1 <<PD6)
+0001ee b94b                              out     PORTD, r20
+0001ef d30d                              rcall   DELAY_1S
+                                 
+0001f0 e240                              ldi     r20, (1 <<PD5)
+0001f1 b94b                              out     PORTD, r20
+0001f2 d328                              rcall   DELAY_2S
+                                 
+0001f3 e440                              ldi     r20, (1 <<PD6)
+0001f4 b94b                              out     PORTD, r20
+0001f5 d307                              rcall   DELAY_1S
+                                 
+0001f6 e240                              ldi     r20, (1 <<PD5)
+0001f7 b94b                              out     PORTD, r20
+0001f8 d322                              rcall   DELAY_2S
+                                 
+0001f9 e440                              ldi     r20, (1 <<PD6)
+0001fa b94b                              out     PORTD, r20
+0001fb d301                              rcall   DELAY_1S
+                                 
+0001fc e240                              ldi     r20, (1 <<PD5)
+0001fd b94b                              out     PORTD, r20
+0001fe d2fe                              rcall   DELAY_1S
+                                 
+0001ff e440                              ldi     r20, (1 <<PD6)
+000200 b94b                              out     PORTD, r20
+000201 d2fb                              rcall   DELAY_1S
+                                 
+000202 e240                              ldi     r20, (1 <<PD5)
+000203 b94b                              out     PORTD, r20
+000204 d2f8                              rcall   DELAY_1S
+                                 
+000205 e440                              ldi     r20, (1 <<PD6)
+000206 b94b                              out     PORTD, r20
+000207 d2f5                              rcall   DELAY_1S
+                                 
+000208 e240                              ldi     r20, (1 <<PD5)
+000209 b94b                              out     PORTD, r20
+00020a d310                              rcall   DELAY_2S
+                                 
+00020b e440                              ldi     r20, (1 <<PD6)
+00020c b94b                              out     PORTD, r20
+00020d d2ef                              rcall   DELAY_1S
+                                 
+00020e e240                              ldi     r20, (1 <<PD5)
+00020f b94b                              out     PORTD, r20
+000210 d2ec                              rcall   DELAY_1S
+                                 
+000211 e440                              ldi     r20, (1 <<PD6)
+000212 b94b                              out     PORTD, r20
+000213 d2e9                              rcall   DELAY_1S
+                                 
+000214 e240                              ldi     r20, (1 <<PD5)
+000215 b94b                              out     PORTD, r20
+000216 d2e6                              rcall   DELAY_1S
+                                 
+000217 e440                              ldi     r20, (1 <<PD6)
+000218 b94b                              out     PORTD, r20
+000219 d301                              rcall   DELAY_2S
+                                 
+00021a e240                              ldi     r20, (1 <<PD5)
+00021b b94b                              out     PORTD, r20
+00021c d2e0                              rcall   DELAY_1S
+                                 
+00021d e440                              ldi     r20, (1 <<PD6)
+00021e b94b                              out     PORTD, r20
+00021f d2dd                              rcall   DELAY_1S
+                                 
+000220 e240                              ldi     r20, (1 <<PD5)
+000221 b94b                              out     PORTD, r20
+000222 d2da                              rcall   DELAY_1S
+                                 
+000223 e440                              ldi     r20, (1 <<PD6)
+000224 b94b                              out     PORTD, r20
+000225 d2d7                              rcall   DELAY_1S
+                                 
+000226 e240                              ldi     r20, (1 <<PD5)
+000227 b94b                              out     PORTD, r20
+000228 d2d4                              rcall   DELAY_1S
+                                 
+000229 e440                              ldi     r20, (1 <<PD6)
+00022a b94b                              out     PORTD, r20
+00022b d2ef                              rcall   DELAY_2S
+                                 
+00022c e240                              ldi     r20, (1 <<PD5)
+00022d b94b                              out     PORTD, r20
+00022e d2ce                              rcall   DELAY_1S
+                                 
+00022f e440                              ldi     r20, (1 <<PD6)
+000230 b94b                              out     PORTD, r20
+000231 d2e9                              rcall   DELAY_2S
+                                 
+000232 e240                              ldi     r20, (1 <<PD5)
+000233 b94b                              out     PORTD, r20
+000234 d2c8                              rcall   DELAY_1S
+                                 
+000235 e440                              ldi     r20, (1 <<PD6)
+000236 b94b                              out     PORTD, r20
+000237 d2e3                              rcall   DELAY_2S
+                                 
+000238 e240                              ldi     r20, (1 <<PD5)
+000239 b94b                              out     PORTD, r20
+00023a d2c2                              rcall   DELAY_1S
+                                 
+00023b e440                              ldi     r20, (1 <<PD6)
+00023c b94b                              out     PORTD, r20
+00023d d2dd                              rcall   DELAY_2S
+                                 
+00023e e240                              ldi     r20, (1 <<PD5)
+00023f b94b                              out     PORTD, r20
+000240 d2bc                              rcall   DELAY_1S
+                                 
+000241 e440                              ldi     r20, (1 <<PD6)
+000242 b94b                              out     PORTD, r20
+000243 d331                              rcall   DELAY_4S
+                                 
+000244 e240                              ldi     r20, (1 <<PD5)
+000245 b94b                              out     PORTD, r20
+000246 d2b6                              rcall   DELAY_1S
+                                 
+000247 e440                      		ldi     r20, (1 <<PD6)
+000248 b94b                              out     PORTD, r20
+000249 d33a                              rcall   DELAY_12S
+                                 
+                                 		;SUBE SELENOIDE
+00024a e048                              ldi     r20, (1 <<PD3)
+00024b b94b                              out     PORTD, r20
+00024c d2b0                              rcall   DELAY_1S
+                                 
+                                 		; Me mueve para realizar la Cruz
+00024d e440                      		ldi     r20, (1<<PD6)
+00024e b94b                              out     PORTD, r20
+00024f d37b                              rcall   DELAY_10S_LARGO
+                                 
+000250 e440                      		ldi     r20, (1<<PD6)
+000251 b94b                              out     PORTD, r20
+000252 d378                              rcall   DELAY_10S_LARGO
+                                 		
+                                        ; BAJA SELENOIDE
+000253 e044                              ldi     r20, (1 <<PD2)
+000254 b94b                              out     PORTD, r20
+000255 d2a7                              rcall   DELAY_1S
+                                 
+                                 
+                                 		; CRUZ
+000256 e940                              ldi     r20, (1<<PD4) | (1<<PD7)
+000257 b94b                              out     PORTD, r20 
+000258 d358                              rcall   DELAY_5S_LARGO
+                                 
+000259 e048                              ldi     r20, (1<<PD3)
+00025a b94b                              out     PORTD, r20
+00025b d346                              rcall   DELAY_2S_LARGO
+                                 
+00025c e240                              ldi     r20, (1<<PD5) 
+00025d b94b                              out     PORTD, r20
+00025e d352                              rcall   DELAY_5S_LARGO
+                                 
+00025f e044                              ldi     r20, (1<<PD2)
+000260 b94b                              out     PORTD, r20
+000261 d340                              rcall   DELAY_2S_LARGO
+                                 
+000262 e540                              ldi     r20, (1<<PD4) | (1<<PD6)
+000263 b94b                              out     PORTD, r20 
+000264 d34c                              rcall   DELAY_5S_LARGO
+                                 
+000265 e048                      		ldi     r20, (1<<PD3)
+000266 b94b                              out     PORTD, r20
+000267 d295                              rcall   DELAY_1S
+                                 
+000268 9508                              ret
+                                 
+                                 figura_triangulo:
+                                     ; POSICIONAMIENTO
+000269 e840                              ldi     r20, (1<<PD7)
+00026a b94b                              out     PORTD, r20
+00026b d36c                              rcall   DELAY_20S_LARGO
+                                 
+00026c e840                      		ldi     r20, (1<<PD7)
+00026d b94b                              out     PORTD, r20
+00026e d35c                              rcall   DELAY_10S_LARGO
+                                 
+00026f e140                              ldi     r20, (1<<PD4)
+000270 b94b                              out     PORTD, r20
+000271 d330                              rcall   DELAY_2S_LARGO
+                                 
+                                 		
+                                 	;TRIANGULO
+000272 e044                              ldi     r20, (1 <<PD2) 
+000273 b94b                              out     PORTD, r20
+000274 d32d                              rcall   DELAY_2S_LARGO
+                                 
+000275 e140                              ldi     r20, (1<<PD4)
+000276 b94b                              out     PORTD, r20
+000277 d339                              rcall   DELAY_5S_LARGO
+                                 
+000278 e840                              ldi     r20, (1<<PD7)
+000279 b94b                              out     PORTD, r20
+00027a d336                              rcall   DELAY_5S_LARGO
+                                 
+00027b e640                              ldi     r20, (1<<PD6) | (1<<PD5)
+00027c b94b                              out     PORTD, r20
+00027d d333                              rcall   DELAY_5S_LARGO
+                                 
+                                 		; VUELVE AL ORIGEN
+00027e e048                              ldi     r20, (1<<PD3)
+00027f b94b                              out     PORTD, r20
+000280 d27c                              rcall   DELAY_1S
+                                 
+000281 e440                              ldi     r20, (1<<PD6)
+000282 b94b                              out     PORTD, r20
+000283 d354                              rcall   DELAY_20S_LARGO
+                                 
+000284 e440                      		ldi     r20, (1<<PD6)
+000285 b94b                              out     PORTD, r20
+000286 d344                              rcall   DELAY_10S_LARGO
+                                 
+000287 e240                              ldi     r20, (1<<PD5)
+000288 b94b                              out     PORTD, r20
+000289 d318                              rcall   DELAY_2S_LARGO
+                                     
+00028a 9508                          ret
+                                 
+                                 figura_circulo:
+                                     ;POSICION AL INICIO
+00028b e840                              ldi     r20, (1<<PD7)
+00028c b94b                              out     PORTD, r20
+00028d d34a                              rcall   DELAY_20S_LARGO
+                                 
+00028e e140                              ldi     r20, (1<<PD4)
+00028f b94b                              out     PORTD, r20
+000290 d311                              rcall   DELAY_2S_LARGO
+                                 
+                                        ; BAJA SELENOIDE
+000291 e044                              ldi     r20, (1<<PD2)
+000292 b94b                              out     PORTD, r20
+000293 d30e                              rcall   DELAY_2S_LARGO
+                                 
+                                        ;CIRCULO
+000294 e440                              ldi     r20, (1 <<PD6)
+000295 b94b                              out     PORTD, r20
+000296 d2ed                              rcall   DELAY_12S
+                                 
+000297 e140                      		ldi     r20, (1 <<PD4)
+000298 b94b                              out     PORTD, r20
+000299 d263                              rcall   DELAY_1S
+                                 
+00029a e440                      		ldi     r20, (1 <<PD6)
+00029b b94b                              out     PORTD, r20
+00029c d2d8                              rcall   DELAY_4S
+                                 
+00029d e140                      		ldi     r20, (1 <<PD4)
+00029e b94b                              out     PORTD, r20
+00029f d25d                              rcall   DELAY_1S
+                                 
+0002a0 e440                      		ldi     r20, (1 <<PD6)
+0002a1 b94b                              out     PORTD, r20
+0002a2 d278                              rcall   DELAY_2S
+                                 
+0002a3 e140                      		ldi     r20, (1 <<PD4)
+0002a4 b94b                              out     PORTD, r20
+0002a5 d257                              rcall   DELAY_1S
+                                 
+0002a6 e440                      		ldi     r20, (1 <<PD6)
+0002a7 b94b                              out     PORTD, r20
+0002a8 d272                              rcall   DELAY_2S
+                                 
+0002a9 e140                      		ldi     r20, (1 <<PD4)
+0002aa b94b                              out     PORTD, r20
+0002ab d251                              rcall   DELAY_1S
+                                 
+0002ac e440                      		ldi     r20, (1 <<PD6)
+0002ad b94b                              out     PORTD, r20
+0002ae d26c                              rcall   DELAY_2S
+                                 
+0002af e140                      		ldi     r20, (1 <<PD4)
+0002b0 b94b                              out     PORTD, r20
+0002b1 d24b                              rcall   DELAY_1S
+                                 
+0002b2 e440                      		ldi     r20, (1 <<PD6)
+0002b3 b94b                              out     PORTD, r20
+0002b4 d266                              rcall   DELAY_2S
+                                 
+0002b5 e140                      		ldi     r20, (1 <<PD4)
+0002b6 b94b                              out     PORTD, r20
+0002b7 d245                              rcall   DELAY_1S
+                                 
+0002b8 e440                      		ldi     r20, (1 <<PD6)
+0002b9 b94b                              out     PORTD, r20
+0002ba d242                              rcall   DELAY_1S
+                                 
+0002bb e140                      		ldi     r20, (1 <<PD4)
+0002bc b94b                              out     PORTD, r20
+0002bd d23f                              rcall   DELAY_1S
+                                 
+0002be e440                      		ldi     r20, (1 <<PD6)
+0002bf b94b                              out     PORTD, r20
+0002c0 d23c                              rcall   DELAY_1S
+                                 
+0002c1 e140                      		ldi     r20, (1 <<PD4)
+0002c2 b94b                              out     PORTD, r20
+0002c3 d239                              rcall   DELAY_1S
+                                 
+0002c4 e440                      		ldi     r20, (1 <<PD6)
+0002c5 b94b                              out     PORTD, r20
+0002c6 d254                              rcall   DELAY_2S
+                                 
+0002c7 e140                      		ldi     r20, (1 <<PD4)
+0002c8 b94b                              out     PORTD, r20
+0002c9 d233                              rcall   DELAY_1S
+                                 
+0002ca e440                      		ldi     r20, (1 <<PD6)
+0002cb b94b                              out     PORTD, r20
+0002cc d230                              rcall   DELAY_1S
+                                 
+0002cd e140                      		ldi     r20, (1 <<PD4)
+0002ce b94b                              out     PORTD, r20
+0002cf d22d                              rcall   DELAY_1S
+                                 
+0002d0 e440                      		ldi     r20, (1 <<PD6)
+0002d1 b94b                              out     PORTD, r20
+0002d2 d22a                              rcall   DELAY_1S
+                                 		
+0002d3 e140                      		ldi     r20, (1 <<PD4)
+0002d4 b94b                              out     PORTD, r20
+0002d5 d245                              rcall   DELAY_2S
+                                 
+0002d6 e440                      		ldi     r20, (1 <<PD6)
+0002d7 b94b                              out     PORTD, r20
+0002d8 d224                              rcall   DELAY_1S
+                                 
+0002d9 e140                      		ldi     r20, (1 <<PD4)
+0002da b94b                              out     PORTD, r20
+0002db d221                              rcall   DELAY_1S
+                                 
+0002dc e440                      		ldi     r20, (1 <<PD6)
+0002dd b94b                              out     PORTD, r20
+0002de d21e                              rcall   DELAY_1S
+                                 
+0002df e140                      		ldi     r20, (1 <<PD4)
+0002e0 b94b                              out     PORTD, r20
+0002e1 d21b                              rcall   DELAY_1S
+                                 
+0002e2 e440                      		ldi     r20, (1 <<PD6)
+0002e3 b94b                              out     PORTD, r20
+0002e4 d218                              rcall   DELAY_1S
+                                 
+0002e5 e140                      		ldi     r20, (1 <<PD4)
+0002e6 b94b                              out     PORTD, r20
+0002e7 d233                              rcall   DELAY_2S
+                                 		
+0002e8 e440                      		ldi     r20, (1 <<PD6)
+0002e9 b94b                              out     PORTD, r20
+0002ea d212                              rcall   DELAY_1S
+                                 
+0002eb e140                      		ldi     r20, (1 <<PD4)
+0002ec b94b                              out     PORTD, r20
+0002ed d22d                              rcall   DELAY_2S
+                                 
+0002ee e440                      		ldi     r20, (1 <<PD6)
+0002ef b94b                              out     PORTD, r20
+0002f0 d20c                              rcall   DELAY_1S
+                                 
+0002f1 e140                      		ldi     r20, (1 <<PD4)
+0002f2 b94b                              out     PORTD, r20
+0002f3 d227                              rcall   DELAY_2S
+                                 
+0002f4 e440                      		ldi     r20, (1 <<PD6)
+0002f5 b94b                              out     PORTD, r20
+0002f6 d206                              rcall   DELAY_1S
+                                 
+0002f7 e140                      		ldi     r20, (1 <<PD4)
+0002f8 b94b                              out     PORTD, r20
+0002f9 d221                              rcall   DELAY_2S
+                                 
+0002fa e440                      		ldi     r20, (1 <<PD6)
+0002fb b94b                              out     PORTD, r20
+0002fc d200                              rcall   DELAY_1S
+                                 
+0002fd e140                      		ldi     r20, (1 <<PD4)
+0002fe b94b                              out     PORTD, r20
+0002ff d275                              rcall   DELAY_4S
+                                 
+000300 e440                      		ldi     r20, (1 <<PD6)
+000301 b94b                              out     PORTD, r20
+000302 d1fa                              rcall   DELAY_1S
+                                 
+000303 e140                      		ldi     r20, (1 <<PD4)
+000304 b94b                              out     PORTD, r20
+000305 d27e                              rcall   DELAY_12S
+                                 
+000306 e840                      		ldi     r20, (1 <<PD7)
+000307 b94b                              out     PORTD, r20
+000308 d1f4                              rcall   DELAY_1S
+                                 
+000309 e140                      		ldi     r20, (1 <<PD4)
+00030a b94b                              out     PORTD, r20
+00030b d269                              rcall   DELAY_4S
+                                 
+00030c e840                      		ldi     r20, (1 <<PD7)
+00030d b94b                              out     PORTD, r20
+00030e d1ee                              rcall   DELAY_1S
+                                 
+00030f e140                      		ldi     r20, (1 <<PD4)
+000310 b94b                              out     PORTD, r20
+000311 d209                              rcall   DELAY_2S
+                                 
+000312 e840                      		ldi     r20, (1 <<PD7)
+000313 b94b                              out     PORTD, r20
+000314 d1e8                              rcall   DELAY_1S
+                                 
+000315 e140                      		ldi     r20, (1 <<PD4)
+000316 b94b                              out     PORTD, r20
+000317 d203                              rcall   DELAY_2S
+                                 
+000318 e840                      		ldi     r20, (1 <<PD7)
+000319 b94b                              out     PORTD, r20
+00031a d1e2                              rcall   DELAY_1S
+                                 
+00031b e140                      		ldi     r20, (1 <<PD4)
+00031c b94b                              out     PORTD, r20
+00031d d1fd                              rcall   DELAY_2S
+                                 
+00031e e840                      		ldi     r20, (1 <<PD7)
+00031f b94b                              out     PORTD, r20
+000320 d1dc                              rcall   DELAY_1S
+                                 
+000321 e140                      		ldi     r20, (1 <<PD4)
+000322 b94b                              out     PORTD, r20
+000323 d1f7                              rcall   DELAY_2S
+                                 
+000324 e840                      		ldi     r20, (1 <<PD7)
+000325 b94b                              out     PORTD, r20
+000326 d1d6                              rcall   DELAY_1S
+                                 
+000327 e140                      		ldi     r20, (1 <<PD4)
+000328 b94b                              out     PORTD, r20
+000329 d1d3                              rcall   DELAY_1S
+                                 
+00032a e840                      		ldi     r20, (1 <<PD7)
+00032b b94b                              out     PORTD, r20
+00032c d1d0                              rcall   DELAY_1S
+                                 
+00032d e140                      		ldi     r20, (1 <<PD4)
+00032e b94b                              out     PORTD, r20
+00032f d1cd                              rcall   DELAY_1S
+                                 
+000330 e840                      		ldi     r20, (1 <<PD7)
+000331 b94b                              out     PORTD, r20
+000332 d1ca                              rcall   DELAY_1S
+                                 
+000333 e140                      		ldi     r20, (1 <<PD4)
+000334 b94b                              out     PORTD, r20
+000335 d1e5                              rcall   DELAY_2S
+                                 
+000336 e840                      		ldi     r20, (1 <<PD7)
+000337 b94b                              out     PORTD, r20
+000338 d1c4                              rcall   DELAY_1S
+                                 
+000339 e140                      		ldi     r20, (1 <<PD4)
+00033a b94b                              out     PORTD, r20
+00033b d1c1                              rcall   DELAY_1S
+                                 
+00033c e840                      		ldi     r20, (1 <<PD7)
+00033d b94b                              out     PORTD, r20
+00033e d1be                              rcall   DELAY_1S
+                                 
+00033f e140                      		ldi     r20, (1 <<PD4)
+000340 b94b                              out     PORTD, r20
+000341 d1bb                              rcall   DELAY_1S
+                                 
+000342 e840                      		ldi     r20, (1 <<PD7)
+000343 b94b                              out     PORTD, r20
+000344 d1d6                              rcall   DELAY_2S
+                                 
+000345 e140                      		ldi     r20, (1 <<PD4)
+000346 b94b                              out     PORTD, r20
+000347 d1b5                              rcall   DELAY_1S
+                                 
+000348 e840                      		ldi     r20, (1 <<PD7)
+000349 b94b                              out     PORTD, r20
+00034a d1b2                              rcall   DELAY_1S
+                                 
+00034b e140                      		ldi     r20, (1 <<PD4)
+00034c b94b                              out     PORTD, r20
+00034d d1af                              rcall   DELAY_1S
+                                 
+00034e e840                      		ldi     r20, (1 <<PD7)
+00034f b94b                              out     PORTD, r20
+000350 d1ac                              rcall   DELAY_1S
+                                 
+000351 e140                      		ldi     r20, (1 <<PD4)
+000352 b94b                              out     PORTD, r20
+000353 d1a9                              rcall   DELAY_1S
+                                 
+000354 e840                      		ldi     r20, (1 <<PD7)
+000355 b94b                              out     PORTD, r20
+000356 d1c4                              rcall   DELAY_2S
+                                 
+000357 e140                      		ldi     r20, (1 <<PD4)
+000358 b94b                              out     PORTD, r20
+000359 d1a3                              rcall   DELAY_1S
+                                 
+00035a e840                      		ldi     r20, (1 <<PD7)
+00035b b94b                              out     PORTD, r20
+00035c d1be                              rcall   DELAY_2S
+                                 
+00035d e140                      		ldi     r20, (1 <<PD4)
+00035e b94b                              out     PORTD, r20
+00035f d19d                              rcall   DELAY_1S
+                                 
+000360 e840                      		ldi     r20, (1 <<PD7)
+000361 b94b                              out     PORTD, r20
+000362 d1b8                              rcall   DELAY_2S
+                                 
+000363 e140                      		ldi     r20, (1 <<PD4)
+000364 b94b                              out     PORTD, r20
+000365 d197                              rcall   DELAY_1S
+                                 
+000366 e840                      		ldi     r20, (1 <<PD7)
+000367 b94b                              out     PORTD, r20
+000368 d1b2                              rcall   DELAY_2S
+                                 
+000369 e140                      		ldi     r20, (1 <<PD4)
+00036a b94b                              out     PORTD, r20
+00036b d191                              rcall   DELAY_1S
+                                 
+00036c e840                      		ldi     r20, (1 <<PD7)
+00036d b94b                              out     PORTD, r20
+00036e d206                              rcall   DELAY_4S
+                                 
+00036f e140                      		ldi     r20, (1 <<PD4)
+000370 b94b                              out     PORTD, r20
+000371 d18b                              rcall   DELAY_1S
+                                 
+000372 e840                      		ldi     r20, (1 <<PD7)
+000373 b94b                              out     PORTD, r20
+000374 d20f                              rcall   DELAY_12S
+                                 
+000375 e240                      		ldi     r20, (1 <<PD5)
+000376 b94b                              out     PORTD, r20
+000377 d185                              rcall   DELAY_1S
+                                 
+000378 e840                              ldi     r20, (1 <<PD7)
+000379 b94b                              out     PORTD, r20
+00037a d1fa                              rcall   DELAY_4S
+                                 
+00037b e240                              ldi     r20, (1 <<PD5)
+00037c b94b                              out     PORTD, r20
+00037d d17f                              rcall   DELAY_1S
+                                 
+00037e e840                              ldi     r20, (1 <<PD7)
+00037f b94b                              out     PORTD, r20
+000380 d19a                              rcall   DELAY_2S
+                                 
+000381 e240                              ldi     r20, (1 <<PD5)
+000382 b94b                              out     PORTD, r20
+000383 d179                              rcall   DELAY_1S
+                                 
+000384 e840                              ldi     r20, (1 <<PD7)
+000385 b94b                              out     PORTD, r20
+000386 d194                              rcall   DELAY_2S
+                                 
+000387 e240                              ldi     r20, (1 <<PD5)
+000388 b94b                              out     PORTD, r20
+000389 d173                              rcall   DELAY_1S
+                                 
+00038a e840                              ldi     r20, (1 <<PD7)
+00038b b94b                              out     PORTD, r20
+00038c d18e                              rcall   DELAY_2S
+                                 
+00038d e240                              ldi     r20, (1 <<PD5)
+00038e b94b                              out     PORTD, r20
+00038f d16d                              rcall   DELAY_1S
+                                 
+000390 e840                              ldi     r20, (1 <<PD7)
+000391 b94b                              out     PORTD, r20
+000392 d188                              rcall   DELAY_2S
+                                 
+000393 e240                              ldi     r20, (1 <<PD5)
+000394 b94b                              out     PORTD, r20
+000395 d167                              rcall   DELAY_1S
+                                 
+000396 e840                              ldi     r20, (1 <<PD7)
+000397 b94b                              out     PORTD, r20
+000398 d164                              rcall   DELAY_1S
+                                 
+000399 e240                              ldi     r20, (1 <<PD5)
+00039a b94b                              out     PORTD, r20
+00039b d161                              rcall   DELAY_1S
+                                 
+00039c e840                              ldi     r20, (1 <<PD7)
+00039d b94b                              out     PORTD, r20
+00039e d15e                              rcall   DELAY_1S
+                                 
+00039f e240                              ldi     r20, (1 <<PD5)
+0003a0 b94b                              out     PORTD, r20
+0003a1 d15b                              rcall   DELAY_1S
+                                 
+0003a2 e840                              ldi     r20, (1 <<PD7)
+0003a3 b94b                              out     PORTD, r20
+0003a4 d176                              rcall   DELAY_2S
+                                 
+0003a5 e240                              ldi     r20, (1 <<PD5)
+0003a6 b94b                              out     PORTD, r20
+0003a7 d155                              rcall   DELAY_1S
+                                 
+0003a8 e840                              ldi     r20, (1 <<PD7)
+0003a9 b94b                              out     PORTD, r20
+0003aa d152                              rcall   DELAY_1S
+                                 
+0003ab e240                              ldi     r20, (1 <<PD5)
+0003ac b94b                              out     PORTD, r20
+0003ad d14f                              rcall   DELAY_1S
+                                 
+0003ae e840                              ldi     r20, (1 <<PD7)
+0003af b94b                              out     PORTD, r20
+0003b0 d14c                              rcall   DELAY_1S
+                                 		
+0003b1 e240                              ldi     r20, (1 <<PD5)
+0003b2 b94b                              out     PORTD, r20
+0003b3 d167                              rcall   DELAY_2S
+                                 
+0003b4 e840                              ldi     r20, (1 <<PD7)
+0003b5 b94b                              out     PORTD, r20
+0003b6 d146                              rcall   DELAY_1S
+                                 
+0003b7 e240                              ldi     r20, (1 <<PD5)
+0003b8 b94b                              out     PORTD, r20
+0003b9 d143                              rcall   DELAY_1S
+                                 
+0003ba e840                              ldi     r20, (1 <<PD7)
+0003bb b94b                              out     PORTD, r20
+0003bc d140                              rcall   DELAY_1S
+                                 
+0003bd e240                              ldi     r20, (1 <<PD5)
+0003be b94b                              out     PORTD, r20
+0003bf d13d                              rcall   DELAY_1S
+                                 
+0003c0 e840                              ldi     r20, (1 <<PD7)
+0003c1 b94b                              out     PORTD, r20
+0003c2 d13a                              rcall   DELAY_1S
+                                 
+0003c3 e240                              ldi     r20, (1 <<PD5)
+0003c4 b94b                              out     PORTD, r20
+0003c5 d155                              rcall   DELAY_2S
+                                 		
+0003c6 e840                              ldi     r20, (1 <<PD7)
+0003c7 b94b                              out     PORTD, r20
+0003c8 d134                              rcall   DELAY_1S
+                                 
+0003c9 e240                              ldi     r20, (1 <<PD5)
+0003ca b94b                              out     PORTD, r20
+0003cb d14f                              rcall   DELAY_2S
+                                 
+0003cc e840                              ldi     r20, (1 <<PD7)
+0003cd b94b                              out     PORTD, r20
+0003ce d12e                              rcall   DELAY_1S
+                                 
+0003cf e240                              ldi     r20, (1 <<PD5)
+0003d0 b94b                              out     PORTD, r20
+0003d1 d149                              rcall   DELAY_2S
+                                 
+0003d2 e840                              ldi     r20, (1 <<PD7)
+0003d3 b94b                              out     PORTD, r20
+0003d4 d128                              rcall   DELAY_1S
+                                 
+0003d5 e240                              ldi     r20, (1 <<PD5)
+0003d6 b94b                              out     PORTD, r20
+0003d7 d143                              rcall   DELAY_2S
+                                 
+0003d8 e840                              ldi     r20, (1 <<PD7)
+0003d9 b94b                              out     PORTD, r20
+0003da d122                              rcall   DELAY_1S
+                                 
+0003db e240                              ldi     r20, (1 <<PD5)
+0003dc b94b                              out     PORTD, r20
+0003dd d197                              rcall   DELAY_4S
+                                 
+0003de e840                              ldi     r20, (1 <<PD7)
+0003df b94b                              out     PORTD, r20
+0003e0 d11c                              rcall   DELAY_1S
+                                 
+0003e1 e240                              ldi     r20, (1 <<PD5)
+0003e2 b94b                              out     PORTD, r20
+0003e3 d1a0                              rcall   DELAY_12S
+                                 
+0003e4 e440                              ldi     r20, (1 <<PD6)
+0003e5 b94b                              out     PORTD, r20
+0003e6 d116                              rcall   DELAY_1S
+                                 
+0003e7 e240                              ldi     r20, (1 <<PD5)
+0003e8 b94b                              out     PORTD, r20
+0003e9 d18b                              rcall   DELAY_4S
+                                 
+0003ea e440                              ldi     r20, (1 <<PD6)
+0003eb b94b                              out     PORTD, r20
+0003ec d110                              rcall   DELAY_1S
+                                 
+0003ed e240                              ldi     r20, (1 <<PD5)
+0003ee b94b                              out     PORTD, r20
+0003ef d12b                              rcall   DELAY_2S
+                                 
+0003f0 e440                              ldi     r20, (1 <<PD6)
+0003f1 b94b                              out     PORTD, r20
+0003f2 d10a                              rcall   DELAY_1S
+                                 
+0003f3 e240                              ldi     r20, (1 <<PD5)
+0003f4 b94b                              out     PORTD, r20
+0003f5 d125                              rcall   DELAY_2S
+                                 
+0003f6 e440                              ldi     r20, (1 <<PD6)
+0003f7 b94b                              out     PORTD, r20
+0003f8 d104                              rcall   DELAY_1S
+                                 
+0003f9 e240                              ldi     r20, (1 <<PD5)
+0003fa b94b                              out     PORTD, r20
+0003fb d11f                              rcall   DELAY_2S
+                                 
+0003fc e440                              ldi     r20, (1 <<PD6)
+0003fd b94b                              out     PORTD, r20
+0003fe d0fe                              rcall   DELAY_1S
+                                 
+0003ff e240                              ldi     r20, (1 <<PD5)
+000400 b94b                              out     PORTD, r20
+000401 d119                              rcall   DELAY_2S
+                                 
+000402 e440                              ldi     r20, (1 <<PD6)
+000403 b94b                              out     PORTD, r20
+000404 d0f8                              rcall   DELAY_1S
+                                 
+000405 e240                              ldi     r20, (1 <<PD5)
+000406 b94b                              out     PORTD, r20
+000407 d0f5                              rcall   DELAY_1S
+                                 
+000408 e440                              ldi     r20, (1 <<PD6)
+000409 b94b                              out     PORTD, r20
+00040a d0f2                              rcall   DELAY_1S
+                                 
+00040b e240                              ldi     r20, (1 <<PD5)
+00040c b94b                              out     PORTD, r20
+00040d d0ef                              rcall   DELAY_1S
+                                 
+00040e e440                              ldi     r20, (1 <<PD6)
+00040f b94b                              out     PORTD, r20
+000410 d0ec                              rcall   DELAY_1S
+                                 
+000411 e240                              ldi     r20, (1 <<PD5)
+000412 b94b                              out     PORTD, r20
+000413 d107                              rcall   DELAY_2S
+                                 
+000414 e440                              ldi     r20, (1 <<PD6)
+000415 b94b                              out     PORTD, r20
+000416 d0e6                              rcall   DELAY_1S
+                                 
+000417 e240                              ldi     r20, (1 <<PD5)
+000418 b94b                              out     PORTD, r20
+000419 d0e3                              rcall   DELAY_1S
+                                 
+00041a e440                              ldi     r20, (1 <<PD6)
+00041b b94b                              out     PORTD, r20
+00041c d0e0                              rcall   DELAY_1S
+                                 
+00041d e240                              ldi     r20, (1 <<PD5)
+00041e b94b                              out     PORTD, r20
+00041f d0dd                              rcall   DELAY_1S
+                                 
+000420 e440                              ldi     r20, (1 <<PD6)
+000421 b94b                              out     PORTD, r20
+000422 d0f8                              rcall   DELAY_2S
+                                 
+000423 e240                              ldi     r20, (1 <<PD5)
+000424 b94b                              out     PORTD, r20
+000425 d0d7                              rcall   DELAY_1S
+                                 
+000426 e440                              ldi     r20, (1 <<PD6)
+000427 b94b                              out     PORTD, r20
+000428 d0d4                              rcall   DELAY_1S
+                                 
+000429 e240                              ldi     r20, (1 <<PD5)
+00042a b94b                              out     PORTD, r20
+00042b d0d1                              rcall   DELAY_1S
+                                 
+00042c e440                              ldi     r20, (1 <<PD6)
+00042d b94b                              out     PORTD, r20
+00042e d0ce                              rcall   DELAY_1S
+                                 
+00042f e240                              ldi     r20, (1 <<PD5)
+000430 b94b                              out     PORTD, r20
+000431 d0cb                              rcall   DELAY_1S
+                                 
+000432 e440                              ldi     r20, (1 <<PD6)
+000433 b94b                              out     PORTD, r20
+000434 d0e6                              rcall   DELAY_2S
+                                 
+000435 e240                              ldi     r20, (1 <<PD5)
+000436 b94b                              out     PORTD, r20
+000437 d0c5                              rcall   DELAY_1S
+                                 
+000438 e440                              ldi     r20, (1 <<PD6)
+000439 b94b                              out     PORTD, r20
+00043a d0e0                              rcall   DELAY_2S
+                                 
+00043b e240                              ldi     r20, (1 <<PD5)
+00043c b94b                              out     PORTD, r20
+00043d d0bf                              rcall   DELAY_1S
+                                 
+00043e e440                              ldi     r20, (1 <<PD6)
+00043f b94b                              out     PORTD, r20
+000440 d0da                              rcall   DELAY_2S
+                                 
+000441 e240                              ldi     r20, (1 <<PD5)
+000442 b94b                              out     PORTD, r20
+000443 d0b9                              rcall   DELAY_1S
+                                 
+000444 e440                              ldi     r20, (1 <<PD6)
+000445 b94b                              out     PORTD, r20
+000446 d0d4                              rcall   DELAY_2S
+                                 
+000447 e240                              ldi     r20, (1 <<PD5)
+000448 b94b                              out     PORTD, r20
+000449 d0b3                              rcall   DELAY_1S
+                                 
+00044a e440                              ldi     r20, (1 <<PD6)
+00044b b94b                              out     PORTD, r20
+00044c d128                              rcall   DELAY_4S
+                                 
+00044d e240                              ldi     r20, (1 <<PD5)
+00044e b94b                              out     PORTD, r20
+00044f d0ad                              rcall   DELAY_1S
+                                 
+000450 e440                      		ldi     r20, (1 <<PD6)
+000451 b94b                              out     PORTD, r20
+000452 d131                              rcall   DELAY_12S
+                                 		
+                                         ;SUBE SELENOIDE
+000453 e048                              ldi     r20, (1 <<PD3)
+000454 b94b                              out     PORTD, r20
+000455 d0a7                              rcall   DELAY_1S
+                                 
+000456 e440                      		ldi     r20, (1<<PD6)
+000457 b94b                              out     PORTD, r20
+000458 d17f                              rcall   DELAY_20S_LARGO
+                                 
+000459 e240                              ldi     r20, (1<<PD5)
+00045a b94b                              out     PORTD, r20
+00045b d146                              rcall   DELAY_2S_LARGO
+                                 
+00045c 9508                          ret
+                                 
+                                 
+                                 
+                                 figura_cruz:
+                                      ; POSICIONAMIENTO
+00045d e840                              ldi     r20, (1<<PD7)
+00045e b94b                              out     PORTD, r20
+00045f d151                              rcall   DELAY_5S_LARGO
+                                 
+000460 e140                              ldi     r20, (1<<PD4)
+000461 b94b                              out     PORTD, r20
+000462 d13f                              rcall   DELAY_2S_LARGO
+                                 		
+                                 		; CRUZ
+000463 e044                              ldi     r20, (1<<PD2)
+000464 b94b                              out     PORTD, r20
+000465 d13c                              rcall   DELAY_2S_LARGO
+                                 
+000466 e940                              ldi     r20, (1<<PD4) | (1<<PD7)
+000467 b94b                              out     PORTD, r20 
+000468 d148                              rcall   DELAY_5S_LARGO
+                                 
+000469 e048                              ldi     r20, (1<<PD3)
+00046a b94b                              out     PORTD, r20
+00046b d136                              rcall   DELAY_2S_LARGO
+                                 
+00046c e240                              ldi     r20, (1<<PD5) 
+00046d b94b                              out     PORTD, r20
+00046e d142                              rcall   DELAY_5S_LARGO
+                                 
+00046f e044                              ldi     r20, (1<<PD2)
+000470 b94b                              out     PORTD, r20
+000471 d130                              rcall   DELAY_2S_LARGO
+                                 
+000472 e540                              ldi     r20, (1<<PD4) | (1<<PD6)
+000473 b94b                              out     PORTD, r20 
+000474 d13c                              rcall   DELAY_5S_LARGO
+                                 
+                                 		; VUELVE AL ORIGEN
+000475 e048                              ldi     r20, (1<<PD3)
+000476 b94b                              out     PORTD, r20
+000477 d094                              rcall   DELAY_1S_LARGO
+                                 
+000478 e240                      		ldi     r20, (1<<PD5) 
+000479 b94b                              out     PORTD, r20
+00047a d136                              rcall   DELAY_5S_LARGO
+                                 
+00047b e440                      		ldi     r20, (1<<PD6)
+00047c b94b                              out     PORTD, r20
+00047d d133                              rcall   DELAY_5S_LARGO
+                                 
+00047e e240                              ldi     r20, (1<<PD5)
+00047f b94b                              out     PORTD, r20
+000480 d121                              rcall   DELAY_2S_LARGO
+000481 9508                          ret
+                                 
+                                 
+                                 
+                                 ; Mensaje en USART
+                                 .cseg
+                                 .cseg
+                                 .cseg
+                                 msgInicio:
+000482 6942
+000483 6e65
+000484 6576
+000485 696e
+000486 6f64
+000487 2021
+000488 6553
+000489 656c
+00048a 6363
+00048b 6f69
+00048c 656e
+00048d 6c20
+00048e 2061
+00048f 6966
+000490 7567
+000491 6172
+000492 6120
+000493 6420
+000494 6269
+000495 6a75
+000496 7261
+000497 0d3a                          .db "Bienvenido! Seleccione la figura a dibujar:", 13,10, \
+000498 310a
+000499 2d20
+00049a 5420
+00049b 6972
+00049c 6e61
+00049d 7567
+00049e 6f6c                              "1 - Triangulo", 13,10, \
+00049f 0a0d
+0004a0 2032
+0004a1 202d
+0004a2 6943
+0004a3 6372
+0004a4 6c75
+0004a5 0d6f                              "2 - Circulo", 13,10, \
+0004a6 330a
+0004a7 2d20
+0004a8 4320
+0004a9 7572
+0004aa 0d7a                              "3 - Cruz", 13,10, \
+0004ab 540a
+0004ac 2d20
+0004ad 5420
+0004ae 646f
+0004af 7361
+0004b0 2820
+0004b1 2d31
+0004b2 323e
+0004b3 3e2d
+0004b4 2933
+0004b5 0a0d
+0004b6 0000                              "T - Todas (1->2->3)", 13,10, 0, 0
+                                 
+                                 msgOpcionInvalida:
+0004b7 704f
+0004b8 6963
+0004b9 6e6f
+0004ba 6920
+0004bb 766e
+0004bc 6c61
+0004bd 6469
+0004be 2e61
+0004bf 5520
+0004c0 6573
+0004c1 3120
+0004c2 202c
+0004c3 2c32
+0004c4 3320
+0004c5 6f20
+0004c6 5420
+0004c7 0d2e
+0004c8 000a                          .db "Opcion invalida. Use 1, 2, 3 o T.", 13,10, 0
+                                 
+0004c9 6944
+0004ca 7562
+0004cb 616a
+0004cc 646e
+0004cd 206f
+0004ce 5254
+0004cf 4149
+0004d0 474e
+0004d1 4c55
+0004d2 2e4f
+0004d3 2e2e
+0004d4 0a0d
+0004d5 0000                      txtTriangulo: .db "Dibujando TRIANGULO...", 13,10, 0, 0
+0004d6 6944
+0004d7 7562
+0004d8 616a
+0004d9 646e
+0004da 206f
+0004db 4943
+0004dc 4352
+0004dd 4c55
+0004de 2e4f
+0004df 2e2e
+0004e0 0a0d
+0004e1 0000                      txtCirculo:   .db "Dibujando CIRCULO...",   13,10, 0, 0
+0004e2 6944
+0004e3 7562
+0004e4 616a
+0004e5 646e
+0004e6 206f
+0004e7 5243
+0004e8 5a55
+0004e9 2e2e
+0004ea 0d2e
+0004eb 000a                      txtCruz:      .db "Dibujando CRUZ...",      13,10, 0
+0004ec 6944
+0004ed 7562
+0004ee 616a
+0004ef 646e
+0004f0 206f
+0004f1 4f54
+0004f2 4144
+0004f3 2053
+0004f4 616c
+0004f5 2073
+0004f6 6966
+0004f7 7567
+0004f8 6172
+0004f9 2e73
+0004fa 2e2e
+0004fb 0a0d
+0004fc 0000                      txtTodas:     .db "Dibujando TODAS las figuras...", 13,10, 0, 0
+                                 
+                                 ; Se definen 2 tipos de delays los cortos y los largos que son los que contienen _LARGO
+                                 ; Si bien se definen pines que no se usan, se dejaron por si se quiere modificar el tama?o de las figuras poniendo esos delays
+                                 DELAY_1S:
+0004fd e021                              ldi     r18, 1
+                                 D1_LOOP:
+0004fe ef05                                     ldi     r16, HIGH(62932)
+0004ff 9300 0085                         sts     TCNT1H, r16
+000501 ed04                              ldi     r16, LOW(62932)
+000502 9300 0084                         sts     TCNT1L, r16
+                                 
+000504 9300 0084                         sts     TCNT1L, r16
+                                 D1_WAIT:
+000506 9bb0                              sbis    TIFR1, TOV1
+000507 cffe                              rjmp    D1_WAIT
+000508 9ab0                              sbi     TIFR1, TOV1
+000509 952a                              dec     r18
+00050a f799                              brne    D1_LOOP
+00050b 9508                              ret
+                                 
+                                 DELAY_1S_LARGO:
+00050c e021                              ldi     r18, 1
+                                 D1_LARGO_LOOP:
+00050d ef05                                     ldi     r16, HIGH(62932)
+00050e 9300 0085                         sts     TCNT1H, r16
+000510 ed04                              ldi     r16, LOW(62932)
+000511 9300 0084                         sts     TCNT1L, r16
+                                 
+000513 9300 0084                         sts     TCNT1L, r16
+                                 D1_LARGO_WAIT:
+000515 9bb0                              sbis    TIFR1, TOV1
+000516 cfef                              rjmp    D1_WAIT
+000517 9ab0                              sbi     TIFR1, TOV1
+000518 952a                              dec     r18
+000519 f721                              brne    D1_LOOP
+00051a 9508                              ret
+                                 
                                  DELAY_2S:
-000044 e021                              ldi     r18, 1
+00051b e022                              ldi     r18, 2
                                  D2_LOOP:
-000045 e00b                              ldi     r16, HIGH(3036)
-000046 9300 0085                         sts     TCNT1H, r16
-000048 ed0c                              ldi     r16, LOW(3036)
-000049 9300 0084                         sts     TCNT1L, r16
+00051c ef05                                      ldi     r16, HIGH(62932)
+00051d 9300 0085                         sts     TCNT1H, r16
+00051f ed04                              ldi     r16, LOW(62932)
+000520 9300 0084                         sts     TCNT1L, r16
+                                 
+000522 9300 0084                         sts     TCNT1L, r16
                                  D2_WAIT:
-00004b 9bb0                              sbis    TIFR1, TOV1
-00004c cffe                              rjmp    D2_WAIT
-00004d 9ab0                              sbi     TIFR1, TOV1
-00004e 952a                              dec     r18
-00004f f7a9                              brne    D2_LOOP
-000050 9508                              ret
+000524 9bb0                              sbis    TIFR1, TOV1
+000525 cffe                              rjmp    D2_WAIT
+000526 9ab0                              sbi     TIFR1, TOV1
+000527 952a                              dec     r18
+000528 f799                              brne    D2_LOOP
+000529 9508                              ret
                                  
-                                 ; Delay de 15 segundos
-                                 DELAY_15S:
-000051 e02f                              ldi     r18, 15
-                                 D15_LOOP:
-000052 e00b                              ldi     r16, HIGH(3036)
-000053 9300 0085                         sts     TCNT1H, r16
-000055 ed0c                              ldi     r16, LOW(3036)
-000056 9300 0084                         sts     TCNT1L, r16
-                                 D15_WAIT:
-000058 9bb0                              sbis    TIFR1, TOV1
-000059 cffe                              rjmp    D15_WAIT
-00005a 9ab0                              sbi     TIFR1, TOV1
-00005b 952a                              dec     r18
-00005c f7a9                              brne    D15_LOOP
-00005d 9508                              ret
+                                 DELAY_3S:
+00052a e023                              ldi     r18, 3
+                                 D3_LOOP:
+00052b ef05                                      ldi     r16, HIGH(62932)
+00052c 9300 0085                         sts     TCNT1H, r16
+00052e ed04                              ldi     r16, LOW(62932)
+00052f 9300 0084                         sts     TCNT1L, r16
                                  
+000531 9300 0084                         sts     TCNT1L, r16
+                                 D3_WAIT:
+000533 9bb0                              sbis    TIFR1, TOV1
+000534 cffe                              rjmp    D3_WAIT
+000535 9ab0                              sbi     TIFR1, TOV1
+000536 952a                              dec     r18
+000537 f799                              brne    D3_LOOP
+000538 9508                              ret
+                                 
+                                 DELAY_5S:
+000539 e025                              ldi     r18, 5
+                                 D5_LOOP:
+00053a ef05                                      ldi     r16, HIGH(62932)
+00053b 9300 0085                         sts     TCNT1H, r16
+00053d ed04                              ldi     r16, LOW(62932)
+00053e 9300 0084                         sts     TCNT1L, r16
+                                 
+000540 9300 0084                         sts     TCNT1L, r16
+                                 D5_WAIT:
+000542 9bb0                              sbis    TIFR1, TOV1
+000543 cffe                              rjmp    D5_WAIT
+000544 9ab0                              sbi     TIFR1, TOV1
+000545 952a                              dec     r18
+000546 f799                              brne    D5_LOOP
+000547 9508                              ret
+                                 
+                                 DELAY_6S:
+000548 e026                              ldi     r18, 6
+                                 D6_LOOP:
+000549 ef05                                     ldi     r16, HIGH(62932)
+00054a 9300 0085                         sts     TCNT1H, r16
+00054c ed04                              ldi     r16, LOW(62932)
+00054d 9300 0084                         sts     TCNT1L, r16
+                                 
+00054f 9300 0084                         sts     TCNT1L, r16
+                                 D6_WAIT:
+000551 9bb0                              sbis    TIFR1, TOV1
+000552 cffe                              rjmp    D6_WAIT
+000553 9ab0                              sbi     TIFR1, TOV1
+000554 952a                              dec     r18
+000555 f799                              brne    D6_LOOP
+000556 9508                              ret
+                                 
+                                 DELAY_7S:
+000557 e027                              ldi     r18, 7
+                                 D7_LOOP:
+000558 ef05                                      ldi     r16, HIGH(62932)
+000559 9300 0085                         sts     TCNT1H, r16
+00055b ed04                              ldi     r16, LOW(62932)
+00055c 9300 0084                         sts     TCNT1L, r16
+                                 
+00055e 9300 0084                         sts     TCNT1L, r16
+                                 D7_WAIT:
+000560 9bb0                              sbis    TIFR1, TOV1
+000561 cffe                              rjmp    D7_WAIT
+000562 9ab0                              sbi     TIFR1, TOV1
+000563 952a                              dec     r18
+000564 f799                              brne    D7_LOOP
+000565 9508                              ret
                                  
                                  DELAY_10S:
-00005e e02a                              ldi     r18, 10            
+000566 e02a                              ldi     r18, 10
                                  D10_LOOP:
-                                         
-00005f e00b                              ldi     r16, HIGH(3036)
-000060 9300 0085                         sts     TCNT1H, r16
-000062 ed0c                              ldi     r16, LOW(3036)
-000063 9300 0084                         sts     TCNT1L, r16
+000567 ef05                                     ldi     r16, HIGH(62932)
+000568 9300 0085                         sts     TCNT1H, r16
+00056a ed04                              ldi     r16, LOW(62932)
+00056b 9300 0084                         sts     TCNT1L, r16
+                                 
+00056d 9300 0084                         sts     TCNT1L, r16
                                  D10_WAIT:
-000065 9bb0                              sbis    TIFR1, TOV1              ; espera overflow
-000066 cffe                              rjmp    D10_WAIT
-000067 9ab0                              sbi     TIFR1, TOV1              ; limpiar flag
-000068 952a                              dec     r18
-000069 f7a9                              brne    D10_LOOP
-00006a 9508                              ret
+00056f 9bb0                              sbis    TIFR1, TOV1
+000570 cffe                              rjmp    D10_WAIT
+000571 9ab0                              sbi     TIFR1, TOV1
+000572 952a                              dec     r18
+000573 f799                              brne    D10_LOOP
+000574 9508                              ret
+                                 
+                                 DELAY_4S:
+000575 e024                              ldi     r18, 4
+                                 D4S_LOOP:
+000576 ef05                                      ldi     r16, HIGH(62932)
+000577 9300 0085                         sts     TCNT1H, r16
+000579 ed04                              ldi     r16, LOW(62932)
+00057a 9300 0084                         sts     TCNT1L, r16
+                                 
+00057c 9300 0084                         sts     TCNT1L, r16
+                                 D4S_WAIT:
+00057e 9bb0                              sbis    TIFR1, TOV1
+00057f cffe                              rjmp    D4S_WAIT
+000580 9ab0                              sbi     TIFR1, TOV1
+000581 952a                              dec     r18
+000582 f799                              brne    D4S_LOOP
+000583 9508                              ret
+                                 
+                                 DELAY_12S:
+000584 e02c                              ldi     r18, 12
+                                 D12S_LOOP:
+000585 ef05                              ldi     r16, HIGH(62932)
+000586 9300 0085                         sts     TCNT1H, r16
+000588 ed04                              ldi     r16, LOW(62932)
+000589 9300 0084                         sts     TCNT1L, r16
+                                 
+00058b 9300 0084                         sts     TCNT1L, r16
+                                 D12S_WAIT:
+00058d 9bb0                              sbis    TIFR1, TOV1
+00058e cffe                              rjmp    D12S_WAIT
+00058f 9ab0                              sbi     TIFR1, TOV1
+000590 952a                              dec     r18
+000591 f799                              brne    D12S_LOOP
+000592 9508                              ret
+                                 
+                                 DELAY_15S:
+000593 e02f                              ldi     r18, 15
+                                 D15_LOOP:
+000594 ef05                              ldi     r16, HIGH(62932)
+000595 9300 0085                         sts     TCNT1H, r16
+000597 ed04                              ldi     r16, LOW(62932)
+000598 9300 0084                         sts     TCNT1L, r16
+                                 
+00059a 9300 0084                         sts     TCNT1L, r16
+                                 D15_WAIT:
+00059c 9bb0                              sbis    TIFR1, TOV1
+00059d cffe                              rjmp    D15_WAIT
+00059e 9ab0                              sbi     TIFR1, TOV1
+00059f 952a                              dec     r18
+0005a0 f799                              brne    D15_LOOP
+0005a1 9508                              ret
+                                 
+                                 DELAY_2S_LARGO:
+0005a2 e128                              ldi     r18, 24
+                                 D2_LARGO_LOOP:
+0005a3 e204                              ldi     r16, HIGH(9286)          
+0005a4 9300 0085                         sts     TCNT1H, r16
+0005a6 e406                              ldi     r16, LOW(9286)
+0005a7 9300 0084                         sts     TCNT1L, r16
+0005a9 9300 0084                         sts     TCNT1L, r16
+                                 D2_LARGO_WAIT:
+0005ab 9bb0                              sbis    TIFR1, TOV1
+0005ac cf77                              rjmp    D2_WAIT
+0005ad 9ab0                              sbi     TIFR1, TOV1
+0005ae 952a                              dec     r18
+0005af f799                              brne    D2_LARGO_LOOP
+0005b0 9508                              ret
+                                 
+                                 DELAY_5S_LARGO:
+0005b1 e32c                              ldi     r18, 60                   
+                                 D5_LARGO_LOOP:
+                                        
+0005b2 e204                              ldi     r16, HIGH(9286)          
+0005b3 9300 0085                         sts     TCNT1H, r16
+0005b5 e406                              ldi     r16, LOW(9286)
+0005b6 9300 0084                         sts     TCNT1L, r16
+                                 D5_LARGO_WAIT:
+0005b8 9bb0                              sbis    TIFR1, TOV1
+0005b9 cf88                              rjmp    D5_WAIT
+0005ba 9ab0                              sbi     TIFR1, TOV1               
+0005bb 952a                              dec     r18
+0005bc f7a9                              brne    D5_LARGO_LOOP
+0005bd 9508                              ret
+                                 
+                                 
+                                 DELAY_15S_LARGO:
+0005be eb24                              ldi     r18, 180
+                                 D15_LARGO_LOOP:
+0005bf e204                              ldi     r16, HIGH(9286)          
+0005c0 9300 0085                         sts     TCNT1H, r16
+0005c2 e406                              ldi     r16, LOW(9286)
+0005c3 9300 0084                         sts     TCNT1L, r16
+                                 D15_LARGO_WAIT:
+0005c5 9bb0                              sbis    TIFR1, TOV1
+0005c6 cfd5                              rjmp    D15_WAIT
+0005c7 9ab0                              sbi     TIFR1, TOV1
+0005c8 952a                              dec     r18
+0005c9 f7a9                              brne    D15_LARGO_LOOP
+0005ca 9508                              ret
+                                 
+                                 DELAY_10S_LARGO:
+0005cb e52a                              ldi     r18, 90
+                                 D10_LARGO_LOOP:
+0005cc e204                              ldi     r16, HIGH(9286)          
+0005cd 9300 0085                         sts     TCNT1H, r16
+0005cf e406                              ldi     r16, LOW(9286)
+0005d0 9300 0084                         sts     TCNT1L, r16
+                                 D10_LARGO_WAIT:
+0005d2 9bb0                              sbis    TIFR1, TOV1
+0005d3 cfc8                              rjmp    D15_WAIT
+0005d4 9ab0                              sbi     TIFR1, TOV1
+0005d5 952a                              dec     r18
+0005d6 f7a9                              brne    D10_LARGO_LOOP
+0005d7 9508                              ret
+                                 
+                                 DELAY_20S_LARGO:
+0005d8 ef2f                              ldi     r18, 255
+                                 D20_LARGO_LOOP:
+0005d9 e204                              ldi     r16, HIGH(9286)          
+0005da 9300 0085                         sts     TCNT1H, r16
+0005dc e406                              ldi     r16, LOW(9286)
+0005dd 9300 0084                         sts     TCNT1L, r16
+                                 D20_LARGO_WAIT:
+0005df 9bb0                              sbis    TIFR1, TOV1
+0005e0 cfbb                              rjmp    D15_WAIT
+0005e1 9ab0                              sbi     TIFR1, TOV1
+0005e2 952a                              dec     r18
+0005e3 f7a9                              brne    D20_LARGO_LOOP
 
 
 RESOURCE USE INFORMATION
@@ -1192,39 +3034,39 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega328P" register use summary:
-x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
+x  :   0 y  :   0 z  :   1 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  42 r17:  12 r18:   8 r19:   0 r20:   0 
-r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 3 out of 35 (8.6%)
+r13:   0 r14:   0 r15:   0 r16:  97 r17:   8 r18:  32 r19:   0 r20: 700 
+r21:  10 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   6 r31:   6 
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   6 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brne  :  16 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   6 cpse  :   0 dec   :  16 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  30 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   : 423 lds   :   3 lpm   :   1 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  13 pop   :   0 
-push  :   0 rcall :   9 ret   :   4 reti  :   0 rjmp  :   6 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :   4 sbic  :   0 sbis  :   4 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   : 352 pop   :   0 
+push  :   0 rcall : 364 ret   :  24 reti  :   0 rjmp  :  27 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :  16 sbic  :   0 sbis  :  16 
+sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   2 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  14 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  55 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 11 out of 113 (9.7%)
+Instructions used: 16 out of 113 (14.2%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000d6    214      0    214   32768   0.7%
+[.cseg] 0x000000 0x000bca   2772    246   3018   32768   9.2%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
