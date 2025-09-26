@@ -1,4 +1,4 @@
-# 🧪 Repositorio de Tecnología de Microprocesamiento
+# 🗃️ Repositorio de Tecnología de Microprocesamiento
 
 Este repositorio contiene los archivos correspondientes a las actividades realizadas en la UC
 
