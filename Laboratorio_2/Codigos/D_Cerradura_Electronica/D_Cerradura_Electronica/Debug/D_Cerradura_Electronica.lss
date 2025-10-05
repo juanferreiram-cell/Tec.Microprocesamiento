@@ -1,0 +1,718 @@
+
+D_Cerradura_Electronica.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00000388  0000041c  2**0
+                  ALLOC, LOAD, DATA
+  1 .text         000000c4  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      0000002f  00000000  00000000  0000041c  2**0
+                  CONTENTS, READONLY
+  3 .stack.descriptors.hdr 0000000e  00000000  00000000  0000044b  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000068  00000000  00000000  00000459  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000fc8  00000000  00000000  000004c1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000007e8  00000000  00000000  00001489  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000004fc  00000000  00000000  00001c71  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000cc  00000000  00000000  00002170  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000022e  00000000  00000000  0000223c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000055f  00000000  00000000  0000246a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000070  00000000  00000000  000029c9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .text         00000004  0000036a  0000036a  000003fe  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 13 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00002a3c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .text.iniciar_keypad 0000001a  000002da  000002da  0000036e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 15 .text.i2c_init 00000012  0000031e  0000031e  000003b2  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 16 .text.i2c_start 00000010  00000342  00000342  000003d6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 17 .text.i2c_write 00000014  0000030a  0000030a  0000039e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 18 .text.i2c_stop 00000008  00000362  00000362  000003f6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 19 .text.lcd_i2c_write 0000006e  0000026c  0000026c  00000300  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 20 .text.lcd_i2c_init 000000ce  0000019e  0000019e  00000232  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 21 .text.Leer_keypad 000000da  000000c4  000000c4  00000158  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 22 .text.escribir 00000010  00000352  00000352  000003e6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .text.main    00000012  00000330  00000330  000003c4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 24 .data.keypad  00000010  00800100  00000378  0000040c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+ 25 .text.__dummy_fini 00000002  00000372  00000372  00000406  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 26 .text.__dummy_funcs_on_exit 00000002  00000374  00000374  00000408  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 27 .text.__dummy_simulator_exit 00000002  00000376  00000376  0000040a  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 28 .text.exit    00000016  000002f4  000002f4  00000388  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 29 .text._Exit   00000004  0000036e  0000036e  00000402  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 38 00 	jmp	0x70	; 0x70 <__ctors_end>
+   4:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+   8:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+   c:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  10:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  14:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  18:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  1c:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  20:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  24:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  28:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  2c:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  30:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  34:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  38:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  3c:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  40:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  44:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  48:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  4c:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  50:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  54:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  58:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  5c:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  60:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+  64:	0c 94 b5 01 	jmp	0x36a	; 0x36a <__bad_interrupt>
+
+00000068 <.dinit>:
+  68:	01 00       	.word	0x0001	; ????
+  6a:	01 10       	cpse	r0, r1
+  6c:	00 03       	mulsu	r16, r16
+  6e:	78 00       	.word	0x0078	; ????
+
+00000070 <__ctors_end>:
+  70:	11 24       	eor	r1, r1
+  72:	1f be       	out	0x3f, r1	; 63
+  74:	cf ef       	ldi	r28, 0xFF	; 255
+  76:	d8 e0       	ldi	r29, 0x08	; 8
+  78:	de bf       	out	0x3e, r29	; 62
+  7a:	cd bf       	out	0x3d, r28	; 61
+
+0000007c <__do_copy_data>:
+  7c:	e8 e6       	ldi	r30, 0x68	; 104
+  7e:	f0 e0       	ldi	r31, 0x00	; 0
+  80:	40 e0       	ldi	r20, 0x00	; 0
+  82:	17 c0       	rjmp	.+46     	; 0xb2 <__do_clear_bss+0x8>
+  84:	b5 91       	lpm	r27, Z+
+  86:	a5 91       	lpm	r26, Z+
+  88:	35 91       	lpm	r19, Z+
+  8a:	25 91       	lpm	r18, Z+
+  8c:	05 91       	lpm	r16, Z+
+  8e:	07 fd       	sbrc	r16, 7
+  90:	0c c0       	rjmp	.+24     	; 0xaa <__do_clear_bss>
+  92:	95 91       	lpm	r25, Z+
+  94:	85 91       	lpm	r24, Z+
+  96:	ef 01       	movw	r28, r30
+  98:	f9 2f       	mov	r31, r25
+  9a:	e8 2f       	mov	r30, r24
+  9c:	05 90       	lpm	r0, Z+
+  9e:	0d 92       	st	X+, r0
+  a0:	a2 17       	cp	r26, r18
+  a2:	b3 07       	cpc	r27, r19
+  a4:	d9 f7       	brne	.-10     	; 0x9c <__do_copy_data+0x20>
+  a6:	fe 01       	movw	r30, r28
+  a8:	04 c0       	rjmp	.+8      	; 0xb2 <__do_clear_bss+0x8>
+
+000000aa <__do_clear_bss>:
+  aa:	1d 92       	st	X+, r1
+  ac:	a2 17       	cp	r26, r18
+  ae:	b3 07       	cpc	r27, r19
+  b0:	e1 f7       	brne	.-8      	; 0xaa <__do_clear_bss>
+  b2:	ef 36       	cpi	r30, 0x6F	; 111
+  b4:	f4 07       	cpc	r31, r20
+  b6:	31 f7       	brne	.-52     	; 0x84 <__do_copy_data+0x8>
+  b8:	0e 94 98 01 	call	0x330	; 0x330 <main>
+  bc:	0c 94 7a 01 	jmp	0x2f4	; 0x2f4 <exit>
+
+000000c0 <_exit>:
+  c0:	f8 94       	cli
+
+000000c2 <__stop_program>:
+  c2:	ff cf       	rjmp	.-2      	; 0xc2 <__stop_program>
+
+Disassembly of section .text:
+
+0000036a <__bad_interrupt>:
+ 36a:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+
+Disassembly of section .text.iniciar_keypad:
+
+000002da <iniciar_keypad>:
+	{'7','8','9','C'},
+	{'*','0','#','D'}
+};
+
+static void iniciar_keypad(void) {
+	DDRD  |= 0x0F;
+ 2da:	8a b1       	in	r24, 0x0a	; 10
+ 2dc:	8f 60       	ori	r24, 0x0F	; 15
+ 2de:	8a b9       	out	0x0a, r24	; 10
+	PORTD |= 0x0F;
+ 2e0:	8b b1       	in	r24, 0x0b	; 11
+ 2e2:	8f 60       	ori	r24, 0x0F	; 15
+ 2e4:	8b b9       	out	0x0b, r24	; 11
+
+	DDRB  &= ~0x0F;
+ 2e6:	84 b1       	in	r24, 0x04	; 4
+ 2e8:	80 7f       	andi	r24, 0xF0	; 240
+ 2ea:	84 b9       	out	0x04, r24	; 4
+	PORTB |= 0x0F;
+ 2ec:	85 b1       	in	r24, 0x05	; 5
+ 2ee:	8f 60       	ori	r24, 0x0F	; 15
+ 2f0:	85 b9       	out	0x05, r24	; 5
+ 2f2:	08 95       	ret
+
+Disassembly of section .text.i2c_init:
+
+0000031e <i2c_init>:
+#define LCD_COMMAND     0x00
+#define LCD_DATA        LCD_RS
+
+void i2c_init() {
+	
+	TWSR = 0;
+ 31e:	10 92 b9 00 	sts	0x00B9, r1	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+	TWBR = (uint8_t)(((F_CPU / 100000UL) - 16) / 2);
+ 322:	88 e4       	ldi	r24, 0x48	; 72
+ 324:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7f80b8>
+	TWCR = (1 << TWEN);
+ 328:	84 e0       	ldi	r24, 0x04	; 4
+ 32a:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 32e:	08 95       	ret
+
+Disassembly of section .text.i2c_start:
+
+00000342 <i2c_start>:
+}
+
+
+void i2c_start() {
+	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
+ 342:	84 ea       	ldi	r24, 0xA4	; 164
+ 344:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 348:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 34c:	88 23       	and	r24, r24
+ 34e:	e4 f7       	brge	.-8      	; 0x348 <i2c_start+0x6>
+}
+ 350:	08 95       	ret
+
+Disassembly of section .text.i2c_write:
+
+0000030a <i2c_write>:
+
+
+void i2c_write(uint8_t data) {
+	TWDR = data;
+ 30a:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1 << TWINT) | (1 << TWEN);
+ 30e:	84 e8       	ldi	r24, 0x84	; 132
+ 310:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 314:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 318:	88 23       	and	r24, r24
+ 31a:	e4 f7       	brge	.-8      	; 0x314 <i2c_write+0xa>
+}
+ 31c:	08 95       	ret
+
+Disassembly of section .text.i2c_stop:
+
+00000362 <i2c_stop>:
+
+
+void i2c_stop() {
+	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+ 362:	84 e9       	ldi	r24, 0x94	; 148
+ 364:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 368:	08 95       	ret
+
+Disassembly of section .text.lcd_i2c_write:
+
+0000026c <lcd_i2c_write>:
+}
+
+
+void lcd_i2c_write(uint8_t data, uint8_t mode) {
+ 26c:	1f 93       	push	r17
+ 26e:	cf 93       	push	r28
+ 270:	df 93       	push	r29
+ 272:	00 d0       	rcall	.+0      	; 0x274 <lcd_i2c_write+0x8>
+ 274:	00 d0       	rcall	.+0      	; 0x276 <lcd_i2c_write+0xa>
+ 276:	cd b7       	in	r28, 0x3d	; 61
+ 278:	de b7       	in	r29, 0x3e	; 62
+	uint8_t high = data & 0xF0;
+ 27a:	28 2f       	mov	r18, r24
+ 27c:	20 7f       	andi	r18, 0xF0	; 240
+	uint8_t low = (data << 4) & 0xF0;
+ 27e:	30 e1       	ldi	r19, 0x10	; 16
+ 280:	83 9f       	mul	r24, r19
+ 282:	c0 01       	movw	r24, r0
+ 284:	11 24       	eor	r1, r1
+	uint8_t data_arr[4];
+	data_arr[0] = high | mode | LCD_BACKLIGHT | EN;
+ 286:	92 2f       	mov	r25, r18
+ 288:	96 2b       	or	r25, r22
+ 28a:	29 2f       	mov	r18, r25
+ 28c:	2c 60       	ori	r18, 0x0C	; 12
+ 28e:	29 83       	std	Y+1, r18	; 0x01
+	data_arr[1] = high | mode | LCD_BACKLIGHT;
+ 290:	98 60       	ori	r25, 0x08	; 8
+ 292:	9a 83       	std	Y+2, r25	; 0x02
+	data_arr[2] = low | mode | LCD_BACKLIGHT | EN;
+ 294:	86 2b       	or	r24, r22
+ 296:	98 2f       	mov	r25, r24
+ 298:	9c 60       	ori	r25, 0x0C	; 12
+ 29a:	9b 83       	std	Y+3, r25	; 0x03
+	data_arr[3] = low | mode | LCD_BACKLIGHT;
+ 29c:	88 60       	ori	r24, 0x08	; 8
+ 29e:	8c 83       	std	Y+4, r24	; 0x04
+
+	i2c_start();
+ 2a0:	0e 94 a1 01 	call	0x342	; 0x342 <i2c_start>
+	i2c_write(LCD_ADDR << 1);
+ 2a4:	8e e4       	ldi	r24, 0x4E	; 78
+ 2a6:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+	for (uint8_t i = 0; i < 4; i++) {
+ 2aa:	10 e0       	ldi	r17, 0x00	; 0
+ 2ac:	0a c0       	rjmp	.+20     	; 0x2c2 <lcd_i2c_write+0x56>
+		i2c_write(data_arr[i]);
+ 2ae:	e1 e0       	ldi	r30, 0x01	; 1
+ 2b0:	f0 e0       	ldi	r31, 0x00	; 0
+ 2b2:	ec 0f       	add	r30, r28
+ 2b4:	fd 1f       	adc	r31, r29
+ 2b6:	e1 0f       	add	r30, r17
+ 2b8:	f1 1d       	adc	r31, r1
+ 2ba:	80 81       	ld	r24, Z
+ 2bc:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+	data_arr[2] = low | mode | LCD_BACKLIGHT | EN;
+	data_arr[3] = low | mode | LCD_BACKLIGHT;
+
+	i2c_start();
+	i2c_write(LCD_ADDR << 1);
+	for (uint8_t i = 0; i < 4; i++) {
+ 2c0:	1f 5f       	subi	r17, 0xFF	; 255
+ 2c2:	14 30       	cpi	r17, 0x04	; 4
+ 2c4:	a0 f3       	brcs	.-24     	; 0x2ae <lcd_i2c_write+0x42>
+		i2c_write(data_arr[i]);
+	}
+	i2c_stop();
+ 2c6:	0e 94 b1 01 	call	0x362	; 0x362 <i2c_stop>
+}
+ 2ca:	0f 90       	pop	r0
+ 2cc:	0f 90       	pop	r0
+ 2ce:	0f 90       	pop	r0
+ 2d0:	0f 90       	pop	r0
+ 2d2:	df 91       	pop	r29
+ 2d4:	cf 91       	pop	r28
+ 2d6:	1f 91       	pop	r17
+ 2d8:	08 95       	ret
+
+Disassembly of section .text.lcd_i2c_init:
+
+0000019e <lcd_i2c_init>:
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 19e:	2f ef       	ldi	r18, 0xFF	; 255
+ 1a0:	80 e7       	ldi	r24, 0x70	; 112
+ 1a2:	92 e0       	ldi	r25, 0x02	; 2
+ 1a4:	21 50       	subi	r18, 0x01	; 1
+ 1a6:	80 40       	sbci	r24, 0x00	; 0
+ 1a8:	90 40       	sbci	r25, 0x00	; 0
+ 1aa:	e1 f7       	brne	.-8      	; 0x1a4 <lcd_i2c_init+0x6>
+ 1ac:	00 c0       	rjmp	.+0      	; 0x1ae <lcd_i2c_init+0x10>
+ 1ae:	00 00       	nop
+
+void lcd_i2c_init() {
+	_delay_ms(50);
+
+	i2c_start();
+ 1b0:	0e 94 a1 01 	call	0x342	; 0x342 <i2c_start>
+	i2c_write(LCD_ADDR << 1);
+ 1b4:	8e e4       	ldi	r24, 0x4E	; 78
+ 1b6:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+
+
+	i2c_write((0x30 | LCD_COMMAND | LCD_BACKLIGHT | EN)); _delay_us(1);
+ 1ba:	8c e3       	ldi	r24, 0x3C	; 60
+ 1bc:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1c0:	25 e0       	ldi	r18, 0x05	; 5
+ 1c2:	2a 95       	dec	r18
+ 1c4:	f1 f7       	brne	.-4      	; 0x1c2 <lcd_i2c_init+0x24>
+ 1c6:	00 00       	nop
+	i2c_write((0x30 | LCD_COMMAND | LCD_BACKLIGHT));      _delay_ms(5);
+ 1c8:	88 e3       	ldi	r24, 0x38	; 56
+ 1ca:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1ce:	8f e1       	ldi	r24, 0x1F	; 31
+ 1d0:	9e e4       	ldi	r25, 0x4E	; 78
+ 1d2:	01 97       	sbiw	r24, 0x01	; 1
+ 1d4:	f1 f7       	brne	.-4      	; 0x1d2 <lcd_i2c_init+0x34>
+ 1d6:	00 c0       	rjmp	.+0      	; 0x1d8 <lcd_i2c_init+0x3a>
+ 1d8:	00 00       	nop
+
+	
+	i2c_write((0x30 | LCD_COMMAND | LCD_BACKLIGHT | EN)); _delay_us(1);
+ 1da:	8c e3       	ldi	r24, 0x3C	; 60
+ 1dc:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1e0:	95 e0       	ldi	r25, 0x05	; 5
+ 1e2:	9a 95       	dec	r25
+ 1e4:	f1 f7       	brne	.-4      	; 0x1e2 <lcd_i2c_init+0x44>
+ 1e6:	00 00       	nop
+	i2c_write((0x30 | LCD_COMMAND | LCD_BACKLIGHT));      _delay_us(100);
+ 1e8:	88 e3       	ldi	r24, 0x38	; 56
+ 1ea:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+ 1ee:	8f e8       	ldi	r24, 0x8F	; 143
+ 1f0:	91 e0       	ldi	r25, 0x01	; 1
+ 1f2:	01 97       	sbiw	r24, 0x01	; 1
+ 1f4:	f1 f7       	brne	.-4      	; 0x1f2 <lcd_i2c_init+0x54>
+ 1f6:	00 c0       	rjmp	.+0      	; 0x1f8 <lcd_i2c_init+0x5a>
+ 1f8:	00 00       	nop
+
+	
+	i2c_write((0x30 | LCD_COMMAND | LCD_BACKLIGHT | EN)); _delay_us(1);
+ 1fa:	8c e3       	ldi	r24, 0x3C	; 60
+ 1fc:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+ 200:	95 e0       	ldi	r25, 0x05	; 5
+ 202:	9a 95       	dec	r25
+ 204:	f1 f7       	brne	.-4      	; 0x202 <lcd_i2c_init+0x64>
+ 206:	00 00       	nop
+	i2c_write((0x30 | LCD_COMMAND | LCD_BACKLIGHT));      _delay_us(100);
+ 208:	88 e3       	ldi	r24, 0x38	; 56
+ 20a:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+ 20e:	8f e8       	ldi	r24, 0x8F	; 143
+ 210:	91 e0       	ldi	r25, 0x01	; 1
+ 212:	01 97       	sbiw	r24, 0x01	; 1
+ 214:	f1 f7       	brne	.-4      	; 0x212 <lcd_i2c_init+0x74>
+ 216:	00 c0       	rjmp	.+0      	; 0x218 <lcd_i2c_init+0x7a>
+ 218:	00 00       	nop
+
+	
+	i2c_write((0x20 | LCD_COMMAND | LCD_BACKLIGHT | EN)); _delay_us(1);
+ 21a:	8c e2       	ldi	r24, 0x2C	; 44
+ 21c:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+ 220:	95 e0       	ldi	r25, 0x05	; 5
+ 222:	9a 95       	dec	r25
+ 224:	f1 f7       	brne	.-4      	; 0x222 <lcd_i2c_init+0x84>
+ 226:	00 00       	nop
+	i2c_write((0x20 | LCD_COMMAND | LCD_BACKLIGHT));      _delay_us(100);
+ 228:	88 e2       	ldi	r24, 0x28	; 40
+ 22a:	0e 94 85 01 	call	0x30a	; 0x30a <i2c_write>
+ 22e:	8f e8       	ldi	r24, 0x8F	; 143
+ 230:	91 e0       	ldi	r25, 0x01	; 1
+ 232:	01 97       	sbiw	r24, 0x01	; 1
+ 234:	f1 f7       	brne	.-4      	; 0x232 <lcd_i2c_init+0x94>
+ 236:	00 c0       	rjmp	.+0      	; 0x238 <lcd_i2c_init+0x9a>
+ 238:	00 00       	nop
+
+	i2c_stop();
+ 23a:	0e 94 b1 01 	call	0x362	; 0x362 <i2c_stop>
+
+	
+	lcd_i2c_write(0x28, LCD_COMMAND);
+ 23e:	60 e0       	ldi	r22, 0x00	; 0
+ 240:	88 e2       	ldi	r24, 0x28	; 40
+ 242:	0e 94 36 01 	call	0x26c	; 0x26c <lcd_i2c_write>
+	lcd_i2c_write(0x0C, LCD_COMMAND);
+ 246:	60 e0       	ldi	r22, 0x00	; 0
+ 248:	8c e0       	ldi	r24, 0x0C	; 12
+ 24a:	0e 94 36 01 	call	0x26c	; 0x26c <lcd_i2c_write>
+	lcd_i2c_write(0x06, LCD_COMMAND);
+ 24e:	60 e0       	ldi	r22, 0x00	; 0
+ 250:	86 e0       	ldi	r24, 0x06	; 6
+ 252:	0e 94 36 01 	call	0x26c	; 0x26c <lcd_i2c_write>
+	lcd_i2c_write(0x01, LCD_COMMAND);
+ 256:	60 e0       	ldi	r22, 0x00	; 0
+ 258:	81 e0       	ldi	r24, 0x01	; 1
+ 25a:	0e 94 36 01 	call	0x26c	; 0x26c <lcd_i2c_write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 25e:	8f e3       	ldi	r24, 0x3F	; 63
+ 260:	9f e1       	ldi	r25, 0x1F	; 31
+ 262:	01 97       	sbiw	r24, 0x01	; 1
+ 264:	f1 f7       	brne	.-4      	; 0x262 <lcd_i2c_init+0xc4>
+ 266:	00 c0       	rjmp	.+0      	; 0x268 <lcd_i2c_init+0xca>
+ 268:	00 00       	nop
+ 26a:	08 95       	ret
+
+Disassembly of section .text.Leer_keypad:
+
+000000c4 <Leer_keypad>:
+	DDRB  &= ~0x0F;
+	PORTB |= 0x0F;
+}
+
+char Leer_keypad(void) {
+	for (uint8_t row = 0; row < 4; row++) {
+  c4:	40 e0       	ldi	r20, 0x00	; 0
+  c6:	63 c0       	rjmp	.+198    	; 0x18e <Leer_keypad+0xca>
+
+		
+		uint8_t filas = ((~(1 << row)) & 0x0F);
+  c8:	64 2f       	mov	r22, r20
+  ca:	70 e0       	ldi	r23, 0x00	; 0
+  cc:	81 e0       	ldi	r24, 0x01	; 1
+  ce:	90 e0       	ldi	r25, 0x00	; 0
+  d0:	04 2e       	mov	r0, r20
+  d2:	02 c0       	rjmp	.+4      	; 0xd8 <Leer_keypad+0x14>
+  d4:	88 0f       	add	r24, r24
+  d6:	99 1f       	adc	r25, r25
+  d8:	0a 94       	dec	r0
+  da:	e2 f7       	brpl	.-8      	; 0xd4 <Leer_keypad+0x10>
+  dc:	80 95       	com	r24
+  de:	98 2f       	mov	r25, r24
+  e0:	9f 70       	andi	r25, 0x0F	; 15
+		PORTD = (PORTD & 0xF0) | filas;
+  e2:	8b b1       	in	r24, 0x0b	; 11
+  e4:	80 7f       	andi	r24, 0xF0	; 240
+  e6:	89 2b       	or	r24, r25
+  e8:	8b b9       	out	0x0b, r24	; 11
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ea:	2a e1       	ldi	r18, 0x1A	; 26
+  ec:	2a 95       	dec	r18
+  ee:	f1 f7       	brne	.-4      	; 0xec <Leer_keypad+0x28>
+  f0:	00 c0       	rjmp	.+0      	; 0xf2 <Leer_keypad+0x2e>
+
+		_delay_us(5);
+
+		
+		uint8_t cols = (~PINB) & 0x0F;
+  f2:	93 b1       	in	r25, 0x03	; 3
+  f4:	90 95       	com	r25
+  f6:	9f 70       	andi	r25, 0x0F	; 15
+		if (cols) {
+  f8:	09 f0       	breq	.+2      	; 0xfc <Leer_keypad+0x38>
+  fa:	44 c0       	rjmp	.+136    	; 0x184 <Leer_keypad+0xc0>
+  fc:	47 c0       	rjmp	.+142    	; 0x18c <Leer_keypad+0xc8>
+			for (uint8_t col = 0; col < 4; col++) {
+				if (cols & (1 << col)) {
+  fe:	e8 2f       	mov	r30, r24
+ 100:	f0 e0       	ldi	r31, 0x00	; 0
+ 102:	29 2f       	mov	r18, r25
+ 104:	30 e0       	ldi	r19, 0x00	; 0
+ 106:	08 2e       	mov	r0, r24
+ 108:	02 c0       	rjmp	.+4      	; 0x10e <Leer_keypad+0x4a>
+ 10a:	35 95       	asr	r19
+ 10c:	27 95       	ror	r18
+ 10e:	0a 94       	dec	r0
+ 110:	e2 f7       	brpl	.-8      	; 0x10a <Leer_keypad+0x46>
+ 112:	20 ff       	sbrs	r18, 0
+ 114:	35 c0       	rjmp	.+106    	; 0x180 <Leer_keypad+0xbc>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 116:	3f e7       	ldi	r19, 0x7F	; 127
+ 118:	58 e3       	ldi	r21, 0x38	; 56
+ 11a:	21 e0       	ldi	r18, 0x01	; 1
+ 11c:	31 50       	subi	r19, 0x01	; 1
+ 11e:	50 40       	sbci	r21, 0x00	; 0
+ 120:	20 40       	sbci	r18, 0x00	; 0
+ 122:	e1 f7       	brne	.-8      	; 0x11c <Leer_keypad+0x58>
+ 124:	00 c0       	rjmp	.+0      	; 0x126 <Leer_keypad+0x62>
+ 126:	00 00       	nop
+					_delay_ms(25);
+					if ( ((~PINB) & (1 << col)) ) {
+ 128:	23 b1       	in	r18, 0x03	; 3
+ 12a:	30 e0       	ldi	r19, 0x00	; 0
+ 12c:	20 95       	com	r18
+ 12e:	30 95       	com	r19
+ 130:	08 2e       	mov	r0, r24
+ 132:	02 c0       	rjmp	.+4      	; 0x138 <Leer_keypad+0x74>
+ 134:	35 95       	asr	r19
+ 136:	27 95       	ror	r18
+ 138:	0a 94       	dec	r0
+ 13a:	e2 f7       	brpl	.-8      	; 0x134 <Leer_keypad+0x70>
+ 13c:	20 ff       	sbrs	r18, 0
+ 13e:	20 c0       	rjmp	.+64     	; 0x180 <Leer_keypad+0xbc>
+ 140:	06 c0       	rjmp	.+12     	; 0x14e <Leer_keypad+0x8a>
+ 142:	8f e1       	ldi	r24, 0x1F	; 31
+ 144:	9e e4       	ldi	r25, 0x4E	; 78
+ 146:	01 97       	sbiw	r24, 0x01	; 1
+ 148:	f1 f7       	brne	.-4      	; 0x146 <Leer_keypad+0x82>
+ 14a:	00 c0       	rjmp	.+0      	; 0x14c <Leer_keypad+0x88>
+ 14c:	00 00       	nop
+						while ( ((~PINB) & (1 << col)) ) { _delay_ms(5); }
+ 14e:	83 b1       	in	r24, 0x03	; 3
+ 150:	90 e0       	ldi	r25, 0x00	; 0
+ 152:	80 95       	com	r24
+ 154:	90 95       	com	r25
+ 156:	0e 2e       	mov	r0, r30
+ 158:	02 c0       	rjmp	.+4      	; 0x15e <Leer_keypad+0x9a>
+ 15a:	95 95       	asr	r25
+ 15c:	87 95       	ror	r24
+ 15e:	0a 94       	dec	r0
+ 160:	e2 f7       	brpl	.-8      	; 0x15a <Leer_keypad+0x96>
+ 162:	80 fd       	sbrc	r24, 0
+ 164:	ee cf       	rjmp	.-36     	; 0x142 <Leer_keypad+0x7e>
+						PORTD = (PORTD & 0xF0) | 0x0F;
+ 166:	8b b1       	in	r24, 0x0b	; 11
+ 168:	8f 60       	ori	r24, 0x0F	; 15
+ 16a:	8b b9       	out	0x0b, r24	; 11
+						return keypad[row][col];
+ 16c:	66 0f       	add	r22, r22
+ 16e:	77 1f       	adc	r23, r23
+ 170:	66 0f       	add	r22, r22
+ 172:	77 1f       	adc	r23, r23
+ 174:	60 50       	subi	r22, 0x00	; 0
+ 176:	7f 4f       	sbci	r23, 0xFF	; 255
+ 178:	e6 0f       	add	r30, r22
+ 17a:	f7 1f       	adc	r31, r23
+ 17c:	80 81       	ld	r24, Z
+ 17e:	08 95       	ret
+		_delay_us(5);
+
+		
+		uint8_t cols = (~PINB) & 0x0F;
+		if (cols) {
+			for (uint8_t col = 0; col < 4; col++) {
+ 180:	8f 5f       	subi	r24, 0xFF	; 255
+ 182:	01 c0       	rjmp	.+2      	; 0x186 <Leer_keypad+0xc2>
+ 184:	80 e0       	ldi	r24, 0x00	; 0
+ 186:	84 30       	cpi	r24, 0x04	; 4
+ 188:	08 f4       	brcc	.+2      	; 0x18c <Leer_keypad+0xc8>
+ 18a:	b9 cf       	rjmp	.-142    	; 0xfe <Leer_keypad+0x3a>
+	DDRB  &= ~0x0F;
+	PORTB |= 0x0F;
+}
+
+char Leer_keypad(void) {
+	for (uint8_t row = 0; row < 4; row++) {
+ 18c:	4f 5f       	subi	r20, 0xFF	; 255
+ 18e:	44 30       	cpi	r20, 0x04	; 4
+ 190:	08 f4       	brcc	.+2      	; 0x194 <Leer_keypad+0xd0>
+ 192:	9a cf       	rjmp	.-204    	; 0xc8 <Leer_keypad+0x4>
+					}
+				}
+			}
+		}
+	}
+	PORTD = (PORTD & 0xF0) | 0x0F;
+ 194:	8b b1       	in	r24, 0x0b	; 11
+ 196:	8f 60       	ori	r24, 0x0F	; 15
+ 198:	8b b9       	out	0x0b, r24	; 11
+	return 0;
+ 19a:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 19c:	08 95       	ret
+
+Disassembly of section .text.escribir:
+
+00000352 <escribir>:
+
+
+static void escribir(void){
+	char x = 0;
+	do {
+		x = Leer_keypad();
+ 352:	0e 94 62 00 	call	0xc4	; 0xc4 <__data_load_end>
+	} while (x == 0);
+ 356:	88 23       	and	r24, r24
+ 358:	e1 f3       	breq	.-8      	; 0x352 <escribir>
+	
+	lcd_i2c_write((uint8_t)x, LCD_DATA);
+ 35a:	61 e0       	ldi	r22, 0x01	; 1
+ 35c:	0e 94 36 01 	call	0x26c	; 0x26c <lcd_i2c_write>
+ 360:	08 95       	ret
+
+Disassembly of section .text.main:
+
+00000330 <main>:
+}
+
+
+int main(void)
+{
+	iniciar_keypad();
+ 330:	0e 94 6d 01 	call	0x2da	; 0x2da <iniciar_keypad>
+	i2c_init();
+ 334:	0e 94 8f 01 	call	0x31e	; 0x31e <i2c_init>
+	lcd_i2c_init();
+ 338:	0e 94 cf 00 	call	0x19e	; 0x19e <lcd_i2c_init>
+
+	while(1) {
+		escribir();
+ 33c:	0e 94 a9 01 	call	0x352	; 0x352 <escribir>
+ 340:	fd cf       	rjmp	.-6      	; 0x33c <main+0xc>
+
+Disassembly of section .text.__dummy_fini:
+
+00000372 <_fini>:
+ 372:	08 95       	ret
+
+Disassembly of section .text.__dummy_funcs_on_exit:
+
+00000374 <__funcs_on_exit>:
+ 374:	08 95       	ret
+
+Disassembly of section .text.__dummy_simulator_exit:
+
+00000376 <__simulator_exit>:
+ 376:	08 95       	ret
+
+Disassembly of section .text.exit:
+
+000002f4 <exit>:
+ 2f4:	ec 01       	movw	r28, r24
+ 2f6:	0e 94 ba 01 	call	0x374	; 0x374 <__funcs_on_exit>
+ 2fa:	0e 94 b9 01 	call	0x372	; 0x372 <_fini>
+ 2fe:	ce 01       	movw	r24, r28
+ 300:	0e 94 bb 01 	call	0x376	; 0x376 <__simulator_exit>
+ 304:	ce 01       	movw	r24, r28
+ 306:	0e 94 b7 01 	call	0x36e	; 0x36e <_Exit>
+
+Disassembly of section .text._Exit:
+
+0000036e <_Exit>:
+ 36e:	0e 94 60 00 	call	0xc0	; 0xc0 <_exit>
