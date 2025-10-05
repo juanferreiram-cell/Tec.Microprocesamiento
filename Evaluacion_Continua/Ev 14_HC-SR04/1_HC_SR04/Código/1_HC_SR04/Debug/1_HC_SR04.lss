@@ -1,0 +1,768 @@
+
+1_HC_SR04.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000402  2**0
+                  ALLOC, LOAD, DATA
+  1 .text         00000080  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      0000002f  00000000  00000000  00000402  2**0
+                  CONTENTS, READONLY
+  3 .stack.descriptors.hdr 0000001c  00000000  00000000  00000431  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000048  00000000  00000000  0000044d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000d63  00000000  00000000  00000495  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000007d1  00000000  00000000  000011f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000045f  00000000  00000000  000019c9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000a8  00000000  00000000  00001e28  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000242  00000000  00000000  00001ed0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000004f7  00000000  00000000  00002112  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000050  00000000  00000000  00002609  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .text         00000004  00000380  00000380  000003f4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 13 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000265c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .text.pwm_ini 00000014  00000358  00000358  000003cc  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 15 .text.t1_ini  00000014  0000036c  0000036c  000003e0  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 16 .text.esperar 0000004e  000002b0  000002b0  00000324  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 17 .text.nivel_auto 0000009c  000001a8  000001a8  0000021c  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 18 .text.leer_ticks 0000006c  00000244  00000244  000002b8  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 19 .text.main    0000011e  0000008a  0000008a  000000fe  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 20 .progmemx.data.tabla_pwm 0000000a  00000080  00000080  000000f4  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
+ 21 .text.libgcc.div 00000044  000002fe  000002fe  00000372  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 22 .text.__dummy_fini 00000002  00000388  00000388  000003fc  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .text.__dummy_funcs_on_exit 00000002  0000038a  0000038a  000003fe  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 24 .text.__dummy_simulator_exit 00000002  0000038c  0000038c  00000400  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 25 .text.exit    00000016  00000342  00000342  000003b6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 26 .text._Exit   00000004  00000384  00000384  000003f8  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+   8:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+   c:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  10:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  14:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  18:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  1c:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  20:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  24:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  28:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  2c:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  30:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  34:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  38:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  3c:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  40:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  44:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  48:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  4c:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  50:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  54:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  58:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  5c:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  60:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+  64:	0c 94 c0 01 	jmp	0x380	; 0x380 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 45 00 	call	0x8a	; 0x8a <main>
+  78:	0c 94 a1 01 	jmp	0x342	; 0x342 <exit>
+
+0000007c <_exit>:
+  7c:	f8 94       	cli
+
+0000007e <__stop_program>:
+  7e:	ff cf       	rjmp	.-2      	; 0x7e <__stop_program>
+
+Disassembly of section .text:
+
+00000380 <__bad_interrupt>:
+ 380:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+
+Disassembly of section .text.pwm_ini:
+
+00000358 <pwm_ini>:
+// 10 pasos de brillo
+static const uint8_t tabla_pwm[10] = {13,38,64,89,115,140,166,191,217,242};
+
+// init pwm 1 kHz en D6
+static void pwm_ini(void){
+	PWM_DDR |= (1<<PWM_PIN);
+ 358:	8a b1       	in	r24, 0x0a	; 10
+ 35a:	80 64       	ori	r24, 0x40	; 64
+ 35c:	8a b9       	out	0x0a, r24	; 10
+	TCCR0A = (1<<WGM01)|(1<<WGM00)|(1<<COM0A1);  // fast pwm
+ 35e:	83 e8       	ldi	r24, 0x83	; 131
+ 360:	84 bd       	out	0x24, r24	; 36
+	TCCR0B = (1<<CS01)|(1<<CS00);                // /64
+ 362:	83 e0       	ldi	r24, 0x03	; 3
+ 364:	85 bd       	out	0x25, r24	; 37
+	OCR0A = tabla_pwm[0];
+ 366:	8d e0       	ldi	r24, 0x0D	; 13
+ 368:	87 bd       	out	0x27, r24	; 39
+ 36a:	08 95       	ret
+
+Disassembly of section .text.t1_ini:
+
+0000036c <t1_ini>:
+}
+static inline void pwm_set(uint8_t d){ OCR0A = d; }
+
+//cuento tiempo (0.5us por tick)
+static void t1_ini(void){
+	TCCR1A = 0;
+ 36c:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+	TCCR1B = (1<<CS11);   // /8
+ 370:	82 e0       	ldi	r24, 0x02	; 2
+ 372:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+	TCNT1 = 0;
+ 376:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
+ 37a:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
+ 37e:	08 95       	ret
+
+Disassembly of section .text.esperar:
+
+000002b0 <esperar>:
+}
+
+// espero estado de pin con timeout
+static bool esperar(volatile uint8_t *pin, uint8_t mask, uint8_t estado, uint16_t to){
+ 2b0:	0f 93       	push	r16
+ 2b2:	1f 93       	push	r17
+ 2b4:	cf 93       	push	r28
+ 2b6:	df 93       	push	r29
+ 2b8:	ec 01       	movw	r28, r24
+	uint16_t t0 = TCNT1;
+ 2ba:	00 91 84 00 	lds	r16, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
+ 2be:	10 91 85 00 	lds	r17, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
+	while((((*pin)&mask)?1:0) != estado){
+ 2c2:	09 c0       	rjmp	.+18     	; 0x2d6 <esperar+0x26>
+		if((uint16_t)(TCNT1 - t0) > to) return false;
+ 2c4:	e0 91 84 00 	lds	r30, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
+ 2c8:	f0 91 85 00 	lds	r31, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
+ 2cc:	e0 1b       	sub	r30, r16
+ 2ce:	f1 0b       	sbc	r31, r17
+ 2d0:	2e 17       	cp	r18, r30
+ 2d2:	3f 07       	cpc	r19, r31
+ 2d4:	70 f0       	brcs	.+28     	; 0x2f2 <esperar+0x42>
+}
+
+// espero estado de pin con timeout
+static bool esperar(volatile uint8_t *pin, uint8_t mask, uint8_t estado, uint16_t to){
+	uint16_t t0 = TCNT1;
+	while((((*pin)&mask)?1:0) != estado){
+ 2d6:	98 81       	ld	r25, Y
+ 2d8:	96 23       	and	r25, r22
+ 2da:	e1 e0       	ldi	r30, 0x01	; 1
+ 2dc:	f0 e0       	ldi	r31, 0x00	; 0
+ 2de:	11 f4       	brne	.+4      	; 0x2e4 <esperar+0x34>
+ 2e0:	e0 e0       	ldi	r30, 0x00	; 0
+ 2e2:	f0 e0       	ldi	r31, 0x00	; 0
+ 2e4:	a4 2f       	mov	r26, r20
+ 2e6:	b0 e0       	ldi	r27, 0x00	; 0
+ 2e8:	ea 17       	cp	r30, r26
+ 2ea:	fb 07       	cpc	r31, r27
+ 2ec:	59 f7       	brne	.-42     	; 0x2c4 <esperar+0x14>
+		if((uint16_t)(TCNT1 - t0) > to) return false;
+	}
+	return true;
+ 2ee:	81 e0       	ldi	r24, 0x01	; 1
+ 2f0:	01 c0       	rjmp	.+2      	; 0x2f4 <esperar+0x44>
+
+// espero estado de pin con timeout
+static bool esperar(volatile uint8_t *pin, uint8_t mask, uint8_t estado, uint16_t to){
+	uint16_t t0 = TCNT1;
+	while((((*pin)&mask)?1:0) != estado){
+		if((uint16_t)(TCNT1 - t0) > to) return false;
+ 2f2:	80 e0       	ldi	r24, 0x00	; 0
+	}
+	return true;
+}
+ 2f4:	df 91       	pop	r29
+ 2f6:	cf 91       	pop	r28
+ 2f8:	1f 91       	pop	r17
+ 2fa:	0f 91       	pop	r16
+ 2fc:	08 95       	ret
+
+Disassembly of section .text.nivel_auto:
+
+000001a8 <nivel_auto>:
+
+	return TCNT1;
+}
+
+// mapeo por autocal, ticks nivel del 0 al 9
+static uint8_t nivel_auto(uint16_t ticks, uint16_t min_visto, uint16_t max_visto){
+ 1a8:	cf 92       	push	r12
+ 1aa:	df 92       	push	r13
+ 1ac:	ef 92       	push	r14
+ 1ae:	ff 92       	push	r15
+ 1b0:	0f 93       	push	r16
+ 1b2:	1f 93       	push	r17
+	if(ticks == 0xFFFF) return 0;                 // sin dato
+ 1b4:	8f 3f       	cpi	r24, 0xFF	; 255
+ 1b6:	2f ef       	ldi	r18, 0xFF	; 255
+ 1b8:	92 07       	cpc	r25, r18
+ 1ba:	d1 f1       	breq	.+116    	; 0x230 <nivel_auto+0x88>
+	if(max_visto <= min_visto + 1) return 0;      // sin rango
+ 1bc:	9b 01       	movw	r18, r22
+ 1be:	2f 5f       	subi	r18, 0xFF	; 255
+ 1c0:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1c2:	24 17       	cp	r18, r20
+ 1c4:	35 07       	cpc	r19, r21
+ 1c6:	b0 f5       	brcc	.+108    	; 0x234 <nivel_auto+0x8c>
+
+	if(ticks < min_visto) ticks = min_visto;      // recorte
+ 1c8:	86 17       	cp	r24, r22
+ 1ca:	97 07       	cpc	r25, r23
+ 1cc:	08 f4       	brcc	.+2      	; 0x1d0 <nivel_auto+0x28>
+ 1ce:	cb 01       	movw	r24, r22
+	if(ticks > max_visto) ticks = max_visto;
+ 1d0:	48 17       	cp	r20, r24
+ 1d2:	59 07       	cpc	r21, r25
+ 1d4:	08 f4       	brcc	.+2      	; 0x1d8 <nivel_auto+0x30>
+ 1d6:	ca 01       	movw	r24, r20
+
+	uint32_t span = (uint32_t)(max_visto - min_visto);
+ 1d8:	9a 01       	movw	r18, r20
+ 1da:	26 1b       	sub	r18, r22
+ 1dc:	37 0b       	sbc	r19, r23
+ 1de:	89 01       	movw	r16, r18
+ 1e0:	20 e0       	ldi	r18, 0x00	; 0
+ 1e2:	30 e0       	ldi	r19, 0x00	; 0
+	uint32_t pos  = (uint32_t)(ticks - min_visto);
+ 1e4:	86 1b       	sub	r24, r22
+ 1e6:	97 0b       	sbc	r25, r23
+ 1e8:	a0 e0       	ldi	r26, 0x00	; 0
+ 1ea:	b0 e0       	ldi	r27, 0x00	; 0
+
+	uint8_t base = (uint8_t)((pos * 10u) / (span + 1u));  // de 0 a 9, lejos
+ 1ec:	88 0f       	add	r24, r24
+ 1ee:	99 1f       	adc	r25, r25
+ 1f0:	aa 1f       	adc	r26, r26
+ 1f2:	bb 1f       	adc	r27, r27
+ 1f4:	6c 01       	movw	r12, r24
+ 1f6:	7d 01       	movw	r14, r26
+ 1f8:	cc 0c       	add	r12, r12
+ 1fa:	dd 1c       	adc	r13, r13
+ 1fc:	ee 1c       	adc	r14, r14
+ 1fe:	ff 1c       	adc	r15, r15
+ 200:	cc 0c       	add	r12, r12
+ 202:	dd 1c       	adc	r13, r13
+ 204:	ee 1c       	adc	r14, r14
+ 206:	ff 1c       	adc	r15, r15
+ 208:	bc 01       	movw	r22, r24
+ 20a:	cd 01       	movw	r24, r26
+ 20c:	6c 0d       	add	r22, r12
+ 20e:	7d 1d       	adc	r23, r13
+ 210:	8e 1d       	adc	r24, r14
+ 212:	9f 1d       	adc	r25, r15
+ 214:	a9 01       	movw	r20, r18
+ 216:	98 01       	movw	r18, r16
+ 218:	2f 5f       	subi	r18, 0xFF	; 255
+ 21a:	3f 4f       	sbci	r19, 0xFF	; 255
+ 21c:	4f 4f       	sbci	r20, 0xFF	; 255
+ 21e:	5f 4f       	sbci	r21, 0xFF	; 255
+ 220:	0e 94 7f 01 	call	0x2fe	; 0x2fe <__udivmodsi4>
+	if(base > 9) base = 9;
+ 224:	2a 30       	cpi	r18, 0x0A	; 10
+ 226:	08 f0       	brcs	.+2      	; 0x22a <nivel_auto+0x82>
+ 228:	29 e0       	ldi	r18, 0x09	; 9
+	return (uint8_t)(9u - base);                           // invertido
+ 22a:	89 e0       	ldi	r24, 0x09	; 9
+ 22c:	82 1b       	sub	r24, r18
+ 22e:	03 c0       	rjmp	.+6      	; 0x236 <nivel_auto+0x8e>
+	return TCNT1;
+}
+
+// mapeo por autocal, ticks nivel del 0 al 9
+static uint8_t nivel_auto(uint16_t ticks, uint16_t min_visto, uint16_t max_visto){
+	if(ticks == 0xFFFF) return 0;                 // sin dato
+ 230:	80 e0       	ldi	r24, 0x00	; 0
+ 232:	01 c0       	rjmp	.+2      	; 0x236 <nivel_auto+0x8e>
+	if(max_visto <= min_visto + 1) return 0;      // sin rango
+ 234:	80 e0       	ldi	r24, 0x00	; 0
+	uint32_t pos  = (uint32_t)(ticks - min_visto);
+
+	uint8_t base = (uint8_t)((pos * 10u) / (span + 1u));  // de 0 a 9, lejos
+	if(base > 9) base = 9;
+	return (uint8_t)(9u - base);                           // invertido
+}
+ 236:	1f 91       	pop	r17
+ 238:	0f 91       	pop	r16
+ 23a:	ff 90       	pop	r15
+ 23c:	ef 90       	pop	r14
+ 23e:	df 90       	pop	r13
+ 240:	cf 90       	pop	r12
+ 242:	08 95       	ret
+
+Disassembly of section .text.leer_ticks:
+
+00000244 <leer_ticks>:
+	return true;
+}
+
+// disparo y mido ECHO
+static uint16_t leer_ticks(void){
+	TRIG_PORT &= ~(1<<TRIG_PIN);   // bajo un rato
+ 244:	85 b1       	in	r24, 0x05	; 5
+ 246:	8e 7f       	andi	r24, 0xFE	; 254
+ 248:	85 b9       	out	0x05, r24	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 24a:	8f e1       	ldi	r24, 0x1F	; 31
+ 24c:	93 e0       	ldi	r25, 0x03	; 3
+ 24e:	01 97       	sbiw	r24, 0x01	; 1
+ 250:	f1 f7       	brne	.-4      	; 0x24e <leer_ticks+0xa>
+ 252:	00 c0       	rjmp	.+0      	; 0x254 <leer_ticks+0x10>
+ 254:	00 00       	nop
+	_delay_us(200);
+
+	TRIG_PORT |=  (1<<TRIG_PIN);   // pulso 10us
+ 256:	85 b1       	in	r24, 0x05	; 5
+ 258:	81 60       	ori	r24, 0x01	; 1
+ 25a:	85 b9       	out	0x05, r24	; 5
+ 25c:	95 e3       	ldi	r25, 0x35	; 53
+ 25e:	9a 95       	dec	r25
+ 260:	f1 f7       	brne	.-4      	; 0x25e <leer_ticks+0x1a>
+ 262:	00 00       	nop
+	_delay_us(10);
+	TRIG_PORT &= ~(1<<TRIG_PIN);
+ 264:	85 b1       	in	r24, 0x05	; 5
+ 266:	8e 7f       	andi	r24, 0xFE	; 254
+ 268:	85 b9       	out	0x05, r24	; 5
+
+	if(!esperar(&ECHO_PINR, (1<<ECHO_PIN), 1, 20000)) return 0xFFFF; // subida
+ 26a:	20 e2       	ldi	r18, 0x20	; 32
+ 26c:	3e e4       	ldi	r19, 0x4E	; 78
+ 26e:	41 e0       	ldi	r20, 0x01	; 1
+ 270:	60 e8       	ldi	r22, 0x80	; 128
+ 272:	89 e2       	ldi	r24, 0x29	; 41
+ 274:	90 e0       	ldi	r25, 0x00	; 0
+ 276:	0e 94 58 01 	call	0x2b0	; 0x2b0 <esperar>
+ 27a:	88 23       	and	r24, r24
+ 27c:	99 f0       	breq	.+38     	; 0x2a4 <leer_ticks+0x60>
+	TCNT1 = 0;
+ 27e:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
+ 282:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
+	if(!esperar(&ECHO_PINR, (1<<ECHO_PIN), 0, 60000)) return 0xFFFF; // bajada
+ 286:	20 e6       	ldi	r18, 0x60	; 96
+ 288:	3a ee       	ldi	r19, 0xEA	; 234
+ 28a:	40 e0       	ldi	r20, 0x00	; 0
+ 28c:	60 e8       	ldi	r22, 0x80	; 128
+ 28e:	89 e2       	ldi	r24, 0x29	; 41
+ 290:	90 e0       	ldi	r25, 0x00	; 0
+ 292:	0e 94 58 01 	call	0x2b0	; 0x2b0 <esperar>
+ 296:	88 23       	and	r24, r24
+ 298:	41 f0       	breq	.+16     	; 0x2aa <leer_ticks+0x66>
+
+	return TCNT1;
+ 29a:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
+ 29e:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
+ 2a2:	08 95       	ret
+
+	TRIG_PORT |=  (1<<TRIG_PIN);   // pulso 10us
+	_delay_us(10);
+	TRIG_PORT &= ~(1<<TRIG_PIN);
+
+	if(!esperar(&ECHO_PINR, (1<<ECHO_PIN), 1, 20000)) return 0xFFFF; // subida
+ 2a4:	8f ef       	ldi	r24, 0xFF	; 255
+ 2a6:	9f ef       	ldi	r25, 0xFF	; 255
+ 2a8:	08 95       	ret
+	TCNT1 = 0;
+	if(!esperar(&ECHO_PINR, (1<<ECHO_PIN), 0, 60000)) return 0xFFFF; // bajada
+ 2aa:	8f ef       	ldi	r24, 0xFF	; 255
+ 2ac:	9f ef       	ldi	r25, 0xFF	; 255
+
+	return TCNT1;
+}
+ 2ae:	08 95       	ret
+
+Disassembly of section .text.main:
+
+0000008a <main>:
+	return (uint8_t)(9u - base);                           // invertido
+}
+
+int main(void){
+	// direcciones
+	TRIG_DDR |=  (1<<TRIG_PIN);   // trig salida
+  8a:	84 b1       	in	r24, 0x04	; 4
+  8c:	81 60       	ori	r24, 0x01	; 1
+  8e:	84 b9       	out	0x04, r24	; 4
+	ECHO_DDR &= ~(1<<ECHO_PIN);   // echo entrada
+  90:	8a b1       	in	r24, 0x0a	; 10
+  92:	8f 77       	andi	r24, 0x7F	; 127
+  94:	8a b9       	out	0x0a, r24	; 10
+
+	pwm_ini();
+  96:	0e 94 ac 01 	call	0x358	; 0x358 <pwm_ini>
+	t1_ini();
+  9a:	0e 94 b6 01 	call	0x36c	; 0x36c <t1_ini>
+	uint16_t min_visto = 0xFFFF;
+	uint16_t max_visto = 0;
+	uint16_t ciclos = 0;
+	uint16_t tomadas = 0;
+
+	uint8_t duty_ult = tabla_pwm[0];
+  9e:	0f 2e       	mov	r0, r31
+  a0:	fd e0       	ldi	r31, 0x0D	; 13
+  a2:	9f 2e       	mov	r9, r31
+  a4:	f0 2d       	mov	r31, r0
+
+	// estado autocal
+	uint16_t min_visto = 0xFFFF;
+	uint16_t max_visto = 0;
+	uint16_t ciclos = 0;
+	uint16_t tomadas = 0;
+  a6:	a1 2c       	mov	r10, r1
+  a8:	b1 2c       	mov	r11, r1
+	t1_ini();
+
+	// estado autocal
+	uint16_t min_visto = 0xFFFF;
+	uint16_t max_visto = 0;
+	uint16_t ciclos = 0;
+  aa:	00 e0       	ldi	r16, 0x00	; 0
+  ac:	10 e0       	ldi	r17, 0x00	; 0
+	pwm_ini();
+	t1_ini();
+
+	// estado autocal
+	uint16_t min_visto = 0xFFFF;
+	uint16_t max_visto = 0;
+  ae:	c1 2c       	mov	r12, r1
+  b0:	d1 2c       	mov	r13, r1
+
+	pwm_ini();
+	t1_ini();
+
+	// estado autocal
+	uint16_t min_visto = 0xFFFF;
+  b2:	ee 24       	eor	r14, r14
+  b4:	ea 94       	dec	r14
+  b6:	fe 2c       	mov	r15, r14
+
+	while(1){
+		// promedio 4 lecturas, >=60ms entre disparos
+		uint8_t buenas = 0;
+		uint32_t acum = 0;
+		for(uint8_t i=0;i<4;i++){
+  b8:	c0 e0       	ldi	r28, 0x00	; 0
+	uint8_t duty_ult = tabla_pwm[0];
+
+	while(1){
+		// promedio 4 lecturas, >=60ms entre disparos
+		uint8_t buenas = 0;
+		uint32_t acum = 0;
+  ba:	41 2c       	mov	r4, r1
+  bc:	51 2c       	mov	r5, r1
+  be:	32 01       	movw	r6, r4
+
+	uint8_t duty_ult = tabla_pwm[0];
+
+	while(1){
+		// promedio 4 lecturas, >=60ms entre disparos
+		uint8_t buenas = 0;
+  c0:	d0 e0       	ldi	r29, 0x00	; 0
+		uint32_t acum = 0;
+		for(uint8_t i=0;i<4;i++){
+  c2:	12 c0       	rjmp	.+36     	; 0xe8 <main+0x5e>
+			uint16_t t = leer_ticks();
+  c4:	0e 94 22 01 	call	0x244	; 0x244 <leer_ticks>
+			if(t != 0xFFFF){ acum += t; buenas++; }
+  c8:	8f 3f       	cpi	r24, 0xFF	; 255
+  ca:	2f ef       	ldi	r18, 0xFF	; 255
+  cc:	92 07       	cpc	r25, r18
+  ce:	29 f0       	breq	.+10     	; 0xda <main+0x50>
+  d0:	48 0e       	add	r4, r24
+  d2:	59 1e       	adc	r5, r25
+  d4:	61 1c       	adc	r6, r1
+  d6:	71 1c       	adc	r7, r1
+  d8:	df 5f       	subi	r29, 0xFF	; 255
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  da:	8f e5       	ldi	r24, 0x5F	; 95
+  dc:	9a ee       	ldi	r25, 0xEA	; 234
+  de:	01 97       	sbiw	r24, 0x01	; 1
+  e0:	f1 f7       	brne	.-4      	; 0xde <main+0x54>
+  e2:	00 c0       	rjmp	.+0      	; 0xe4 <main+0x5a>
+  e4:	00 00       	nop
+
+	while(1){
+		// promedio 4 lecturas, >=60ms entre disparos
+		uint8_t buenas = 0;
+		uint32_t acum = 0;
+		for(uint8_t i=0;i<4;i++){
+  e6:	cf 5f       	subi	r28, 0xFF	; 255
+  e8:	c4 30       	cpi	r28, 0x04	; 4
+  ea:	60 f3       	brcs	.-40     	; 0xc4 <main+0x3a>
+			uint16_t t = leer_ticks();
+			if(t != 0xFFFF){ acum += t; buenas++; }
+			_delay_ms(15);
+		}
+
+		if(buenas){
+  ec:	dd 23       	and	r29, r29
+  ee:	09 f4       	brne	.+2      	; 0xf2 <main+0x68>
+  f0:	51 c0       	rjmp	.+162    	; 0x194 <main+0x10a>
+			uint16_t ticks = (uint16_t)(acum / buenas);
+  f2:	2d 2f       	mov	r18, r29
+  f4:	30 e0       	ldi	r19, 0x00	; 0
+  f6:	40 e0       	ldi	r20, 0x00	; 0
+  f8:	50 e0       	ldi	r21, 0x00	; 0
+  fa:	c3 01       	movw	r24, r6
+  fc:	b2 01       	movw	r22, r4
+  fe:	0e 94 7f 01 	call	0x2fe	; 0x2fe <__udivmodsi4>
+ 102:	da 01       	movw	r26, r20
+ 104:	c9 01       	movw	r24, r18
+
+			// arranque y recalc
+			if(tomadas < muestras_ini || ciclos >= recalc_ciclos){
+ 106:	40 e1       	ldi	r20, 0x10	; 16
+ 108:	a4 16       	cp	r10, r20
+ 10a:	b1 04       	cpc	r11, r1
+ 10c:	20 f0       	brcs	.+8      	; 0x116 <main+0x8c>
+ 10e:	00 39       	cpi	r16, 0x90	; 144
+ 110:	41 e0       	ldi	r20, 0x01	; 1
+ 112:	14 07       	cpc	r17, r20
+ 114:	80 f0       	brcs	.+32     	; 0x136 <main+0xac>
+				if(ticks < min_visto) min_visto = ticks;
+ 116:	2e 15       	cp	r18, r14
+ 118:	3f 05       	cpc	r19, r15
+ 11a:	08 f4       	brcc	.+2      	; 0x11e <main+0x94>
+ 11c:	7c 01       	movw	r14, r24
+				if(ticks > max_visto) max_visto = ticks;
+ 11e:	c2 16       	cp	r12, r18
+ 120:	d3 06       	cpc	r13, r19
+ 122:	08 f4       	brcc	.+2      	; 0x126 <main+0x9c>
+ 124:	6c 01       	movw	r12, r24
+				tomadas++;
+ 126:	2f ef       	ldi	r18, 0xFF	; 255
+ 128:	a2 1a       	sub	r10, r18
+ 12a:	b2 0a       	sbc	r11, r18
+				if(ciclos >= recalc_ciclos){
+ 12c:	00 39       	cpi	r16, 0x90	; 144
+ 12e:	41 e0       	ldi	r20, 0x01	; 1
+ 130:	14 07       	cpc	r17, r20
+ 132:	78 f4       	brcc	.+30     	; 0x152 <main+0xc8>
+ 134:	19 c0       	rjmp	.+50     	; 0x168 <main+0xde>
+					min_visto = 0xFFFF;
+					max_visto = 0;
+				}
+				} else {
+				// abro el rango si aparecen nuevos extremos
+				if(ticks + margen_ticks < min_visto) min_visto = ticks;
+ 136:	ac 01       	movw	r20, r24
+ 138:	4f 5f       	subi	r20, 0xFF	; 255
+ 13a:	5f 4f       	sbci	r21, 0xFF	; 255
+ 13c:	4e 15       	cp	r20, r14
+ 13e:	5f 05       	cpc	r21, r15
+ 140:	08 f4       	brcc	.+2      	; 0x144 <main+0xba>
+ 142:	7c 01       	movw	r14, r24
+				if(ticks > max_visto + margen_ticks) max_visto = ticks;
+ 144:	a6 01       	movw	r20, r12
+ 146:	4f 5f       	subi	r20, 0xFF	; 255
+ 148:	5f 4f       	sbci	r21, 0xFF	; 255
+ 14a:	42 17       	cp	r20, r18
+ 14c:	53 07       	cpc	r21, r19
+ 14e:	58 f0       	brcs	.+22     	; 0x166 <main+0xdc>
+ 150:	0b c0       	rjmp	.+22     	; 0x168 <main+0xde>
+				if(ticks < min_visto) min_visto = ticks;
+				if(ticks > max_visto) max_visto = ticks;
+				tomadas++;
+				if(ciclos >= recalc_ciclos){
+					ciclos = 0;
+					tomadas = 0;
+ 152:	a1 2c       	mov	r10, r1
+ 154:	b1 2c       	mov	r11, r1
+			if(tomadas < muestras_ini || ciclos >= recalc_ciclos){
+				if(ticks < min_visto) min_visto = ticks;
+				if(ticks > max_visto) max_visto = ticks;
+				tomadas++;
+				if(ciclos >= recalc_ciclos){
+					ciclos = 0;
+ 156:	00 e0       	ldi	r16, 0x00	; 0
+ 158:	10 e0       	ldi	r17, 0x00	; 0
+					tomadas = 0;
+					min_visto = 0xFFFF;
+					max_visto = 0;
+ 15a:	c1 2c       	mov	r12, r1
+ 15c:	d1 2c       	mov	r13, r1
+				if(ticks > max_visto) max_visto = ticks;
+				tomadas++;
+				if(ciclos >= recalc_ciclos){
+					ciclos = 0;
+					tomadas = 0;
+					min_visto = 0xFFFF;
+ 15e:	ee 24       	eor	r14, r14
+ 160:	ea 94       	dec	r14
+ 162:	fe 2c       	mov	r15, r14
+ 164:	01 c0       	rjmp	.+2      	; 0x168 <main+0xde>
+					max_visto = 0;
+				}
+				} else {
+				// abro el rango si aparecen nuevos extremos
+				if(ticks + margen_ticks < min_visto) min_visto = ticks;
+				if(ticks > max_visto + margen_ticks) max_visto = ticks;
+ 166:	6c 01       	movw	r12, r24
+			}
+			if(max_visto <= min_visto) max_visto = min_visto + 1;
+ 168:	ec 14       	cp	r14, r12
+ 16a:	fd 04       	cpc	r15, r13
+ 16c:	20 f0       	brcs	.+8      	; 0x176 <main+0xec>
+ 16e:	67 01       	movw	r12, r14
+ 170:	2f ef       	ldi	r18, 0xFF	; 255
+ 172:	c2 1a       	sub	r12, r18
+ 174:	d2 0a       	sbc	r13, r18
+
+			// saco nivel y aplico pwm
+			uint8_t nivel = nivel_auto(ticks, min_visto, max_visto);
+ 176:	a6 01       	movw	r20, r12
+ 178:	b7 01       	movw	r22, r14
+ 17a:	0e 94 d4 00 	call	0x1a8	; 0x1a8 <nivel_auto>
+			duty_ult = tabla_pwm[nivel];
+ 17e:	90 e0       	ldi	r25, 0x00	; 0
+ 180:	a0 e0       	ldi	r26, 0x00	; 0
+ 182:	80 58       	subi	r24, 0x80	; 128
+ 184:	9f 4f       	sbci	r25, 0xFF	; 255
+ 186:	af 4f       	sbci	r26, 0xFF	; 255
+ 188:	fc 01       	movw	r30, r24
+ 18a:	94 90       	lpm	r9, Z
+ 18c:	a7 fd       	sbrc	r26, 7
+ 18e:	90 80       	ld	r9, Z
+	PWM_DDR |= (1<<PWM_PIN);
+	TCCR0A = (1<<WGM01)|(1<<WGM00)|(1<<COM0A1);  // fast pwm
+	TCCR0B = (1<<CS01)|(1<<CS00);                // /64
+	OCR0A = tabla_pwm[0];
+}
+static inline void pwm_set(uint8_t d){ OCR0A = d; }
+ 190:	97 bc       	out	0x27, r9	; 39
+ 192:	01 c0       	rjmp	.+2      	; 0x196 <main+0x10c>
+ 194:	97 bc       	out	0x27, r9	; 39
+			} else {
+			// sin medicion, dejo lo ultimo
+			pwm_set(duty_ult);
+		}
+
+		ciclos++;
+ 196:	0f 5f       	subi	r16, 0xFF	; 255
+ 198:	1f 4f       	sbci	r17, 0xFF	; 255
+ 19a:	8f e3       	ldi	r24, 0x3F	; 63
+ 19c:	9c e9       	ldi	r25, 0x9C	; 156
+ 19e:	01 97       	sbiw	r24, 0x01	; 1
+ 1a0:	f1 f7       	brne	.-4      	; 0x19e <main+0x114>
+ 1a2:	00 c0       	rjmp	.+0      	; 0x1a4 <main+0x11a>
+ 1a4:	00 00       	nop
+ 1a6:	88 cf       	rjmp	.-240    	; 0xb8 <main+0x2e>
+
+Disassembly of section .text.libgcc.div:
+
+000002fe <__udivmodsi4>:
+ 2fe:	a1 e2       	ldi	r26, 0x21	; 33
+ 300:	1a 2e       	mov	r1, r26
+ 302:	aa 1b       	sub	r26, r26
+ 304:	bb 1b       	sub	r27, r27
+ 306:	fd 01       	movw	r30, r26
+ 308:	0d c0       	rjmp	.+26     	; 0x324 <__udivmodsi4_ep>
+
+0000030a <__udivmodsi4_loop>:
+ 30a:	aa 1f       	adc	r26, r26
+ 30c:	bb 1f       	adc	r27, r27
+ 30e:	ee 1f       	adc	r30, r30
+ 310:	ff 1f       	adc	r31, r31
+ 312:	a2 17       	cp	r26, r18
+ 314:	b3 07       	cpc	r27, r19
+ 316:	e4 07       	cpc	r30, r20
+ 318:	f5 07       	cpc	r31, r21
+ 31a:	20 f0       	brcs	.+8      	; 0x324 <__udivmodsi4_ep>
+ 31c:	a2 1b       	sub	r26, r18
+ 31e:	b3 0b       	sbc	r27, r19
+ 320:	e4 0b       	sbc	r30, r20
+ 322:	f5 0b       	sbc	r31, r21
+
+00000324 <__udivmodsi4_ep>:
+ 324:	66 1f       	adc	r22, r22
+ 326:	77 1f       	adc	r23, r23
+ 328:	88 1f       	adc	r24, r24
+ 32a:	99 1f       	adc	r25, r25
+ 32c:	1a 94       	dec	r1
+ 32e:	69 f7       	brne	.-38     	; 0x30a <__udivmodsi4_loop>
+ 330:	60 95       	com	r22
+ 332:	70 95       	com	r23
+ 334:	80 95       	com	r24
+ 336:	90 95       	com	r25
+ 338:	9b 01       	movw	r18, r22
+ 33a:	ac 01       	movw	r20, r24
+ 33c:	bd 01       	movw	r22, r26
+ 33e:	cf 01       	movw	r24, r30
+ 340:	08 95       	ret
+
+Disassembly of section .text.__dummy_fini:
+
+00000388 <_fini>:
+ 388:	08 95       	ret
+
+Disassembly of section .text.__dummy_funcs_on_exit:
+
+0000038a <__funcs_on_exit>:
+ 38a:	08 95       	ret
+
+Disassembly of section .text.__dummy_simulator_exit:
+
+0000038c <__simulator_exit>:
+ 38c:	08 95       	ret
+
+Disassembly of section .text.exit:
+
+00000342 <exit>:
+ 342:	ec 01       	movw	r28, r24
+ 344:	0e 94 c5 01 	call	0x38a	; 0x38a <__funcs_on_exit>
+ 348:	0e 94 c4 01 	call	0x388	; 0x388 <_fini>
+ 34c:	ce 01       	movw	r24, r28
+ 34e:	0e 94 c6 01 	call	0x38c	; 0x38c <__simulator_exit>
+ 352:	ce 01       	movw	r24, r28
+ 354:	0e 94 c2 01 	call	0x384	; 0x384 <_Exit>
+
+Disassembly of section .text._Exit:
+
+00000384 <_Exit>:
+ 384:	0e 94 3e 00 	call	0x7c	; 0x7c <_exit>
