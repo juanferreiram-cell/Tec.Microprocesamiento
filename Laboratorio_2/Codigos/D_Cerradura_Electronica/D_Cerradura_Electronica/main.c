@@ -2,6 +2,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdint.h>
+#include <avr/pgmspace.h>
+
 
 #define LCD_ADDR        0x27
 #define LCD_BACKLIGHT   0x08
@@ -87,6 +89,14 @@ void lcd_i2c_init() {
 
 
 
+// Forma de Trabajar con String pero ccon memoria Flash debido a que el otro wrtie consume RAM y no corre
+void lcd_i2c_write_string_P(PGM_P p){
+	char c;
+	while ((c = pgm_read_byte(p++))) {
+		lcd_i2c_write((uint8_t)c, LCD_DATA);
+	}
+}
+
 char keypad[4][4] = {
 	{'1','2','3','A'},
 	{'4','5','6','B'},
@@ -131,13 +141,102 @@ char Leer_keypad(void) {
 }
 
 
-static void escribir(void){
+static void clave_4_digitos(void){
+	uint8_t c = 0;
+	while (c < 4) {
+		char x = 0;
+		do { 
+			x = Leer_keypad(); 
+			} while (x == 0);
+		lcd_i2c_write((uint8_t)x, LCD_DATA);       
+		c++;                      
+	}
+}
+
+
+static void clave_6_digitos(void){
+	uint8_t c = 0;
+	while (c < 6) {
+		char x = 0;
+		do {
+			x = Leer_keypad();
+		} while (x == 0);
+		lcd_i2c_write((uint8_t)x, LCD_DATA);
+		c++;
+	}
+}
+
+static inline void lcd_clear(void){
+	lcd_i2c_write(0x01, LCD_COMMAND);
+	_delay_ms(2);
+}
+static inline void lcd_linea2(void){
+	lcd_i2c_write(0xC0, LCD_COMMAND);
+}
+
+static char Enter(void){
 	char x = 0;
 	do {
 		x = Leer_keypad();
 	} while (x == 0);
+	return x;
+}
+
+
+static void cambiar_clave(void){
+	lcd_clear();
+	lcd_i2c_write_string_P(PSTR("Clave Vieja?"));
+	lcd_linea2();
+	clave_6_digitos(); // Se lee la EEPROM y si en la EEPROM hay una constrase?a de 4 digitos
+	                   // se llama a clave_4, si hay una de 6 se llama a clave_6
+					   // Ahora se llama a clave_6_digitos para probarla
 	
-	lcd_i2c_write((uint8_t)x, LCD_DATA);
+}
+
+static void poner_clave(void){
+	lcd_clear();
+	lcd_i2c_write_string_P(PSTR("Ingrese Clave"));
+	lcd_linea2();
+	clave_4_digitos(); // Lo mismo que en cambiar clave
+}
+
+// Menu donde se ejecuta la pantalla LCD 
+// Se usa do while para que si se toca otra tecla que no sea '*' no se rompa el codigo
+static void Menu(void){
+	char x;
+
+	
+	do {
+		lcd_clear();
+		lcd_i2c_write_string_P(PSTR("Bienvenido a"));
+		lcd_linea2();
+		lcd_i2c_write_string_P(PSTR("la Cerradura"));
+		x = Enter();
+	} while (x != '*');
+
+	do {
+		lcd_clear();
+		lcd_i2c_write_string_P(PSTR("Que desea hacer"));
+		lcd_linea2();
+		lcd_i2c_write_string_P(PSTR("con la clave?"));
+		x = Enter();
+	} while (x != '*');
+
+	// 3) Menu de opciones: aceptar solo '1' o '2'
+	do {
+		lcd_clear();
+		lcd_i2c_write_string_P(PSTR("1-Poner Clave"));
+		lcd_linea2();
+		lcd_i2c_write_string_P(PSTR("2-Cambiar Clave"));
+		x = Enter();
+	} while (x != '1' && x != '2');
+
+	// 4) Ejecutar opci?n
+	if (x == '1') {
+		poner_clave();
+		} else { // x == '2'
+		cambiar_clave();
+	}
 }
 
 
@@ -146,8 +245,7 @@ int main(void)
 	iniciar_keypad();
 	i2c_init();
 	lcd_i2c_init();
-
+	Menu();
 	while(1) {
-		escribir();
 	}
 }
