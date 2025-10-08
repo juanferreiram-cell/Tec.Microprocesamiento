@@ -1,0 +1,540 @@
+
+C_Piano_Electronico.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000038a  2**0
+                  ALLOC, LOAD, DATA
+  1 .text         00000080  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      0000002f  00000000  00000000  0000038a  2**0
+                  CONTENTS, READONLY
+  3 .stack.descriptors.hdr 0000002a  00000000  00000000  000003b9  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  000003e3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000b7c  00000000  00000000  0000041b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000075f  00000000  00000000  00000f97  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000376  00000000  00000000  000016f6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000064  00000000  00000000  00001a6c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000208  00000000  00000000  00001ad0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000108  00000000  00000000  00001cd8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  00001de0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .text         00000004  00000308  00000308  0000037c  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 13 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00001e08  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .text.uart_iniciar 00000022  000002b2  000002b2  00000326  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 15 .text.uart_tx 0000000e  000002fa  000002fa  0000036e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 16 .text.uart_imprimir 0000002c  00000286  00000286  000002fa  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 17 .progmemx.data 00000040  00000080  00000080  000000f4  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
+ 18 .text.main    00000172  000000d0  000000d0  00000144  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 19 .progmemx.data.NOTAS 00000010  000000c0  000000c0  00000134  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
+ 20 .text.libgcc.div 00000044  00000242  00000242  000002b6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 21 .text.libgcc  00000010  000002ea  000002ea  0000035e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 22 .text.__dummy_fini 00000002  00000310  00000310  00000384  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .text.__dummy_funcs_on_exit 00000002  00000312  00000312  00000386  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 24 .text.__dummy_simulator_exit 00000002  00000314  00000314  00000388  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 25 .text.exit    00000016  000002d4  000002d4  00000348  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 26 .text._Exit   00000004  0000030c  0000030c  00000380  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+   8:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+   c:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  10:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  14:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  18:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  1c:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  20:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  24:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  28:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  2c:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  30:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  34:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  38:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  3c:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  40:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  44:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  48:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  4c:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  50:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  54:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  58:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  5c:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  60:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+  64:	0c 94 84 01 	jmp	0x308	; 0x308 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 68 00 	call	0xd0	; 0xd0 <main>
+  78:	0c 94 6a 01 	jmp	0x2d4	; 0x2d4 <exit>
+
+0000007c <_exit>:
+  7c:	f8 94       	cli
+
+0000007e <__stop_program>:
+  7e:	ff cf       	rjmp	.-2      	; 0x7e <__stop_program>
+
+Disassembly of section .text:
+
+00000308 <__bad_interrupt>:
+ 308:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+Disassembly of section .text.uart_iniciar:
+
+000002b2 <uart_iniciar>:
+#include <stdint.h>
+
+// UART 9600
+static void uart_iniciar(void){
+	uint16_t ubrr = 103;                // 16MHz, 9600, U2X=0
+	UCSR0A &= ~(1<<U2X0);
+ 2b2:	e0 ec       	ldi	r30, 0xC0	; 192
+ 2b4:	f0 e0       	ldi	r31, 0x00	; 0
+ 2b6:	80 81       	ld	r24, Z
+ 2b8:	8d 7f       	andi	r24, 0xFD	; 253
+ 2ba:	80 83       	st	Z, r24
+	UBRR0H = (uint8_t)(ubrr>>8);
+ 2bc:	10 92 c5 00 	sts	0x00C5, r1	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+	UBRR0L = (uint8_t)(ubrr&0xFF);
+ 2c0:	87 e6       	ldi	r24, 0x67	; 103
+ 2c2:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+	UCSR0C = (1<<UCSZ01)|(1<<UCSZ00);
+ 2c6:	86 e0       	ldi	r24, 0x06	; 6
+ 2c8:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
+	UCSR0B = (1<<TXEN0);
+ 2cc:	88 e0       	ldi	r24, 0x08	; 8
+ 2ce:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+ 2d2:	08 95       	ret
+
+Disassembly of section .text.uart_tx:
+
+000002fa <uart_tx>:
+}
+static void uart_tx(uint8_t c){ while(!(UCSR0A&(1<<UDRE0))); UDR0=c; }
+ 2fa:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 2fe:	95 ff       	sbrs	r25, 5
+ 300:	fc cf       	rjmp	.-8      	; 0x2fa <uart_tx>
+ 302:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 306:	08 95       	ret
+
+Disassembly of section .text.uart_imprimir:
+
+00000286 <uart_imprimir>:
+static void uart_imprimir(const char *s){ while(*s) uart_tx((uint8_t)*s++); }
+ 286:	cf 92       	push	r12
+ 288:	df 92       	push	r13
+ 28a:	ef 92       	push	r14
+ 28c:	6b 01       	movw	r12, r22
+ 28e:	e8 2e       	mov	r14, r24
+ 290:	06 c0       	rjmp	.+12     	; 0x29e <uart_imprimir+0x18>
+ 292:	9f ef       	ldi	r25, 0xFF	; 255
+ 294:	c9 1a       	sub	r12, r25
+ 296:	d9 0a       	sbc	r13, r25
+ 298:	e9 0a       	sbc	r14, r25
+ 29a:	0e 94 7d 01 	call	0x2fa	; 0x2fa <uart_tx>
+ 29e:	f6 01       	movw	r30, r12
+ 2a0:	84 91       	lpm	r24, Z
+ 2a2:	e7 fc       	sbrc	r14, 7
+ 2a4:	80 81       	ld	r24, Z
+ 2a6:	81 11       	cpse	r24, r1
+ 2a8:	f4 cf       	rjmp	.-24     	; 0x292 <uart_imprimir+0xc>
+ 2aa:	ef 90       	pop	r14
+ 2ac:	df 90       	pop	r13
+ 2ae:	cf 90       	pop	r12
+ 2b0:	08 95       	ret
+
+Disassembly of section .text.main:
+
+000000d0 <main>:
+
+// Mapa de notas 
+static const uint16_t NOTAS[8]={262,294,330,349,392,440,494,523};
+
+int main(void){
+	DDRB |= (1<<PB5);               // LED
+  d0:	84 b1       	in	r24, 0x04	; 4
+  d2:	80 62       	ori	r24, 0x20	; 32
+  d4:	84 b9       	out	0x04, r24	; 4
+	uart_iniciar();
+  d6:	0e 94 59 01 	call	0x2b2	; 0x2b2 <uart_iniciar>
+#define BTN5 PC5
+#define BTN6 PD2
+#define BTN7 PD3
+
+static inline void botones_ini(void){
+	DDRC  &= ~((1<<BTN0)|(1<<BTN1)|(1<<BTN2)|(1<<BTN3)|(1<<BTN4)|(1<<BTN5));
+  da:	87 b1       	in	r24, 0x07	; 7
+  dc:	80 7c       	andi	r24, 0xC0	; 192
+  de:	87 b9       	out	0x07, r24	; 7
+	PORTC |=  ((1<<BTN0)|(1<<BTN1)|(1<<BTN2)|(1<<BTN3)|(1<<BTN4)|(1<<BTN5));
+  e0:	88 b1       	in	r24, 0x08	; 8
+  e2:	8f 63       	ori	r24, 0x3F	; 63
+  e4:	88 b9       	out	0x08, r24	; 8
+	DDRD  &= ~((1<<BTN6)|(1<<BTN7));
+  e6:	8a b1       	in	r24, 0x0a	; 10
+  e8:	83 7f       	andi	r24, 0xF3	; 243
+  ea:	8a b9       	out	0x0a, r24	; 10
+	PORTD |=  ((1<<BTN6)|(1<<BTN7));
+  ec:	8b b1       	in	r24, 0x0b	; 11
+  ee:	8c 60       	ori	r24, 0x0C	; 12
+  f0:	8b b9       	out	0x0b, r24	; 11
+int main(void){
+	DDRB |= (1<<PB5);               // LED
+	uart_iniciar();
+	botones_ini();
+
+	uart_imprimir("\r\nv0.1 Piano por botones. Presioná algo...\r\n");
+  f2:	60 e8       	ldi	r22, 0x80	; 128
+  f4:	70 e0       	ldi	r23, 0x00	; 0
+  f6:	80 e0       	ldi	r24, 0x00	; 0
+  f8:	0e 94 43 01 	call	0x286	; 0x286 <uart_imprimir>
+
+	uint8_t prev=255;
+  fc:	2f ef       	ldi	r18, 0xFF	; 255
+  fe:	01 c0       	rjmp	.+2      	; 0x102 <main+0x32>
+}
+
+// Mapa de notas 
+static const uint16_t NOTAS[8]={262,294,330,349,392,440,494,523};
+
+int main(void){
+ 100:	2c 2f       	mov	r18, r28
+
+	uart_imprimir("\r\nv0.1 Piano por botones. Presioná algo...\r\n");
+
+	uint8_t prev=255;
+	for(;;){
+		PORTB ^= (1<<PB5); _delay_ms(40);  // latido
+ 102:	95 b1       	in	r25, 0x05	; 5
+ 104:	80 e2       	ldi	r24, 0x20	; 32
+ 106:	89 27       	eor	r24, r25
+ 108:	85 b9       	out	0x05, r24	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 10a:	3f ef       	ldi	r19, 0xFF	; 255
+ 10c:	83 ef       	ldi	r24, 0xF3	; 243
+ 10e:	91 e0       	ldi	r25, 0x01	; 1
+ 110:	31 50       	subi	r19, 0x01	; 1
+ 112:	80 40       	sbci	r24, 0x00	; 0
+ 114:	90 40       	sbci	r25, 0x00	; 0
+ 116:	e1 f7       	brne	.-8      	; 0x110 <main+0x40>
+ 118:	00 c0       	rjmp	.+0      	; 0x11a <main+0x4a>
+ 11a:	00 00       	nop
+	PORTC |=  ((1<<BTN0)|(1<<BTN1)|(1<<BTN2)|(1<<BTN3)|(1<<BTN4)|(1<<BTN5));
+	DDRD  &= ~((1<<BTN6)|(1<<BTN7));
+	PORTD |=  ((1<<BTN6)|(1<<BTN7));
+}
+static inline uint8_t boton_leer(void){
+	if(!(PINC&(1<<BTN0))) return 0;
+ 11c:	30 9b       	sbis	0x06, 0	; 6
+ 11e:	10 c0       	rjmp	.+32     	; 0x140 <main+0x70>
+	if(!(PINC&(1<<BTN1))) return 1;
+ 120:	31 9b       	sbis	0x06, 1	; 6
+ 122:	10 c0       	rjmp	.+32     	; 0x144 <main+0x74>
+	if(!(PINC&(1<<BTN2))) return 2;
+ 124:	32 9b       	sbis	0x06, 2	; 6
+ 126:	10 c0       	rjmp	.+32     	; 0x148 <main+0x78>
+	if(!(PINC&(1<<BTN3))) return 3;
+ 128:	33 9b       	sbis	0x06, 3	; 6
+ 12a:	10 c0       	rjmp	.+32     	; 0x14c <main+0x7c>
+	if(!(PINC&(1<<BTN4))) return 4;
+ 12c:	34 9b       	sbis	0x06, 4	; 6
+ 12e:	10 c0       	rjmp	.+32     	; 0x150 <main+0x80>
+	if(!(PINC&(1<<BTN5))) return 5;
+ 130:	35 9b       	sbis	0x06, 5	; 6
+ 132:	10 c0       	rjmp	.+32     	; 0x154 <main+0x84>
+	if(!(PIND&(1<<BTN6))) return 6;
+ 134:	4a 9b       	sbis	0x09, 2	; 9
+ 136:	10 c0       	rjmp	.+32     	; 0x158 <main+0x88>
+	if(!(PIND&(1<<BTN7))) return 7;
+ 138:	4b 99       	sbic	0x09, 3	; 9
+ 13a:	10 c0       	rjmp	.+32     	; 0x15c <main+0x8c>
+ 13c:	c7 e0       	ldi	r28, 0x07	; 7
+ 13e:	0f c0       	rjmp	.+30     	; 0x15e <main+0x8e>
+	PORTC |=  ((1<<BTN0)|(1<<BTN1)|(1<<BTN2)|(1<<BTN3)|(1<<BTN4)|(1<<BTN5));
+	DDRD  &= ~((1<<BTN6)|(1<<BTN7));
+	PORTD |=  ((1<<BTN6)|(1<<BTN7));
+}
+static inline uint8_t boton_leer(void){
+	if(!(PINC&(1<<BTN0))) return 0;
+ 140:	c0 e0       	ldi	r28, 0x00	; 0
+ 142:	0d c0       	rjmp	.+26     	; 0x15e <main+0x8e>
+	if(!(PINC&(1<<BTN1))) return 1;
+ 144:	c1 e0       	ldi	r28, 0x01	; 1
+ 146:	0b c0       	rjmp	.+22     	; 0x15e <main+0x8e>
+	if(!(PINC&(1<<BTN2))) return 2;
+ 148:	c2 e0       	ldi	r28, 0x02	; 2
+ 14a:	09 c0       	rjmp	.+18     	; 0x15e <main+0x8e>
+	if(!(PINC&(1<<BTN3))) return 3;
+ 14c:	c3 e0       	ldi	r28, 0x03	; 3
+ 14e:	07 c0       	rjmp	.+14     	; 0x15e <main+0x8e>
+	if(!(PINC&(1<<BTN4))) return 4;
+ 150:	c4 e0       	ldi	r28, 0x04	; 4
+ 152:	05 c0       	rjmp	.+10     	; 0x15e <main+0x8e>
+	if(!(PINC&(1<<BTN5))) return 5;
+ 154:	c5 e0       	ldi	r28, 0x05	; 5
+ 156:	03 c0       	rjmp	.+6      	; 0x15e <main+0x8e>
+	if(!(PIND&(1<<BTN6))) return 6;
+ 158:	c6 e0       	ldi	r28, 0x06	; 6
+ 15a:	01 c0       	rjmp	.+2      	; 0x15e <main+0x8e>
+	if(!(PIND&(1<<BTN7))) return 7;
+	return 255;
+ 15c:	cf ef       	ldi	r28, 0xFF	; 255
+
+	uint8_t prev=255;
+	for(;;){
+		PORTB ^= (1<<PB5); _delay_ms(40);  // latido
+		uint8_t b = boton_leer();
+		if(b!=prev){
+ 15e:	2c 17       	cp	r18, r28
+ 160:	81 f2       	breq	.-96     	; 0x102 <main+0x32>
+			prev=b;
+			if(b!=255){
+ 162:	cf 3f       	cpi	r28, 0xFF	; 255
+ 164:	09 f4       	brne	.+2      	; 0x168 <main+0x98>
+ 166:	60 c0       	rjmp	.+192    	; 0x228 <main+0x158>
+				buz_on(NOTAS[b]);
+ 168:	8c 2f       	mov	r24, r28
+ 16a:	90 e0       	ldi	r25, 0x00	; 0
+ 16c:	88 0f       	add	r24, r24
+ 16e:	99 1f       	adc	r25, r25
+ 170:	09 2e       	mov	r0, r25
+ 172:	00 0c       	add	r0, r0
+ 174:	aa 0b       	sbc	r26, r26
+ 176:	80 54       	subi	r24, 0x40	; 64
+ 178:	9f 4f       	sbci	r25, 0xFF	; 255
+ 17a:	af 4f       	sbci	r26, 0xFF	; 255
+ 17c:	fc 01       	movw	r30, r24
+ 17e:	5a 2f       	mov	r21, r26
+ 180:	0e 94 75 01 	call	0x2ea	; 0x2ea <__xload_2>
+#define BUZ_DDR   DDRB
+#define BUZ_PORT  PORTB
+#define BUZ_PIN   PB1
+
+static inline void buz_on(uint16_t hz){
+	if(!hz){ TCCR1A=0; TCCR1B=0; BUZ_PORT&=~(1<<BUZ_PIN); return; }
+ 184:	61 15       	cp	r22, r1
+ 186:	71 05       	cpc	r23, r1
+ 188:	41 f4       	brne	.+16     	; 0x19a <main+0xca>
+ 18a:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+ 18e:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+ 192:	85 b1       	in	r24, 0x05	; 5
+ 194:	8d 7f       	andi	r24, 0xFD	; 253
+ 196:	85 b9       	out	0x05, r24	; 5
+ 198:	38 c0       	rjmp	.+112    	; 0x20a <main+0x13a>
+	uint32_t ocr = (16000000UL)/(2UL*8UL*hz) - 1UL;
+ 19a:	cb 01       	movw	r24, r22
+ 19c:	a0 e0       	ldi	r26, 0x00	; 0
+ 19e:	b0 e0       	ldi	r27, 0x00	; 0
+ 1a0:	88 0f       	add	r24, r24
+ 1a2:	99 1f       	adc	r25, r25
+ 1a4:	aa 1f       	adc	r26, r26
+ 1a6:	bb 1f       	adc	r27, r27
+ 1a8:	88 0f       	add	r24, r24
+ 1aa:	99 1f       	adc	r25, r25
+ 1ac:	aa 1f       	adc	r26, r26
+ 1ae:	bb 1f       	adc	r27, r27
+ 1b0:	9c 01       	movw	r18, r24
+ 1b2:	ad 01       	movw	r20, r26
+ 1b4:	22 0f       	add	r18, r18
+ 1b6:	33 1f       	adc	r19, r19
+ 1b8:	44 1f       	adc	r20, r20
+ 1ba:	55 1f       	adc	r21, r21
+ 1bc:	22 0f       	add	r18, r18
+ 1be:	33 1f       	adc	r19, r19
+ 1c0:	44 1f       	adc	r20, r20
+ 1c2:	55 1f       	adc	r21, r21
+ 1c4:	60 e0       	ldi	r22, 0x00	; 0
+ 1c6:	74 e2       	ldi	r23, 0x24	; 36
+ 1c8:	84 ef       	ldi	r24, 0xF4	; 244
+ 1ca:	90 e0       	ldi	r25, 0x00	; 0
+ 1cc:	0e 94 21 01 	call	0x242	; 0x242 <__udivmodsi4>
+ 1d0:	ba 01       	movw	r22, r20
+ 1d2:	a9 01       	movw	r20, r18
+ 1d4:	41 50       	subi	r20, 0x01	; 1
+ 1d6:	51 09       	sbc	r21, r1
+ 1d8:	61 09       	sbc	r22, r1
+ 1da:	71 09       	sbc	r23, r1
+	if(ocr>65535) ocr=65535;
+ 1dc:	41 15       	cp	r20, r1
+ 1de:	51 05       	cpc	r21, r1
+ 1e0:	31 e0       	ldi	r19, 0x01	; 1
+ 1e2:	63 07       	cpc	r22, r19
+ 1e4:	71 05       	cpc	r23, r1
+ 1e6:	20 f0       	brcs	.+8      	; 0x1f0 <main+0x120>
+ 1e8:	4f ef       	ldi	r20, 0xFF	; 255
+ 1ea:	5f ef       	ldi	r21, 0xFF	; 255
+ 1ec:	60 e0       	ldi	r22, 0x00	; 0
+ 1ee:	70 e0       	ldi	r23, 0x00	; 0
+	BUZ_DDR |= (1<<BUZ_PIN);
+ 1f0:	84 b1       	in	r24, 0x04	; 4
+ 1f2:	82 60       	ori	r24, 0x02	; 2
+ 1f4:	84 b9       	out	0x04, r24	; 4
+	TCCR1A = (1<<COM1A0);               // toggle
+ 1f6:	80 e4       	ldi	r24, 0x40	; 64
+ 1f8:	80 93 80 00 	sts	0x0080, r24	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+	TCCR1B = (1<<WGM12)|(1<<CS11);      // CTC, /8
+ 1fc:	8a e0       	ldi	r24, 0x0A	; 10
+ 1fe:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+	OCR1A  = (uint16_t)ocr;
+ 202:	50 93 89 00 	sts	0x0089, r21	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
+ 206:	40 93 88 00 	sts	0x0088, r20	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
+		uint8_t b = boton_leer();
+		if(b!=prev){
+			prev=b;
+			if(b!=255){
+				buz_on(NOTAS[b]);
+				uart_imprimir("BTN "); uart_tx('0'+b); uart_imprimir("\r\n");
+ 20a:	6d ea       	ldi	r22, 0xAD	; 173
+ 20c:	70 e0       	ldi	r23, 0x00	; 0
+ 20e:	80 e0       	ldi	r24, 0x00	; 0
+ 210:	0e 94 43 01 	call	0x286	; 0x286 <uart_imprimir>
+ 214:	80 e3       	ldi	r24, 0x30	; 48
+ 216:	8c 0f       	add	r24, r28
+ 218:	0e 94 7d 01 	call	0x2fa	; 0x2fa <uart_tx>
+ 21c:	62 eb       	ldi	r22, 0xB2	; 178
+ 21e:	70 e0       	ldi	r23, 0x00	; 0
+ 220:	80 e0       	ldi	r24, 0x00	; 0
+ 222:	0e 94 43 01 	call	0x286	; 0x286 <uart_imprimir>
+ 226:	6c cf       	rjmp	.-296    	; 0x100 <main+0x30>
+	BUZ_DDR |= (1<<BUZ_PIN);
+	TCCR1A = (1<<COM1A0);               // toggle
+	TCCR1B = (1<<WGM12)|(1<<CS11);      // CTC, /8
+	OCR1A  = (uint16_t)ocr;
+}
+static inline void buz_off(void){ TCCR1A=0; TCCR1B=0; BUZ_PORT&=~(1<<BUZ_PIN); }
+ 228:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+ 22c:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+ 230:	85 b1       	in	r24, 0x05	; 5
+ 232:	8d 7f       	andi	r24, 0xFD	; 253
+ 234:	85 b9       	out	0x05, r24	; 5
+			if(b!=255){
+				buz_on(NOTAS[b]);
+				uart_imprimir("BTN "); uart_tx('0'+b); uart_imprimir("\r\n");
+				}else{
+				buz_off();
+				uart_imprimir("BTN none\r\n");
+ 236:	65 eb       	ldi	r22, 0xB5	; 181
+ 238:	70 e0       	ldi	r23, 0x00	; 0
+ 23a:	80 e0       	ldi	r24, 0x00	; 0
+ 23c:	0e 94 43 01 	call	0x286	; 0x286 <uart_imprimir>
+ 240:	5f cf       	rjmp	.-322    	; 0x100 <main+0x30>
+
+Disassembly of section .text.libgcc.div:
+
+00000242 <__udivmodsi4>:
+ 242:	a1 e2       	ldi	r26, 0x21	; 33
+ 244:	1a 2e       	mov	r1, r26
+ 246:	aa 1b       	sub	r26, r26
+ 248:	bb 1b       	sub	r27, r27
+ 24a:	fd 01       	movw	r30, r26
+ 24c:	0d c0       	rjmp	.+26     	; 0x268 <__udivmodsi4_ep>
+
+0000024e <__udivmodsi4_loop>:
+ 24e:	aa 1f       	adc	r26, r26
+ 250:	bb 1f       	adc	r27, r27
+ 252:	ee 1f       	adc	r30, r30
+ 254:	ff 1f       	adc	r31, r31
+ 256:	a2 17       	cp	r26, r18
+ 258:	b3 07       	cpc	r27, r19
+ 25a:	e4 07       	cpc	r30, r20
+ 25c:	f5 07       	cpc	r31, r21
+ 25e:	20 f0       	brcs	.+8      	; 0x268 <__udivmodsi4_ep>
+ 260:	a2 1b       	sub	r26, r18
+ 262:	b3 0b       	sbc	r27, r19
+ 264:	e4 0b       	sbc	r30, r20
+ 266:	f5 0b       	sbc	r31, r21
+
+00000268 <__udivmodsi4_ep>:
+ 268:	66 1f       	adc	r22, r22
+ 26a:	77 1f       	adc	r23, r23
+ 26c:	88 1f       	adc	r24, r24
+ 26e:	99 1f       	adc	r25, r25
+ 270:	1a 94       	dec	r1
+ 272:	69 f7       	brne	.-38     	; 0x24e <__udivmodsi4_loop>
+ 274:	60 95       	com	r22
+ 276:	70 95       	com	r23
+ 278:	80 95       	com	r24
+ 27a:	90 95       	com	r25
+ 27c:	9b 01       	movw	r18, r22
+ 27e:	ac 01       	movw	r20, r24
+ 280:	bd 01       	movw	r22, r26
+ 282:	cf 01       	movw	r24, r30
+ 284:	08 95       	ret
+
+Disassembly of section .text.libgcc:
+
+000002ea <__xload_2>:
+ 2ea:	57 fd       	sbrc	r21, 7
+ 2ec:	03 c0       	rjmp	.+6      	; 0x2f4 <__xload_2+0xa>
+ 2ee:	65 91       	lpm	r22, Z+
+ 2f0:	75 91       	lpm	r23, Z+
+ 2f2:	08 95       	ret
+ 2f4:	61 91       	ld	r22, Z+
+ 2f6:	71 91       	ld	r23, Z+
+ 2f8:	08 95       	ret
+
+Disassembly of section .text.__dummy_fini:
+
+00000310 <_fini>:
+ 310:	08 95       	ret
+
+Disassembly of section .text.__dummy_funcs_on_exit:
+
+00000312 <__funcs_on_exit>:
+ 312:	08 95       	ret
+
+Disassembly of section .text.__dummy_simulator_exit:
+
+00000314 <__simulator_exit>:
+ 314:	08 95       	ret
+
+Disassembly of section .text.exit:
+
+000002d4 <exit>:
+ 2d4:	ec 01       	movw	r28, r24
+ 2d6:	0e 94 89 01 	call	0x312	; 0x312 <__funcs_on_exit>
+ 2da:	0e 94 88 01 	call	0x310	; 0x310 <_fini>
+ 2de:	ce 01       	movw	r24, r28
+ 2e0:	0e 94 8a 01 	call	0x314	; 0x314 <__simulator_exit>
+ 2e4:	ce 01       	movw	r24, r28
+ 2e6:	0e 94 86 01 	call	0x30c	; 0x30c <_Exit>
+
+Disassembly of section .text._Exit:
+
+0000030c <_Exit>:
+ 30c:	0e 94 3e 00 	call	0x7c	; 0x7c <_exit>

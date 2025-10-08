@@ -13,23 +13,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   4 .debug_aranges 00000048  00000000  00000000  0000044d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000d63  00000000  00000000  00000495  2**0
+  5 .debug_info   00000d6a  00000000  00000000  00000495  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000007d1  00000000  00000000  000011f8  2**0
+  6 .debug_abbrev 000007d1  00000000  00000000  000011ff  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000045f  00000000  00000000  000019c9  2**0
+  7 .debug_line   0000045f  00000000  00000000  000019d0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000000a8  00000000  00000000  00001e28  2**2
+  8 .debug_frame  000000a8  00000000  00000000  00001e30  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000242  00000000  00000000  00001ed0  2**0
+  9 .debug_str    00000242  00000000  00000000  00001ed8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000004f7  00000000  00000000  00002112  2**0
+ 10 .debug_loc    000004f7  00000000  00000000  0000211a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000050  00000000  00000000  00002609  2**0
+ 11 .debug_ranges 00000050  00000000  00000000  00002611  2**0
                   CONTENTS, READONLY, DEBUGGING
  12 .text         00000004  00000380  00000380  000003f4  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 13 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000265c  2**2
+ 13 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00002664  2**2
                   CONTENTS, READONLY, DEBUGGING
  14 .text.pwm_ini 00000014  00000358  00000358  000003cc  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
@@ -107,7 +107,7 @@ Disassembly of section .text:
 Disassembly of section .text:
 
 00000380 <__bad_interrupt>:
- 380:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+ 380:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 Disassembly of section .text.pwm_ini:
 
