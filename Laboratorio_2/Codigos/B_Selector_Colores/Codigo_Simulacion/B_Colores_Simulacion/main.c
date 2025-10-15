@@ -5,8 +5,8 @@
 #include <avr/interrupt.h>
 
 // UART
-#define VELOCIDAD_BAUDIO 9600
-#define VALOR_UBRR ((F_CPU/16/VELOCIDAD_BAUDIO)-1)
+#define VELOCIDAD_BAUDIO   9600
+#define VALOR_UBRR         ((F_CPU/16/VELOCIDAD_BAUDIO)-1)
 
 static int uart_enviar_caracter(char c, FILE *s){
 	if(c=='\n') uart_enviar_caracter('\r', s);
@@ -25,6 +25,7 @@ static inline void uart_iniciar(void){
 }
 
 #define CANAL_ADC_LDR 0
+
 static void adc_iniciar(void){
 	ADMUX  = (1<<REFS0) | (CANAL_ADC_LDR & 0x0F);
 	ADCSRA = (1<<ADEN) | (1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
@@ -62,20 +63,41 @@ static inline void rgb_poner(uint8_t r, uint8_t g, uint8_t b){
 	OCR2A = nivel(b);
 }
 
+// servo
+#define SERVO_OC1A_PIN PB1
+#define SERVO_LIMITE_TIMER     40000
+#define SERVO_MIN_TICKS      2000
+#define SERVO_MAX_TICKS      4000
+
+static void servo_iniciar(void){
+	DDRB  |= (1<<SERVO_OC1A_PIN);
+	TCCR1A = (1<<COM1A1)|(1<<WGM11);
+	TCCR1B = (1<<WGM13)|(1<<WGM12)|(1<<CS11);
+	ICR1   = SERVO_LIMITE_TIMER;
+	OCR1A  = SERVO_MIN_TICKS;
+}
+static void servo_angulo(uint8_t a){
+	if(a>180) a=180;
+	uint16_t pulso = SERVO_MIN_TICKS +
+	(uint32_t)(SERVO_MAX_TICKS - SERVO_MIN_TICKS)*a/180UL;
+	OCR1A = pulso;
+}
+
 typedef enum { NINGUN_COLOR=0, ROSA, ROJO, AMARILLO, VERDE } color_t;
 
 typedef struct {
 	const char *nombre;
 	uint16_t bajo, alto; // rango ADC
+	uint8_t  angulo;
 	uint8_t  rgb[3];
 } rango_t;
 
 // rango de colores
 static rango_t R[] = {
-	[ROSA]      = {"ROSA",     128, 172, {255,  0,  80}},
-	[ROJO]      = {"ROJO",     210, 244, {255,  0,   0}},
-	[AMARILLO]  = {"AMARILLO", 274, 301, {255,255,   0}},
-	[VERDE]     = {"VERDE",    326, 349, {  0,255,   0}},
+	[ROSA]     = {"ROSA",      128, 172,   0,  {255,  0,  80}},
+	[ROJO]  = {"ROJO",      210, 244,  60,  {255,  0,   0}},
+	[AMARILLO] = {"AMARILLO",  274, 301, 120,  {255,255,   0}},
+	[VERDE]    = {"VERDE",     326, 349, 180,  {  0,255,   0}},
 };
 
 static inline color_t detectar(uint16_t v){
@@ -92,6 +114,7 @@ int main(void){
 	uart_iniciar();
 	adc_iniciar();
 	rgb_iniciar();
+	servo_iniciar();
 	sei();
 
 	color_t actual = NINGUN_COLOR;
@@ -106,10 +129,11 @@ int main(void){
 			} else if(c != NINGUN_COLOR){
 			if(++estable >= LEC_CONSEC){
 				actual = c; estable = 0;
+				servo_angulo(R[c].angulo);
 				rgb_poner(R[c].rgb[0], R[c].rgb[1], R[c].rgb[2]);
-				uint16_t ref = punto_medio(c);
-				int16_t  dif = (int16_t)ref - (int16_t)v;
-				printf("LDR=%u | Color=%s | REF=%u | Dif=%d\n", v, R[c].nombre, ref, dif);
+				uint16_t sp  = punto_medio(c);
+				int16_t  dif = (int16_t)sp - (int16_t)v;
+				printf("LDR=%u | Color=%s | REF=%u | Dif=%d\n", v, R[c].nombre, sp, dif);
 			}
 			} else {
 			rgb_poner(0,0,0);
