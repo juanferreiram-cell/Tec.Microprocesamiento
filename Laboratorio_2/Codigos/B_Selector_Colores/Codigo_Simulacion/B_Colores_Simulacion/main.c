@@ -25,7 +25,6 @@ static inline void uart_iniciar(void){
 }
 
 #define CANAL_ADC_LDR 0
-
 static void adc_iniciar(void){
 	ADMUX  = (1<<REFS0) | (CANAL_ADC_LDR & 0x0F);
 	ADCSRA = (1<<ADEN) | (1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
@@ -43,19 +42,40 @@ static uint16_t adc_promedio(uint8_t canal, uint8_t n){
 	return (uint16_t)(suma/n);
 }
 
+#define RGB_ANODO_COMUN 0
+#define RGB_R_OC0A_PIN PD6
+#define RGB_G_OC0B_PIN PD5
+#define RGB_B_OC2A_PIN PB3
+
+static void rgb_iniciar(void){
+	DDRD |= (1<<RGB_R_OC0A_PIN)|(1<<RGB_G_OC0B_PIN);
+	TCCR0A = (1<<COM0A1)|(1<<COM0B1)|(1<<WGM01)|(1<<WGM00);
+	TCCR0B = (1<<CS01)|(1<<CS00);
+	DDRB |= (1<<RGB_B_OC2A_PIN);
+	TCCR2A = (1<<COM2A1)|(1<<WGM21)|(1<<WGM20);
+	TCCR2B = (1<<CS22);
+}
+static inline uint8_t nivel(uint8_t v){ return RGB_ANODO_COMUN ? (255 - v) : v; }
+static inline void rgb_poner(uint8_t r, uint8_t g, uint8_t b){
+	OCR0A = nivel(r);
+	OCR0B = nivel(g);
+	OCR2A = nivel(b);
+}
+
 typedef enum { NINGUN_COLOR=0, ROSA, ROJO, AMARILLO, VERDE } color_t;
 
 typedef struct {
 	const char *nombre;
-	uint16_t bajo, alto;   // rango ADC
+	uint16_t bajo, alto; // rango ADC
+	uint8_t  rgb[3];
 } rango_t;
 
 // rango de colores
 static rango_t R[] = {
-	[ROSA]      = {"ROSA",     128, 172},
-	[ROJO]      = {"ROJO",     210, 244},
-	[AMARILLO]  = {"AMARILLO", 274, 301},
-	[VERDE]     = {"VERDE",    326, 349},
+	[ROSA]      = {"ROSA",     128, 172, {255,  0,  80}},
+	[ROJO]      = {"ROJO",     210, 244, {255,  0,   0}},
+	[AMARILLO]  = {"AMARILLO", 274, 301, {255,255,   0}},
+	[VERDE]     = {"VERDE",    326, 349, {  0,255,   0}},
 };
 
 static inline color_t detectar(uint16_t v){
@@ -71,6 +91,7 @@ int main(void){
 	cli();
 	uart_iniciar();
 	adc_iniciar();
+	rgb_iniciar();
 	sei();
 
 	color_t actual = NINGUN_COLOR;
@@ -85,11 +106,13 @@ int main(void){
 			} else if(c != NINGUN_COLOR){
 			if(++estable >= LEC_CONSEC){
 				actual = c; estable = 0;
+				rgb_poner(R[c].rgb[0], R[c].rgb[1], R[c].rgb[2]);
 				uint16_t ref = punto_medio(c);
 				int16_t  dif = (int16_t)ref - (int16_t)v;
 				printf("LDR=%u | Color=%s | REF=%u | Dif=%d\n", v, R[c].nombre, ref, dif);
 			}
 			} else {
+			rgb_poner(0,0,0);
 			actual = NINGUN_COLOR;
 			estable = 0;
 		}
