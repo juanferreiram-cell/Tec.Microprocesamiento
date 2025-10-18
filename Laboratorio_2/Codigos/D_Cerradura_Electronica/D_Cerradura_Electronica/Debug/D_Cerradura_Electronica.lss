@@ -217,7 +217,7 @@ Disassembly of section .text:
 Disassembly of section .text:
 
 00000a6c <__bad_interrupt>:
- a6c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+ a6c:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
 
 Disassembly of section .text.init_buzzer_led:
 
