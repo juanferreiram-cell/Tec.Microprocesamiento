@@ -1,1 +1,2 @@
-# 🛠️ Carpeta para Simulaciones
+# 🛠️ Carpeta para Simulaciones del Laboratorio 2
+
