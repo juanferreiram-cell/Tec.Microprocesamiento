@@ -1,1 +1,2 @@
-# 📒 Carpeta para Informes
+# 📒 Carpeta para Informes del Laboratorio 2
+
