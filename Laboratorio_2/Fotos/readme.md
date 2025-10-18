@@ -1,1 +1,2 @@
-# 📸 Carpeta para fotos
+# 📸 Carpeta para fotos del Laboratorio 2
+
