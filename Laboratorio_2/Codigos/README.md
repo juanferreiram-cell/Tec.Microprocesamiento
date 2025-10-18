@@ -1,1 +1,1 @@
-# 🗂️ Carpeta para Codigos
+# 👨‍💻 Carpeta para Codigos del Laboratorio 2
