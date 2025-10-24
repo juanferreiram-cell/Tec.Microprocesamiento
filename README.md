@@ -2,7 +2,7 @@
 
 Este repositorio contiene los archivos correspondientes a las actividades realizadas en la UC
 
-# 🦾 Integrantes
+# 👨‍💻 Integrantes
 
 | Nombre               | Cédula        |
 |----------------------|--------------|
