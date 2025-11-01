@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project>                                  
+  <executable name="D_Matriz_RGB_Joystick.elf">                 
+    <memory name="program">              
+      <units>bytes</units>                 
+      <length>32768</length>                 
+      <used>902</used>                     
+      <free>31866</free>                     
+    </memory>                              
+    <memory name="data">                 
+      <units>bytes</units>                 
+      <length>2048</length>                 
+      <used>196</used>                     
+      <free>1852</free>                     
+    </memory>                              
+  </executable>                            
+</project>                                 
