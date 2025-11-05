@@ -141,7 +141,7 @@ Disassembly of section .text:
 Disassembly of section .text:
 
 00000374 <__bad_interrupt>:
- 374:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+ 374:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
 
 Disassembly of section .text.ws_show:
 
@@ -313,7 +313,7 @@ Disassembly of section .text.main:
 000000c8 <main>:
 }
 
-// Main 
+// Main (Progreso 1)
 int main(void){
 	// Configuro DATA en PD2 como salida y lo dejo LOW
 	WS_PIN_DDR  |=  (1 << WS_PIN_BIT);
@@ -632,11 +632,11 @@ static inline void set_pixel(uint8_t x, uint8_t y, uint8_t r, uint8_t g, uint8_t
 	if (x >= LEDS_W || y >= LEDS_H) return;
 	uint16_t idx = index_xy(x, y) * 3;
 	leds[idx + 0] = g;
- 2a8:	c0 92 51 01 	sts	0x0151, r12	; 0x800151 <_edata+0x51>
+ 2a8:	c0 92 51 01 	sts	0x0151, r12	; 0x800151 <__DATA_REGION_ORIGIN__+0x51>
 	leds[idx + 1] = r;
- 2ac:	20 93 52 01 	sts	0x0152, r18	; 0x800152 <_edata+0x52>
+ 2ac:	20 93 52 01 	sts	0x0152, r18	; 0x800152 <__DATA_REGION_ORIGIN__+0x52>
 	leds[idx + 2] = b;
- 2b0:	40 93 53 01 	sts	0x0153, r20	; 0x800153 <_edata+0x53>
+ 2b0:	40 93 53 01 	sts	0x0153, r20	; 0x800153 <__DATA_REGION_ORIGIN__+0x53>
 		uint8_t b = (uint8_t)((xorshift32() >> 16) & 0xFF);
 		if (r < 8 && g < 8 && b < 8) r = 64;
 

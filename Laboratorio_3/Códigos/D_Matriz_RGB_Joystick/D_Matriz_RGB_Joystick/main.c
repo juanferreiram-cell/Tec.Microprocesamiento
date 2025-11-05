@@ -1,5 +1,5 @@
 #ifndef F_CPU
-#define F_CPU 16000000UL
+#define F_CPU 16000000UL 
 #endif
 
 #include <avr/io.h>
@@ -107,7 +107,7 @@ static inline void clear_all(void){
 	}
 }
 
-// Main 
+// Main (Progreso 1)
 int main(void){
 	// Configuro DATA en PD2 como salida y lo dejo LOW
 	WS_PIN_DDR  |=  (1 << WS_PIN_BIT);

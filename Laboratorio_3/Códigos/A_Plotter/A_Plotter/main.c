@@ -15,7 +15,7 @@
 
 #define SOLENOIDE  PC0
 
-// L?mites (PD2=A, PD3=D)
+// Límites (PD2=A, PD3=D)
 #define LIMIT_YA   PD2   // INT0
 #define LIMIT_YD   PD3   // INT1
 
@@ -39,10 +39,10 @@ typedef struct {
 static const eje_t EJE_X = { &PORTB, SENTIDO_X, &PORTB, PASO_X };
 static const eje_t EJE_Y = { &PORTC, SENTIDO_Y, &PORTC, PASO_Y };
 
-// Estado de aborto por l?mites
+// ---------------- Estado de aborto por límites ----------------
 static volatile uint8_t abort_flag = 0;
 
-static inline void pluma_arriba(void);
+static inline void pluma_arriba(void);   // forward-declare para usar en abort_if_needed()
 
 static inline void abort_if_needed(void){
 	if (!abort_flag) return;
@@ -54,9 +54,9 @@ static inline void abort_if_needed(void){
 	while(1){} // detener programa
 }
 
-// Interrupciones de l?mite
-ISR(INT0_vect){ abort_flag = 1; } // L?mite A (PD2)
-ISR(INT1_vect){ abort_flag = 1; } // L?mite D (PD3)
+// ---------------- Interrupciones de límite ----------------
+ISR(INT0_vect){ abort_flag = 1; } // Límite A (PD2)
+ISR(INT1_vect){ abort_flag = 1; } // Límite D (PD3)
 
 static inline void sistema_init(void){
 	// Configurar como salida
@@ -70,7 +70,7 @@ static inline void sistema_init(void){
 	// Pluma arriba por defecto
 	poner_bit(&PORTC, SOLENOIDE);
 
-	// Entradas de l?mite con pull-up
+	// ------- Entradas de límite con pull-up -------
 	DDRD  &= ~((1<<LIMIT_YA) | (1<<LIMIT_YD)); // entradas
 	PORTD |=  (1<<LIMIT_YA) | (1<<LIMIT_YD);   // pull-ups
 
@@ -112,17 +112,17 @@ void eje_y(uint8_t dir, uint16_t pasos){
 	run_steps(&EJE_Y, dir, pasos);
 }
 
-// Movimiento combinado X+Y para diagonales
+// ---- Movimiento combinado X+Y ----
 
-// Modo para diagonales 45?
+// Modo para diagonales 45° manteniendo interfaz (x, x)
 enum {
-	D45_ARRIBA_IZQ  = 0,
-	D45_ARRIBA_DER  = 1,
-	D45_ABAJO_IZQ   = 2,
-	D45_ABAJO_DER   = 3
+	D45_ARRIBA_IZQ  = 0,  // Y? X?
+	D45_ARRIBA_DER  = 1,  // Y? X?
+	D45_ABAJO_IZQ   = 2,  // Y? X?
+	D45_ABAJO_DER   = 3   // Y? X?
 };
 
-// Diagonal 45?
+// Diagonal 45° con dos parámetros: (modo, pasos)  ? mantiene estilo (x, x)
 void d45(uint8_t modo, uint16_t pasos){
 	abort_if_needed();
 
@@ -144,7 +144,7 @@ void d45(uint8_t modo, uint16_t pasos){
 
 	ciclo_delay(T_SETUP_DIR);
 
-	// pulsos simult?neos
+	// pulsos simultáneos (casi al mismo tiempo)
 	while (pasos--){
 		abort_if_needed();
 
@@ -157,7 +157,7 @@ void d45(uint8_t modo, uint16_t pasos){
 	}
 }
 
-// Movimiento XY con cualquier pendiente
+// Movimiento XY con cualquier pendiente (DDA/Bresenham)
 void mover_xy(uint8_t dirx, uint8_t diry, uint16_t pasos_x, uint16_t pasos_y){
 	abort_if_needed();
 
@@ -202,4 +202,860 @@ static inline void pluma_arriba(void){
 	abort_if_needed();
 }
 
+//LUT
+int main(void){
+	sistema_init();
 
+	// en el eje y, 0 es arriba y 1 es abajo
+	// en el eje x, 1 es derecha y 0 es izquierda
+	_delay_ms(3000);
+	
+	
+	// Rastreo
+	eje_y(0,4970);
+	eje_x(0,3200);
+	eje_y(1,4970);
+	eje_x(1,2400);
+	_delay_ms(2000);
+	pluma_abajo();
+
+	// ——— Independientes (misma estructura (x, x)) ———
+	//eje_y(0, 300);
+	//eje_x(1, 300);
+
+	// ——— Diagonales 45° con (modo, pasos) ———
+	
+	// CRUZ
+	d45(D45_ARRIBA_DER, 700);
+	pluma_arriba();
+	eje_y(1, 700);
+	pluma_abajo();
+	d45(D45_ARRIBA_IZQ, 700);
+	pluma_arriba();
+	// TERMINA LA CRUZ
+	
+	_delay_ms(1000);
+	eje_y(0, 2000);
+	
+	// CUADRADO
+	pluma_abajo();
+	eje_x(1,800);
+	eje_y(1,800);
+	eje_x(0,800);
+	eje_y(0,800);
+	
+	// Termina Cuadrado
+	
+	pluma_arriba();
+	_delay_ms(1000);
+	eje_y(0, 1000);
+	
+	// Triangulo
+	pluma_abajo();
+	eje_x(1,800);
+	eje_y(0,800);
+	d45(D45_ABAJO_IZQ, 830);
+	
+	// Termina Triangulo
+	
+	pluma_arriba();
+	_delay_ms(1000);
+	eje_x(0, 1000);
+	
+	// Circulo
+	
+	pluma_abajo();
+	eje_x(0, 15);
+	eje_y(1, 60);
+	eje_x(0, 15);
+	eje_y(1, 30);
+	eje_x(0, 15);
+	eje_y(1, 30);
+	eje_x(0, 15);
+	eje_y(1, 30);
+	eje_x(0, 15);
+	eje_y(1, 30);
+	eje_x(0, 15);
+	eje_y(1, 15);
+	eje_x(0, 15);
+	eje_y(1, 15);
+	eje_x(0, 15);
+	eje_y(1, 30);
+	eje_x(0, 15);
+	eje_y(1, 15);
+	eje_x(0, 15);
+	eje_y(1, 15);
+	eje_x(0, 30);
+	eje_y(1, 15);
+	eje_x(0, 15);
+	eje_y(1, 15);
+	eje_x(0, 15);
+	eje_y(1, 15);
+	eje_x(0, 30);
+	eje_y(1, 15);
+	eje_x(0, 30);
+	eje_y(1, 15);
+	eje_x(0, 30);
+	eje_y(1, 15);
+	eje_x(0, 30);
+	eje_y(1, 15);
+	eje_x(0, 60);
+	eje_y(1, 15);
+	eje_x(0, 180);
+	eje_y(0, 15);
+	eje_x(0, 60);
+	eje_y(0, 15);
+	eje_x(0, 30);
+	eje_y(0, 15);
+	eje_x(0, 30);
+	eje_y(0, 15);
+	eje_x(0, 30);
+	eje_y(0, 15);
+	eje_x(0, 30);
+	eje_y(0, 15);
+	eje_x(0, 15);
+	eje_y(0, 15);
+	eje_x(0, 15);
+	eje_y(0, 15);
+	eje_x(0, 30);
+	eje_y(0, 15);
+	eje_x(0, 15);
+	eje_y(0, 15);
+	eje_x(0, 15);
+	eje_y(0, 30);
+	eje_x(0, 15);
+	eje_y(0, 15);
+	eje_x(0, 15);
+	eje_y(0, 15);
+	eje_x(0, 15);
+	eje_y(0, 30);
+	eje_x(0, 15);
+	eje_y(0, 30);
+	eje_x(0, 15);
+	eje_y(0, 30);
+	eje_x(0, 15);
+	eje_y(0, 30);
+	eje_x(0, 15);
+	eje_y(0, 60);
+	eje_x(0, 15);
+	eje_y(0, 180);
+	eje_x(1, 15);
+	eje_y(0, 60);
+	eje_x(1, 15);
+	eje_y(0, 30);
+	eje_x(1, 15);
+	eje_y(0, 30);
+	eje_x(1, 15);
+	eje_y(0, 30);
+	eje_x(1, 15);
+	eje_y(0, 30);
+	eje_x(1, 15);
+	eje_y(0, 15);
+	eje_x(1, 15);
+	eje_y(0, 15);
+	eje_x(1, 15);
+	eje_y(0, 30);
+	eje_x(1, 15);
+	eje_y(0, 15);
+	eje_x(1, 15);
+	eje_y(0, 15);
+	eje_x(1, 30);
+	eje_y(0, 15);
+	eje_x(1, 15);
+	eje_y(0, 15);
+	eje_x(1, 15);
+	eje_y(0, 15);
+	eje_x(1, 30);
+	eje_y(0, 15);
+	eje_x(1, 30);
+	eje_y(0, 15);
+	eje_x(1, 30);
+	eje_y(0, 15);
+	eje_x(1, 30);
+	eje_y(0, 15);
+	eje_x(1, 60);
+	eje_y(0, 15);
+	eje_x(1, 195);
+	eje_y(1, 15);
+	eje_x(1, 60);
+	eje_y(1, 15);
+	eje_x(1, 30);
+	eje_y(1, 15);
+	eje_x(1, 30);
+	eje_y(1, 15);
+	eje_x(1, 30);
+	eje_y(1, 15);
+	eje_x(1, 30);
+	eje_y(1, 15);
+	eje_x(1, 15);
+	eje_y(1, 15);
+	eje_x(1, 15);
+	eje_y(1, 15);
+	eje_x(1, 30);
+	eje_y(1, 15);
+	eje_x(1, 15);
+	eje_y(1, 15);
+	eje_x(1, 15);
+	eje_y(1, 30);
+	eje_x(1, 15);
+	eje_y(1, 15);
+	eje_x(1, 15);
+	eje_y(1, 15);
+	eje_x(1, 15);
+	eje_y(1, 30);
+	eje_x(1, 15);
+	eje_y(1, 30);
+	eje_x(1, 15);
+	eje_y(1, 30);
+	eje_x(1, 15);
+	eje_y(1, 30);
+	eje_x(1, 15);
+	eje_y(1, 60);
+	eje_x(1, 15);
+	eje_y(1, 225);
+
+
+
+	// Termina Circulo
+	
+	pluma_arriba();
+	_delay_ms(1000);
+	eje_y(1, 1000);
+	
+	// Rana
+	
+	pluma_abajo();
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 30);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	pluma_arriba();
+	eje_x(0, 390);
+	eje_y(0, 200);
+	pluma_abajo();
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 30);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 30);
+	eje_y(0, 10);
+	eje_x(1, 130);
+	eje_y(1, 10);
+	eje_x(1, 110);
+	pluma_arriba();
+	eje_x(1, 10);
+	eje_y(1, 10);
+	pluma_abajo();
+	eje_x(0, 90);
+	eje_y(0, 10);
+	eje_x(0, 100);
+	eje_y(0, 10);
+	eje_x(0, 70);
+	eje_y(1, 10);
+	eje_x(0, 30);
+	eje_y(1, 10);
+	eje_x(0, 30);
+	eje_y(1, 10);
+	eje_x(0, 20);
+	eje_y(1, 10);
+	eje_x(0, 30);
+	eje_y(1, 10);
+	eje_x(0, 30);
+	eje_y(1, 10);
+	eje_x(0, 30);
+	eje_y(1, 10);
+	eje_x(0, 20);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 30);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_x(0, 10);
+	eje_y(0, 20);
+	eje_x(0, 20);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 40);
+	eje_y(1, 10);
+	eje_x(0, 30);
+	eje_y(1, 70);
+	eje_x(0, 10);
+	eje_y(1, 80);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 30);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 30);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_x(0, 20);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 30);
+	eje_y(0, 10);
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 20);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 20);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 30);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 30);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 30);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 80);
+	eje_y(1, 50);
+	eje_x(1, 10);
+	eje_y(1, 60);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_y(0, 20);
+	eje_x(1, 10);
+	eje_y(0, 30);
+	eje_x(1, 20);
+	eje_y(1, 10);
+	eje_x(1, 30);
+	eje_y(1, 10);
+	eje_x(1, 30);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(0, 20);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 20);
+	eje_x(0, 10);
+	eje_y(0, 70);
+	eje_x(0, 10);
+	eje_y(0, 50);
+	eje_x(0, 10);
+	eje_y(0, 40);
+	eje_x(1, 30);
+	eje_y(0, 10);
+	pluma_arriba();
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 30);
+	eje_y(0, 10);
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	pluma_arriba();
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	pluma_arriba();
+	eje_x(1, 50);
+	eje_y(1, 180);
+	pluma_abajo();
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 40);
+	eje_y(1, 10);
+	eje_x(0, 100);
+	eje_y(0, 10);
+	eje_x(0, 50);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 50);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 40);
+	eje_y(0, 10);
+	eje_x(1, 30);
+	eje_y(0, 10);
+	eje_x(1, 30);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 20);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 30);
+	pluma_arriba();
+	eje_y(0, 100);
+	eje_x(0, 50);
+	pluma_abajo();
+	eje_x(1, 30);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 30);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 40);
+
+
+	
+	// Termina Rana
+	
+	pluma_arriba();
+	_delay_ms(700);
+	eje_y(1, 1000);
+	
+	// Manzana
+	
+	pluma_abajo();
+	eje_x(1, 40);
+	eje_y(1, 10);
+	eje_x(1, 70);
+	eje_y(1, 10);
+	eje_x(1, 60);
+	eje_y(1, 10);
+	eje_x(1, 40);
+	eje_y(1, 20);
+	eje_x(1, 20);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 20);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(0, 20);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 20);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(1, 70);
+	eje_y(1, 10);
+	eje_x(1, 120);
+	eje_y(1, 10);
+	eje_x(1, 70);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 20);
+	eje_x(1, 10);
+	eje_y(1, 10);
+	eje_x(1, 10);
+	eje_y(1, 40);
+	eje_x(1, 10);
+	eje_y(1, 60);
+	eje_x(1, 10);
+	eje_y(1, 70);
+	eje_x(1, 10);
+	eje_y(1, 60);
+	eje_x(0, 10);
+	eje_y(1, 40);
+	eje_x(0, 10);
+	eje_y(1, 40);
+	eje_x(0, 10);
+	eje_y(1, 40);
+	eje_x(0, 10);
+	eje_y(1, 30);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 20);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 20);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 20);
+	eje_y(1, 10);
+	eje_x(0, 20);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 20);
+	eje_y(1, 10);
+	eje_x(0, 10);
+	eje_y(1, 10);
+	eje_x(0, 20);
+	eje_y(1, 10);
+	eje_x(0, 160);
+	eje_y(0, 10);
+	eje_x(0, 170);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 20);
+	eje_x(0, 20);
+	eje_y(0, 20);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 20);
+	eje_x(0, 20);
+	eje_y(0, 20);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 50);
+	eje_x(0, 10);
+	eje_y(0, 70);
+	eje_x(0, 10);
+	eje_y(0, 90);
+	eje_x(0, 10);
+	eje_y(0, 70);
+	eje_x(0, 10);
+	eje_y(0, 60);
+	eje_x(1, 10);
+	eje_y(0, 30);
+	eje_x(1, 10);
+	eje_y(0, 30);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 30);
+	eje_x(1, 10);
+	eje_y(0, 20);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 10);
+	eje_y(0, 10);
+	eje_x(1, 20);
+	eje_y(0, 10);
+	eje_x(1, 250);
+	eje_y(0, 20);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 120);
+	eje_y(0, 10);
+	eje_x(0, 100);
+	eje_y(0, 10);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 30);
+	eje_x(0, 10);
+	eje_y(0, 80);
+	pluma_arriba();
+	
+	eje_y(1,7000);
+	
+	_delay_ms(1000);
+
+	// Deshabilitar drivers y quedar en idle
+	limpiar_bit(&PORTB, HABIL_X);
+	limpiar_bit(&PORTC, HABIL_Y);
+
+	while(1){}  // no repetir LUT
+
+	return 0;
+}
