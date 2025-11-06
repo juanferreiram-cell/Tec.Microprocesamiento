@@ -2,7 +2,9 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
-
+#include <string.h>
+#include "UART.h"
+#include "SPI.h"
 #include "RC522.h"
 
 #ifndef RC522_C
@@ -118,8 +120,7 @@ void mfrc522_debug_REQA() {
 	uint8_t req[1] = {PICC_REQIDL};
 	uint8_t buffer[16];
 	uint8_t bufferLength = sizeof(buffer);
-	uint8_t backBits = 0;
-	uint8_t status;
+
 
 	// Preparar registro de bits y FIFO
 	mfrc522_write(BitFramingReg, 0x07); // 7 bits para REQA
@@ -210,18 +211,14 @@ void mfrc522_debug_REQA() {
 	}
 }
 
-// REEMPLAZA LA FUNCIÓN mfrc522_standard EN RC522.c CON ESTA:
 
 void mfrc522_standard(uint8_t *card_uid) {
 	uint8_t req[1] = {PICC_REQIDL};
 	uint8_t buffer[16];
 	uint8_t bufferLength = sizeof(buffer);
 	
-	// --- SOLUCIÓN: Limpiar el búfer de salida al inicio ---
-	// Usamos 5 bytes, que es el tamaño de serNum[] en main.c
 	memset(card_uid, 0, 5);
 
-	// Preparar registro de bits y FIFO
 	mfrc522_write(BitFramingReg, 0x07); // 7 bits para REQA
 	mfrc522_write(CommIrqReg, 0x7F);    // Limpiar IRQ
 	mfrc522_write(FIFOLevelReg, 0x80);  // Limpiar FIFO
@@ -288,7 +285,6 @@ void mfrc522_standard(uint8_t *card_uid) {
 		// --- Anticollision Tuvo Éxito ---
 		fifoLevel = mfrc522_read(FIFOLevelReg);
 		
-		// --- SOLUCIÓN: Implementar validación de Checksum (BCC) ---
 		// El lector debe devolver 5 bytes (4 de ID + 1 de Checksum)
 		if (fifoLevel != 5) {
 			// Error, no se recibieron 5 bytes. card_uid ya está en 0. Salir.
@@ -314,9 +310,6 @@ void mfrc522_standard(uint8_t *card_uid) {
 			return;
 		}
 		
-		// ¡ÉXITO! card_uid[0-3] tiene un ID válido.
-		// card_uid[4] sigue siendo 0 (del primer memset).
-		// La comprobación 'if (serNum[0] != 0)' en main.c funcionará.
 	}
 }
 

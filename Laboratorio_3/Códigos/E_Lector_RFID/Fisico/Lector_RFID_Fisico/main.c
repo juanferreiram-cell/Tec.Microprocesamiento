@@ -274,6 +274,77 @@ void AccesoDenegado(void) {
 	}
 }
 
+void RegistrarNuevaTarjeta(uint8_t *id_tarjeta) {
+	uart_print("ID a registrar: ");
+	for (uint8_t i = 0; i < 4; i++) {
+		uart_print_hex(id_tarjeta[i]);
+		uart_print(" ");
+	}
+	uart_print("\r\n");
+	
+	uint8_t valida = 0;
+	for (uint8_t i = 0; i < 4; i++) {
+		if (id_tarjeta[i] != 0x00 && id_tarjeta[i] != 0xFF) {
+			valida = 1;
+			break;
+		}
+	}
+	
+	if (!valida) {
+		LCD_Limpiar();
+		LCD_FijarCursor(0, 0);
+		LCD_Imprimir("ERROR");
+		LCD_FijarCursor(0, 1);
+		LCD_Imprimir("ID inválido");
+		
+		uart_print("ERROR - ID de tarjeta inválido\r\n");
+		
+		LED_Rojo_Encender();
+		_delay_ms(2000);
+		LED_Rojo_Apagar();
+		return;
+	}
+	
+	EEPROM_GuardarTarjeta(id_tarjeta);
+	for (uint8_t i = 0; i < 4; i++) {
+		tarjeta_registrada_id[i] = id_tarjeta[i];
+	}
+	hay_tarjeta_registrada = 1;
+	
+	LCD_Limpiar();
+	LCD_FijarCursor(0, 0);
+	LCD_Imprimir("NUEVA TARJETA");
+	LCD_FijarCursor(0, 1);
+	LCD_Imprimir("REGISTRADA");
+	
+	uart_print("\r\nSE REGISTRO LA NUEVA TARJETA\r\n");
+	
+	for (uint8_t i = 0; i < 3; i++) {
+		LED_Verde_Encender();
+		_delay_ms(300);
+		LED_Verde_Apagar();
+		_delay_ms(300);
+	}
+}
+
+void BorrarTarjetaRegistrada(void) {
+	uart_print("\r\nINICIANDO BORRADO DE TARJETA\r\n");
+	
+	hay_tarjeta_registrada = 0;
+	for (uint8_t i = 0; i < 4; i++) {
+		tarjeta_registrada_id[i] = 0xFF;
+	}
+	
+	EEPROM_BorrarTarjeta();
+	
+	LCD_Limpiar();
+	LCD_FijarCursor(0, 0);
+	LCD_Imprimir("TARJETA BORRADA");
+	
+	uart_print("\r\nSE BORRO LA TARJETA\r\n");
+	uart_print("No hay mas tarjetas registradas\r\n");
+}
+
 void MostrarMensajeBienvenida(void) {
 	LCD_Limpiar();
 	LCD_FijarCursor(0, 0);
@@ -298,6 +369,8 @@ void MostrarMensajeListo(void) {
 // MAIN
 int main(void) {
 	uint8_t num_serie[5];
+	uint8_t ultimo_estado_borrar = 0;
+	uint8_t ultimo_estado_registrar = 0;
 	
 	uart_init(103);
 	I2C_Inicializar();
@@ -328,13 +401,68 @@ int main(void) {
 	uart_print("\r\nSistema listo. Esperando tarjetas\r\n\r\n");
 	
 	while (1) {
+		// verifica el boton de borrado
+		uint8_t boton_borrar_presionado = Boton_Borrar_Presionado();
+		if (boton_borrar_presionado && !ultimo_estado_borrar) {
+			EsperarSoltarBoton();
+			BorrarTarjetaRegistrada();
+			MostrarMensajeListo();
+		}
+		ultimo_estado_borrar = boton_borrar_presionado;
+		
+		// verifica el boton de registro
+		uint8_t boton_registrar_presionado = Boton_Registrar_Presionado();
+		if (boton_registrar_presionado && !ultimo_estado_registrar) {
+			EsperarSoltarBoton();
+			
+			LCD_Limpiar();
+			LCD_FijarCursor(0, 0);
+			LCD_Imprimir("MODO REGISTRO");
+			LCD_FijarCursor(0, 1);
+			LCD_Imprimir("Acerque tarjeta");
+			
+			uart_print("\r\nMODO REGISTRO ACTIVADO\r\n");
+			uart_print("Esperando nueva tarjeta para registrar \r\n");
+			
+			uint8_t tarjeta_leida = 0;
+			uint16_t tiempo_espera = 0;
+			
+			while (!tarjeta_leida && tiempo_espera < 100) {
+				
+				
+				memset(num_serie, 0, 5);
+				mfrc522_standard(num_serie);
+				
+				if (num_serie[0] != 0) {
+					RegistrarNuevaTarjeta(num_serie);
+					tarjeta_leida = 1;
+					_delay_ms(2000);
+				}
+				
+				
+				_delay_ms(100);
+				tiempo_espera++;
+			}
+			
+			if (!tarjeta_leida) {
+				LCD_Limpiar();
+				LCD_FijarCursor(0, 0);
+				LCD_Imprimir("TIEMPO AGOTADO");
+				_delay_ms(1500);
+				uart_print("Tiempo agotado - registro cancelado\r\n");
+			}
+			
+			MostrarMensajeListo();
+		}
+		ultimo_estado_registrar = boton_registrar_presionado;
+		
+		
 		
 		memset(num_serie, 0, 5);
 		mfrc522_standard(num_serie);
 		
-		// Si el primer byte no es 0, se detecto una tarjeta
+		// Si el primer byte no es 0, se detectó una tarjeta
 		if (num_serie[0] != 0) {
-			
 			
 			LCD_Limpiar();
 			LCD_FijarCursor(0, 0);

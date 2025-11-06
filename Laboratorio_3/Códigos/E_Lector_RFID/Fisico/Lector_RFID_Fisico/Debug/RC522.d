@@ -16,7 +16,8 @@ RC522.d RC522.o: .././RC522.c \
  c:\program\ files\microchip\xc8\v2.36\avr\avr\include\util\delay_basic.h \
  c:\program\ files\microchip\xc8\v2.36\avr\avr\include\math.h \
  c:\program\ files\microchip\xc8\v2.36\avr\avr\include\stdio.h \
- .././RC522.h
+ c:\program\ files\microchip\xc8\v2.36\avr\avr\include\string.h \
+ .././UART.h .././SPI.h .././RC522.h
 
 c:\program\ files\microchip\xc8\v2.36\avr\avr\include\avr\io.h:
 
@@ -51,5 +52,11 @@ c:\program\ files\microchip\xc8\v2.36\avr\avr\include\util\delay_basic.h:
 c:\program\ files\microchip\xc8\v2.36\avr\avr\include\math.h:
 
 c:\program\ files\microchip\xc8\v2.36\avr\avr\include\stdio.h:
+
+c:\program\ files\microchip\xc8\v2.36\avr\avr\include\string.h:
+
+.././UART.h:
+
+.././SPI.h:
 
 .././RC522.h:
