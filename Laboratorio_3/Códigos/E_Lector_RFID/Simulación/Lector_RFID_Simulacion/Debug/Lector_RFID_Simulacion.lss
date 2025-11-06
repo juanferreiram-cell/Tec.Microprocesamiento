@@ -1,0 +1,1533 @@
+
+Lector_RFID_Simulacion.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000a48  2**0
+                  ALLOC, LOAD, DATA
+  1 .text         000000c2  00000000  00000000  000000b4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000028  00800100  00800100  00000a48  2**0
+                  ALLOC
+  3 .comment      0000002f  00000000  00000000  00000a48  2**0
+                  CONTENTS, READONLY
+  4 .stack.descriptors.hdr 00000046  00000000  00000000  00000a77  2**0
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000138  00000000  00000000  00000ac0  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   0000205b  00000000  00000000  00000bf8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000980  00000000  00000000  00002c53  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000baa  00000000  00000000  000035d3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000218  00000000  00000000  00004180  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000027a  00000000  00000000  00004398  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000af6  00000000  00000000  00004612  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000b8  00000000  00000000  00005108  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .text         00000004  00000986  00000986  00000a3a  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 14 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000051c0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .text.i2c_start 00000010  0000094a  0000094a  000009fe  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 16 .text.i2c_stop 00000008  0000097e  0000097e  00000a32  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 17 .text.i2c_write 00000014  00000910  00000910  000009c4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 18 .text.lcd_i2c_write 00000084  00000522  00000522  000005d6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 19 .text.i2c_init 0000000c  00000968  00000968  00000a1c  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 20 .text.lcd_send_cmd 0000002a  0000081c  0000081c  000008d0  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 21 .text.lcd_send_data 0000002a  00000846  00000846  000008fa  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 22 .text.lcd_clear 00000014  00000924  00000924  000009d8  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .text.lcd_init 000000a6  0000047c  0000047c  00000530  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 24 .text.lcd_gotoxy 00000012  00000938  00000938  000009ec  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 25 .text.lcd_puts 0000002c  000007c4  000007c4  00000878  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 26 .text.__vector_18 0000006e  000005a6  000005a6  0000065a  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 27 .text.uart_inicializar 00000016  000008e4  000008e4  00000998  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 28 .text.uart_transmitir_caracter 0000000e  0000095a  0000095a  00000a0e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 29 .text.uart_transmitir_cadena 0000002c  000007f0  000007f0  000008a4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 30 .progmemx.data 00000127  000000c2  000000c2  00000176  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
+ 31 .text.procesar_id_recibido 000000f8  000001ea  000001ea  0000029e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 32 .text.leer_id_desde_eeprom 00000018  000008cc  000008cc  00000980  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 33 .text.guardar_id_en_eeprom 00000054  0000067a  0000067a  0000072e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 34 .text.modo_borrar_id 00000066  00000614  00000614  000006c8  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 35 .text.modo_actualizar_id 000000dc  000002e2  000002e2  00000396  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 36 .text.main    000000be  000003be  000003be  00000472  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 37 .bss.bandera_nuevo_id_recibido 00000001  00800128  00800128  00000a48  2**0
+                  ALLOC
+ 38 .bss.indice_id_recibido 00000001  00800129  00800129  00000a48  2**0
+                  ALLOC
+ 39 .text.__dummy_fini 00000002  0000098e  0000098e  00000a42  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 40 .text.__dummy_funcs_on_exit 00000002  00000990  00000990  00000a44  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 41 .text.__dummy_simulator_exit 00000002  00000992  00000992  00000a46  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 42 .text.exit    00000016  000008fa  000008fa  000009ae  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 43 .text.memcpy  00000032  00000792  00000792  00000846  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 44 .text.strcmp  00000042  0000071a  0000071a  000007ce  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 45 .text.strcpy  0000001c  00000894  00000894  00000948  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 46 .text.strncpy 0000004c  000006ce  000006ce  00000782  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 47 .text._Exit   00000004  0000098a  0000098a  00000a3e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 48 .text.avrlibc 00000024  00000870  00000870  00000924  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 49 .text.avrlibc 00000036  0000075c  0000075c  00000810  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 50 .text.avrlibc 0000001c  000008b0  000008b0  00000964  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 51 .text.libgcc  0000000a  00000974  00000974  00000a28  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 37 00 	jmp	0x6e	; 0x6e <__ctors_end>
+   4:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+   8:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+   c:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  10:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  14:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  18:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  1c:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  20:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  24:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  28:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  2c:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  30:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  34:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  38:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  3c:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  40:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  44:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  48:	0c 94 d3 02 	jmp	0x5a6	; 0x5a6 <__vector_18>
+  4c:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  50:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  54:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  58:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  5c:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  60:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+  64:	0c 94 c3 04 	jmp	0x986	; 0x986 <__bad_interrupt>
+
+00000068 <.dinit>:
+  68:	01 00       	.word	0x0001	; ????
+  6a:	01 2a       	or	r0, r17
+  6c:	80 00       	.word	0x0080	; ????
+
+0000006e <__ctors_end>:
+  6e:	11 24       	eor	r1, r1
+  70:	1f be       	out	0x3f, r1	; 63
+  72:	cf ef       	ldi	r28, 0xFF	; 255
+  74:	d8 e0       	ldi	r29, 0x08	; 8
+  76:	de bf       	out	0x3e, r29	; 62
+  78:	cd bf       	out	0x3d, r28	; 61
+
+0000007a <__do_copy_data>:
+  7a:	e8 e6       	ldi	r30, 0x68	; 104
+  7c:	f0 e0       	ldi	r31, 0x00	; 0
+  7e:	40 e0       	ldi	r20, 0x00	; 0
+  80:	17 c0       	rjmp	.+46     	; 0xb0 <__do_clear_bss+0x8>
+  82:	b5 91       	lpm	r27, Z+
+  84:	a5 91       	lpm	r26, Z+
+  86:	35 91       	lpm	r19, Z+
+  88:	25 91       	lpm	r18, Z+
+  8a:	05 91       	lpm	r16, Z+
+  8c:	07 fd       	sbrc	r16, 7
+  8e:	0c c0       	rjmp	.+24     	; 0xa8 <__do_clear_bss>
+  90:	95 91       	lpm	r25, Z+
+  92:	85 91       	lpm	r24, Z+
+  94:	ef 01       	movw	r28, r30
+  96:	f9 2f       	mov	r31, r25
+  98:	e8 2f       	mov	r30, r24
+  9a:	05 90       	lpm	r0, Z+
+  9c:	0d 92       	st	X+, r0
+  9e:	a2 17       	cp	r26, r18
+  a0:	b3 07       	cpc	r27, r19
+  a2:	d9 f7       	brne	.-10     	; 0x9a <__do_copy_data+0x20>
+  a4:	fe 01       	movw	r30, r28
+  a6:	04 c0       	rjmp	.+8      	; 0xb0 <__do_clear_bss+0x8>
+
+000000a8 <__do_clear_bss>:
+  a8:	1d 92       	st	X+, r1
+  aa:	a2 17       	cp	r26, r18
+  ac:	b3 07       	cpc	r27, r19
+  ae:	e1 f7       	brne	.-8      	; 0xa8 <__do_clear_bss>
+  b0:	ed 36       	cpi	r30, 0x6D	; 109
+  b2:	f4 07       	cpc	r31, r20
+  b4:	31 f7       	brne	.-52     	; 0x82 <__do_copy_data+0x8>
+  b6:	0e 94 df 01 	call	0x3be	; 0x3be <main>
+  ba:	0c 94 7d 04 	jmp	0x8fa	; 0x8fa <exit>
+
+000000be <_exit>:
+  be:	f8 94       	cli
+
+000000c0 <__stop_program>:
+  c0:	ff cf       	rjmp	.-2      	; 0xc0 <__stop_program>
+
+Disassembly of section .text:
+
+00000986 <__bad_interrupt>:
+ 986:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+
+Disassembly of section .text.i2c_start:
+
+0000094a <i2c_start>:
+	TWSR = 0;
+	TWBR = ((F_CPU / SCL_CLOCK) - 16) / 2;
+}
+
+static void i2c_start(void) {
+	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
+ 94a:	84 ea       	ldi	r24, 0xA4	; 164
+ 94c:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 950:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 954:	88 23       	and	r24, r24
+ 956:	e4 f7       	brge	.-8      	; 0x950 <i2c_start+0x6>
+}
+ 958:	08 95       	ret
+
+Disassembly of section .text.i2c_stop:
+
+0000097e <i2c_stop>:
+
+static void i2c_stop(void) {
+	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+ 97e:	84 e9       	ldi	r24, 0x94	; 148
+ 980:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 984:	08 95       	ret
+
+Disassembly of section .text.i2c_write:
+
+00000910 <i2c_write>:
+}
+
+static void i2c_write(uint8_t data) {
+	TWDR = data;
+ 910:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1 << TWINT) | (1 << TWEN);
+ 914:	84 e8       	ldi	r24, 0x84	; 132
+ 916:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 91a:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 91e:	88 23       	and	r24, r24
+ 920:	e4 f7       	brge	.-8      	; 0x91a <i2c_write+0xa>
+}
+ 922:	08 95       	ret
+
+Disassembly of section .text.lcd_i2c_write:
+
+00000522 <lcd_i2c_write>:
+
+static void lcd_i2c_write(uint8_t data, uint8_t rs) {
+ 522:	0f 93       	push	r16
+ 524:	1f 93       	push	r17
+ 526:	cf 93       	push	r28
+ 528:	df 93       	push	r29
+	uint8_t high_nibble = data & 0xF0;
+ 52a:	98 2f       	mov	r25, r24
+ 52c:	90 7f       	andi	r25, 0xF0	; 240
+	uint8_t low_nibble = (data << 4) & 0xF0;
+ 52e:	20 e1       	ldi	r18, 0x10	; 16
+ 530:	82 9f       	mul	r24, r18
+ 532:	e0 01       	movw	r28, r0
+ 534:	11 24       	eor	r1, r1
+
+	uint8_t rs_bit = (rs) ? (1 << 0) : 0;
+ 536:	11 e0       	ldi	r17, 0x01	; 1
+ 538:	61 11       	cpse	r22, r1
+ 53a:	01 c0       	rjmp	.+2      	; 0x53e <lcd_i2c_write+0x1c>
+ 53c:	10 e0       	ldi	r17, 0x00	; 0
+
+	// Manda el nibble alto
+	i2c_write(high_nibble | rs_bit | (1 << 3));
+ 53e:	d9 2f       	mov	r29, r25
+ 540:	d1 2b       	or	r29, r17
+ 542:	0d 2f       	mov	r16, r29
+ 544:	08 60       	ori	r16, 0x08	; 8
+ 546:	80 2f       	mov	r24, r16
+ 548:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+	i2c_write(high_nibble | rs_bit | (1 << 2) | (1 << 3));
+ 54c:	8d 2f       	mov	r24, r29
+ 54e:	8c 60       	ori	r24, 0x0C	; 12
+ 550:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 554:	85 e0       	ldi	r24, 0x05	; 5
+ 556:	8a 95       	dec	r24
+ 558:	f1 f7       	brne	.-4      	; 0x556 <lcd_i2c_write+0x34>
+ 55a:	00 00       	nop
+	_delay_us(1);
+	i2c_write(high_nibble | rs_bit | (1 << 3));
+ 55c:	80 2f       	mov	r24, r16
+ 55e:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+ 562:	87 ec       	ldi	r24, 0xC7	; 199
+ 564:	90 e0       	ldi	r25, 0x00	; 0
+ 566:	01 97       	sbiw	r24, 0x01	; 1
+ 568:	f1 f7       	brne	.-4      	; 0x566 <lcd_i2c_write+0x44>
+ 56a:	00 c0       	rjmp	.+0      	; 0x56c <lcd_i2c_write+0x4a>
+ 56c:	00 00       	nop
+	_delay_us(50);
+	
+	// Manda el nibble bajo
+	i2c_write(low_nibble | rs_bit | (1 << 3));
+ 56e:	c1 2b       	or	r28, r17
+ 570:	dc 2f       	mov	r29, r28
+ 572:	d8 60       	ori	r29, 0x08	; 8
+ 574:	8d 2f       	mov	r24, r29
+ 576:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+	i2c_write(low_nibble | rs_bit | (1 << 2) | (1 << 3));
+ 57a:	8c 2f       	mov	r24, r28
+ 57c:	8c 60       	ori	r24, 0x0C	; 12
+ 57e:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+ 582:	95 e0       	ldi	r25, 0x05	; 5
+ 584:	9a 95       	dec	r25
+ 586:	f1 f7       	brne	.-4      	; 0x584 <lcd_i2c_write+0x62>
+ 588:	00 00       	nop
+	_delay_us(1);
+	i2c_write(low_nibble | rs_bit | (1 << 3));
+ 58a:	8d 2f       	mov	r24, r29
+ 58c:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+ 590:	87 ec       	ldi	r24, 0xC7	; 199
+ 592:	90 e0       	ldi	r25, 0x00	; 0
+ 594:	01 97       	sbiw	r24, 0x01	; 1
+ 596:	f1 f7       	brne	.-4      	; 0x594 <lcd_i2c_write+0x72>
+ 598:	00 c0       	rjmp	.+0      	; 0x59a <lcd_i2c_write+0x78>
+ 59a:	00 00       	nop
+	_delay_us(50);
+}
+ 59c:	df 91       	pop	r29
+ 59e:	cf 91       	pop	r28
+ 5a0:	1f 91       	pop	r17
+ 5a2:	0f 91       	pop	r16
+ 5a4:	08 95       	ret
+
+Disassembly of section .text.i2c_init:
+
+00000968 <i2c_init>:
+#define SCL_CLOCK 100000L
+#define I2C_WRITE_ADDR (LCD_I2C_ADDRESS << 1)
+
+
+void i2c_init(void) {
+	TWSR = 0;
+ 968:	10 92 b9 00 	sts	0x00B9, r1	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+	TWBR = ((F_CPU / SCL_CLOCK) - 16) / 2;
+ 96c:	88 e4       	ldi	r24, 0x48	; 72
+ 96e:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7f80b8>
+ 972:	08 95       	ret
+
+Disassembly of section .text.lcd_send_cmd:
+
+0000081c <lcd_send_cmd>:
+	_delay_us(1);
+	i2c_write(low_nibble | rs_bit | (1 << 3));
+	_delay_us(50);
+}
+
+void lcd_send_cmd(char cmd) {
+ 81c:	cf 93       	push	r28
+ 81e:	c8 2f       	mov	r28, r24
+	i2c_start();
+ 820:	0e 94 a5 04 	call	0x94a	; 0x94a <i2c_start>
+	i2c_write(I2C_WRITE_ADDR);
+ 824:	80 e4       	ldi	r24, 0x40	; 64
+ 826:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+	lcd_i2c_write(cmd, 0);
+ 82a:	60 e0       	ldi	r22, 0x00	; 0
+ 82c:	8c 2f       	mov	r24, r28
+ 82e:	0e 94 91 02 	call	0x522	; 0x522 <lcd_i2c_write>
+	i2c_stop();
+ 832:	0e 94 bf 04 	call	0x97e	; 0x97e <i2c_stop>
+ 836:	87 ec       	ldi	r24, 0xC7	; 199
+ 838:	90 e0       	ldi	r25, 0x00	; 0
+ 83a:	01 97       	sbiw	r24, 0x01	; 1
+ 83c:	f1 f7       	brne	.-4      	; 0x83a <lcd_send_cmd+0x1e>
+ 83e:	00 c0       	rjmp	.+0      	; 0x840 <lcd_send_cmd+0x24>
+ 840:	00 00       	nop
+	_delay_us(50);
+}
+ 842:	cf 91       	pop	r28
+ 844:	08 95       	ret
+
+Disassembly of section .text.lcd_send_data:
+
+00000846 <lcd_send_data>:
+
+// Envía un caracter a la LCD
+void lcd_send_data(char data) {
+ 846:	cf 93       	push	r28
+ 848:	c8 2f       	mov	r28, r24
+	i2c_start();
+ 84a:	0e 94 a5 04 	call	0x94a	; 0x94a <i2c_start>
+	i2c_write(I2C_WRITE_ADDR);
+ 84e:	80 e4       	ldi	r24, 0x40	; 64
+ 850:	0e 94 88 04 	call	0x910	; 0x910 <i2c_write>
+	lcd_i2c_write(data, 1);
+ 854:	61 e0       	ldi	r22, 0x01	; 1
+ 856:	8c 2f       	mov	r24, r28
+ 858:	0e 94 91 02 	call	0x522	; 0x522 <lcd_i2c_write>
+	i2c_stop();
+ 85c:	0e 94 bf 04 	call	0x97e	; 0x97e <i2c_stop>
+ 860:	87 ec       	ldi	r24, 0xC7	; 199
+ 862:	90 e0       	ldi	r25, 0x00	; 0
+ 864:	01 97       	sbiw	r24, 0x01	; 1
+ 866:	f1 f7       	brne	.-4      	; 0x864 <lcd_send_data+0x1e>
+ 868:	00 c0       	rjmp	.+0      	; 0x86a <lcd_send_data+0x24>
+ 86a:	00 00       	nop
+	_delay_us(50);
+}
+ 86c:	cf 91       	pop	r28
+ 86e:	08 95       	ret
+
+Disassembly of section .text.lcd_clear:
+
+00000924 <lcd_clear>:
+	lcd_clear();
+	_delay_ms(2);
+}
+
+void lcd_clear(void) {
+	lcd_send_cmd(0x01);
+ 924:	81 e0       	ldi	r24, 0x01	; 1
+ 926:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 92a:	8f e1       	ldi	r24, 0x1F	; 31
+ 92c:	9e e4       	ldi	r25, 0x4E	; 78
+ 92e:	01 97       	sbiw	r24, 0x01	; 1
+ 930:	f1 f7       	brne	.-4      	; 0x92e <lcd_clear+0xa>
+ 932:	00 c0       	rjmp	.+0      	; 0x934 <lcd_clear+0x10>
+ 934:	00 00       	nop
+ 936:	08 95       	ret
+
+Disassembly of section .text.lcd_init:
+
+0000047c <lcd_init>:
+}
+
+
+
+void lcd_init(void) {
+	i2c_init();
+ 47c:	0e 94 b4 04 	call	0x968	; 0x968 <i2c_init>
+ 480:	2f ef       	ldi	r18, 0xFF	; 255
+ 482:	80 e7       	ldi	r24, 0x70	; 112
+ 484:	92 e0       	ldi	r25, 0x02	; 2
+ 486:	21 50       	subi	r18, 0x01	; 1
+ 488:	80 40       	sbci	r24, 0x00	; 0
+ 48a:	90 40       	sbci	r25, 0x00	; 0
+ 48c:	e1 f7       	brne	.-8      	; 0x486 <lcd_init+0xa>
+ 48e:	00 c0       	rjmp	.+0      	; 0x490 <lcd_init+0x14>
+ 490:	00 00       	nop
+	
+	// Secuencia para inicializar
+	_delay_ms(50);
+	lcd_send_cmd(0x03);
+ 492:	83 e0       	ldi	r24, 0x03	; 3
+ 494:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+ 498:	8f e1       	ldi	r24, 0x1F	; 31
+ 49a:	9e e4       	ldi	r25, 0x4E	; 78
+ 49c:	01 97       	sbiw	r24, 0x01	; 1
+ 49e:	f1 f7       	brne	.-4      	; 0x49c <lcd_init+0x20>
+ 4a0:	00 c0       	rjmp	.+0      	; 0x4a2 <lcd_init+0x26>
+ 4a2:	00 00       	nop
+	_delay_ms(5);
+	lcd_send_cmd(0x03);
+ 4a4:	83 e0       	ldi	r24, 0x03	; 3
+ 4a6:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 4aa:	8f e8       	ldi	r24, 0x8F	; 143
+ 4ac:	91 e0       	ldi	r25, 0x01	; 1
+ 4ae:	01 97       	sbiw	r24, 0x01	; 1
+ 4b0:	f1 f7       	brne	.-4      	; 0x4ae <lcd_init+0x32>
+ 4b2:	00 c0       	rjmp	.+0      	; 0x4b4 <lcd_init+0x38>
+ 4b4:	00 00       	nop
+	_delay_us(100);
+	lcd_send_cmd(0x03);
+ 4b6:	83 e0       	ldi	r24, 0x03	; 3
+ 4b8:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 4bc:	8f e3       	ldi	r24, 0x3F	; 63
+ 4be:	9f e1       	ldi	r25, 0x1F	; 31
+ 4c0:	01 97       	sbiw	r24, 0x01	; 1
+ 4c2:	f1 f7       	brne	.-4      	; 0x4c0 <lcd_init+0x44>
+ 4c4:	00 c0       	rjmp	.+0      	; 0x4c6 <lcd_init+0x4a>
+ 4c6:	00 00       	nop
+	_delay_ms(2);
+	lcd_send_cmd(0x02); // Lo pone en 4 Bits
+ 4c8:	82 e0       	ldi	r24, 0x02	; 2
+ 4ca:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+ 4ce:	8f e3       	ldi	r24, 0x3F	; 63
+ 4d0:	9f e1       	ldi	r25, 0x1F	; 31
+ 4d2:	01 97       	sbiw	r24, 0x01	; 1
+ 4d4:	f1 f7       	brne	.-4      	; 0x4d2 <lcd_init+0x56>
+ 4d6:	00 c0       	rjmp	.+0      	; 0x4d8 <lcd_init+0x5c>
+ 4d8:	00 00       	nop
+	_delay_ms(2);
+
+	// Configuracion final
+	lcd_send_cmd(0x28);
+ 4da:	88 e2       	ldi	r24, 0x28	; 40
+ 4dc:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+ 4e0:	8f e9       	ldi	r24, 0x9F	; 159
+ 4e2:	9f e0       	ldi	r25, 0x0F	; 15
+ 4e4:	01 97       	sbiw	r24, 0x01	; 1
+ 4e6:	f1 f7       	brne	.-4      	; 0x4e4 <lcd_init+0x68>
+ 4e8:	00 c0       	rjmp	.+0      	; 0x4ea <lcd_init+0x6e>
+ 4ea:	00 00       	nop
+	_delay_ms(1);
+	lcd_send_cmd(0x0C);
+ 4ec:	8c e0       	ldi	r24, 0x0C	; 12
+ 4ee:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+ 4f2:	8f e9       	ldi	r24, 0x9F	; 159
+ 4f4:	9f e0       	ldi	r25, 0x0F	; 15
+ 4f6:	01 97       	sbiw	r24, 0x01	; 1
+ 4f8:	f1 f7       	brne	.-4      	; 0x4f6 <lcd_init+0x7a>
+ 4fa:	00 c0       	rjmp	.+0      	; 0x4fc <lcd_init+0x80>
+ 4fc:	00 00       	nop
+	_delay_ms(1);
+	lcd_send_cmd(0x06);
+ 4fe:	86 e0       	ldi	r24, 0x06	; 6
+ 500:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+ 504:	8f e9       	ldi	r24, 0x9F	; 159
+ 506:	9f e0       	ldi	r25, 0x0F	; 15
+ 508:	01 97       	sbiw	r24, 0x01	; 1
+ 50a:	f1 f7       	brne	.-4      	; 0x508 <lcd_init+0x8c>
+ 50c:	00 c0       	rjmp	.+0      	; 0x50e <lcd_init+0x92>
+ 50e:	00 00       	nop
+	_delay_ms(1);
+	lcd_clear();
+ 510:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+ 514:	8f e3       	ldi	r24, 0x3F	; 63
+ 516:	9f e1       	ldi	r25, 0x1F	; 31
+ 518:	01 97       	sbiw	r24, 0x01	; 1
+ 51a:	f1 f7       	brne	.-4      	; 0x518 <lcd_init+0x9c>
+ 51c:	00 c0       	rjmp	.+0      	; 0x51e <lcd_init+0xa2>
+ 51e:	00 00       	nop
+ 520:	08 95       	ret
+
+Disassembly of section .text.lcd_gotoxy:
+
+00000938 <lcd_gotoxy>:
+	lcd_send_cmd(0x01);
+	_delay_ms(5);
+}
+
+void lcd_gotoxy(uint8_t x, uint8_t y) {
+	uint8_t address = (y == 0) ? 0x80 : 0xC0;
+ 938:	61 11       	cpse	r22, r1
+ 93a:	02 c0       	rjmp	.+4      	; 0x940 <lcd_gotoxy+0x8>
+ 93c:	90 e8       	ldi	r25, 0x80	; 128
+ 93e:	01 c0       	rjmp	.+2      	; 0x942 <lcd_gotoxy+0xa>
+ 940:	90 ec       	ldi	r25, 0xC0	; 192
+	address += x;
+	lcd_send_cmd(address);
+ 942:	89 0f       	add	r24, r25
+ 944:	0e 94 0e 04 	call	0x81c	; 0x81c <lcd_send_cmd>
+ 948:	08 95       	ret
+
+Disassembly of section .text.lcd_puts:
+
+000007c4 <lcd_puts>:
+}
+
+void lcd_puts(const char *s) {
+ 7c4:	cf 92       	push	r12
+ 7c6:	df 92       	push	r13
+ 7c8:	ef 92       	push	r14
+ 7ca:	6b 01       	movw	r12, r22
+ 7cc:	e8 2e       	mov	r14, r24
+	while (*s) {
+ 7ce:	06 c0       	rjmp	.+12     	; 0x7dc <lcd_puts+0x18>
+		lcd_send_data(*s++);
+ 7d0:	9f ef       	ldi	r25, 0xFF	; 255
+ 7d2:	c9 1a       	sub	r12, r25
+ 7d4:	d9 0a       	sbc	r13, r25
+ 7d6:	e9 0a       	sbc	r14, r25
+ 7d8:	0e 94 23 04 	call	0x846	; 0x846 <lcd_send_data>
+	address += x;
+	lcd_send_cmd(address);
+}
+
+void lcd_puts(const char *s) {
+	while (*s) {
+ 7dc:	f6 01       	movw	r30, r12
+ 7de:	84 91       	lpm	r24, Z
+ 7e0:	e7 fc       	sbrc	r14, 7
+ 7e2:	80 81       	ld	r24, Z
+ 7e4:	81 11       	cpse	r24, r1
+ 7e6:	f4 cf       	rjmp	.-24     	; 0x7d0 <lcd_puts+0xc>
+		lcd_send_data(*s++);
+	}
+ 7e8:	ef 90       	pop	r14
+ 7ea:	df 90       	pop	r13
+ 7ec:	cf 90       	pop	r12
+ 7ee:	08 95       	ret
+
+Disassembly of section .text.__vector_18:
+
+000005a6 <__vector_18>:
+void procesar_id_recibido(void);
+void modo_actualizar_id(void);
+void modo_borrar_id(void);
+
+// recepcion por UART para simular como si fuese el lector RFID
+ISR(USART_RX_vect) {
+ 5a6:	1f 92       	push	r1
+ 5a8:	0f 92       	push	r0
+ 5aa:	0f b6       	in	r0, 0x3f	; 63
+ 5ac:	0f 92       	push	r0
+ 5ae:	11 24       	eor	r1, r1
+ 5b0:	8f 93       	push	r24
+ 5b2:	9f 93       	push	r25
+ 5b4:	ef 93       	push	r30
+ 5b6:	ff 93       	push	r31
+	char c = UDR0;
+ 5b8:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+
+	if (c == '\r' || c == '\n' || indice_id_recibido >= 19) {
+ 5bc:	8d 30       	cpi	r24, 0x0D	; 13
+ 5be:	31 f0       	breq	.+12     	; 0x5cc <__vector_18+0x26>
+ 5c0:	8a 30       	cpi	r24, 0x0A	; 10
+ 5c2:	21 f0       	breq	.+8      	; 0x5cc <__vector_18+0x26>
+ 5c4:	90 91 29 01 	lds	r25, 0x0129	; 0x800129 <indice_id_recibido>
+ 5c8:	93 31       	cpi	r25, 0x13	; 19
+ 5ca:	80 f0       	brcs	.+32     	; 0x5ec <__vector_18+0x46>
+		if (indice_id_recibido > 0) {
+ 5cc:	80 91 29 01 	lds	r24, 0x0129	; 0x800129 <indice_id_recibido>
+ 5d0:	88 23       	and	r24, r24
+ 5d2:	49 f0       	breq	.+18     	; 0x5e6 <__vector_18+0x40>
+			memoria_id_recibido[indice_id_recibido] = '\0';
+ 5d4:	e0 91 29 01 	lds	r30, 0x0129	; 0x800129 <indice_id_recibido>
+ 5d8:	f0 e0       	ldi	r31, 0x00	; 0
+ 5da:	ec 5e       	subi	r30, 0xEC	; 236
+ 5dc:	fe 4f       	sbci	r31, 0xFE	; 254
+ 5de:	10 82       	st	Z, r1
+			bandera_nuevo_id_recibido = 1;
+ 5e0:	81 e0       	ldi	r24, 0x01	; 1
+ 5e2:	80 93 28 01 	sts	0x0128, r24	; 0x800128 <_end>
+		}
+		indice_id_recibido = 0;
+ 5e6:	10 92 29 01 	sts	0x0129, r1	; 0x800129 <indice_id_recibido>
+ 5ea:	0b c0       	rjmp	.+22     	; 0x602 <__vector_18+0x5c>
+		} else {
+		memoria_id_recibido[indice_id_recibido] = c;
+ 5ec:	e0 91 29 01 	lds	r30, 0x0129	; 0x800129 <indice_id_recibido>
+ 5f0:	f0 e0       	ldi	r31, 0x00	; 0
+ 5f2:	ec 5e       	subi	r30, 0xEC	; 236
+ 5f4:	fe 4f       	sbci	r31, 0xFE	; 254
+ 5f6:	80 83       	st	Z, r24
+		indice_id_recibido++;
+ 5f8:	80 91 29 01 	lds	r24, 0x0129	; 0x800129 <indice_id_recibido>
+ 5fc:	8f 5f       	subi	r24, 0xFF	; 255
+ 5fe:	80 93 29 01 	sts	0x0129, r24	; 0x800129 <indice_id_recibido>
+	}
+}
+ 602:	ff 91       	pop	r31
+ 604:	ef 91       	pop	r30
+ 606:	9f 91       	pop	r25
+ 608:	8f 91       	pop	r24
+ 60a:	0f 90       	pop	r0
+ 60c:	0f be       	out	0x3f, r0	; 63
+ 60e:	0f 90       	pop	r0
+ 610:	1f 90       	pop	r1
+ 612:	18 95       	reti
+
+Disassembly of section .text.uart_inicializar:
+
+000008e4 <uart_inicializar>:
+	lcd_puts("Acerque tarjeta");
+}
+
+// Funciones UART
+void uart_inicializar(uint16_t ubrr) {
+	UBRR0H = (uint8_t)(ubrr >> 8);
+ 8e4:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+	UBRR0L = (uint8_t)ubrr;
+ 8e8:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+	UCSR0B = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
+ 8ec:	88 e9       	ldi	r24, 0x98	; 152
+ 8ee:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
+ 8f2:	86 e0       	ldi	r24, 0x06	; 6
+ 8f4:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
+ 8f8:	08 95       	ret
+
+Disassembly of section .text.uart_transmitir_caracter:
+
+0000095a <uart_transmitir_caracter>:
+}
+
+void uart_transmitir_caracter(char data) {
+	while (!(UCSR0A & (1 << UDRE0)));
+ 95a:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 95e:	95 ff       	sbrs	r25, 5
+ 960:	fc cf       	rjmp	.-8      	; 0x95a <uart_transmitir_caracter>
+	UDR0 = data;
+ 962:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 966:	08 95       	ret
+
+Disassembly of section .text.uart_transmitir_cadena:
+
+000007f0 <uart_transmitir_cadena>:
+}
+
+void uart_transmitir_cadena(const char* str) {
+ 7f0:	cf 92       	push	r12
+ 7f2:	df 92       	push	r13
+ 7f4:	ef 92       	push	r14
+ 7f6:	6b 01       	movw	r12, r22
+ 7f8:	e8 2e       	mov	r14, r24
+	while (*str) {
+ 7fa:	06 c0       	rjmp	.+12     	; 0x808 <__DATA_REGION_LENGTH__+0x8>
+		uart_transmitir_caracter(*str++);
+ 7fc:	9f ef       	ldi	r25, 0xFF	; 255
+ 7fe:	c9 1a       	sub	r12, r25
+ 800:	d9 0a       	sbc	r13, r25
+ 802:	e9 0a       	sbc	r14, r25
+ 804:	0e 94 ad 04 	call	0x95a	; 0x95a <uart_transmitir_caracter>
+	while (!(UCSR0A & (1 << UDRE0)));
+	UDR0 = data;
+}
+
+void uart_transmitir_cadena(const char* str) {
+	while (*str) {
+ 808:	f6 01       	movw	r30, r12
+ 80a:	84 91       	lpm	r24, Z
+ 80c:	e7 fc       	sbrc	r14, 7
+ 80e:	80 81       	ld	r24, Z
+ 810:	81 11       	cpse	r24, r1
+ 812:	f4 cf       	rjmp	.-24     	; 0x7fc <uart_transmitir_cadena+0xc>
+		uart_transmitir_caracter(*str++);
+	}
+}
+ 814:	ef 90       	pop	r14
+ 816:	df 90       	pop	r13
+ 818:	cf 90       	pop	r12
+ 81a:	08 95       	ret
+
+Disassembly of section .text.procesar_id_recibido:
+
+000001ea <procesar_id_recibido>:
+		}
+	}
+}
+
+
+void procesar_id_recibido(void) {
+ 1ea:	cf 92       	push	r12
+ 1ec:	df 92       	push	r13
+ 1ee:	ef 92       	push	r14
+	uart_transmitir_cadena("ID recibido: ");
+ 1f0:	62 ec       	ldi	r22, 0xC2	; 194
+ 1f2:	70 e0       	ldi	r23, 0x00	; 0
+ 1f4:	80 e0       	ldi	r24, 0x00	; 0
+ 1f6:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	uart_transmitir_cadena((const char*)memoria_id_recibido);
+ 1fa:	84 e1       	ldi	r24, 0x14	; 20
+ 1fc:	91 e0       	ldi	r25, 0x01	; 1
+ 1fe:	6c 01       	movw	r12, r24
+ 200:	20 e8       	ldi	r18, 0x80	; 128
+ 202:	e2 2e       	mov	r14, r18
+ 204:	8e 2d       	mov	r24, r14
+ 206:	b6 01       	movw	r22, r12
+ 208:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	uart_transmitir_cadena("\r\n");
+ 20c:	60 ed       	ldi	r22, 0xD0	; 208
+ 20e:	70 e0       	ldi	r23, 0x00	; 0
+ 210:	80 e0       	ldi	r24, 0x00	; 0
+ 212:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+
+	if (strlen(id_maestra_en_ram) > 0 && strcmp((const char*)memoria_id_recibido, id_maestra_en_ram) == 0) {
+ 216:	20 e0       	ldi	r18, 0x00	; 0
+ 218:	31 e0       	ldi	r19, 0x01	; 1
+ 21a:	40 e8       	ldi	r20, 0x80	; 128
+ 21c:	f9 01       	movw	r30, r18
+ 21e:	84 91       	lpm	r24, Z
+ 220:	47 fd       	sbrc	r20, 7
+ 222:	80 81       	ld	r24, Z
+ 224:	88 23       	and	r24, r24
+ 226:	31 f1       	breq	.+76     	; 0x274 <procesar_id_recibido+0x8a>
+ 228:	8e 2d       	mov	r24, r14
+ 22a:	b6 01       	movw	r22, r12
+ 22c:	0e 94 8d 03 	call	0x71a	; 0x71a <strcmp>
+ 230:	89 2b       	or	r24, r25
+ 232:	01 f5       	brne	.+64     	; 0x274 <procesar_id_recibido+0x8a>
+		// ACCESO PERMITIDO
+		uart_transmitir_cadena("Acceso PERMITIDO\r\n");
+ 234:	63 ed       	ldi	r22, 0xD3	; 211
+ 236:	70 e0       	ldi	r23, 0x00	; 0
+ 238:	80 e0       	ldi	r24, 0x00	; 0
+ 23a:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+		lcd_clear();
+ 23e:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+		lcd_gotoxy(0, 0);
+ 242:	60 e0       	ldi	r22, 0x00	; 0
+ 244:	80 e0       	ldi	r24, 0x00	; 0
+ 246:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+		lcd_puts("Acceso Permitido");
+ 24a:	66 ee       	ldi	r22, 0xE6	; 230
+ 24c:	70 e0       	ldi	r23, 0x00	; 0
+ 24e:	80 e0       	ldi	r24, 0x00	; 0
+ 250:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+		PUERTO_LED_VERDE |= (1 << PIN_LED_VERDE);
+ 254:	8b b1       	in	r24, 0x0b	; 11
+ 256:	80 68       	ori	r24, 0x80	; 128
+ 258:	8b b9       	out	0x0b, r24	; 11
+ 25a:	8f ef       	ldi	r24, 0xFF	; 255
+ 25c:	97 ea       	ldi	r25, 0xA7	; 167
+ 25e:	21 e6       	ldi	r18, 0x61	; 97
+ 260:	81 50       	subi	r24, 0x01	; 1
+ 262:	90 40       	sbci	r25, 0x00	; 0
+ 264:	20 40       	sbci	r18, 0x00	; 0
+ 266:	e1 f7       	brne	.-8      	; 0x260 <procesar_id_recibido+0x76>
+ 268:	00 c0       	rjmp	.+0      	; 0x26a <procesar_id_recibido+0x80>
+ 26a:	00 00       	nop
+		_delay_ms(2000);
+		PUERTO_LED_VERDE &= ~(1 << PIN_LED_VERDE);
+ 26c:	8b b1       	in	r24, 0x0b	; 11
+ 26e:	8f 77       	andi	r24, 0x7F	; 127
+ 270:	8b b9       	out	0x0b, r24	; 11
+ 272:	1f c0       	rjmp	.+62     	; 0x2b2 <procesar_id_recibido+0xc8>
+		} else {
+		// ACCESO DENEGADO
+		uart_transmitir_cadena("Acceso DENEGADO\r\n");
+ 274:	67 ef       	ldi	r22, 0xF7	; 247
+ 276:	70 e0       	ldi	r23, 0x00	; 0
+ 278:	80 e0       	ldi	r24, 0x00	; 0
+ 27a:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+		lcd_clear();
+ 27e:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+		lcd_gotoxy(0, 0);
+ 282:	60 e0       	ldi	r22, 0x00	; 0
+ 284:	80 e0       	ldi	r24, 0x00	; 0
+ 286:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+		lcd_puts("Acceso Denegado");
+ 28a:	69 e0       	ldi	r22, 0x09	; 9
+ 28c:	71 e0       	ldi	r23, 0x01	; 1
+ 28e:	80 e0       	ldi	r24, 0x00	; 0
+ 290:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+		PUERTO_LED_ROJO |= (1 << PIN_LED_ROJO);
+ 294:	8b b1       	in	r24, 0x0b	; 11
+ 296:	80 64       	ori	r24, 0x40	; 64
+ 298:	8b b9       	out	0x0b, r24	; 11
+ 29a:	8f ef       	ldi	r24, 0xFF	; 255
+ 29c:	97 ea       	ldi	r25, 0xA7	; 167
+ 29e:	21 e6       	ldi	r18, 0x61	; 97
+ 2a0:	81 50       	subi	r24, 0x01	; 1
+ 2a2:	90 40       	sbci	r25, 0x00	; 0
+ 2a4:	20 40       	sbci	r18, 0x00	; 0
+ 2a6:	e1 f7       	brne	.-8      	; 0x2a0 <procesar_id_recibido+0xb6>
+ 2a8:	00 c0       	rjmp	.+0      	; 0x2aa <procesar_id_recibido+0xc0>
+ 2aa:	00 00       	nop
+		_delay_ms(2000);
+		PUERTO_LED_ROJO &= ~(1 << PIN_LED_ROJO);
+ 2ac:	8b b1       	in	r24, 0x0b	; 11
+ 2ae:	8f 7b       	andi	r24, 0xBF	; 191
+ 2b0:	8b b9       	out	0x0b, r24	; 11
+ 2b2:	8f ef       	ldi	r24, 0xFF	; 255
+ 2b4:	99 e6       	ldi	r25, 0x69	; 105
+ 2b6:	28 e1       	ldi	r18, 0x18	; 24
+ 2b8:	81 50       	subi	r24, 0x01	; 1
+ 2ba:	90 40       	sbci	r25, 0x00	; 0
+ 2bc:	20 40       	sbci	r18, 0x00	; 0
+ 2be:	e1 f7       	brne	.-8      	; 0x2b8 <procesar_id_recibido+0xce>
+ 2c0:	00 c0       	rjmp	.+0      	; 0x2c2 <procesar_id_recibido+0xd8>
+ 2c2:	00 00       	nop
+	}
+	
+	_delay_ms(500);
+	lcd_clear();
+ 2c4:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+	lcd_gotoxy(0, 0);
+ 2c8:	60 e0       	ldi	r22, 0x00	; 0
+ 2ca:	80 e0       	ldi	r24, 0x00	; 0
+ 2cc:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Acerque tarjeta");
+ 2d0:	69 e1       	ldi	r22, 0x19	; 25
+ 2d2:	71 e0       	ldi	r23, 0x01	; 1
+ 2d4:	80 e0       	ldi	r24, 0x00	; 0
+ 2d6:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+}
+ 2da:	ef 90       	pop	r14
+ 2dc:	df 90       	pop	r13
+ 2de:	cf 90       	pop	r12
+ 2e0:	08 95       	ret
+
+Disassembly of section .text.leer_id_desde_eeprom:
+
+000008cc <leer_id_desde_eeprom>:
+	}
+}
+
+// Funciones de la EEPROM
+void leer_id_desde_eeprom(void) {
+	eeprom_read_block((void*)id_maestra_en_ram, (const void*)0, 20);
+ 8cc:	24 e1       	ldi	r18, 0x14	; 20
+ 8ce:	30 e0       	ldi	r19, 0x00	; 0
+ 8d0:	40 e0       	ldi	r20, 0x00	; 0
+ 8d2:	50 e0       	ldi	r21, 0x00	; 0
+ 8d4:	60 e0       	ldi	r22, 0x00	; 0
+ 8d6:	80 e0       	ldi	r24, 0x00	; 0
+ 8d8:	91 e0       	ldi	r25, 0x01	; 1
+ 8da:	0e 94 38 04 	call	0x870	; 0x870 <eeprom_read_block>
+	id_maestra_en_ram[19] = '\0';
+ 8de:	10 92 13 01 	sts	0x0113, r1	; 0x800113 <__DATA_REGION_ORIGIN__+0x13>
+ 8e2:	08 95       	ret
+
+Disassembly of section .text.guardar_id_en_eeprom:
+
+0000067a <guardar_id_en_eeprom>:
+}
+
+void guardar_id_en_eeprom(const char* id) {
+ 67a:	0f 93       	push	r16
+ 67c:	1f 93       	push	r17
+ 67e:	cf 93       	push	r28
+ 680:	df 93       	push	r29
+ 682:	cd b7       	in	r28, 0x3d	; 61
+ 684:	de b7       	in	r29, 0x3e	; 62
+ 686:	64 97       	sbiw	r28, 0x14	; 20
+ 688:	0f b6       	in	r0, 0x3f	; 63
+ 68a:	f8 94       	cli
+ 68c:	de bf       	out	0x3e, r29	; 62
+ 68e:	0f be       	out	0x3f, r0	; 63
+ 690:	cd bf       	out	0x3d, r28	; 61
+ 692:	ab 01       	movw	r20, r22
+ 694:	68 2f       	mov	r22, r24
+	char memoria_temporal[20];
+	strncpy(memoria_temporal, id, 19);
+ 696:	23 e1       	ldi	r18, 0x13	; 19
+ 698:	30 e0       	ldi	r19, 0x00	; 0
+ 69a:	8e 01       	movw	r16, r28
+ 69c:	0f 5f       	subi	r16, 0xFF	; 255
+ 69e:	1f 4f       	sbci	r17, 0xFF	; 255
+ 6a0:	c8 01       	movw	r24, r16
+ 6a2:	0e 94 67 03 	call	0x6ce	; 0x6ce <strncpy>
+	memoria_temporal[19] = '\0';
+ 6a6:	1c 8a       	std	Y+20, r1	; 0x14
+	eeprom_write_block((const void*)memoria_temporal, (void*)0, 20);
+ 6a8:	b8 01       	movw	r22, r16
+ 6aa:	80 e8       	ldi	r24, 0x80	; 128
+ 6ac:	24 e1       	ldi	r18, 0x14	; 20
+ 6ae:	30 e0       	ldi	r19, 0x00	; 0
+ 6b0:	40 e0       	ldi	r20, 0x00	; 0
+ 6b2:	50 e0       	ldi	r21, 0x00	; 0
+ 6b4:	0e 94 ae 03 	call	0x75c	; 0x75c <eeprom_write_block>
+ 6b8:	64 96       	adiw	r28, 0x14	; 20
+ 6ba:	0f b6       	in	r0, 0x3f	; 63
+ 6bc:	f8 94       	cli
+ 6be:	de bf       	out	0x3e, r29	; 62
+ 6c0:	0f be       	out	0x3f, r0	; 63
+ 6c2:	cd bf       	out	0x3d, r28	; 61
+ 6c4:	df 91       	pop	r29
+ 6c6:	cf 91       	pop	r28
+ 6c8:	1f 91       	pop	r17
+ 6ca:	0f 91       	pop	r16
+ 6cc:	08 95       	ret
+
+Disassembly of section .text.modo_borrar_id:
+
+00000614 <modo_borrar_id>:
+	lcd_gotoxy(0, 0);
+	lcd_puts("Acerque tarjeta");
+}
+
+void modo_borrar_id(void) {
+	uart_transmitir_cadena("MODO BORRADO: ID Eliminado.\r\n");
+ 614:	69 e2       	ldi	r22, 0x29	; 41
+ 616:	71 e0       	ldi	r23, 0x01	; 1
+ 618:	80 e0       	ldi	r24, 0x00	; 0
+ 61a:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	lcd_clear();
+ 61e:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+	lcd_gotoxy(0, 0);
+ 622:	60 e0       	ldi	r22, 0x00	; 0
+ 624:	80 e0       	ldi	r24, 0x00	; 0
+ 626:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Tarjeta Borrada");
+ 62a:	67 e4       	ldi	r22, 0x47	; 71
+ 62c:	71 e0       	ldi	r23, 0x01	; 1
+ 62e:	80 e0       	ldi	r24, 0x00	; 0
+ 630:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+	guardar_id_en_eeprom("");
+ 634:	67 e5       	ldi	r22, 0x57	; 87
+ 636:	71 e0       	ldi	r23, 0x01	; 1
+ 638:	80 e0       	ldi	r24, 0x00	; 0
+ 63a:	0e 94 3d 03 	call	0x67a	; 0x67a <guardar_id_en_eeprom>
+	strcpy(id_maestra_en_ram, "");
+ 63e:	21 e0       	ldi	r18, 0x01	; 1
+ 640:	30 e0       	ldi	r19, 0x00	; 0
+ 642:	47 e5       	ldi	r20, 0x57	; 87
+ 644:	51 e0       	ldi	r21, 0x01	; 1
+ 646:	60 e0       	ldi	r22, 0x00	; 0
+ 648:	80 e0       	ldi	r24, 0x00	; 0
+ 64a:	91 e0       	ldi	r25, 0x01	; 1
+ 64c:	0e 94 c9 03 	call	0x792	; 0x792 <memcpy>
+ 650:	2f ef       	ldi	r18, 0xFF	; 255
+ 652:	8d e3       	ldi	r24, 0x3D	; 61
+ 654:	99 e4       	ldi	r25, 0x49	; 73
+ 656:	21 50       	subi	r18, 0x01	; 1
+ 658:	80 40       	sbci	r24, 0x00	; 0
+ 65a:	90 40       	sbci	r25, 0x00	; 0
+ 65c:	e1 f7       	brne	.-8      	; 0x656 <modo_borrar_id+0x42>
+ 65e:	00 c0       	rjmp	.+0      	; 0x660 <modo_borrar_id+0x4c>
+ 660:	00 00       	nop
+	_delay_ms(1500);
+	lcd_clear();
+ 662:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+	lcd_gotoxy(0, 0);
+ 666:	60 e0       	ldi	r22, 0x00	; 0
+ 668:	80 e0       	ldi	r24, 0x00	; 0
+ 66a:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Acerque tarjeta");
+ 66e:	69 e1       	ldi	r22, 0x19	; 25
+ 670:	71 e0       	ldi	r23, 0x01	; 1
+ 672:	80 e0       	ldi	r24, 0x00	; 0
+ 674:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+ 678:	08 95       	ret
+
+Disassembly of section .text.modo_actualizar_id:
+
+000002e2 <modo_actualizar_id>:
+}
+
+void modo_actualizar_id(void) {
+ 2e2:	cf 92       	push	r12
+ 2e4:	df 92       	push	r13
+ 2e6:	ef 92       	push	r14
+	uart_transmitir_cadena("MODO ACTUALIZAR: Acerque nueva tarjeta\r\n");
+ 2e8:	68 e5       	ldi	r22, 0x58	; 88
+ 2ea:	71 e0       	ldi	r23, 0x01	; 1
+ 2ec:	80 e0       	ldi	r24, 0x00	; 0
+ 2ee:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	lcd_clear();
+ 2f2:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+	lcd_gotoxy(0, 0);
+ 2f6:	60 e0       	ldi	r22, 0x00	; 0
+ 2f8:	80 e0       	ldi	r24, 0x00	; 0
+ 2fa:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Acerque nueva");
+ 2fe:	61 e8       	ldi	r22, 0x81	; 129
+ 300:	71 e0       	ldi	r23, 0x01	; 1
+ 302:	80 e0       	ldi	r24, 0x00	; 0
+ 304:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+	lcd_gotoxy(0, 1);
+ 308:	61 e0       	ldi	r22, 0x01	; 1
+ 30a:	80 e0       	ldi	r24, 0x00	; 0
+ 30c:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("tarjeta");
+ 310:	6f e8       	ldi	r22, 0x8F	; 143
+ 312:	71 e0       	ldi	r23, 0x01	; 1
+ 314:	80 e0       	ldi	r24, 0x00	; 0
+ 316:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+
+	bandera_nuevo_id_recibido = 0;
+ 31a:	10 92 28 01 	sts	0x0128, r1	; 0x800128 <_end>
+	while (bandera_nuevo_id_recibido == 0) {
+ 31e:	80 91 28 01 	lds	r24, 0x0128	; 0x800128 <_end>
+ 322:	88 23       	and	r24, r24
+ 324:	e1 f3       	breq	.-8      	; 0x31e <modo_actualizar_id+0x3c>
+		
+	}
+
+	guardar_id_en_eeprom((const char*)memoria_id_recibido);
+ 326:	84 e1       	ldi	r24, 0x14	; 20
+ 328:	91 e0       	ldi	r25, 0x01	; 1
+ 32a:	6c 01       	movw	r12, r24
+ 32c:	20 e8       	ldi	r18, 0x80	; 128
+ 32e:	e2 2e       	mov	r14, r18
+ 330:	8e 2d       	mov	r24, r14
+ 332:	b6 01       	movw	r22, r12
+ 334:	0e 94 3d 03 	call	0x67a	; 0x67a <guardar_id_en_eeprom>
+	strcpy(id_maestra_en_ram, (const char*)memoria_id_recibido);
+ 338:	6e 2d       	mov	r22, r14
+ 33a:	a6 01       	movw	r20, r12
+ 33c:	80 e0       	ldi	r24, 0x00	; 0
+ 33e:	91 e0       	ldi	r25, 0x01	; 1
+ 340:	0e 94 4a 04 	call	0x894	; 0x894 <strcpy>
+
+	uart_transmitir_cadena("Nuevo ID registrado: ");
+ 344:	67 e9       	ldi	r22, 0x97	; 151
+ 346:	71 e0       	ldi	r23, 0x01	; 1
+ 348:	80 e0       	ldi	r24, 0x00	; 0
+ 34a:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	uart_transmitir_cadena(id_maestra_en_ram);
+ 34e:	60 e0       	ldi	r22, 0x00	; 0
+ 350:	71 e0       	ldi	r23, 0x01	; 1
+ 352:	80 e8       	ldi	r24, 0x80	; 128
+ 354:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	uart_transmitir_cadena("\r\n");
+ 358:	60 ed       	ldi	r22, 0xD0	; 208
+ 35a:	70 e0       	ldi	r23, 0x00	; 0
+ 35c:	80 e0       	ldi	r24, 0x00	; 0
+ 35e:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	
+	lcd_clear();
+ 362:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+	lcd_gotoxy(0, 0);
+ 366:	60 e0       	ldi	r22, 0x00	; 0
+ 368:	80 e0       	ldi	r24, 0x00	; 0
+ 36a:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Nueva Tarjeta");
+ 36e:	6d ea       	ldi	r22, 0xAD	; 173
+ 370:	71 e0       	ldi	r23, 0x01	; 1
+ 372:	80 e0       	ldi	r24, 0x00	; 0
+ 374:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+	lcd_gotoxy(0, 1);
+ 378:	61 e0       	ldi	r22, 0x01	; 1
+ 37a:	80 e0       	ldi	r24, 0x00	; 0
+ 37c:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Registrada");
+ 380:	6b eb       	ldi	r22, 0xBB	; 187
+ 382:	71 e0       	ldi	r23, 0x01	; 1
+ 384:	80 e0       	ldi	r24, 0x00	; 0
+ 386:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+	
+	bandera_nuevo_id_recibido = 0;
+ 38a:	10 92 28 01 	sts	0x0128, r1	; 0x800128 <_end>
+ 38e:	8f ef       	ldi	r24, 0xFF	; 255
+ 390:	97 ea       	ldi	r25, 0xA7	; 167
+ 392:	21 e6       	ldi	r18, 0x61	; 97
+ 394:	81 50       	subi	r24, 0x01	; 1
+ 396:	90 40       	sbci	r25, 0x00	; 0
+ 398:	20 40       	sbci	r18, 0x00	; 0
+ 39a:	e1 f7       	brne	.-8      	; 0x394 <modo_actualizar_id+0xb2>
+ 39c:	00 c0       	rjmp	.+0      	; 0x39e <modo_actualizar_id+0xbc>
+ 39e:	00 00       	nop
+	_delay_ms(2000);
+	
+	lcd_clear();
+ 3a0:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+	lcd_gotoxy(0, 0);
+ 3a4:	60 e0       	ldi	r22, 0x00	; 0
+ 3a6:	80 e0       	ldi	r24, 0x00	; 0
+ 3a8:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Acerque tarjeta");
+ 3ac:	69 e1       	ldi	r22, 0x19	; 25
+ 3ae:	71 e0       	ldi	r23, 0x01	; 1
+ 3b0:	80 e0       	ldi	r24, 0x00	; 0
+ 3b2:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+}
+ 3b6:	ef 90       	pop	r14
+ 3b8:	df 90       	pop	r13
+ 3ba:	cf 90       	pop	r12
+ 3bc:	08 95       	ret
+
+Disassembly of section .text.main:
+
+000003be <main>:
+	}
+}
+
+int main(void) {
+	// se configuran los pines
+	DDR_LED_ROJO |= (1 << PIN_LED_ROJO);
+ 3be:	8a b1       	in	r24, 0x0a	; 10
+ 3c0:	80 64       	ori	r24, 0x40	; 64
+ 3c2:	8a b9       	out	0x0a, r24	; 10
+	DDR_LED_VERDE |= (1 << PIN_LED_VERDE);
+ 3c4:	8a b1       	in	r24, 0x0a	; 10
+ 3c6:	80 68       	ori	r24, 0x80	; 128
+ 3c8:	8a b9       	out	0x0a, r24	; 10
+
+	DDR_BOTON_BORRAR &= ~(1 << PIN_BOTON_BORRAR);
+ 3ca:	8a b1       	in	r24, 0x0a	; 10
+ 3cc:	8f 7e       	andi	r24, 0xEF	; 239
+ 3ce:	8a b9       	out	0x0a, r24	; 10
+	DDR_BOTON_ACTUALIZAR &= ~(1 << PIN_BOTON_ACTUALIZAR);
+ 3d0:	8a b1       	in	r24, 0x0a	; 10
+ 3d2:	8f 7d       	andi	r24, 0xDF	; 223
+ 3d4:	8a b9       	out	0x0a, r24	; 10
+	PUERTO_BOTON_BORRAR |= (1 << PIN_BOTON_BORRAR);
+ 3d6:	8b b1       	in	r24, 0x0b	; 11
+ 3d8:	80 61       	ori	r24, 0x10	; 16
+ 3da:	8b b9       	out	0x0b, r24	; 11
+	PUERTO_BOTON_ACTUALIZAR |= (1 << PIN_BOTON_ACTUALIZAR);
+ 3dc:	8b b1       	in	r24, 0x0b	; 11
+ 3de:	80 62       	ori	r24, 0x20	; 32
+ 3e0:	8b b9       	out	0x0b, r24	; 11
+
+	uart_inicializar(MI_UBRR);
+ 3e2:	87 e6       	ldi	r24, 0x67	; 103
+ 3e4:	90 e0       	ldi	r25, 0x00	; 0
+ 3e6:	0e 94 72 04 	call	0x8e4	; 0x8e4 <uart_inicializar>
+	lcd_init();
+ 3ea:	0e 94 3e 02 	call	0x47c	; 0x47c <lcd_init>
+	sei();
+ 3ee:	78 94       	sei
+
+	// Carga el ID de la tarjeta con acceso y da la bienvenida
+	leer_id_desde_eeprom();
+ 3f0:	0e 94 66 04 	call	0x8cc	; 0x8cc <leer_id_desde_eeprom>
+	uart_transmitir_cadena("Sistema RFID Iniciado\r\n");
+ 3f4:	66 ec       	ldi	r22, 0xC6	; 198
+ 3f6:	71 e0       	ldi	r23, 0x01	; 1
+ 3f8:	80 e0       	ldi	r24, 0x00	; 0
+ 3fa:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <uart_transmitir_cadena>
+	
+	lcd_clear();
+ 3fe:	0e 94 92 04 	call	0x924	; 0x924 <lcd_clear>
+	lcd_gotoxy(0, 0);
+ 402:	60 e0       	ldi	r22, 0x00	; 0
+ 404:	80 e0       	ldi	r24, 0x00	; 0
+ 406:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Bienvenido");
+ 40a:	6e ed       	ldi	r22, 0xDE	; 222
+ 40c:	71 e0       	ldi	r23, 0x01	; 1
+ 40e:	80 e0       	ldi	r24, 0x00	; 0
+ 410:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+	lcd_gotoxy(0, 1);
+ 414:	61 e0       	ldi	r22, 0x01	; 1
+ 416:	80 e0       	ldi	r24, 0x00	; 0
+ 418:	0e 94 9c 04 	call	0x938	; 0x938 <lcd_gotoxy>
+	lcd_puts("Acerque tarjeta");
+ 41c:	69 e1       	ldi	r22, 0x19	; 25
+ 41e:	71 e0       	ldi	r23, 0x01	; 1
+ 420:	80 e0       	ldi	r24, 0x00	; 0
+ 422:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <lcd_puts>
+
+	while (1) {
+		if (bandera_nuevo_id_recibido) {
+ 426:	80 91 28 01 	lds	r24, 0x0128	; 0x800128 <_end>
+ 42a:	88 23       	and	r24, r24
+ 42c:	21 f0       	breq	.+8      	; 0x436 <__EEPROM_REGION_LENGTH__+0x36>
+			procesar_id_recibido();
+ 42e:	0e 94 f5 00 	call	0x1ea	; 0x1ea <procesar_id_recibido>
+			bandera_nuevo_id_recibido = 0;
+ 432:	10 92 28 01 	sts	0x0128, r1	; 0x800128 <_end>
+		}
+
+		if (!(REG_PIN_BOTON_BORRAR & (1 << PIN_BOTON_BORRAR))) {
+ 436:	4c 99       	sbic	0x09, 4	; 9
+ 438:	0f c0       	rjmp	.+30     	; 0x458 <__EEPROM_REGION_LENGTH__+0x58>
+ 43a:	2f ef       	ldi	r18, 0xFF	; 255
+ 43c:	80 e7       	ldi	r24, 0x70	; 112
+ 43e:	92 e0       	ldi	r25, 0x02	; 2
+ 440:	21 50       	subi	r18, 0x01	; 1
+ 442:	80 40       	sbci	r24, 0x00	; 0
+ 444:	90 40       	sbci	r25, 0x00	; 0
+ 446:	e1 f7       	brne	.-8      	; 0x440 <__EEPROM_REGION_LENGTH__+0x40>
+ 448:	00 c0       	rjmp	.+0      	; 0x44a <__EEPROM_REGION_LENGTH__+0x4a>
+ 44a:	00 00       	nop
+			_delay_ms(50); // Debounce
+			if (!(REG_PIN_BOTON_BORRAR & (1 << PIN_BOTON_BORRAR))) {
+ 44c:	4c 99       	sbic	0x09, 4	; 9
+ 44e:	04 c0       	rjmp	.+8      	; 0x458 <__EEPROM_REGION_LENGTH__+0x58>
+				modo_borrar_id();
+ 450:	0e 94 0a 03 	call	0x614	; 0x614 <modo_borrar_id>
+				while (!(REG_PIN_BOTON_BORRAR & (1 << PIN_BOTON_BORRAR)));
+ 454:	4c 9b       	sbis	0x09, 4	; 9
+ 456:	fe cf       	rjmp	.-4      	; 0x454 <__EEPROM_REGION_LENGTH__+0x54>
+			}
+		}
+
+		if (!(REG_PIN_BOTON_ACTUALIZAR & (1 << PIN_BOTON_ACTUALIZAR))) {
+ 458:	4d 99       	sbic	0x09, 5	; 9
+ 45a:	e5 cf       	rjmp	.-54     	; 0x426 <__EEPROM_REGION_LENGTH__+0x26>
+ 45c:	2f ef       	ldi	r18, 0xFF	; 255
+ 45e:	80 e7       	ldi	r24, 0x70	; 112
+ 460:	92 e0       	ldi	r25, 0x02	; 2
+ 462:	21 50       	subi	r18, 0x01	; 1
+ 464:	80 40       	sbci	r24, 0x00	; 0
+ 466:	90 40       	sbci	r25, 0x00	; 0
+ 468:	e1 f7       	brne	.-8      	; 0x462 <__EEPROM_REGION_LENGTH__+0x62>
+ 46a:	00 c0       	rjmp	.+0      	; 0x46c <__EEPROM_REGION_LENGTH__+0x6c>
+ 46c:	00 00       	nop
+			_delay_ms(50); // Debounce
+			if (!(REG_PIN_BOTON_ACTUALIZAR & (1 << PIN_BOTON_ACTUALIZAR))) {
+ 46e:	4d 99       	sbic	0x09, 5	; 9
+ 470:	da cf       	rjmp	.-76     	; 0x426 <__EEPROM_REGION_LENGTH__+0x26>
+				modo_actualizar_id();
+ 472:	0e 94 71 01 	call	0x2e2	; 0x2e2 <modo_actualizar_id>
+				while (!(REG_PIN_BOTON_ACTUALIZAR & (1 << PIN_BOTON_ACTUALIZAR)));
+ 476:	4d 9b       	sbis	0x09, 5	; 9
+ 478:	fe cf       	rjmp	.-4      	; 0x476 <__EEPROM_REGION_LENGTH__+0x76>
+ 47a:	d5 cf       	rjmp	.-86     	; 0x426 <__EEPROM_REGION_LENGTH__+0x26>
+
+Disassembly of section .text.__dummy_fini:
+
+0000098e <_fini>:
+ 98e:	08 95       	ret
+
+Disassembly of section .text.__dummy_funcs_on_exit:
+
+00000990 <__funcs_on_exit>:
+ 990:	08 95       	ret
+
+Disassembly of section .text.__dummy_simulator_exit:
+
+00000992 <__simulator_exit>:
+ 992:	08 95       	ret
+
+Disassembly of section .text.exit:
+
+000008fa <exit>:
+ 8fa:	ec 01       	movw	r28, r24
+ 8fc:	0e 94 c8 04 	call	0x990	; 0x990 <__funcs_on_exit>
+ 900:	0e 94 c7 04 	call	0x98e	; 0x98e <_fini>
+ 904:	ce 01       	movw	r24, r28
+ 906:	0e 94 c9 04 	call	0x992	; 0x992 <__simulator_exit>
+ 90a:	ce 01       	movw	r24, r28
+ 90c:	0e 94 c5 04 	call	0x98a	; 0x98a <_Exit>
+
+Disassembly of section .text.memcpy:
+
+00000792 <memcpy>:
+ 792:	cf 92       	push	r12
+ 794:	df 92       	push	r13
+ 796:	ef 92       	push	r14
+ 798:	6a 01       	movw	r12, r20
+ 79a:	e6 2e       	mov	r14, r22
+ 79c:	dc 01       	movw	r26, r24
+ 79e:	28 0f       	add	r18, r24
+ 7a0:	39 1f       	adc	r19, r25
+ 7a2:	a2 17       	cp	r26, r18
+ 7a4:	b3 07       	cpc	r27, r19
+ 7a6:	51 f0       	breq	.+20     	; 0x7bc <memcpy+0x2a>
+ 7a8:	f6 01       	movw	r30, r12
+ 7aa:	44 91       	lpm	r20, Z
+ 7ac:	e7 fc       	sbrc	r14, 7
+ 7ae:	40 81       	ld	r20, Z
+ 7b0:	4d 93       	st	X+, r20
+ 7b2:	4f ef       	ldi	r20, 0xFF	; 255
+ 7b4:	c4 1a       	sub	r12, r20
+ 7b6:	d4 0a       	sbc	r13, r20
+ 7b8:	e4 0a       	sbc	r14, r20
+ 7ba:	f3 cf       	rjmp	.-26     	; 0x7a2 <memcpy+0x10>
+ 7bc:	ef 90       	pop	r14
+ 7be:	df 90       	pop	r13
+ 7c0:	cf 90       	pop	r12
+ 7c2:	08 95       	ret
+
+Disassembly of section .text.strcmp:
+
+0000071a <strcmp>:
+ 71a:	cf 92       	push	r12
+ 71c:	df 92       	push	r13
+ 71e:	ef 92       	push	r14
+ 720:	6b 01       	movw	r12, r22
+ 722:	e8 2e       	mov	r14, r24
+ 724:	f6 01       	movw	r30, r12
+ 726:	84 91       	lpm	r24, Z
+ 728:	e7 fc       	sbrc	r14, 7
+ 72a:	80 81       	ld	r24, Z
+ 72c:	f9 01       	movw	r30, r18
+ 72e:	54 91       	lpm	r21, Z
+ 730:	47 fd       	sbrc	r20, 7
+ 732:	50 81       	ld	r21, Z
+ 734:	85 13       	cpse	r24, r21
+ 736:	0b c0       	rjmp	.+22     	; 0x74e <strcmp+0x34>
+ 738:	88 23       	and	r24, r24
+ 73a:	41 f0       	breq	.+16     	; 0x74c <strcmp+0x32>
+ 73c:	8f ef       	ldi	r24, 0xFF	; 255
+ 73e:	c8 1a       	sub	r12, r24
+ 740:	d8 0a       	sbc	r13, r24
+ 742:	e8 0a       	sbc	r14, r24
+ 744:	2f 5f       	subi	r18, 0xFF	; 255
+ 746:	3f 4f       	sbci	r19, 0xFF	; 255
+ 748:	4f 4f       	sbci	r20, 0xFF	; 255
+ 74a:	ec cf       	rjmp	.-40     	; 0x724 <strcmp+0xa>
+ 74c:	58 2f       	mov	r21, r24
+ 74e:	90 e0       	ldi	r25, 0x00	; 0
+ 750:	85 1b       	sub	r24, r21
+ 752:	91 09       	sbc	r25, r1
+ 754:	ef 90       	pop	r14
+ 756:	df 90       	pop	r13
+ 758:	cf 90       	pop	r12
+ 75a:	08 95       	ret
+
+Disassembly of section .text.strcpy:
+
+00000894 <strcpy>:
+ 894:	9a 01       	movw	r18, r20
+ 896:	46 2f       	mov	r20, r22
+ 898:	dc 01       	movw	r26, r24
+ 89a:	f9 01       	movw	r30, r18
+ 89c:	54 91       	lpm	r21, Z
+ 89e:	47 fd       	sbrc	r20, 7
+ 8a0:	50 81       	ld	r21, Z
+ 8a2:	5d 93       	st	X+, r21
+ 8a4:	2f 5f       	subi	r18, 0xFF	; 255
+ 8a6:	3f 4f       	sbci	r19, 0xFF	; 255
+ 8a8:	4f 4f       	sbci	r20, 0xFF	; 255
+ 8aa:	51 11       	cpse	r21, r1
+ 8ac:	f6 cf       	rjmp	.-20     	; 0x89a <strcpy+0x6>
+ 8ae:	08 95       	ret
+
+Disassembly of section .text.strncpy:
+
+000006ce <strncpy>:
+ 6ce:	cf 92       	push	r12
+ 6d0:	df 92       	push	r13
+ 6d2:	ef 92       	push	r14
+ 6d4:	6a 01       	movw	r12, r20
+ 6d6:	e6 2e       	mov	r14, r22
+ 6d8:	ac 01       	movw	r20, r24
+ 6da:	21 15       	cp	r18, r1
+ 6dc:	31 05       	cpc	r19, r1
+ 6de:	c9 f0       	breq	.+50     	; 0x712 <strncpy+0x44>
+ 6e0:	21 50       	subi	r18, 0x01	; 1
+ 6e2:	31 09       	sbc	r19, r1
+ 6e4:	4f 5f       	subi	r20, 0xFF	; 255
+ 6e6:	5f 4f       	sbci	r21, 0xFF	; 255
+ 6e8:	f6 01       	movw	r30, r12
+ 6ea:	64 91       	lpm	r22, Z
+ 6ec:	e7 fc       	sbrc	r14, 7
+ 6ee:	60 81       	ld	r22, Z
+ 6f0:	fa 01       	movw	r30, r20
+ 6f2:	31 97       	sbiw	r30, 0x01	; 1
+ 6f4:	60 83       	st	Z, r22
+ 6f6:	7f ef       	ldi	r23, 0xFF	; 255
+ 6f8:	c7 1a       	sub	r12, r23
+ 6fa:	d7 0a       	sbc	r13, r23
+ 6fc:	e7 0a       	sbc	r14, r23
+ 6fe:	61 11       	cpse	r22, r1
+ 700:	ec cf       	rjmp	.-40     	; 0x6da <strncpy+0xc>
+ 702:	fa 01       	movw	r30, r20
+ 704:	24 0f       	add	r18, r20
+ 706:	35 1f       	adc	r19, r21
+ 708:	2e 17       	cp	r18, r30
+ 70a:	3f 07       	cpc	r19, r31
+ 70c:	11 f0       	breq	.+4      	; 0x712 <strncpy+0x44>
+ 70e:	11 92       	st	Z+, r1
+ 710:	fb cf       	rjmp	.-10     	; 0x708 <strncpy+0x3a>
+ 712:	ef 90       	pop	r14
+ 714:	df 90       	pop	r13
+ 716:	cf 90       	pop	r12
+ 718:	08 95       	ret
+
+Disassembly of section .text._Exit:
+
+0000098a <_Exit>:
+ 98a:	0e 94 5f 00 	call	0xbe	; 0xbe <_exit>
+
+Disassembly of section .text.avrlibc:
+
+00000870 <eeprom_read_block>:
+ 870:	ba 01       	movw	r22, r20
+ 872:	a9 01       	movw	r20, r18
+ 874:	dc 01       	movw	r26, r24
+ 876:	cb 01       	movw	r24, r22
+
+00000878 <eeprom_read_blraw>:
+ 878:	fc 01       	movw	r30, r24
+ 87a:	f9 99       	sbic	0x1f, 1	; 31
+ 87c:	fe cf       	rjmp	.-4      	; 0x87a <eeprom_read_blraw+0x2>
+ 87e:	06 c0       	rjmp	.+12     	; 0x88c <eeprom_read_blraw+0x14>
+ 880:	f2 bd       	out	0x22, r31	; 34
+ 882:	e1 bd       	out	0x21, r30	; 33
+ 884:	f8 9a       	sbi	0x1f, 0	; 31
+ 886:	31 96       	adiw	r30, 0x01	; 1
+ 888:	00 b4       	in	r0, 0x20	; 32
+ 88a:	0d 92       	st	X+, r0
+ 88c:	41 50       	subi	r20, 0x01	; 1
+ 88e:	50 40       	sbci	r21, 0x00	; 0
+ 890:	b8 f7       	brcc	.-18     	; 0x880 <eeprom_read_blraw+0x8>
+ 892:	08 95       	ret
+
+Disassembly of section .text.avrlibc:
+
+0000075c <eeprom_write_block>:
+ 75c:	cf 92       	push	r12
+ 75e:	df 92       	push	r13
+ 760:	ef 92       	push	r14
+ 762:	6b 01       	movw	r12, r22
+ 764:	e8 2e       	mov	r14, r24
+ 766:	ca 01       	movw	r24, r20
+ 768:	42 2f       	mov	r20, r18
+ 76a:	73 2f       	mov	r23, r19
+ 76c:	0b c0       	rjmp	.+22     	; 0x784 <eeprom_write_block+0x28>
+ 76e:	f6 01       	movw	r30, r12
+ 770:	5e 2d       	mov	r21, r14
+ 772:	0e 94 ba 04 	call	0x974	; 0x974 <__xload_1>
+ 776:	26 2f       	mov	r18, r22
+ 778:	0e 94 59 04 	call	0x8b2	; 0x8b2 <eeprom_write_r18>
+ 77c:	3f ef       	ldi	r19, 0xFF	; 255
+ 77e:	c3 1a       	sub	r12, r19
+ 780:	d3 0a       	sbc	r13, r19
+ 782:	e3 0a       	sbc	r14, r19
+ 784:	41 50       	subi	r20, 0x01	; 1
+ 786:	70 40       	sbci	r23, 0x00	; 0
+ 788:	90 f7       	brcc	.-28     	; 0x76e <eeprom_write_block+0x12>
+ 78a:	ef 90       	pop	r14
+ 78c:	df 90       	pop	r13
+ 78e:	cf 90       	pop	r12
+ 790:	08 95       	ret
+
+Disassembly of section .text.avrlibc:
+
+000008b0 <eeprom_write_byte>:
+ 8b0:	26 2f       	mov	r18, r22
+
+000008b2 <eeprom_write_r18>:
+ 8b2:	f9 99       	sbic	0x1f, 1	; 31
+ 8b4:	fe cf       	rjmp	.-4      	; 0x8b2 <eeprom_write_r18>
+ 8b6:	1f ba       	out	0x1f, r1	; 31
+ 8b8:	92 bd       	out	0x22, r25	; 34
+ 8ba:	81 bd       	out	0x21, r24	; 33
+ 8bc:	20 bd       	out	0x20, r18	; 32
+ 8be:	0f b6       	in	r0, 0x3f	; 63
+ 8c0:	f8 94       	cli
+ 8c2:	fa 9a       	sbi	0x1f, 2	; 31
+ 8c4:	f9 9a       	sbi	0x1f, 1	; 31
+ 8c6:	0f be       	out	0x3f, r0	; 63
+ 8c8:	01 96       	adiw	r24, 0x01	; 1
+ 8ca:	08 95       	ret
+
+Disassembly of section .text.libgcc:
+
+00000974 <__xload_1>:
+ 974:	57 fd       	sbrc	r21, 7
+ 976:	60 81       	ld	r22, Z
+ 978:	57 ff       	sbrs	r21, 7
+ 97a:	64 91       	lpm	r22, Z
+ 97c:	08 95       	ret
