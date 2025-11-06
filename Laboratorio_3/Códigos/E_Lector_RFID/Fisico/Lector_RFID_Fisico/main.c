@@ -222,8 +222,82 @@ void EsperarSoltarBoton(void) {
 }
 
 
+uint8_t CompararIDTarjeta(volatile uint8_t *id_a, uint8_t *id_b) {
+	uint8_t a_vacio = 1;
+	uint8_t b_vacio = 1;
+	
+	for (uint8_t i = 0; i < 4; i++) {
+		if (id_a[i] != 0x00 && id_a[i] != 0xFF) a_vacio = 0;
+		if (id_b[i] != 0x00 && id_b[i] != 0xFF) b_vacio = 0;
+	}
+	
+	if (a_vacio || b_vacio) return 0;
+	
+	for (uint8_t i = 0; i < 4; i++) {
+		if (id_a[i] != id_b[i]) return 0;
+	}
+	return 1;
+}
+
+void AccesoPermitido(void) {
+	LED_TodosApagar();
+	LED_Verde_Encender();
+	
+	LCD_Limpiar();
+	LCD_FijarCursor(0, 0);
+	LCD_Imprimir("ACCESO PERMITIDO");
+	
+	uart_print("ACCESO PERMITIDO\r\n");
+	
+	_delay_ms(3000);
+	
+	LED_Verde_Apagar();
+}
+
+void AccesoDenegado(void) {
+	LED_TodosApagar();
+	LED_Rojo_Encender();
+	
+	LCD_Limpiar();
+	LCD_FijarCursor(0, 0);
+	LCD_Imprimir("ACCESO DENEGADO");
+	LCD_FijarCursor(0, 1);
+	LCD_Imprimir("Tarjeta inválida");
+	
+	uart_print("ACCESO DENEGADO\r\n");
+	
+	for (uint8_t i = 0; i < 5; i++) {
+		LED_Rojo_Encender();
+		_delay_ms(200);
+		LED_Rojo_Apagar();
+		_delay_ms(200);
+	}
+}
+
+void MostrarMensajeBienvenida(void) {
+	LCD_Limpiar();
+	LCD_FijarCursor(0, 0);
+	LCD_Imprimir("SISTEMA RFID");
+	LCD_FijarCursor(0, 1);
+	LCD_Imprimir("Inicializando");
+	_delay_ms(2000);
+}
+
+void MostrarMensajeListo(void) {
+	LCD_Limpiar();
+	LCD_FijarCursor(0, 0);
+	if (hay_tarjeta_registrada) {
+		LCD_Imprimir("SISTEMA LISTO");
+		} else {
+		LCD_Imprimir("SIN TARJETA");
+	}
+	LCD_FijarCursor(0, 1);
+	LCD_Imprimir("Acerque tarjeta");
+}
+
 // MAIN
 int main(void) {
+	uint8_t num_serie[5];
 	
 	uart_init(103);
 	I2C_Inicializar();
@@ -239,8 +313,82 @@ int main(void) {
 	mfrc522_init();
 	
 	
+	MostrarMensajeBienvenida();
+	uart_print("\r\nBienvenido al sistema RFID\r\n");
+	
+	hay_tarjeta_registrada = EEPROM_CargarTarjeta(tarjeta_registrada_id);
+	
+	if (hay_tarjeta_registrada) {
+		uart_print("Tarjeta registrada encontrada en EEPROM\r\n");
+		} else {
+		uart_print("No hay tarjeta registrada\r\n");
+	}
+	
+	MostrarMensajeListo();
+	uart_print("\r\nSistema listo. Esperando tarjetas\r\n\r\n");
+	
 	while (1) {
 		
+		memset(num_serie, 0, 5);
+		mfrc522_standard(num_serie);
+		
+		// Si el primer byte no es 0, se detecto una tarjeta
+		if (num_serie[0] != 0) {
+			
+			
+			LCD_Limpiar();
+			LCD_FijarCursor(0, 0);
+			LCD_Imprimir("Tarjeta leída:");
+			LCD_FijarCursor(0, 1);
+			for (uint8_t i = 0; i < 4; i++) {
+				LCD_ImprimirHex(num_serie[i]);
+				if (i < 3) LCD_Imprimir(" ");
+			}
+			
+			uart_print("\r\nTARJETA DETECTADA\r\n");
+			uart_print("ID: ");
+			for (uint8_t i = 0; i < 4; i++) {
+				uart_print_hex(num_serie[i]);
+				uart_print(" ");
+			}
+			uart_print("\r\n");
+			
+			_delay_ms(800);
+			
+			// Verificacion de acceso
+			uart_print("\r\nVerificando acceso\r\n");
+			
+			if (hay_tarjeta_registrada == 0) {
+				LCD_Limpiar();
+				LCD_FijarCursor(0, 0);
+				LCD_Imprimir("SIN TARJETA REG");
+				LCD_FijarCursor(0, 1);
+				LCD_Imprimir("Registre primero");
+				
+				uart_print("\r\nACCESO DENEGADO: NO HAY TARJETA REGISTRADA\r\n");
+				
+				LED_Rojo_Encender();
+				_delay_ms(2500);
+				LED_Rojo_Apagar();
+				
+				MostrarMensajeListo();
+				_delay_ms(500);
+				continue;
+			}
+			
+			if (CompararIDTarjeta(tarjeta_registrada_id, num_serie)) {
+				uart_print("ID correcta\r\n");
+				AccesoPermitido();
+				} else {
+				uart_print("ID incorrecta\r\n");
+				AccesoDenegado();
+			}
+			
+			MostrarMensajeListo();
+			_delay_ms(500);
+		}
+		
+		_delay_ms(100);
 	}
 	
 	return 0;
