@@ -3,108 +3,114 @@ Control_Temperatura_Fisico.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  000005d0  2**0
+  0 .data         00000000  00800100  00800100  000007d8  2**0
                   ALLOC, LOAD, DATA
-  1 .text         000000c2  00000000  00000000  00000094  2**1
+  1 .text         000000c2  00000000  00000000  000000b4  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      0000002f  00000000  00000000  000005d0  2**0
+  2 .comment      0000002f  00000000  00000000  000007d8  2**0
                   CONTENTS, READONLY
-  3 .stack.descriptors.hdr 0000002a  00000000  00000000  000005ff  2**0
+  3 .stack.descriptors.hdr 0000002a  00000000  00000000  00000807  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000078  00000000  00000000  00000629  2**0
+  4 .debug_aranges 00000090  00000000  00000000  00000831  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000010a1  00000000  00000000  000006a1  2**0
+  5 .debug_info   00001571  00000000  00000000  000008c1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000007dc  00000000  00000000  00001742  2**0
+  6 .debug_abbrev 000007f8  00000000  00000000  00001e32  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000004bc  00000000  00000000  00001f1e  2**0
+  7 .debug_line   000005e4  00000000  00000000  0000262a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000108  00000000  00000000  000023dc  2**2
+  8 .debug_frame  00000148  00000000  00000000  00002c10  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000215  00000000  00000000  000024e4  2**0
+  9 .debug_str    00000230  00000000  00000000  00002d58  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000003d5  00000000  00000000  000026f9  2**0
+ 10 .debug_loc    000005e1  00000000  00000000  00002f88  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000068  00000000  00000000  00002ace  2**0
+ 11 .debug_ranges 00000080  00000000  00000000  00003569  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .text         00000004  0000052e  0000052e  000005c2  2**1
+ 12 .text         00000004  00000716  00000716  000007ca  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 13 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00002b38  2**2
+ 13 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000035ec  2**2
                   CONTENTS, READONLY, DEBUGGING
- 14 .text.uart_inicializar 0000002a  0000043e  0000043e  000004d2  2**1
+ 14 .text.uart_inicializar 0000002a  00000626  00000626  000006da  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 15 .text.uart_tx_caracter 0000000e  00000512  00000512  000005a6  2**1
+ 15 .text.uart_tx_caracter 0000000e  000006fa  000006fa  000007ae  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 16 .text.uart_tx_cadena 0000002c  00000412  00000412  000004a6  2**1
+ 16 .text.uart_tx_cadena 0000002c  000005ce  000005ce  00000682  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 17 .text.uart_tx_entero16 000000b0  000001c8  000001c8  0000025c  2**1
+ 17 .text.uart_tx_entero16 000000b0  000002fe  000002fe  000003b2  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 18 .text.adc_inicializar 0000000e  00000520  00000520  000005b4  2**1
+ 18 .text.adc_inicializar 0000000e  00000708  00000708  000007bc  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 19 .text.adc_leer_canal 0000002a  00000468  00000468  000004fc  2**1
+ 19 .text.adc_leer_canal 0000002a  00000650  00000650  00000704  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 20 .text.calefactor_pwm_inicializar 00000012  00000500  00000500  00000594  2**1
+ 20 .text.calefactor_pwm_inicializar 00000012  000006e8  000006e8  0000079c  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 21 .text.lm35_leer_celsius_x10 00000020  00000492  00000492  00000526  2**1
+ 21 .text.ventilador_pwm_inicializar 0000002c  000005fa  000005fa  000006ae  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 22 .text.lm35_leer_celsius_entero 0000001a  000004d0  000004d0  00000564  2**1
+ 22 .text.lm35_leer_celsius_x10 00000020  0000067a  0000067a  0000072e  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 23 .progmemx.data 00000106  000000c2  000000c2  00000156  2**0
+ 23 .text.lm35_leer_celsius_entero 0000001a  000006b8  000006b8  0000076c  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 24 .text.aplicar_control_ventilador 0000005e  000004d0  000004d0  00000584  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 25 .progmemx.data 00000147  000000c2  000000c2  00000176  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
- 24 .text.log_por_uart 0000008c  00000278  00000278  0000030c  2**1
+ 26 .text.mostrar_rango_actual 000000a4  000003ae  000003ae  00000462  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 25 .text.procesar_uart 0000005c  00000372  00000372  00000406  2**1
+ 27 .text.log_por_uart 000000f4  0000020a  0000020a  000002be  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 26 .text.main    0000006e  00000304  00000304  00000398  2**1
+ 28 .text.procesar_uart 0000005c  0000052e  0000052e  000005e2  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 27 .bss.g_ciclo_manual_calefactor 00000001  00800100  00800100  000005d0  2**0
+ 29 .text.main    0000007e  00000452  00000452  00000506  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 30 .bss.g_ciclo_manual_calefactor 00000001  00800100  00800100  000007d8  2**0
                   ALLOC
- 28 .bss.g_modo_calefactor 00000001  00800101  00800101  000005d0  2**0
+ 31 .bss.g_modo_calefactor 00000001  00800101  00800101  000007d8  2**0
                   ALLOC
- 29 .text.libgcc.div 00000044  000003ce  000003ce  00000462  2**1
+ 32 .text.libgcc.div 00000044  0000058a  0000058a  0000063e  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 30 .text.libgcc.mul 0000001e  000004b2  000004b2  00000546  2**1
+ 33 .text.libgcc.mul 0000001e  0000069a  0000069a  0000074e  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 31 .text.__dummy_fini 00000002  00000536  00000536  000005ca  2**1
+ 34 .text.__dummy_fini 00000002  0000071e  0000071e  000007d2  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 32 .text.__dummy_funcs_on_exit 00000002  00000538  00000538  000005cc  2**1
+ 35 .text.__dummy_funcs_on_exit 00000002  00000720  00000720  000007d4  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 33 .text.__dummy_simulator_exit 00000002  0000053a  0000053a  000005ce  2**1
+ 36 .text.__dummy_simulator_exit 00000002  00000722  00000722  000007d6  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 34 .text.exit    00000016  000004ea  000004ea  0000057e  2**1
+ 37 .text.exit    00000016  000006d2  000006d2  00000786  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 35 .text._Exit   00000004  00000532  00000532  000005c6  2**1
+ 38 .text._Exit   00000004  0000071a  0000071a  000007ce  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
    0:	0c 94 37 00 	jmp	0x6e	; 0x6e <__ctors_end>
-   4:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-   8:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-   c:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  10:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  14:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  18:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  1c:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  20:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  24:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  28:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  2c:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  30:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  34:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  38:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  3c:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  40:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  44:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  48:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  4c:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  50:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  54:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  58:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  5c:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  60:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
-  64:	0c 94 97 02 	jmp	0x52e	; 0x52e <__bad_interrupt>
+   4:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+   8:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+   c:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  10:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  14:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  18:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  1c:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  20:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  24:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  28:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  2c:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  30:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  34:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  38:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  3c:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  40:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  44:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  48:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  4c:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  50:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  54:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  58:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  5c:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  60:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
+  64:	0c 94 8b 03 	jmp	0x716	; 0x716 <__bad_interrupt>
 
 00000068 <.dinit>:
   68:	01 00       	.word	0x0001	; ????
@@ -152,8 +158,8 @@ Disassembly of section .text:
   b0:	ed 36       	cpi	r30, 0x6D	; 109
   b2:	f4 07       	cpc	r31, r20
   b4:	31 f7       	brne	.-52     	; 0x82 <__do_copy_data+0x8>
-  b6:	0e 94 82 01 	call	0x304	; 0x304 <main>
-  ba:	0c 94 75 02 	jmp	0x4ea	; 0x4ea <exit>
+  b6:	0e 94 29 02 	call	0x452	; 0x452 <main>
+  ba:	0c 94 69 03 	jmp	0x6d2	; 0x6d2 <exit>
 
 000000be <_exit>:
   be:	f8 94       	cli
@@ -163,655 +169,947 @@ Disassembly of section .text:
 
 Disassembly of section .text:
 
-0000052e <__bad_interrupt>:
- 52e:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+00000716 <__bad_interrupt>:
+ 716:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
 
 Disassembly of section .text.uart_inicializar:
 
-0000043e <uart_inicializar>:
-#define CANAL_ADC_LM35    0
-#define CALEFACTOR_DDR      DDRD
+00000626 <uart_inicializar>:
 #define CALEFACTOR_PIN_BM (1<<PD5)
-
+#define VENTILADOR_DDR        DDRB
+#define VENTILADOR_PIN_BM     (1<<PB2)
+#define VENTILADOR_INVERTIDO 0
 
 static void uart_inicializar(uint32_t baudios){
- 43e:	9b 01       	movw	r18, r22
- 440:	ac 01       	movw	r20, r24
+ 626:	9b 01       	movw	r18, r22
+ 628:	ac 01       	movw	r20, r24
 	uint16_t ubrr = (F_CPU / 16 / baudios) - 1;
- 442:	60 e4       	ldi	r22, 0x40	; 64
- 444:	72 e4       	ldi	r23, 0x42	; 66
- 446:	8f e0       	ldi	r24, 0x0F	; 15
- 448:	90 e0       	ldi	r25, 0x00	; 0
- 44a:	0e 94 e7 01 	call	0x3ce	; 0x3ce <__udivmodsi4>
- 44e:	21 50       	subi	r18, 0x01	; 1
- 450:	31 09       	sbc	r19, r1
+ 62a:	60 e4       	ldi	r22, 0x40	; 64
+ 62c:	72 e4       	ldi	r23, 0x42	; 66
+ 62e:	8f e0       	ldi	r24, 0x0F	; 15
+ 630:	90 e0       	ldi	r25, 0x00	; 0
+ 632:	0e 94 c5 02 	call	0x58a	; 0x58a <__udivmodsi4>
+ 636:	21 50       	subi	r18, 0x01	; 1
+ 638:	31 09       	sbc	r19, r1
 	UBRR0H = (uint8_t)(ubrr >> 8);
- 452:	30 93 c5 00 	sts	0x00C5, r19	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+ 63a:	30 93 c5 00 	sts	0x00C5, r19	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
 	UBRR0L = (uint8_t)(ubrr);
- 456:	20 93 c4 00 	sts	0x00C4, r18	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+ 63e:	20 93 c4 00 	sts	0x00C4, r18	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
 	UCSR0B = (1<<TXEN0) | (1<<RXEN0);
- 45a:	88 e1       	ldi	r24, 0x18	; 24
- 45c:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+ 642:	88 e1       	ldi	r24, 0x18	; 24
+ 644:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
 	UCSR0C = (1<<UCSZ01) | (1<<UCSZ00);
- 460:	86 e0       	ldi	r24, 0x06	; 6
- 462:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
- 466:	08 95       	ret
+ 648:	86 e0       	ldi	r24, 0x06	; 6
+ 64a:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
+ 64e:	08 95       	ret
 
 Disassembly of section .text.uart_tx_caracter:
 
-00000512 <uart_tx_caracter>:
+000006fa <uart_tx_caracter>:
 }
 static void uart_tx_caracter(char c){ while(!(UCSR0A & (1<<UDRE0))); UDR0 = c; }
- 512:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
- 516:	95 ff       	sbrs	r25, 5
- 518:	fc cf       	rjmp	.-8      	; 0x512 <uart_tx_caracter>
- 51a:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
- 51e:	08 95       	ret
+ 6fa:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 6fe:	95 ff       	sbrs	r25, 5
+ 700:	fc cf       	rjmp	.-8      	; 0x6fa <uart_tx_caracter>
+ 702:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 706:	08 95       	ret
 
 Disassembly of section .text.uart_tx_cadena:
 
-00000412 <uart_tx_cadena>:
+000005ce <uart_tx_cadena>:
 static void uart_tx_cadena(const char *cadena){ while(*cadena) uart_tx_caracter(*cadena++); }
- 412:	cf 92       	push	r12
- 414:	df 92       	push	r13
- 416:	ef 92       	push	r14
- 418:	6b 01       	movw	r12, r22
- 41a:	e8 2e       	mov	r14, r24
- 41c:	06 c0       	rjmp	.+12     	; 0x42a <uart_tx_cadena+0x18>
- 41e:	9f ef       	ldi	r25, 0xFF	; 255
- 420:	c9 1a       	sub	r12, r25
- 422:	d9 0a       	sbc	r13, r25
- 424:	e9 0a       	sbc	r14, r25
- 426:	0e 94 89 02 	call	0x512	; 0x512 <uart_tx_caracter>
- 42a:	f6 01       	movw	r30, r12
- 42c:	84 91       	lpm	r24, Z
- 42e:	e7 fc       	sbrc	r14, 7
- 430:	80 81       	ld	r24, Z
- 432:	81 11       	cpse	r24, r1
- 434:	f4 cf       	rjmp	.-24     	; 0x41e <uart_tx_cadena+0xc>
- 436:	ef 90       	pop	r14
- 438:	df 90       	pop	r13
- 43a:	cf 90       	pop	r12
- 43c:	08 95       	ret
+ 5ce:	cf 92       	push	r12
+ 5d0:	df 92       	push	r13
+ 5d2:	ef 92       	push	r14
+ 5d4:	6b 01       	movw	r12, r22
+ 5d6:	e8 2e       	mov	r14, r24
+ 5d8:	06 c0       	rjmp	.+12     	; 0x5e6 <uart_tx_cadena+0x18>
+ 5da:	9f ef       	ldi	r25, 0xFF	; 255
+ 5dc:	c9 1a       	sub	r12, r25
+ 5de:	d9 0a       	sbc	r13, r25
+ 5e0:	e9 0a       	sbc	r14, r25
+ 5e2:	0e 94 7d 03 	call	0x6fa	; 0x6fa <uart_tx_caracter>
+ 5e6:	f6 01       	movw	r30, r12
+ 5e8:	84 91       	lpm	r24, Z
+ 5ea:	e7 fc       	sbrc	r14, 7
+ 5ec:	80 81       	ld	r24, Z
+ 5ee:	81 11       	cpse	r24, r1
+ 5f0:	f4 cf       	rjmp	.-24     	; 0x5da <uart_tx_cadena+0xc>
+ 5f2:	ef 90       	pop	r14
+ 5f4:	df 90       	pop	r13
+ 5f6:	cf 90       	pop	r12
+ 5f8:	08 95       	ret
 
 Disassembly of section .text.uart_tx_entero16:
 
-000001c8 <uart_tx_entero16>:
+000002fe <uart_tx_entero16>:
 static void uart_tx_entero16(uint16_t valor){
- 1c8:	1f 93       	push	r17
- 1ca:	cf 93       	push	r28
- 1cc:	df 93       	push	r29
- 1ce:	00 d0       	rcall	.+0      	; 0x1d0 <uart_tx_entero16+0x8>
- 1d0:	00 d0       	rcall	.+0      	; 0x1d2 <uart_tx_entero16+0xa>
- 1d2:	00 d0       	rcall	.+0      	; 0x1d4 <uart_tx_entero16+0xc>
- 1d4:	cd b7       	in	r28, 0x3d	; 61
- 1d6:	de b7       	in	r29, 0x3e	; 62
- 1d8:	ac 01       	movw	r20, r24
+ 2fe:	1f 93       	push	r17
+ 300:	cf 93       	push	r28
+ 302:	df 93       	push	r29
+ 304:	00 d0       	rcall	.+0      	; 0x306 <uart_tx_entero16+0x8>
+ 306:	00 d0       	rcall	.+0      	; 0x308 <uart_tx_entero16+0xa>
+ 308:	00 d0       	rcall	.+0      	; 0x30a <uart_tx_entero16+0xc>
+ 30a:	cd b7       	in	r28, 0x3d	; 61
+ 30c:	de b7       	in	r29, 0x3e	; 62
+ 30e:	ac 01       	movw	r20, r24
 	char buffer[6]; uint8_t i=0; if(valor==0){ uart_tx_caracter('0'); return; }
- 1da:	89 2b       	or	r24, r25
- 1dc:	91 f5       	brne	.+100    	; 0x242 <uart_tx_entero16+0x7a>
- 1de:	80 e3       	ldi	r24, 0x30	; 48
- 1e0:	0e 94 89 02 	call	0x512	; 0x512 <uart_tx_caracter>
- 1e4:	3f c0       	rjmp	.+126    	; 0x264 <uart_tx_entero16+0x9c>
+ 310:	89 2b       	or	r24, r25
+ 312:	91 f5       	brne	.+100    	; 0x378 <uart_tx_entero16+0x7a>
+ 314:	80 e3       	ldi	r24, 0x30	; 48
+ 316:	0e 94 7d 03 	call	0x6fa	; 0x6fa <uart_tx_caracter>
+ 31a:	3f c0       	rjmp	.+126    	; 0x39a <uart_tx_entero16+0x9c>
 	while(valor){ buffer[i++]='0'+(valor%10); valor/=10; } while(i) uart_tx_caracter(buffer[--i]);
- 1e6:	9a 01       	movw	r18, r20
- 1e8:	ad ec       	ldi	r26, 0xCD	; 205
- 1ea:	bc ec       	ldi	r27, 0xCC	; 204
- 1ec:	0e 94 59 02 	call	0x4b2	; 0x4b2 <__umulhisi3>
- 1f0:	96 95       	lsr	r25
- 1f2:	87 95       	ror	r24
- 1f4:	96 95       	lsr	r25
- 1f6:	87 95       	ror	r24
- 1f8:	96 95       	lsr	r25
- 1fa:	87 95       	ror	r24
- 1fc:	9c 01       	movw	r18, r24
- 1fe:	22 0f       	add	r18, r18
- 200:	33 1f       	adc	r19, r19
- 202:	88 0f       	add	r24, r24
- 204:	99 1f       	adc	r25, r25
- 206:	88 0f       	add	r24, r24
- 208:	99 1f       	adc	r25, r25
- 20a:	88 0f       	add	r24, r24
- 20c:	99 1f       	adc	r25, r25
- 20e:	82 0f       	add	r24, r18
- 210:	93 1f       	adc	r25, r19
- 212:	9a 01       	movw	r18, r20
- 214:	28 1b       	sub	r18, r24
- 216:	39 0b       	sbc	r19, r25
- 218:	c9 01       	movw	r24, r18
- 21a:	e1 e0       	ldi	r30, 0x01	; 1
- 21c:	f0 e0       	ldi	r31, 0x00	; 0
- 21e:	ec 0f       	add	r30, r28
- 220:	fd 1f       	adc	r31, r29
- 222:	e1 0f       	add	r30, r17
- 224:	f1 1d       	adc	r31, r1
- 226:	80 5d       	subi	r24, 0xD0	; 208
- 228:	80 83       	st	Z, r24
- 22a:	9a 01       	movw	r18, r20
- 22c:	0e 94 59 02 	call	0x4b2	; 0x4b2 <__umulhisi3>
- 230:	ac 01       	movw	r20, r24
- 232:	56 95       	lsr	r21
- 234:	47 95       	ror	r20
- 236:	56 95       	lsr	r21
- 238:	47 95       	ror	r20
- 23a:	56 95       	lsr	r21
- 23c:	47 95       	ror	r20
- 23e:	1f 5f       	subi	r17, 0xFF	; 255
- 240:	01 c0       	rjmp	.+2      	; 0x244 <uart_tx_entero16+0x7c>
- 242:	10 e0       	ldi	r17, 0x00	; 0
- 244:	41 15       	cp	r20, r1
- 246:	51 05       	cpc	r21, r1
- 248:	71 f6       	brne	.-100    	; 0x1e6 <uart_tx_entero16+0x1e>
- 24a:	0a c0       	rjmp	.+20     	; 0x260 <uart_tx_entero16+0x98>
- 24c:	11 50       	subi	r17, 0x01	; 1
- 24e:	e1 e0       	ldi	r30, 0x01	; 1
- 250:	f0 e0       	ldi	r31, 0x00	; 0
- 252:	ec 0f       	add	r30, r28
- 254:	fd 1f       	adc	r31, r29
- 256:	e1 0f       	add	r30, r17
- 258:	f1 1d       	adc	r31, r1
- 25a:	80 81       	ld	r24, Z
- 25c:	0e 94 89 02 	call	0x512	; 0x512 <uart_tx_caracter>
- 260:	11 11       	cpse	r17, r1
- 262:	f4 cf       	rjmp	.-24     	; 0x24c <uart_tx_entero16+0x84>
+ 31c:	9a 01       	movw	r18, r20
+ 31e:	ad ec       	ldi	r26, 0xCD	; 205
+ 320:	bc ec       	ldi	r27, 0xCC	; 204
+ 322:	0e 94 4d 03 	call	0x69a	; 0x69a <__umulhisi3>
+ 326:	96 95       	lsr	r25
+ 328:	87 95       	ror	r24
+ 32a:	96 95       	lsr	r25
+ 32c:	87 95       	ror	r24
+ 32e:	96 95       	lsr	r25
+ 330:	87 95       	ror	r24
+ 332:	9c 01       	movw	r18, r24
+ 334:	22 0f       	add	r18, r18
+ 336:	33 1f       	adc	r19, r19
+ 338:	88 0f       	add	r24, r24
+ 33a:	99 1f       	adc	r25, r25
+ 33c:	88 0f       	add	r24, r24
+ 33e:	99 1f       	adc	r25, r25
+ 340:	88 0f       	add	r24, r24
+ 342:	99 1f       	adc	r25, r25
+ 344:	82 0f       	add	r24, r18
+ 346:	93 1f       	adc	r25, r19
+ 348:	9a 01       	movw	r18, r20
+ 34a:	28 1b       	sub	r18, r24
+ 34c:	39 0b       	sbc	r19, r25
+ 34e:	c9 01       	movw	r24, r18
+ 350:	e1 e0       	ldi	r30, 0x01	; 1
+ 352:	f0 e0       	ldi	r31, 0x00	; 0
+ 354:	ec 0f       	add	r30, r28
+ 356:	fd 1f       	adc	r31, r29
+ 358:	e1 0f       	add	r30, r17
+ 35a:	f1 1d       	adc	r31, r1
+ 35c:	80 5d       	subi	r24, 0xD0	; 208
+ 35e:	80 83       	st	Z, r24
+ 360:	9a 01       	movw	r18, r20
+ 362:	0e 94 4d 03 	call	0x69a	; 0x69a <__umulhisi3>
+ 366:	ac 01       	movw	r20, r24
+ 368:	56 95       	lsr	r21
+ 36a:	47 95       	ror	r20
+ 36c:	56 95       	lsr	r21
+ 36e:	47 95       	ror	r20
+ 370:	56 95       	lsr	r21
+ 372:	47 95       	ror	r20
+ 374:	1f 5f       	subi	r17, 0xFF	; 255
+ 376:	01 c0       	rjmp	.+2      	; 0x37a <uart_tx_entero16+0x7c>
+ 378:	10 e0       	ldi	r17, 0x00	; 0
+ 37a:	41 15       	cp	r20, r1
+ 37c:	51 05       	cpc	r21, r1
+ 37e:	71 f6       	brne	.-100    	; 0x31c <uart_tx_entero16+0x1e>
+ 380:	0a c0       	rjmp	.+20     	; 0x396 <uart_tx_entero16+0x98>
+ 382:	11 50       	subi	r17, 0x01	; 1
+ 384:	e1 e0       	ldi	r30, 0x01	; 1
+ 386:	f0 e0       	ldi	r31, 0x00	; 0
+ 388:	ec 0f       	add	r30, r28
+ 38a:	fd 1f       	adc	r31, r29
+ 38c:	e1 0f       	add	r30, r17
+ 38e:	f1 1d       	adc	r31, r1
+ 390:	80 81       	ld	r24, Z
+ 392:	0e 94 7d 03 	call	0x6fa	; 0x6fa <uart_tx_caracter>
+ 396:	11 11       	cpse	r17, r1
+ 398:	f4 cf       	rjmp	.-24     	; 0x382 <uart_tx_entero16+0x84>
 }
- 264:	26 96       	adiw	r28, 0x06	; 6
- 266:	0f b6       	in	r0, 0x3f	; 63
- 268:	f8 94       	cli
- 26a:	de bf       	out	0x3e, r29	; 62
- 26c:	0f be       	out	0x3f, r0	; 63
- 26e:	cd bf       	out	0x3d, r28	; 61
- 270:	df 91       	pop	r29
- 272:	cf 91       	pop	r28
- 274:	1f 91       	pop	r17
- 276:	08 95       	ret
+ 39a:	26 96       	adiw	r28, 0x06	; 6
+ 39c:	0f b6       	in	r0, 0x3f	; 63
+ 39e:	f8 94       	cli
+ 3a0:	de bf       	out	0x3e, r29	; 62
+ 3a2:	0f be       	out	0x3f, r0	; 63
+ 3a4:	cd bf       	out	0x3d, r28	; 61
+ 3a6:	df 91       	pop	r29
+ 3a8:	cf 91       	pop	r28
+ 3aa:	1f 91       	pop	r17
+ 3ac:	08 95       	ret
 
 Disassembly of section .text.adc_inicializar:
 
-00000520 <adc_inicializar>:
-static inline uint8_t uart_rx_leer(void){ return UDR0; }
+00000708 <adc_inicializar>:
+static void uart_rx_limpiar_buffer(void){ while (uart_rx_disponible()) (void)uart_rx_leer(); }
 
 
 // ADC
 static void adc_inicializar(void){
 	ADMUX  = (1<<REFS0) | (CANAL_ADC_LM35 & 0x0F);
- 520:	80 e4       	ldi	r24, 0x40	; 64
- 522:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
+ 708:	80 e4       	ldi	r24, 0x40	; 64
+ 70a:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
 	ADCSRA = (1<<ADEN) | (1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
- 526:	87 e8       	ldi	r24, 0x87	; 135
- 528:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
- 52c:	08 95       	ret
+ 70e:	87 e8       	ldi	r24, 0x87	; 135
+ 710:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+ 714:	08 95       	ret
 
 Disassembly of section .text.adc_leer_canal:
 
-00000468 <adc_leer_canal>:
+00000650 <adc_leer_canal>:
 }
 static uint16_t adc_leer_canal(uint8_t canal){
 	ADMUX = (ADMUX & 0xF0) | (canal & 0x0F);
- 468:	ec e7       	ldi	r30, 0x7C	; 124
- 46a:	f0 e0       	ldi	r31, 0x00	; 0
- 46c:	90 81       	ld	r25, Z
- 46e:	90 7f       	andi	r25, 0xF0	; 240
- 470:	8f 70       	andi	r24, 0x0F	; 15
- 472:	89 2b       	or	r24, r25
- 474:	80 83       	st	Z, r24
+ 650:	ec e7       	ldi	r30, 0x7C	; 124
+ 652:	f0 e0       	ldi	r31, 0x00	; 0
+ 654:	90 81       	ld	r25, Z
+ 656:	90 7f       	andi	r25, 0xF0	; 240
+ 658:	8f 70       	andi	r24, 0x0F	; 15
+ 65a:	89 2b       	or	r24, r25
+ 65c:	80 83       	st	Z, r24
 	ADCSRA |= (1<<ADSC);
- 476:	ea e7       	ldi	r30, 0x7A	; 122
- 478:	f0 e0       	ldi	r31, 0x00	; 0
- 47a:	80 81       	ld	r24, Z
- 47c:	80 64       	ori	r24, 0x40	; 64
- 47e:	80 83       	st	Z, r24
+ 65e:	ea e7       	ldi	r30, 0x7A	; 122
+ 660:	f0 e0       	ldi	r31, 0x00	; 0
+ 662:	80 81       	ld	r24, Z
+ 664:	80 64       	ori	r24, 0x40	; 64
+ 666:	80 83       	st	Z, r24
 	while(ADCSRA & (1<<ADSC));
- 480:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
- 484:	86 fd       	sbrc	r24, 6
- 486:	fc cf       	rjmp	.-8      	; 0x480 <adc_leer_canal+0x18>
+ 668:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <__TEXT_REGION_LENGTH__+0x7f807a>
+ 66c:	86 fd       	sbrc	r24, 6
+ 66e:	fc cf       	rjmp	.-8      	; 0x668 <adc_leer_canal+0x18>
 	return ADC;
- 488:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7f8078>
- 48c:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7f8079>
+ 670:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7f8078>
+ 674:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7f8079>
 }
- 490:	08 95       	ret
+ 678:	08 95       	ret
 
 Disassembly of section .text.calefactor_pwm_inicializar:
 
-00000500 <calefactor_pwm_inicializar>:
+000006e8 <calefactor_pwm_inicializar>:
 
 static void calefactor_pwm_inicializar(void){
 	CALEFACTOR_DDR |= CALEFACTOR_PIN_BM;
- 500:	8a b1       	in	r24, 0x0a	; 10
- 502:	80 62       	ori	r24, 0x20	; 32
- 504:	8a b9       	out	0x0a, r24	; 10
+ 6e8:	8a b1       	in	r24, 0x0a	; 10
+ 6ea:	80 62       	ori	r24, 0x20	; 32
+ 6ec:	8a b9       	out	0x0a, r24	; 10
 	TCCR0A = (1<<COM0B1) | (1<<WGM01) | (1<<WGM00);
- 506:	83 e2       	ldi	r24, 0x23	; 35
- 508:	84 bd       	out	0x24, r24	; 36
+ 6ee:	83 e2       	ldi	r24, 0x23	; 35
+ 6f0:	84 bd       	out	0x24, r24	; 36
 	TCCR0B = (1<<CS01) | (1<<CS00);
- 50a:	83 e0       	ldi	r24, 0x03	; 3
- 50c:	85 bd       	out	0x25, r24	; 37
+ 6f2:	83 e0       	ldi	r24, 0x03	; 3
+ 6f4:	85 bd       	out	0x25, r24	; 37
 	OCR0B  = 0;
- 50e:	18 bc       	out	0x28, r1	; 40
- 510:	08 95       	ret
+ 6f6:	18 bc       	out	0x28, r1	; 40
+ 6f8:	08 95       	ret
+
+Disassembly of section .text.ventilador_pwm_inicializar:
+
+000005fa <ventilador_pwm_inicializar>:
+}
+static inline void calefactor_fijar_pwm(uint8_t ciclo_trabajo){ OCR0B = ciclo_trabajo; }
+
+static void ventilador_pwm_inicializar(void){
+	VENTILADOR_DDR |= VENTILADOR_PIN_BM;
+ 5fa:	84 b1       	in	r24, 0x04	; 4
+ 5fc:	84 60       	ori	r24, 0x04	; 4
+ 5fe:	84 b9       	out	0x04, r24	; 4
+	TCCR1A = (1<<WGM10);
+ 600:	a0 e8       	ldi	r26, 0x80	; 128
+ 602:	b0 e0       	ldi	r27, 0x00	; 0
+ 604:	81 e0       	ldi	r24, 0x01	; 1
+ 606:	8c 93       	st	X, r24
+	TCCR1B = (1<<WGM12);
+ 608:	e1 e8       	ldi	r30, 0x81	; 129
+ 60a:	f0 e0       	ldi	r31, 0x00	; 0
+ 60c:	88 e0       	ldi	r24, 0x08	; 8
+ 60e:	80 83       	st	Z, r24
+	#if VENTILADOR_INVERTIDO
+	TCCR1A |= (1<<COM1B1) | (1<<COM1B0);
+	#else
+	TCCR1A |= (1<<COM1B1);
+ 610:	8c 91       	ld	r24, X
+ 612:	80 62       	ori	r24, 0x20	; 32
+ 614:	8c 93       	st	X, r24
+	#endif
+	TCCR1B |= (1<<CS11) | (1<<CS10);
+ 616:	80 81       	ld	r24, Z
+ 618:	83 60       	ori	r24, 0x03	; 3
+ 61a:	80 83       	st	Z, r24
+	OCR1B = 0;
+ 61c:	10 92 8b 00 	sts	0x008B, r1	; 0x80008b <__TEXT_REGION_LENGTH__+0x7f808b>
+ 620:	10 92 8a 00 	sts	0x008A, r1	; 0x80008a <__TEXT_REGION_LENGTH__+0x7f808a>
+ 624:	08 95       	ret
 
 Disassembly of section .text.lm35_leer_celsius_x10:
 
-00000492 <lm35_leer_celsius_x10>:
+0000067a <lm35_leer_celsius_x10>:
 #define CALEFACTOR_CICLO_APAGADO   0
 #define CALEFACTOR_CICLO_ENCENDIDO 250
 
 // LM35
 static uint16_t lm35_leer_celsius_x10(void){
 	uint16_t crudo = adc_leer_canal(CANAL_ADC_LM35);
- 492:	80 e0       	ldi	r24, 0x00	; 0
- 494:	0e 94 34 02 	call	0x468	; 0x468 <adc_leer_canal>
+ 67a:	80 e0       	ldi	r24, 0x00	; 0
+ 67c:	0e 94 28 03 	call	0x650	; 0x650 <adc_leer_canal>
 	uint32_t temp_decimas = (uint32_t)crudo * 488U;
- 498:	9c 01       	movw	r18, r24
- 49a:	a8 ee       	ldi	r26, 0xE8	; 232
- 49c:	b1 e0       	ldi	r27, 0x01	; 1
- 49e:	0e 94 59 02 	call	0x4b2	; 0x4b2 <__umulhisi3>
+ 680:	9c 01       	movw	r18, r24
+ 682:	a8 ee       	ldi	r26, 0xE8	; 232
+ 684:	b1 e0       	ldi	r27, 0x01	; 1
+ 686:	0e 94 4d 03 	call	0x69a	; 0x69a <__umulhisi3>
 	return (uint16_t)(temp_decimas / 100U);
- 4a2:	24 e6       	ldi	r18, 0x64	; 100
- 4a4:	30 e0       	ldi	r19, 0x00	; 0
- 4a6:	40 e0       	ldi	r20, 0x00	; 0
- 4a8:	50 e0       	ldi	r21, 0x00	; 0
- 4aa:	0e 94 e7 01 	call	0x3ce	; 0x3ce <__udivmodsi4>
+ 68a:	24 e6       	ldi	r18, 0x64	; 100
+ 68c:	30 e0       	ldi	r19, 0x00	; 0
+ 68e:	40 e0       	ldi	r20, 0x00	; 0
+ 690:	50 e0       	ldi	r21, 0x00	; 0
+ 692:	0e 94 c5 02 	call	0x58a	; 0x58a <__udivmodsi4>
 }
- 4ae:	c9 01       	movw	r24, r18
- 4b0:	08 95       	ret
+ 696:	c9 01       	movw	r24, r18
+ 698:	08 95       	ret
 
 Disassembly of section .text.lm35_leer_celsius_entero:
 
-000004d0 <lm35_leer_celsius_entero>:
+000006b8 <lm35_leer_celsius_entero>:
 static uint16_t lm35_leer_celsius_entero(void){
 	uint16_t crudo = adc_leer_canal(CANAL_ADC_LM35);
- 4d0:	80 e0       	ldi	r24, 0x00	; 0
- 4d2:	0e 94 34 02 	call	0x468	; 0x468 <adc_leer_canal>
+ 6b8:	80 e0       	ldi	r24, 0x00	; 0
+ 6ba:	0e 94 28 03 	call	0x650	; 0x650 <adc_leer_canal>
 	return (uint16_t)(((uint32_t)crudo * 125U) >> 8);
- 4d6:	9c 01       	movw	r18, r24
- 4d8:	ad e7       	ldi	r26, 0x7D	; 125
- 4da:	b0 e0       	ldi	r27, 0x00	; 0
- 4dc:	0e 94 59 02 	call	0x4b2	; 0x4b2 <__umulhisi3>
- 4e0:	bb 27       	eor	r27, r27
- 4e2:	a9 2f       	mov	r26, r25
- 4e4:	98 2f       	mov	r25, r24
- 4e6:	87 2f       	mov	r24, r23
+ 6be:	9c 01       	movw	r18, r24
+ 6c0:	ad e7       	ldi	r26, 0x7D	; 125
+ 6c2:	b0 e0       	ldi	r27, 0x00	; 0
+ 6c4:	0e 94 4d 03 	call	0x69a	; 0x69a <__umulhisi3>
+ 6c8:	bb 27       	eor	r27, r27
+ 6ca:	a9 2f       	mov	r26, r25
+ 6cc:	98 2f       	mov	r25, r24
+ 6ce:	87 2f       	mov	r24, r23
 }
- 4e8:	08 95       	ret
+ 6d0:	08 95       	ret
+
+Disassembly of section .text.aplicar_control_ventilador:
+
+000004d0 <aplicar_control_ventilador>:
+static uint16_t T_MED_MAX   = 50;
+
+
+// Control ventilador
+static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+ 4d0:	87 31       	cpi	r24, 0x17	; 23
+ 4d2:	91 05       	cpc	r25, r1
+ 4d4:	30 f4       	brcc	.+12     	; 0x4e2 <aplicar_control_ventilador+0x12>
+}
+static inline void ventilador_fijar_pwm(uint8_t ciclo_trabajo){
+	#if VENTILADOR_INVERTIDO
+	OCR1B = (uint8_t)(255 - ciclo_trabajo);
+	#else
+	OCR1B = ciclo_trabajo;
+ 4d6:	10 92 8b 00 	sts	0x008B, r1	; 0x80008b <__TEXT_REGION_LENGTH__+0x7f808b>
+ 4da:	10 92 8a 00 	sts	0x008A, r1	; 0x80008a <__TEXT_REGION_LENGTH__+0x7f808a>
+static uint16_t T_MED_MAX   = 50;
+
+
+// Control ventilador
+static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+ 4de:	80 e0       	ldi	r24, 0x00	; 0
+ 4e0:	08 95       	ret
+	else if (temp_celsius <= T_MEDIO_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+ 4e2:	8f 31       	cpi	r24, 0x1F	; 31
+ 4e4:	91 05       	cpc	r25, r1
+ 4e6:	30 f4       	brcc	.+12     	; 0x4f4 <aplicar_control_ventilador+0x24>
+}
+static inline void ventilador_fijar_pwm(uint8_t ciclo_trabajo){
+	#if VENTILADOR_INVERTIDO
+	OCR1B = (uint8_t)(255 - ciclo_trabajo);
+	#else
+	OCR1B = ciclo_trabajo;
+ 4e8:	10 92 8b 00 	sts	0x008B, r1	; 0x80008b <__TEXT_REGION_LENGTH__+0x7f808b>
+ 4ec:	10 92 8a 00 	sts	0x008A, r1	; 0x80008a <__TEXT_REGION_LENGTH__+0x7f808a>
+
+
+// Control ventilador
+static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_MEDIO_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+ 4f0:	80 e0       	ldi	r24, 0x00	; 0
+ 4f2:	08 95       	ret
+	else if (temp_celsius <= T_BAJO_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_BAJO);  return VENT_BAJO;  }
+ 4f4:	89 32       	cpi	r24, 0x29	; 41
+ 4f6:	91 05       	cpc	r25, r1
+ 4f8:	40 f4       	brcc	.+16     	; 0x50a <aplicar_control_ventilador+0x3a>
+}
+static inline void ventilador_fijar_pwm(uint8_t ciclo_trabajo){
+	#if VENTILADOR_INVERTIDO
+	OCR1B = (uint8_t)(255 - ciclo_trabajo);
+	#else
+	OCR1B = ciclo_trabajo;
+ 4fa:	85 e5       	ldi	r24, 0x55	; 85
+ 4fc:	90 e0       	ldi	r25, 0x00	; 0
+ 4fe:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <__TEXT_REGION_LENGTH__+0x7f808b>
+ 502:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <__TEXT_REGION_LENGTH__+0x7f808a>
+
+// Control ventilador
+static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_MEDIO_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_BAJO_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_BAJO);  return VENT_BAJO;  }
+ 506:	81 e0       	ldi	r24, 0x01	; 1
+ 508:	08 95       	ret
+	else if (temp_celsius <= T_MED_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_MEDIO); return VENT_MEDIO; }
+ 50a:	c3 97       	sbiw	r24, 0x33	; 51
+ 50c:	40 f4       	brcc	.+16     	; 0x51e <aplicar_control_ventilador+0x4e>
+}
+static inline void ventilador_fijar_pwm(uint8_t ciclo_trabajo){
+	#if VENTILADOR_INVERTIDO
+	OCR1B = (uint8_t)(255 - ciclo_trabajo);
+	#else
+	OCR1B = ciclo_trabajo;
+ 50e:	8a ea       	ldi	r24, 0xAA	; 170
+ 510:	90 e0       	ldi	r25, 0x00	; 0
+ 512:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <__TEXT_REGION_LENGTH__+0x7f808b>
+ 516:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <__TEXT_REGION_LENGTH__+0x7f808a>
+// Control ventilador
+static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_MEDIO_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_BAJO_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_BAJO);  return VENT_BAJO;  }
+	else if (temp_celsius <= T_MED_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_MEDIO); return VENT_MEDIO; }
+ 51a:	82 e0       	ldi	r24, 0x02	; 2
+ 51c:	08 95       	ret
+}
+static inline void ventilador_fijar_pwm(uint8_t ciclo_trabajo){
+	#if VENTILADOR_INVERTIDO
+	OCR1B = (uint8_t)(255 - ciclo_trabajo);
+	#else
+	OCR1B = ciclo_trabajo;
+ 51e:	8f ef       	ldi	r24, 0xFF	; 255
+ 520:	90 e0       	ldi	r25, 0x00	; 0
+ 522:	90 93 8b 00 	sts	0x008B, r25	; 0x80008b <__TEXT_REGION_LENGTH__+0x7f808b>
+ 526:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <__TEXT_REGION_LENGTH__+0x7f808a>
+static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_MEDIO_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_BAJO_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_BAJO);  return VENT_BAJO;  }
+	else if (temp_celsius <= T_MED_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_MEDIO); return VENT_MEDIO; }
+	else {                                ventilador_fijar_pwm(VENTILADOR_CICLO_ALTO);  return VENT_ALTO;  }
+ 52a:	83 e0       	ldi	r24, 0x03	; 3
+}
+ 52c:	08 95       	ret
+
+Disassembly of section .text.mostrar_rango_actual:
+
+000003ae <mostrar_rango_actual>:
+
+static void mostrar_rango_actual(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){
+ 3ae:	87 31       	cpi	r24, 0x17	; 23
+ 3b0:	91 05       	cpc	r25, r1
+ 3b2:	50 f4       	brcc	.+20     	; 0x3c8 <mostrar_rango_actual+0x1a>
+		uart_tx_cadena("Rango: 0-"); uart_tx_entero16(T_CALOR_MAX);
+ 3b4:	62 ec       	ldi	r22, 0xC2	; 194
+ 3b6:	70 e0       	ldi	r23, 0x00	; 0
+ 3b8:	80 e0       	ldi	r24, 0x00	; 0
+ 3ba:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 3be:	86 e1       	ldi	r24, 0x16	; 22
+ 3c0:	90 e0       	ldi	r25, 0x00	; 0
+ 3c2:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 3c6:	08 95       	ret
+		} else if (temp_celsius <= T_MEDIO_MAX){
+ 3c8:	8f 31       	cpi	r24, 0x1F	; 31
+ 3ca:	91 05       	cpc	r25, r1
+ 3cc:	88 f4       	brcc	.+34     	; 0x3f0 <mostrar_rango_actual+0x42>
+		uart_tx_cadena("Rango: "); uart_tx_entero16(T_MEDIO_MIN); uart_tx_caracter('-'); uart_tx_entero16(T_MEDIO_MAX);
+ 3ce:	6c ec       	ldi	r22, 0xCC	; 204
+ 3d0:	70 e0       	ldi	r23, 0x00	; 0
+ 3d2:	80 e0       	ldi	r24, 0x00	; 0
+ 3d4:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 3d8:	87 e1       	ldi	r24, 0x17	; 23
+ 3da:	90 e0       	ldi	r25, 0x00	; 0
+ 3dc:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 3e0:	8d e2       	ldi	r24, 0x2D	; 45
+ 3e2:	0e 94 7d 03 	call	0x6fa	; 0x6fa <uart_tx_caracter>
+ 3e6:	8e e1       	ldi	r24, 0x1E	; 30
+ 3e8:	90 e0       	ldi	r25, 0x00	; 0
+ 3ea:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 3ee:	08 95       	ret
+		} else if (temp_celsius <= T_BAJO_MAX){
+ 3f0:	89 32       	cpi	r24, 0x29	; 41
+ 3f2:	91 05       	cpc	r25, r1
+ 3f4:	88 f4       	brcc	.+34     	; 0x418 <__EEPROM_REGION_LENGTH__+0x18>
+		uart_tx_cadena("Rango: "); uart_tx_entero16((uint16_t)(T_MEDIO_MAX+1)); uart_tx_caracter('-'); uart_tx_entero16(T_BAJO_MAX);
+ 3f6:	6c ec       	ldi	r22, 0xCC	; 204
+ 3f8:	70 e0       	ldi	r23, 0x00	; 0
+ 3fa:	80 e0       	ldi	r24, 0x00	; 0
+ 3fc:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 400:	8f e1       	ldi	r24, 0x1F	; 31
+ 402:	90 e0       	ldi	r25, 0x00	; 0
+ 404:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 408:	8d e2       	ldi	r24, 0x2D	; 45
+ 40a:	0e 94 7d 03 	call	0x6fa	; 0x6fa <uart_tx_caracter>
+ 40e:	88 e2       	ldi	r24, 0x28	; 40
+ 410:	90 e0       	ldi	r25, 0x00	; 0
+ 412:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 416:	08 95       	ret
+		} else if (temp_celsius <= T_MED_MAX){
+ 418:	c3 97       	sbiw	r24, 0x33	; 51
+ 41a:	88 f4       	brcc	.+34     	; 0x43e <__EEPROM_REGION_LENGTH__+0x3e>
+		uart_tx_cadena("Rango: "); uart_tx_entero16((uint16_t)(T_BAJO_MAX+1)); uart_tx_caracter('-'); uart_tx_entero16(T_MED_MAX);
+ 41c:	6c ec       	ldi	r22, 0xCC	; 204
+ 41e:	70 e0       	ldi	r23, 0x00	; 0
+ 420:	80 e0       	ldi	r24, 0x00	; 0
+ 422:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 426:	89 e2       	ldi	r24, 0x29	; 41
+ 428:	90 e0       	ldi	r25, 0x00	; 0
+ 42a:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 42e:	8d e2       	ldi	r24, 0x2D	; 45
+ 430:	0e 94 7d 03 	call	0x6fa	; 0x6fa <uart_tx_caracter>
+ 434:	82 e3       	ldi	r24, 0x32	; 50
+ 436:	90 e0       	ldi	r25, 0x00	; 0
+ 438:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 43c:	08 95       	ret
+		} else {
+		uart_tx_cadena("Rango: >= "); uart_tx_entero16((uint16_t)(T_MED_MAX+1));
+ 43e:	64 ed       	ldi	r22, 0xD4	; 212
+ 440:	70 e0       	ldi	r23, 0x00	; 0
+ 442:	80 e0       	ldi	r24, 0x00	; 0
+ 444:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 448:	83 e3       	ldi	r24, 0x33	; 51
+ 44a:	90 e0       	ldi	r25, 0x00	; 0
+ 44c:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 450:	08 95       	ret
 
 Disassembly of section .text.log_por_uart:
 
-00000278 <log_por_uart>:
+0000020a <log_por_uart>:
+	}
+}
 
-// rangos
-static uint16_t T_CALOR_MAX = 22;
-
-
-static void log_por_uart(uint16_t temp_decimas, uint16_t temp_celsius){
- 278:	cf 93       	push	r28
- 27a:	df 93       	push	r29
- 27c:	ec 01       	movw	r28, r24
+static void log_por_uart(uint16_t temp_decimas, accion_ventilador_t accion_vent, uint16_t temp_celsius){
+ 20a:	ef 92       	push	r14
+ 20c:	ff 92       	push	r15
+ 20e:	1f 93       	push	r17
+ 210:	cf 93       	push	r28
+ 212:	df 93       	push	r29
+ 214:	ec 01       	movw	r28, r24
+ 216:	16 2f       	mov	r17, r22
+ 218:	7a 01       	movw	r14, r20
 	uart_tx_cadena("Temperatura: ");
- 27e:	62 ec       	ldi	r22, 0xC2	; 194
- 280:	70 e0       	ldi	r23, 0x00	; 0
- 282:	80 e0       	ldi	r24, 0x00	; 0
- 284:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
+ 21a:	6f ed       	ldi	r22, 0xDF	; 223
+ 21c:	70 e0       	ldi	r23, 0x00	; 0
+ 21e:	80 e0       	ldi	r24, 0x00	; 0
+ 220:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
 	uint16_t ent = temp_decimas / 10, dec = temp_decimas % 10;
- 288:	9e 01       	movw	r18, r28
- 28a:	ad ec       	ldi	r26, 0xCD	; 205
- 28c:	bc ec       	ldi	r27, 0xCC	; 204
- 28e:	0e 94 59 02 	call	0x4b2	; 0x4b2 <__umulhisi3>
- 292:	ac 01       	movw	r20, r24
- 294:	56 95       	lsr	r21
- 296:	47 95       	ror	r20
- 298:	56 95       	lsr	r21
- 29a:	47 95       	ror	r20
- 29c:	56 95       	lsr	r21
- 29e:	47 95       	ror	r20
- 2a0:	9a 01       	movw	r18, r20
- 2a2:	22 0f       	add	r18, r18
- 2a4:	33 1f       	adc	r19, r19
- 2a6:	ca 01       	movw	r24, r20
- 2a8:	88 0f       	add	r24, r24
- 2aa:	99 1f       	adc	r25, r25
- 2ac:	88 0f       	add	r24, r24
- 2ae:	99 1f       	adc	r25, r25
- 2b0:	88 0f       	add	r24, r24
- 2b2:	99 1f       	adc	r25, r25
- 2b4:	82 0f       	add	r24, r18
- 2b6:	93 1f       	adc	r25, r19
- 2b8:	c8 1b       	sub	r28, r24
- 2ba:	d9 0b       	sbc	r29, r25
+ 224:	9e 01       	movw	r18, r28
+ 226:	ad ec       	ldi	r26, 0xCD	; 205
+ 228:	bc ec       	ldi	r27, 0xCC	; 204
+ 22a:	0e 94 4d 03 	call	0x69a	; 0x69a <__umulhisi3>
+ 22e:	ac 01       	movw	r20, r24
+ 230:	56 95       	lsr	r21
+ 232:	47 95       	ror	r20
+ 234:	56 95       	lsr	r21
+ 236:	47 95       	ror	r20
+ 238:	56 95       	lsr	r21
+ 23a:	47 95       	ror	r20
+ 23c:	9a 01       	movw	r18, r20
+ 23e:	22 0f       	add	r18, r18
+ 240:	33 1f       	adc	r19, r19
+ 242:	ca 01       	movw	r24, r20
+ 244:	88 0f       	add	r24, r24
+ 246:	99 1f       	adc	r25, r25
+ 248:	88 0f       	add	r24, r24
+ 24a:	99 1f       	adc	r25, r25
+ 24c:	88 0f       	add	r24, r24
+ 24e:	99 1f       	adc	r25, r25
+ 250:	82 0f       	add	r24, r18
+ 252:	93 1f       	adc	r25, r19
+ 254:	c8 1b       	sub	r28, r24
+ 256:	d9 0b       	sbc	r29, r25
 	uart_tx_entero16(ent); uart_tx_caracter('.'); uart_tx_entero16(dec);
- 2bc:	ca 01       	movw	r24, r20
- 2be:	0e 94 e4 00 	call	0x1c8	; 0x1c8 <uart_tx_entero16>
- 2c2:	8e e2       	ldi	r24, 0x2E	; 46
- 2c4:	0e 94 89 02 	call	0x512	; 0x512 <uart_tx_caracter>
- 2c8:	ce 01       	movw	r24, r28
- 2ca:	0e 94 e4 00 	call	0x1c8	; 0x1c8 <uart_tx_entero16>
-	uart_tx_cadena("°C | Calefactor: ");
- 2ce:	60 ed       	ldi	r22, 0xD0	; 208
- 2d0:	70 e0       	ldi	r23, 0x00	; 0
- 2d2:	80 e0       	ldi	r24, 0x00	; 0
- 2d4:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
+ 258:	ca 01       	movw	r24, r20
+ 25a:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+ 25e:	8e e2       	ldi	r24, 0x2E	; 46
+ 260:	0e 94 7d 03 	call	0x6fa	; 0x6fa <uart_tx_caracter>
+ 264:	ce 01       	movw	r24, r28
+ 266:	0e 94 7f 01 	call	0x2fe	; 0x2fe <uart_tx_entero16>
+	uart_tx_cadena("°C | Ventilador: ");
+ 26a:	6d ee       	ldi	r22, 0xED	; 237
+ 26c:	70 e0       	ldi	r23, 0x00	; 0
+ 26e:	80 e0       	ldi	r24, 0x00	; 0
+ 270:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+	switch(accion_vent){
+ 274:	11 30       	cpi	r17, 0x01	; 1
+ 276:	61 f0       	breq	.+24     	; 0x290 <log_por_uart+0x86>
+ 278:	28 f0       	brcs	.+10     	; 0x284 <log_por_uart+0x7a>
+ 27a:	12 30       	cpi	r17, 0x02	; 2
+ 27c:	79 f0       	breq	.+30     	; 0x29c <log_por_uart+0x92>
+ 27e:	13 30       	cpi	r17, 0x03	; 3
+ 280:	99 f0       	breq	.+38     	; 0x2a8 <log_por_uart+0x9e>
+ 282:	17 c0       	rjmp	.+46     	; 0x2b2 <log_por_uart+0xa8>
+		case VENT_APAGADO: uart_tx_cadena("APAGADO"); break;
+ 284:	6f ef       	ldi	r22, 0xFF	; 255
+ 286:	70 e0       	ldi	r23, 0x00	; 0
+ 288:	80 e0       	ldi	r24, 0x00	; 0
+ 28a:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 28e:	11 c0       	rjmp	.+34     	; 0x2b2 <log_por_uart+0xa8>
+		case VENT_BAJO:    uart_tx_cadena("BAJO");    break;
+ 290:	67 e0       	ldi	r22, 0x07	; 7
+ 292:	71 e0       	ldi	r23, 0x01	; 1
+ 294:	80 e0       	ldi	r24, 0x00	; 0
+ 296:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 29a:	0b c0       	rjmp	.+22     	; 0x2b2 <log_por_uart+0xa8>
+		case VENT_MEDIO:   uart_tx_cadena("MEDIO");   break;
+ 29c:	6c e0       	ldi	r22, 0x0C	; 12
+ 29e:	71 e0       	ldi	r23, 0x01	; 1
+ 2a0:	80 e0       	ldi	r24, 0x00	; 0
+ 2a2:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 2a6:	05 c0       	rjmp	.+10     	; 0x2b2 <log_por_uart+0xa8>
+		case VENT_ALTO:    uart_tx_cadena("ALTO");    break;
+ 2a8:	62 e1       	ldi	r22, 0x12	; 18
+ 2aa:	71 e0       	ldi	r23, 0x01	; 1
+ 2ac:	80 e0       	ldi	r24, 0x00	; 0
+ 2ae:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+	}
+	uart_tx_cadena(" | Calefactor: ");
+ 2b2:	67 e1       	ldi	r22, 0x17	; 23
+ 2b4:	71 e0       	ldi	r23, 0x01	; 1
+ 2b6:	80 e0       	ldi	r24, 0x00	; 0
+ 2b8:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
 	
 	if (OCR0B > 0) {
- 2d8:	88 b5       	in	r24, 0x28	; 40
- 2da:	88 23       	and	r24, r24
- 2dc:	31 f0       	breq	.+12     	; 0x2ea <log_por_uart+0x72>
+ 2bc:	88 b5       	in	r24, 0x28	; 40
+ 2be:	88 23       	and	r24, r24
+ 2c0:	31 f0       	breq	.+12     	; 0x2ce <log_por_uart+0xc4>
 		uart_tx_cadena("ENCENDIDO");
- 2de:	62 ee       	ldi	r22, 0xE2	; 226
- 2e0:	70 e0       	ldi	r23, 0x00	; 0
- 2e2:	80 e0       	ldi	r24, 0x00	; 0
- 2e4:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
- 2e8:	05 c0       	rjmp	.+10     	; 0x2f4 <log_por_uart+0x7c>
+ 2c2:	67 e2       	ldi	r22, 0x27	; 39
+ 2c4:	71 e0       	ldi	r23, 0x01	; 1
+ 2c6:	80 e0       	ldi	r24, 0x00	; 0
+ 2c8:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 2cc:	05 c0       	rjmp	.+10     	; 0x2d8 <log_por_uart+0xce>
 		} else {
 		uart_tx_cadena("APAGADO");
- 2ea:	6c ee       	ldi	r22, 0xEC	; 236
- 2ec:	70 e0       	ldi	r23, 0x00	; 0
- 2ee:	80 e0       	ldi	r24, 0x00	; 0
- 2f0:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
+ 2ce:	6f ef       	ldi	r22, 0xFF	; 255
+ 2d0:	70 e0       	ldi	r23, 0x00	; 0
+ 2d2:	80 e0       	ldi	r24, 0x00	; 0
+ 2d4:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
 	}
 	
+	uart_tx_cadena(" | ");
+ 2d8:	61 e3       	ldi	r22, 0x31	; 49
+ 2da:	71 e0       	ldi	r23, 0x01	; 1
+ 2dc:	80 e0       	ldi	r24, 0x00	; 0
+ 2de:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+	mostrar_rango_actual(temp_celsius);
+ 2e2:	c7 01       	movw	r24, r14
+ 2e4:	0e 94 d7 01 	call	0x3ae	; 0x3ae <mostrar_rango_actual>
 	uart_tx_cadena("\r\n");
- 2f4:	64 ef       	ldi	r22, 0xF4	; 244
- 2f6:	70 e0       	ldi	r23, 0x00	; 0
- 2f8:	80 e0       	ldi	r24, 0x00	; 0
- 2fa:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
+ 2e8:	65 e3       	ldi	r22, 0x35	; 53
+ 2ea:	71 e0       	ldi	r23, 0x01	; 1
+ 2ec:	80 e0       	ldi	r24, 0x00	; 0
+ 2ee:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
 }
- 2fe:	df 91       	pop	r29
- 300:	cf 91       	pop	r28
- 302:	08 95       	ret
+ 2f2:	df 91       	pop	r29
+ 2f4:	cf 91       	pop	r28
+ 2f6:	1f 91       	pop	r17
+ 2f8:	ff 90       	pop	r15
+ 2fa:	ef 90       	pop	r14
+ 2fc:	08 95       	ret
 
 Disassembly of section .text.procesar_uart:
 
-00000372 <procesar_uart>:
+0000052e <procesar_uart>:
 
 
 static void procesar_uart(void){
 	while (uart_rx_disponible()){
- 372:	28 c0       	rjmp	.+80     	; 0x3c4 <procesar_uart+0x52>
+ 52e:	28 c0       	rjmp	.+80     	; 0x580 <procesar_uart+0x52>
 static void uart_tx_entero16(uint16_t valor){
 	char buffer[6]; uint8_t i=0; if(valor==0){ uart_tx_caracter('0'); return; }
 	while(valor){ buffer[i++]='0'+(valor%10); valor/=10; } while(i) uart_tx_caracter(buffer[--i]);
 }
 static inline bool uart_rx_disponible(void){ return (UCSR0A & (1<<RXC0)); }
 static inline uint8_t uart_rx_leer(void){ return UDR0; }
- 374:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 530:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
 
 
 static void procesar_uart(void){
 	while (uart_rx_disponible()){
 		uint8_t c = uart_rx_leer();
 		if (c=='E'){
- 378:	85 34       	cpi	r24, 0x45	; 69
- 37a:	79 f4       	brne	.+30     	; 0x39a <procesar_uart+0x28>
+ 534:	85 34       	cpi	r24, 0x45	; 69
+ 536:	79 f4       	brne	.+30     	; 0x556 <procesar_uart+0x28>
 			g_modo_calefactor = CALEFACTOR_MANUAL;
- 37c:	81 e0       	ldi	r24, 0x01	; 1
- 37e:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <g_modo_calefactor>
+ 538:	81 e0       	ldi	r24, 0x01	; 1
+ 53a:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <g_modo_calefactor>
 			g_ciclo_manual_calefactor = CALEFACTOR_CICLO_ENCENDIDO;
- 382:	8a ef       	ldi	r24, 0xFA	; 250
- 384:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 53e:	8a ef       	ldi	r24, 0xFA	; 250
+ 540:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
- 388:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 544:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
 	CALEFACTOR_DDR |= CALEFACTOR_PIN_BM;
 	TCCR0A = (1<<COM0B1) | (1<<WGM01) | (1<<WGM00);
 	TCCR0B = (1<<CS01) | (1<<CS00);
 	OCR0B  = 0;
 }
 static inline void calefactor_fijar_pwm(uint8_t ciclo_trabajo){ OCR0B = ciclo_trabajo; }
- 38c:	88 bd       	out	0x28, r24	; 40
+ 548:	88 bd       	out	0x28, r24	; 40
 		uint8_t c = uart_rx_leer();
 		if (c=='E'){
 			g_modo_calefactor = CALEFACTOR_MANUAL;
 			g_ciclo_manual_calefactor = CALEFACTOR_CICLO_ENCENDIDO;
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
 			uart_tx_cadena("Calefactor ENCENDIDO\r\n");
- 38e:	67 ef       	ldi	r22, 0xF7	; 247
- 390:	70 e0       	ldi	r23, 0x00	; 0
- 392:	80 e0       	ldi	r24, 0x00	; 0
- 394:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
- 398:	15 c0       	rjmp	.+42     	; 0x3c4 <procesar_uart+0x52>
+ 54a:	68 e3       	ldi	r22, 0x38	; 56
+ 54c:	71 e0       	ldi	r23, 0x01	; 1
+ 54e:	80 e0       	ldi	r24, 0x00	; 0
+ 550:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 554:	15 c0       	rjmp	.+42     	; 0x580 <procesar_uart+0x52>
 			} else if (c=='A'){
- 39a:	81 34       	cpi	r24, 0x41	; 65
- 39c:	71 f4       	brne	.+28     	; 0x3ba <procesar_uart+0x48>
+ 556:	81 34       	cpi	r24, 0x41	; 65
+ 558:	71 f4       	brne	.+28     	; 0x576 <procesar_uart+0x48>
 			g_modo_calefactor = CALEFACTOR_MANUAL;
- 39e:	81 e0       	ldi	r24, 0x01	; 1
- 3a0:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <g_modo_calefactor>
+ 55a:	81 e0       	ldi	r24, 0x01	; 1
+ 55c:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <g_modo_calefactor>
 			g_ciclo_manual_calefactor = CALEFACTOR_CICLO_APAGADO;
- 3a4:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 560:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <__DATA_REGION_ORIGIN__>
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
- 3a8:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 564:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
 	CALEFACTOR_DDR |= CALEFACTOR_PIN_BM;
 	TCCR0A = (1<<COM0B1) | (1<<WGM01) | (1<<WGM00);
 	TCCR0B = (1<<CS01) | (1<<CS00);
 	OCR0B  = 0;
 }
 static inline void calefactor_fijar_pwm(uint8_t ciclo_trabajo){ OCR0B = ciclo_trabajo; }
- 3ac:	88 bd       	out	0x28, r24	; 40
+ 568:	88 bd       	out	0x28, r24	; 40
 			uart_tx_cadena("Calefactor ENCENDIDO\r\n");
 			} else if (c=='A'){
 			g_modo_calefactor = CALEFACTOR_MANUAL;
 			g_ciclo_manual_calefactor = CALEFACTOR_CICLO_APAGADO;
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
 			uart_tx_cadena("Calefactor APAGADO\r\n");
- 3ae:	6e e0       	ldi	r22, 0x0E	; 14
- 3b0:	71 e0       	ldi	r23, 0x01	; 1
- 3b2:	80 e0       	ldi	r24, 0x00	; 0
- 3b4:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
- 3b8:	05 c0       	rjmp	.+10     	; 0x3c4 <procesar_uart+0x52>
+ 56a:	6f e4       	ldi	r22, 0x4F	; 79
+ 56c:	71 e0       	ldi	r23, 0x01	; 1
+ 56e:	80 e0       	ldi	r24, 0x00	; 0
+ 570:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
+ 574:	05 c0       	rjmp	.+10     	; 0x580 <procesar_uart+0x52>
 			} else {
 			uart_tx_cadena("Comandos: E=Calefactor ENCENDIDO, A=Calefactor APAGADO\r\n");
- 3ba:	63 e2       	ldi	r22, 0x23	; 35
- 3bc:	71 e0       	ldi	r23, 0x01	; 1
- 3be:	80 e0       	ldi	r24, 0x00	; 0
- 3c0:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
+ 576:	64 e6       	ldi	r22, 0x64	; 100
+ 578:	71 e0       	ldi	r23, 0x01	; 1
+ 57a:	80 e0       	ldi	r24, 0x00	; 0
+ 57c:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
 static void uart_tx_cadena(const char *cadena){ while(*cadena) uart_tx_caracter(*cadena++); }
 static void uart_tx_entero16(uint16_t valor){
 	char buffer[6]; uint8_t i=0; if(valor==0){ uart_tx_caracter('0'); return; }
 	while(valor){ buffer[i++]='0'+(valor%10); valor/=10; } while(i) uart_tx_caracter(buffer[--i]);
 }
 static inline bool uart_rx_disponible(void){ return (UCSR0A & (1<<RXC0)); }
- 3c4:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 580:	80 91 c0 00 	lds	r24, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
 	uart_tx_cadena("\r\n");
 }
 
 
 static void procesar_uart(void){
 	while (uart_rx_disponible()){
- 3c8:	88 23       	and	r24, r24
- 3ca:	a4 f2       	brlt	.-88     	; 0x374 <procesar_uart+0x2>
+ 584:	88 23       	and	r24, r24
+ 586:	a4 f2       	brlt	.-88     	; 0x530 <procesar_uart+0x2>
 			uart_tx_cadena("Calefactor APAGADO\r\n");
 			} else {
 			uart_tx_cadena("Comandos: E=Calefactor ENCENDIDO, A=Calefactor APAGADO\r\n");
 		}
 	}
 }
- 3cc:	08 95       	ret
+ 588:	08 95       	ret
 
 Disassembly of section .text.main:
 
-00000304 <main>:
+00000452 <main>:
 
 
 int main(void){
 	uart_inicializar(9600);
- 304:	60 e8       	ldi	r22, 0x80	; 128
- 306:	75 e2       	ldi	r23, 0x25	; 37
- 308:	80 e0       	ldi	r24, 0x00	; 0
- 30a:	90 e0       	ldi	r25, 0x00	; 0
- 30c:	0e 94 1f 02 	call	0x43e	; 0x43e <uart_inicializar>
+ 452:	60 e8       	ldi	r22, 0x80	; 128
+ 454:	75 e2       	ldi	r23, 0x25	; 37
+ 456:	80 e0       	ldi	r24, 0x00	; 0
+ 458:	90 e0       	ldi	r25, 0x00	; 0
+ 45a:	0e 94 13 03 	call	0x626	; 0x626 <uart_inicializar>
 	adc_inicializar();
- 310:	0e 94 90 02 	call	0x520	; 0x520 <adc_inicializar>
+ 45e:	0e 94 84 03 	call	0x708	; 0x708 <adc_inicializar>
 	calefactor_pwm_inicializar();
- 314:	0e 94 80 02 	call	0x500	; 0x500 <calefactor_pwm_inicializar>
-	
+ 462:	0e 94 74 03 	call	0x6e8	; 0x6e8 <calefactor_pwm_inicializar>
+	ventilador_pwm_inicializar();
+ 466:	0e 94 fd 02 	call	0x5fa	; 0x5fa <ventilador_pwm_inicializar>
+
 	uart_tx_cadena("Sistema de control de temperatura iniciado.\r\n");
- 318:	6c e5       	ldi	r22, 0x5C	; 92
- 31a:	71 e0       	ldi	r23, 0x01	; 1
- 31c:	80 e0       	ldi	r24, 0x00	; 0
- 31e:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
+ 46a:	6d e9       	ldi	r22, 0x9D	; 157
+ 46c:	71 e0       	ldi	r23, 0x01	; 1
+ 46e:	80 e0       	ldi	r24, 0x00	; 0
+ 470:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
 	uart_tx_cadena("Comandos: 'E' Calefactor ENCENDIDO, 'A' Calefactor APAGADO.\r\n");
- 322:	6a e8       	ldi	r22, 0x8A	; 138
- 324:	71 e0       	ldi	r23, 0x01	; 1
- 326:	80 e0       	ldi	r24, 0x00	; 0
- 328:	0e 94 09 02 	call	0x412	; 0x412 <uart_tx_cadena>
+ 474:	6b ec       	ldi	r22, 0xCB	; 203
+ 476:	71 e0       	ldi	r23, 0x01	; 1
+ 478:	80 e0       	ldi	r24, 0x00	; 0
+ 47a:	0e 94 e7 02 	call	0x5ce	; 0x5ce <uart_tx_cadena>
 
 	while(1){
 		procesar_uart();
- 32c:	0e 94 b9 01 	call	0x372	; 0x372 <procesar_uart>
+ 47e:	0e 94 97 02 	call	0x52e	; 0x52e <procesar_uart>
 
 		// Lee la temperatura
 		uint16_t temp_c_entero  = lm35_leer_celsius_entero();
- 330:	0e 94 68 02 	call	0x4d0	; 0x4d0 <lm35_leer_celsius_entero>
- 334:	ec 01       	movw	r28, r24
+ 482:	0e 94 5c 03 	call	0x6b8	; 0x6b8 <lm35_leer_celsius_entero>
+ 486:	ec 01       	movw	r28, r24
 		uint16_t temp_c_decimas = lm35_leer_celsius_x10();
- 336:	0e 94 49 02 	call	0x492	; 0x492 <lm35_leer_celsius_x10>
+ 488:	0e 94 3d 03 	call	0x67a	; 0x67a <lm35_leer_celsius_x10>
+ 48c:	8c 01       	movw	r16, r24
 
-		
+		// Ventilador
+		accion_ventilador_t accion_v = aplicar_control_ventilador(temp_c_entero);
+ 48e:	ce 01       	movw	r24, r28
+ 490:	0e 94 68 02 	call	0x4d0	; 0x4d0 <aplicar_control_ventilador>
+
 		// Calefactor
 		if (g_modo_calefactor == CALEFACTOR_MANUAL){
- 33a:	20 91 01 01 	lds	r18, 0x0101	; 0x800101 <g_modo_calefactor>
- 33e:	21 30       	cpi	r18, 0x01	; 1
- 340:	21 f4       	brne	.+8      	; 0x34a <main+0x46>
+ 494:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <g_modo_calefactor>
+ 498:	91 30       	cpi	r25, 0x01	; 1
+ 49a:	21 f4       	brne	.+8      	; 0x4a4 <main+0x52>
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
- 342:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 49c:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
 	CALEFACTOR_DDR |= CALEFACTOR_PIN_BM;
 	TCCR0A = (1<<COM0B1) | (1<<WGM01) | (1<<WGM00);
 	TCCR0B = (1<<CS01) | (1<<CS00);
 	OCR0B  = 0;
 }
 static inline void calefactor_fijar_pwm(uint8_t ciclo_trabajo){ OCR0B = ciclo_trabajo; }
- 346:	28 bd       	out	0x28, r18	; 40
- 348:	07 c0       	rjmp	.+14     	; 0x358 <main+0x54>
-		
+ 4a0:	98 bd       	out	0x28, r25	; 40
+ 4a2:	07 c0       	rjmp	.+14     	; 0x4b2 <main+0x60>
+
 		// Calefactor
 		if (g_modo_calefactor == CALEFACTOR_MANUAL){
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
 			} else {
 			if (temp_c_entero <= T_CALOR_MAX) {
- 34a:	c7 31       	cpi	r28, 0x17	; 23
- 34c:	d1 05       	cpc	r29, r1
- 34e:	18 f4       	brcc	.+6      	; 0x356 <main+0x52>
+ 4a4:	c7 31       	cpi	r28, 0x17	; 23
+ 4a6:	d1 05       	cpc	r29, r1
+ 4a8:	18 f4       	brcc	.+6      	; 0x4b0 <main+0x5e>
 	CALEFACTOR_DDR |= CALEFACTOR_PIN_BM;
 	TCCR0A = (1<<COM0B1) | (1<<WGM01) | (1<<WGM00);
 	TCCR0B = (1<<CS01) | (1<<CS00);
 	OCR0B  = 0;
 }
 static inline void calefactor_fijar_pwm(uint8_t ciclo_trabajo){ OCR0B = ciclo_trabajo; }
- 350:	2a ef       	ldi	r18, 0xFA	; 250
- 352:	28 bd       	out	0x28, r18	; 40
- 354:	01 c0       	rjmp	.+2      	; 0x358 <main+0x54>
- 356:	18 bc       	out	0x28, r1	; 40
+ 4aa:	9a ef       	ldi	r25, 0xFA	; 250
+ 4ac:	98 bd       	out	0x28, r25	; 40
+ 4ae:	01 c0       	rjmp	.+2      	; 0x4b2 <main+0x60>
+ 4b0:	18 bc       	out	0x28, r1	; 40
 				} else {
 				calefactor_fijar_pwm(CALEFACTOR_CICLO_APAGADO);
 			}
 		}
 
-		log_por_uart(temp_c_decimas, temp_c_entero);
- 358:	be 01       	movw	r22, r28
- 35a:	0e 94 3c 01 	call	0x278	; 0x278 <log_por_uart>
+		log_por_uart(temp_c_decimas, accion_v, temp_c_entero);
+ 4b2:	ae 01       	movw	r20, r28
+ 4b4:	68 2f       	mov	r22, r24
+ 4b6:	c8 01       	movw	r24, r16
+ 4b8:	0e 94 05 01 	call	0x20a	; 0x20a <log_por_uart>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 35e:	2f ef       	ldi	r18, 0xFF	; 255
- 360:	83 ed       	ldi	r24, 0xD3	; 211
- 362:	90 e3       	ldi	r25, 0x30	; 48
- 364:	21 50       	subi	r18, 0x01	; 1
- 366:	80 40       	sbci	r24, 0x00	; 0
- 368:	90 40       	sbci	r25, 0x00	; 0
- 36a:	e1 f7       	brne	.-8      	; 0x364 <main+0x60>
- 36c:	00 c0       	rjmp	.+0      	; 0x36e <main+0x6a>
- 36e:	00 00       	nop
- 370:	dd cf       	rjmp	.-70     	; 0x32c <main+0x28>
+ 4bc:	2f ef       	ldi	r18, 0xFF	; 255
+ 4be:	83 ed       	ldi	r24, 0xD3	; 211
+ 4c0:	90 e3       	ldi	r25, 0x30	; 48
+ 4c2:	21 50       	subi	r18, 0x01	; 1
+ 4c4:	80 40       	sbci	r24, 0x00	; 0
+ 4c6:	90 40       	sbci	r25, 0x00	; 0
+ 4c8:	e1 f7       	brne	.-8      	; 0x4c2 <main+0x70>
+ 4ca:	00 c0       	rjmp	.+0      	; 0x4cc <main+0x7a>
+ 4cc:	00 00       	nop
+ 4ce:	d7 cf       	rjmp	.-82     	; 0x47e <main+0x2c>
 
 Disassembly of section .text.libgcc.div:
 
-000003ce <__udivmodsi4>:
- 3ce:	a1 e2       	ldi	r26, 0x21	; 33
- 3d0:	1a 2e       	mov	r1, r26
- 3d2:	aa 1b       	sub	r26, r26
- 3d4:	bb 1b       	sub	r27, r27
- 3d6:	fd 01       	movw	r30, r26
- 3d8:	0d c0       	rjmp	.+26     	; 0x3f4 <__udivmodsi4_ep>
+0000058a <__udivmodsi4>:
+ 58a:	a1 e2       	ldi	r26, 0x21	; 33
+ 58c:	1a 2e       	mov	r1, r26
+ 58e:	aa 1b       	sub	r26, r26
+ 590:	bb 1b       	sub	r27, r27
+ 592:	fd 01       	movw	r30, r26
+ 594:	0d c0       	rjmp	.+26     	; 0x5b0 <__udivmodsi4_ep>
 
-000003da <__udivmodsi4_loop>:
- 3da:	aa 1f       	adc	r26, r26
- 3dc:	bb 1f       	adc	r27, r27
- 3de:	ee 1f       	adc	r30, r30
- 3e0:	ff 1f       	adc	r31, r31
- 3e2:	a2 17       	cp	r26, r18
- 3e4:	b3 07       	cpc	r27, r19
- 3e6:	e4 07       	cpc	r30, r20
- 3e8:	f5 07       	cpc	r31, r21
- 3ea:	20 f0       	brcs	.+8      	; 0x3f4 <__udivmodsi4_ep>
- 3ec:	a2 1b       	sub	r26, r18
- 3ee:	b3 0b       	sbc	r27, r19
- 3f0:	e4 0b       	sbc	r30, r20
- 3f2:	f5 0b       	sbc	r31, r21
+00000596 <__udivmodsi4_loop>:
+ 596:	aa 1f       	adc	r26, r26
+ 598:	bb 1f       	adc	r27, r27
+ 59a:	ee 1f       	adc	r30, r30
+ 59c:	ff 1f       	adc	r31, r31
+ 59e:	a2 17       	cp	r26, r18
+ 5a0:	b3 07       	cpc	r27, r19
+ 5a2:	e4 07       	cpc	r30, r20
+ 5a4:	f5 07       	cpc	r31, r21
+ 5a6:	20 f0       	brcs	.+8      	; 0x5b0 <__udivmodsi4_ep>
+ 5a8:	a2 1b       	sub	r26, r18
+ 5aa:	b3 0b       	sbc	r27, r19
+ 5ac:	e4 0b       	sbc	r30, r20
+ 5ae:	f5 0b       	sbc	r31, r21
 
-000003f4 <__udivmodsi4_ep>:
- 3f4:	66 1f       	adc	r22, r22
- 3f6:	77 1f       	adc	r23, r23
- 3f8:	88 1f       	adc	r24, r24
- 3fa:	99 1f       	adc	r25, r25
- 3fc:	1a 94       	dec	r1
- 3fe:	69 f7       	brne	.-38     	; 0x3da <__udivmodsi4_loop>
- 400:	60 95       	com	r22
- 402:	70 95       	com	r23
- 404:	80 95       	com	r24
- 406:	90 95       	com	r25
- 408:	9b 01       	movw	r18, r22
- 40a:	ac 01       	movw	r20, r24
- 40c:	bd 01       	movw	r22, r26
- 40e:	cf 01       	movw	r24, r30
- 410:	08 95       	ret
+000005b0 <__udivmodsi4_ep>:
+ 5b0:	66 1f       	adc	r22, r22
+ 5b2:	77 1f       	adc	r23, r23
+ 5b4:	88 1f       	adc	r24, r24
+ 5b6:	99 1f       	adc	r25, r25
+ 5b8:	1a 94       	dec	r1
+ 5ba:	69 f7       	brne	.-38     	; 0x596 <__udivmodsi4_loop>
+ 5bc:	60 95       	com	r22
+ 5be:	70 95       	com	r23
+ 5c0:	80 95       	com	r24
+ 5c2:	90 95       	com	r25
+ 5c4:	9b 01       	movw	r18, r22
+ 5c6:	ac 01       	movw	r20, r24
+ 5c8:	bd 01       	movw	r22, r26
+ 5ca:	cf 01       	movw	r24, r30
+ 5cc:	08 95       	ret
 
 Disassembly of section .text.libgcc.mul:
 
-000004b2 <__umulhisi3>:
- 4b2:	a2 9f       	mul	r26, r18
- 4b4:	b0 01       	movw	r22, r0
- 4b6:	b3 9f       	mul	r27, r19
- 4b8:	c0 01       	movw	r24, r0
- 4ba:	a3 9f       	mul	r26, r19
- 4bc:	70 0d       	add	r23, r0
- 4be:	81 1d       	adc	r24, r1
- 4c0:	11 24       	eor	r1, r1
- 4c2:	91 1d       	adc	r25, r1
- 4c4:	b2 9f       	mul	r27, r18
- 4c6:	70 0d       	add	r23, r0
- 4c8:	81 1d       	adc	r24, r1
- 4ca:	11 24       	eor	r1, r1
- 4cc:	91 1d       	adc	r25, r1
- 4ce:	08 95       	ret
+0000069a <__umulhisi3>:
+ 69a:	a2 9f       	mul	r26, r18
+ 69c:	b0 01       	movw	r22, r0
+ 69e:	b3 9f       	mul	r27, r19
+ 6a0:	c0 01       	movw	r24, r0
+ 6a2:	a3 9f       	mul	r26, r19
+ 6a4:	70 0d       	add	r23, r0
+ 6a6:	81 1d       	adc	r24, r1
+ 6a8:	11 24       	eor	r1, r1
+ 6aa:	91 1d       	adc	r25, r1
+ 6ac:	b2 9f       	mul	r27, r18
+ 6ae:	70 0d       	add	r23, r0
+ 6b0:	81 1d       	adc	r24, r1
+ 6b2:	11 24       	eor	r1, r1
+ 6b4:	91 1d       	adc	r25, r1
+ 6b6:	08 95       	ret
 
 Disassembly of section .text.__dummy_fini:
 
-00000536 <_fini>:
- 536:	08 95       	ret
+0000071e <_fini>:
+ 71e:	08 95       	ret
 
 Disassembly of section .text.__dummy_funcs_on_exit:
 
-00000538 <__funcs_on_exit>:
- 538:	08 95       	ret
+00000720 <__funcs_on_exit>:
+ 720:	08 95       	ret
 
 Disassembly of section .text.__dummy_simulator_exit:
 
-0000053a <__simulator_exit>:
- 53a:	08 95       	ret
+00000722 <__simulator_exit>:
+ 722:	08 95       	ret
 
 Disassembly of section .text.exit:
 
-000004ea <exit>:
- 4ea:	ec 01       	movw	r28, r24
- 4ec:	0e 94 9c 02 	call	0x538	; 0x538 <__funcs_on_exit>
- 4f0:	0e 94 9b 02 	call	0x536	; 0x536 <_fini>
- 4f4:	ce 01       	movw	r24, r28
- 4f6:	0e 94 9d 02 	call	0x53a	; 0x53a <__simulator_exit>
- 4fa:	ce 01       	movw	r24, r28
- 4fc:	0e 94 99 02 	call	0x532	; 0x532 <_Exit>
+000006d2 <exit>:
+ 6d2:	ec 01       	movw	r28, r24
+ 6d4:	0e 94 90 03 	call	0x720	; 0x720 <__funcs_on_exit>
+ 6d8:	0e 94 8f 03 	call	0x71e	; 0x71e <_fini>
+ 6dc:	ce 01       	movw	r24, r28
+ 6de:	0e 94 91 03 	call	0x722	; 0x722 <__simulator_exit>
+ 6e2:	ce 01       	movw	r24, r28
+ 6e4:	0e 94 8d 03 	call	0x71a	; 0x71a <_Exit>
 
 Disassembly of section .text._Exit:
 
-00000532 <_Exit>:
- 532:	0e 94 5f 00 	call	0xbe	; 0xbe <_exit>
+0000071a <_Exit>:
+ 71a:	0e 94 5f 00 	call	0xbe	; 0xbe <_exit>

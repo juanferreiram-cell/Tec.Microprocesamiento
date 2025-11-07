@@ -11,7 +11,9 @@
 #define CANAL_ADC_LM35    0
 #define CALEFACTOR_DDR      DDRD
 #define CALEFACTOR_PIN_BM (1<<PD5)
-
+#define VENTILADOR_DDR        DDRB
+#define VENTILADOR_PIN_BM     (1<<PB2)
+#define VENTILADOR_INVERTIDO 0
 
 static void uart_inicializar(uint32_t baudios){
 	uint16_t ubrr = (F_CPU / 16 / baudios) - 1;
@@ -28,6 +30,7 @@ static void uart_tx_entero16(uint16_t valor){
 }
 static inline bool uart_rx_disponible(void){ return (UCSR0A & (1<<RXC0)); }
 static inline uint8_t uart_rx_leer(void){ return UDR0; }
+static void uart_rx_limpiar_buffer(void){ while (uart_rx_disponible()) (void)uart_rx_leer(); }
 
 
 // ADC
@@ -50,8 +53,30 @@ static void calefactor_pwm_inicializar(void){
 }
 static inline void calefactor_fijar_pwm(uint8_t ciclo_trabajo){ OCR0B = ciclo_trabajo; }
 
+static void ventilador_pwm_inicializar(void){
+	VENTILADOR_DDR |= VENTILADOR_PIN_BM;
+	TCCR1A = (1<<WGM10);
+	TCCR1B = (1<<WGM12);
+	#if VENTILADOR_INVERTIDO
+	TCCR1A |= (1<<COM1B1) | (1<<COM1B0);
+	#else
+	TCCR1A |= (1<<COM1B1);
+	#endif
+	TCCR1B |= (1<<CS11) | (1<<CS10);
+	OCR1B = 0;
+}
+static inline void ventilador_fijar_pwm(uint8_t ciclo_trabajo){
+	#if VENTILADOR_INVERTIDO
+	OCR1B = (uint8_t)(255 - ciclo_trabajo);
+	#else
+	OCR1B = ciclo_trabajo;
+	#endif
+}
 
 // PWM
+#define VENTILADOR_CICLO_BAJO      85
+#define VENTILADOR_CICLO_MEDIO     170
+#define VENTILADOR_CICLO_ALTO      255
 #define CALEFACTOR_CICLO_APAGADO   0
 #define CALEFACTOR_CICLO_ENCENDIDO 250
 
@@ -67,19 +92,54 @@ static uint16_t lm35_leer_celsius_entero(void){
 }
 
 typedef enum { CALEFACTOR_AUTO = 0, CALEFACTOR_MANUAL } modo_calefactor_t;
+typedef enum { VENT_APAGADO=0, VENT_BAJO, VENT_MEDIO, VENT_ALTO } accion_ventilador_t;
 
 static volatile modo_calefactor_t g_modo_calefactor = CALEFACTOR_AUTO;
 static volatile uint8_t           g_ciclo_manual_calefactor = CALEFACTOR_CICLO_APAGADO;
 
 // rangos
 static uint16_t T_CALOR_MAX = 22;
+static uint16_t T_MEDIO_MIN = 23;
+static uint16_t T_MEDIO_MAX = 30;
+static uint16_t T_BAJO_MAX  = 40;
+static uint16_t T_MED_MAX   = 50;
 
 
-static void log_por_uart(uint16_t temp_decimas, uint16_t temp_celsius){
+// Control ventilador
+static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_MEDIO_MAX){ ventilador_fijar_pwm(0); return VENT_APAGADO; }
+	else if (temp_celsius <= T_BAJO_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_BAJO);  return VENT_BAJO;  }
+	else if (temp_celsius <= T_MED_MAX){ ventilador_fijar_pwm(VENTILADOR_CICLO_MEDIO); return VENT_MEDIO; }
+	else {                                ventilador_fijar_pwm(VENTILADOR_CICLO_ALTO);  return VENT_ALTO;  }
+}
+
+static void mostrar_rango_actual(uint16_t temp_celsius){
+	if (temp_celsius <= T_CALOR_MAX){
+		uart_tx_cadena("Rango: 0-"); uart_tx_entero16(T_CALOR_MAX);
+		} else if (temp_celsius <= T_MEDIO_MAX){
+		uart_tx_cadena("Rango: "); uart_tx_entero16(T_MEDIO_MIN); uart_tx_caracter('-'); uart_tx_entero16(T_MEDIO_MAX);
+		} else if (temp_celsius <= T_BAJO_MAX){
+		uart_tx_cadena("Rango: "); uart_tx_entero16((uint16_t)(T_MEDIO_MAX+1)); uart_tx_caracter('-'); uart_tx_entero16(T_BAJO_MAX);
+		} else if (temp_celsius <= T_MED_MAX){
+		uart_tx_cadena("Rango: "); uart_tx_entero16((uint16_t)(T_BAJO_MAX+1)); uart_tx_caracter('-'); uart_tx_entero16(T_MED_MAX);
+		} else {
+		uart_tx_cadena("Rango: >= "); uart_tx_entero16((uint16_t)(T_MED_MAX+1));
+	}
+}
+
+static void log_por_uart(uint16_t temp_decimas, accion_ventilador_t accion_vent, uint16_t temp_celsius){
 	uart_tx_cadena("Temperatura: ");
 	uint16_t ent = temp_decimas / 10, dec = temp_decimas % 10;
 	uart_tx_entero16(ent); uart_tx_caracter('.'); uart_tx_entero16(dec);
-	uart_tx_cadena("°C | Calefactor: ");
+	uart_tx_cadena("°C | Ventilador: ");
+	switch(accion_vent){
+		case VENT_APAGADO: uart_tx_cadena("APAGADO"); break;
+		case VENT_BAJO:    uart_tx_cadena("BAJO");    break;
+		case VENT_MEDIO:   uart_tx_cadena("MEDIO");   break;
+		case VENT_ALTO:    uart_tx_cadena("ALTO");    break;
+	}
+	uart_tx_cadena(" | Calefactor: ");
 	
 	if (OCR0B > 0) {
 		uart_tx_cadena("ENCENDIDO");
@@ -87,6 +147,8 @@ static void log_por_uart(uint16_t temp_decimas, uint16_t temp_celsius){
 		uart_tx_cadena("APAGADO");
 	}
 	
+	uart_tx_cadena(" | ");
+	mostrar_rango_actual(temp_celsius);
 	uart_tx_cadena("\r\n");
 }
 
@@ -115,7 +177,8 @@ int main(void){
 	uart_inicializar(9600);
 	adc_inicializar();
 	calefactor_pwm_inicializar();
-	
+	ventilador_pwm_inicializar();
+
 	uart_tx_cadena("Sistema de control de temperatura iniciado.\r\n");
 	uart_tx_cadena("Comandos: 'E' Calefactor ENCENDIDO, 'A' Calefactor APAGADO.\r\n");
 
@@ -126,7 +189,9 @@ int main(void){
 		uint16_t temp_c_entero  = lm35_leer_celsius_entero();
 		uint16_t temp_c_decimas = lm35_leer_celsius_x10();
 
-		
+		// Ventilador
+		accion_ventilador_t accion_v = aplicar_control_ventilador(temp_c_entero);
+
 		// Calefactor
 		if (g_modo_calefactor == CALEFACTOR_MANUAL){
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
@@ -138,7 +203,7 @@ int main(void){
 			}
 		}
 
-		log_por_uart(temp_c_decimas, temp_c_entero);
+		log_por_uart(temp_c_decimas, accion_v, temp_c_entero);
 
 		_delay_ms(1000);
 	}
