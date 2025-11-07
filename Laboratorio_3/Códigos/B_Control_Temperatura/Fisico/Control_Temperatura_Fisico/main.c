@@ -33,6 +33,37 @@ static inline uint8_t uart_rx_leer(void){ return UDR0; }
 static void uart_rx_limpiar_buffer(void){ while (uart_rx_disponible()) (void)uart_rx_leer(); }
 
 
+static uint16_t uart_leer_entero_flexible(void){
+	uint16_t valor = 0;
+	bool recibio_digito = false;
+	uint16_t milis_inactividad = 0;
+
+	for(;;){
+		if (uart_rx_disponible()){
+			uint8_t c = uart_rx_leer();
+			if (c >= '0' && c <= '9'){
+				recibio_digito = true;
+				valor = (uint16_t)(valor*10 + (c-'0'));
+				uart_tx_caracter(c);
+				milis_inactividad = 0;
+				} else if (c=='\r' || c=='\n' || c==' ' || c==',' || c==';' || c=='\t'){
+				uart_tx_cadena("\r\n");
+				break;
+				} else {
+				if (recibio_digito){ uart_tx_cadena("\r\n"); break; }
+			}
+			} else {
+			if (recibio_digito){
+				_delay_ms(1);
+				if (++milis_inactividad >= 2000){ uart_tx_cadena("\r\n"); break; }
+				} else {
+				_delay_ms(1);
+			}
+		}
+	}
+	return valor;
+}
+
 // ADC
 static void adc_inicializar(void){
 	ADMUX  = (1<<REFS0) | (CANAL_ADC_LM35 & 0x0F);
@@ -104,6 +135,21 @@ static uint16_t T_MEDIO_MAX = 30;
 static uint16_t T_BAJO_MAX  = 40;
 static uint16_t T_MED_MAX   = 50;
 
+// Constantes para recalcular
+#define ANCHO_BANDA_BAJA  10
+#define ANCHO_BANDA_MEDIA 10
+
+// recalcula los rangos a partir del nuevo punto medio
+static void recalcular_desde_medio(uint16_t medio_min, uint16_t medio_max){
+	if (medio_min == 0) medio_min = 1;
+	if (medio_max < medio_min) medio_max = medio_min;
+
+	T_MEDIO_MIN = medio_min;
+	T_MEDIO_MAX = medio_max;
+	T_CALOR_MAX = (medio_min > 0) ? (uint16_t)(medio_min - 1) : 0;
+	T_BAJO_MAX = (uint16_t)(medio_max + ANCHO_BANDA_BAJA);
+	T_MED_MAX = (uint16_t)(T_BAJO_MAX + ANCHO_BANDA_MEDIA);
+}
 
 // Control ventilador
 static accion_ventilador_t aplicar_control_ventilador(uint16_t temp_celsius){
@@ -153,6 +199,22 @@ static void log_por_uart(uint16_t temp_decimas, accion_ventilador_t accion_vent,
 }
 
 
+// comando para reconfigurar el punto medio
+static void comando_reconfigurar_rango(void){
+	uart_tx_cadena("\r\n Reconfigurar Rango Medio \r\n");
+	uart_rx_limpiar_buffer();
+
+	uart_tx_cadena("Ingrese minimo del nuevo rango: ");
+	uint16_t min_medio = uart_leer_entero_flexible();
+
+	uart_tx_cadena("Ingrese maximo del nuevo rango: ");
+	uint16_t max_medio = uart_leer_entero_flexible();
+
+	recalcular_desde_medio(min_medio, max_medio);
+
+	uart_tx_cadena("Nuevo rango aplicado.\r\n");
+}
+
 static void procesar_uart(void){
 	while (uart_rx_disponible()){
 		uint8_t c = uart_rx_leer();
@@ -166,8 +228,10 @@ static void procesar_uart(void){
 			g_ciclo_manual_calefactor = CALEFACTOR_CICLO_APAGADO;
 			calefactor_fijar_pwm(g_ciclo_manual_calefactor);
 			uart_tx_cadena("Calefactor APAGADO\r\n");
+			} else if (c=='R'){
+			comando_reconfigurar_rango();
 			} else {
-			uart_tx_cadena("Comandos: E=Calefactor ENCENDIDO, A=Calefactor APAGADO\r\n");
+			uart_tx_cadena("[Ayuda] Comandos: E=Calefactor ENCENDIDO, A=Calefactor APAGADO, R=Rango medio\r\n");
 		}
 	}
 }
@@ -180,7 +244,7 @@ int main(void){
 	ventilador_pwm_inicializar();
 
 	uart_tx_cadena("Sistema de control de temperatura iniciado.\r\n");
-	uart_tx_cadena("Comandos: 'E' Calefactor ENCENDIDO, 'A' Calefactor APAGADO.\r\n");
+	uart_tx_cadena("Comandos: 'E' Calefactor ENCENDIDO, 'A' Calefactor APAGADO, 'R' cambiar punto medio.\r\n");
 
 	while(1){
 		procesar_uart();
