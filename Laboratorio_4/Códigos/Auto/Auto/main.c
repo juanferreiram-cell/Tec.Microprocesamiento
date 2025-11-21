@@ -6,7 +6,9 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-// ===== PINES MOTORES =====
+#define SENSOR_IZQ PD2
+#define SENSOR_DER PD7
+
 #define MOTOR_IZQ_IN1 PD4
 #define MOTOR_IZQ_IN2 PB0
 #define MOTOR_IZQ_PWM PD6
@@ -15,25 +17,28 @@
 #define MOTOR_DER_IN2 PB5
 #define MOTOR_DER_PWM PD5
 
-// ===== PINES SOFTWARE SERIAL HC-05 =====
+#define METEGOL_IN1 PC0
+#define METEGOL_IN2 PC1
+#define METEGOL_PWM PB4
+
 #define HC05_RX_PIN PB2
 #define HC05_TX_PIN PB3
 
-// ===== CONFIGURACION UART DEBUG =====
 #define DEBUG_BAUD 9600
 #define DEBUG_UBRR ((F_CPU/16/DEBUG_BAUD)-1)
 
-// ===== CONFIGURACION HC-05 =====
+#define HC05_BAUD 38400
 #define HC05_BIT_DELAY 26
 
-// ===== VELOCIDADES PWM =====
 #define VEL_AVANCE 200
 #define VEL_GIRO 150
+
+#define LEER_IZQ() ((PIND & (1 << SENSOR_IZQ)) >> SENSOR_IZQ)
+#define LEER_DER() ((PIND & (1 << SENSOR_DER)) >> SENSOR_DER)
 
 char receivedCommand = 0;
 uint8_t velocidad_actual = VEL_AVANCE;
 
-// ===== UART HARDWARE (Debug) =====
 void Debug_Init(void) {
 	UBRR0H = (unsigned char)(DEBUG_UBRR >> 8);
 	UBRR0L = (unsigned char)DEBUG_UBRR;
@@ -58,7 +63,6 @@ void Debug_PrintHex(uint8_t num) {
 	Debug_Print(hexDigits[num & 0x0F]);
 }
 
-// ===== SOFTWARE SERIAL HC-05 =====
 void HC05_Init(void) {
 	DDRB |= (1 << HC05_TX_PIN);
 	PORTB |= (1 << HC05_TX_PIN);
@@ -132,7 +136,6 @@ uint8_t HC05_Read(char* data) {
 	return 1;
 }
 
-// ===== INICIALIZACION PWM =====
 void init_pwm(void) {
 	DDRD |= (1 << MOTOR_IZQ_PWM);
 	DDRD |= (1 << MOTOR_DER_PWM);
@@ -145,7 +148,6 @@ void init_pwm(void) {
 	OCR0B = 0;
 }
 
-// ===== CONTROL DE MOTORES =====
 void set_motor_izq(int16_t velocidad) {
 	if (velocidad > 0) {
 		PORTD |= (1 << MOTOR_IZQ_IN1);
@@ -193,7 +195,43 @@ void coast_motor_der(void) {
 	OCR0B = 0;
 }
 
-// ===== FUNCIONES DE MOVIMIENTO =====
+void metegol_girar(uint8_t velocidad, uint16_t duracion_ms) {
+	Debug_PrintString("Metegol: Girando...\r\n");
+	
+	PORTC |= (1 << METEGOL_IN1);
+	PORTC &= ~(1 << METEGOL_IN2);
+	
+	uint16_t ciclos = duracion_ms;
+	uint16_t tiempo_on = (velocidad * 1000UL) / 255;
+	uint16_t tiempo_off = 1000 - tiempo_on;
+	
+	for (uint16_t i = 0; i < ciclos; i++) {
+		if (tiempo_on > 0) {
+			PORTB |= (1 << METEGOL_PWM);
+			for (uint16_t j = 0; j < tiempo_on; j++) {
+				_delay_us(1);
+			}
+		}
+		
+		if (tiempo_off > 0) {
+			PORTB &= ~(1 << METEGOL_PWM);
+			for (uint16_t j = 0; j < tiempo_off; j++) {
+				_delay_us(1);
+			}
+		}
+	}
+	
+	PORTC |= (1 << METEGOL_IN1);
+	PORTC |= (1 << METEGOL_IN2);
+	PORTB |= (1 << METEGOL_PWM);
+	_delay_ms(50);
+	
+	PORTC &= ~((1 << METEGOL_IN1) | (1 << METEGOL_IN2));
+	PORTB &= ~(1 << METEGOL_PWM);
+	
+	Debug_PrintString("Metegol: Detenido\r\n");
+}
+
 void detener(void) {
 	set_motor_izq(0);
 	set_motor_der(0);
@@ -239,13 +277,55 @@ void diagonal_atras_der(void) {
 	set_motor_der(-velocidad_actual);
 }
 
-// ===== PROCESAMIENTO DE COMANDOS =====
+uint8_t puede_moverse(char comando) {
+	uint8_t izq = LEER_IZQ();
+	uint8_t der = LEER_DER();
+	
+	if (!izq && !der) {
+		return 1;
+	}
+	
+	if (izq && der) {
+		if (comando == 'B' || comando == 'S') {
+			return 1;
+		}
+		Debug_PrintString("BLOQUEADO: Ambos sensores detectan linea\r\n");
+		HC05_WriteString("BLOQ:BORDE\r\n");
+		return 0;
+	}
+	
+	if (izq && !der) {
+		if (comando == 'L' || comando == 'Q' || comando == 'Z') {
+			Debug_PrintString("BLOQUEADO: Sensor izquierdo activo\r\n");
+			HC05_WriteString("BLOQ:IZQ\r\n");
+			return 0;
+		}
+		return 1;
+	}
+	
+	if (!izq && der) {
+		if (comando == 'R' || comando == 'E' || comando == 'C') {
+			Debug_PrintString("BLOQUEADO: Sensor derecho activo\r\n");
+			HC05_WriteString("BLOQ:DER\r\n");
+			return 0;
+		}
+		return 1;
+	}
+	
+	return 1;
+}
+
 void processCommand(char cmd) {
 	Debug_PrintString("CMD: '");
 	Debug_Print(cmd);
 	Debug_PrintString("' [0x");
 	Debug_PrintHex(cmd);
 	Debug_PrintString("] ");
+	
+	if (!puede_moverse(cmd)) {
+		detener();
+		return;
+	}
 	
 	switch(cmd) {
 		case 'F':
@@ -302,6 +382,18 @@ void processCommand(char cmd) {
 		HC05_WriteString("OK:C\r\n");
 		break;
 		
+		case 'X':
+		Debug_PrintString("METEGOL SUAVE\r\n");
+		HC05_WriteString("OK:X-SUAVE\r\n");
+		metegol_girar(255, 100);
+		break;
+		
+		case 'Y':
+		Debug_PrintString("METEGOL MAXIMO\r\n");
+		HC05_WriteString("OK:Y-MAX\r\n");
+		metegol_girar(255, 500);
+		break;
+		
 		case '0': velocidad_actual = 0; Debug_PrintString("VEL: 0\r\n"); HC05_WriteString("OK:0\r\n"); break;
 		case '1': velocidad_actual = 50; Debug_PrintString("VEL: 1\r\n"); HC05_WriteString("OK:1\r\n"); break;
 		case '2': velocidad_actual = 100; Debug_PrintString("VEL: 2\r\n"); HC05_WriteString("OK:2\r\n"); break;
@@ -321,11 +413,19 @@ void processCommand(char cmd) {
 	}
 }
 
-// ===== GPIO =====
 void GPIO_Init(void) {
 	DDRD |= (1 << MOTOR_IZQ_IN1);
 	DDRB |= (1 << MOTOR_IZQ_IN2);
+	
 	DDRB |= (1 << MOTOR_DER_IN1) | (1 << MOTOR_DER_IN2);
+	
+	DDRC |= (1 << METEGOL_IN1) | (1 << METEGOL_IN2);
+	DDRB |= (1 << METEGOL_PWM);
+	PORTC &= ~((1 << METEGOL_IN1) | (1 << METEGOL_IN2));
+	PORTB &= ~(1 << METEGOL_PWM);
+	
+	DDRD &= ~((1 << SENSOR_IZQ) | (1 << SENSOR_DER));
+	PORTD |= (1 << SENSOR_IZQ) | (1 << SENSOR_DER);
 }
 
 int main(void) {
@@ -336,10 +436,10 @@ int main(void) {
 	
 	_delay_ms(1000);
 	
-	Debug_PrintString("Robot BLE Control - Version 2\r\n");
+	Debug_PrintString("Sistema BLE con Sensores de Linea\r\n");
 	Debug_PrintString("HC-05 Baudrate: 38400\r\n");
 	
-	HC05_WriteString("Sistema listo\r\n");
+	HC05_WriteString("Sistema listo - Sensores activos\r\n");
 	
 	Debug_PrintString("Esperando comandos...\r\n\r\n");
 	
