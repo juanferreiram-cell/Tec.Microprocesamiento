@@ -3,108 +3,126 @@ D_Control_ Matriz.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000039c  2**0
+  0 .data         00000000  00800100  00800100  000005da  2**0
                   ALLOC, LOAD, DATA
   1 .text         000000c8  00000000  00000000  000000b4  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          000000c0  00800100  00800100  0000039c  2**0
+  2 .bss          000000c0  00800100  00800100  000005da  2**0
                   ALLOC
-  3 .comment      0000002f  00000000  00000000  0000039c  2**0
+  3 .comment      0000002f  00000000  00000000  000005da  2**0
                   CONTENTS, READONLY
-  4 .stack.descriptors.hdr 0000001c  00000000  00000000  000003cb  2**0
+  4 .stack.descriptors.hdr 0000001c  00000000  00000000  00000609  2**0
                   CONTENTS, READONLY
-  5 .debug_aranges 00000050  00000000  00000000  000003e7  2**0
+  5 .debug_aranges 00000098  00000000  00000000  00000625  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000d26  00000000  00000000  00000437  2**0
+  6 .debug_info   00001210  00000000  00000000  000006bd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007b9  00000000  00000000  0000115d  2**0
+  7 .debug_abbrev 00000891  00000000  00000000  000018cd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000003f7  00000000  00000000  00001916  2**0
+  8 .debug_line   0000067f  00000000  00000000  0000215e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000a0  00000000  00000000  00001d10  2**2
+  9 .debug_frame  0000017c  00000000  00000000  000027e0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000022e  00000000  00000000  00001db0  2**0
+ 10 .debug_str    0000022e  00000000  00000000  0000295c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000002c2  00000000  00000000  00001fde  2**0
+ 11 .debug_loc    00000604  00000000  00000000  00002b8a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000040  00000000  00000000  000022a0  2**0
+ 12 .debug_ranges 00000088  00000000  00000000  0000318e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .text         00000004  000002d8  000002d8  0000038c  2**1
+ 13 .text         00000004  00000516  00000516  000005ca  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 14 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000022e0  2**2
+ 14 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00003218  2**2
                   CONTENTS, READONLY, DEBUGGING
- 15 .text.inicializar_sistema 00000024  0000025a  0000025a  0000030e  2**1
+ 15 .text.inicializar_sistema 00000024  00000420  00000420  000004d4  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 16 .text.matriz_enviar_byte 00000064  00000184  00000184  00000238  2**1
+ 16 .text.inicializar_i2c 00000012  000004f4  000004f4  000005a8  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 17 .text.actualizar_matriz 00000030  0000022a  0000022a  000002de  2**1
+ 17 .text.i2c_inicio 00000010  00000506  00000506  000005ba  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 18 .text.limpiar_matriz 00000018  0000027e  0000027e  00000332  2**1
+ 18 .text.i2c_parar 00000014  000004a4  000004a4  00000558  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 19 .text.xy_a_indice 00000018  00000296  00000296  0000034a  2**1
+ 19 .text.i2c_escribir 0000001a  00000444  00000444  000004f8  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 20 .text.establecer_pixel_matriz 00000042  000001e8  000001e8  0000029c  2**1
+ 20 .text.i2c_leer_ack 00000014  000004b8  000004b8  0000056c  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 21 .text.main    000000aa  000000da  000000da  0000018e  2**1
+ 21 .text.i2c_leer_nack 00000014  000004cc  000004cc  00000580  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 22 .bss.indice_color 00000001  008001c0  008001c0  0000039c  2**0
+ 22 .text.inicializar_mpu6050 00000054  0000035a  0000035a  0000040e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .text.mpu6050_leer_aceleracion 000000c4  000001da  000001da  0000028e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 24 .text.matriz_enviar_byte 00000064  0000029e  0000029e  00000352  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 25 .text.actualizar_matriz 00000030  000003f0  000003f0  000004a4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 26 .text.limpiar_matriz 00000018  0000045e  0000045e  00000512  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 27 .text.xy_a_indice 00000018  00000476  00000476  0000052a  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 28 .text.establecer_pixel_matriz 00000042  000003ae  000003ae  00000462  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 29 .text.actualizar_posicion_led 00000058  00000302  00000302  000003b6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 30 .text.main    00000100  000000da  000000da  0000018e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 31 .bss.indice_color 00000001  008001c0  008001c0  000005da  2**0
                   ALLOC
- 23 .data.pos_y   00000001  008001c1  000002e6  0000039a  2**0
+ 32 .data.pos_y   00000001  008001c1  00000524  000005d8  2**0
                   CONTENTS, ALLOC, LOAD, DATA
- 24 .data.pos_x   00000001  008001c2  000002e7  0000039b  2**0
+ 33 .data.pos_x   00000001  008001c2  00000525  000005d9  2**0
                   CONTENTS, ALLOC, LOAD, DATA
- 25 .progmemx.data.colores 00000012  000000c8  000000c8  0000017c  2**0
+ 34 .progmemx.data.colores 00000012  000000c8  000000c8  0000017c  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
- 26 .text.libgcc  00000014  000002c4  000002c4  00000378  2**1
+ 35 .text.libgcc  00000014  000004e0  000004e0  00000594  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 27 .text.__dummy_fini 00000002  000002e0  000002e0  00000394  2**1
+ 36 .text.__dummy_fini 00000002  0000051e  0000051e  000005d2  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 28 .text.__dummy_funcs_on_exit 00000002  000002e2  000002e2  00000396  2**1
+ 37 .text.__dummy_funcs_on_exit 00000002  00000520  00000520  000005d4  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 29 .text.__dummy_simulator_exit 00000002  000002e4  000002e4  00000398  2**1
+ 38 .text.__dummy_simulator_exit 00000002  00000522  00000522  000005d6  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 30 .text.exit    00000016  000002ae  000002ae  00000362  2**1
+ 39 .text.exit    00000016  0000048e  0000048e  00000542  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
- 31 .text._Exit   00000004  000002dc  000002dc  00000390  2**1
+ 40 .text._Exit   00000004  0000051a  0000051a  000005ce  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
    0:	0c 94 3a 00 	jmp	0x74	; 0x74 <__ctors_end>
-   4:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-   8:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-   c:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  10:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  14:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  18:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  1c:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  20:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  24:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  28:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  2c:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  30:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  34:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  38:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  3c:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  40:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  44:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  48:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  4c:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  50:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  54:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  58:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  5c:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  60:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
-  64:	0c 94 6c 01 	jmp	0x2d8	; 0x2d8 <__bad_interrupt>
+   4:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+   8:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+   c:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  10:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  14:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  18:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  1c:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  20:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  24:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  28:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  2c:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  30:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  34:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  38:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  3c:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  40:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  44:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  48:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  4c:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  50:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  54:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  58:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  5c:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  60:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
+  64:	0c 94 8b 02 	jmp	0x516	; 0x516 <__bad_interrupt>
 
 00000068 <.dinit>:
   68:	01 00       	.word	0x0001	; ????
-  6a:	01 c1       	rjmp	.+514    	; 0x26e <inicializar_sistema+0x14>
+  6a:	01 c1       	rjmp	.+514    	; 0x26e <mpu6050_leer_aceleracion+0x94>
   6c:	80 01       	movw	r16, r0
   6e:	c1 01       	movw	r24, r2
   70:	c3 00       	.word	0x00c3	; ????
-  72:	02 e6       	ldi	r16, 0x62	; 98
+  72:	05 24       	eor	r0, r5
 
 00000074 <__ctors_end>:
   74:	11 24       	eor	r1, r1
@@ -148,7 +166,7 @@ Disassembly of section .text:
   b8:	f4 07       	cpc	r31, r20
   ba:	31 f7       	brne	.-52     	; 0x88 <__do_copy_data+0x8>
   bc:	0e 94 6d 00 	call	0xda	; 0xda <main>
-  c0:	0c 94 57 01 	jmp	0x2ae	; 0x2ae <exit>
+  c0:	0c 94 47 02 	jmp	0x48e	; 0x48e <exit>
 
 000000c4 <_exit>:
   c4:	f8 94       	cli
@@ -158,68 +176,354 @@ Disassembly of section .text:
 
 Disassembly of section .text:
 
-000002d8 <__bad_interrupt>:
- 2d8:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+00000516 <__bad_interrupt>:
+ 516:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
 
 Disassembly of section .text.inicializar_sistema:
 
-0000025a <inicializar_sistema>:
+00000420 <inicializar_sistema>:
 	
 	return 0;
 }
 
 void inicializar_sistema(void) {
 	DDR_MATRIZ |= (1 << PIN_MATRIZ);
- 25a:	84 b1       	in	r24, 0x04	; 4
- 25c:	81 60       	ori	r24, 0x01	; 1
- 25e:	84 b9       	out	0x04, r24	; 4
+ 420:	84 b1       	in	r24, 0x04	; 4
+ 422:	81 60       	ori	r24, 0x01	; 1
+ 424:	84 b9       	out	0x04, r24	; 4
 	PUERTO_MATRIZ &= ~(1 << PIN_MATRIZ);
- 260:	85 b1       	in	r24, 0x05	; 5
- 262:	8e 7f       	andi	r24, 0xFE	; 254
- 264:	85 b9       	out	0x05, r24	; 5
+ 426:	85 b1       	in	r24, 0x05	; 5
+ 428:	8e 7f       	andi	r24, 0xFE	; 254
+ 42a:	85 b9       	out	0x05, r24	; 5
 	
 	for (uint16_t i = 0; i < NUM_LEDS * 3; i++) {
- 266:	80 e0       	ldi	r24, 0x00	; 0
- 268:	90 e0       	ldi	r25, 0x00	; 0
- 26a:	05 c0       	rjmp	.+10     	; 0x276 <inicializar_sistema+0x1c>
+ 42c:	80 e0       	ldi	r24, 0x00	; 0
+ 42e:	90 e0       	ldi	r25, 0x00	; 0
+ 430:	05 c0       	rjmp	.+10     	; 0x43c <inicializar_sistema+0x1c>
 		buffer_matriz[i] = 0;
- 26c:	fc 01       	movw	r30, r24
- 26e:	e0 50       	subi	r30, 0x00	; 0
- 270:	ff 4f       	sbci	r31, 0xFF	; 255
- 272:	10 82       	st	Z, r1
+ 432:	fc 01       	movw	r30, r24
+ 434:	e0 50       	subi	r30, 0x00	; 0
+ 436:	ff 4f       	sbci	r31, 0xFF	; 255
+ 438:	10 82       	st	Z, r1
 
 void inicializar_sistema(void) {
 	DDR_MATRIZ |= (1 << PIN_MATRIZ);
 	PUERTO_MATRIZ &= ~(1 << PIN_MATRIZ);
 	
 	for (uint16_t i = 0; i < NUM_LEDS * 3; i++) {
- 274:	01 96       	adiw	r24, 0x01	; 1
- 276:	80 3c       	cpi	r24, 0xC0	; 192
- 278:	91 05       	cpc	r25, r1
- 27a:	c0 f3       	brcs	.-16     	; 0x26c <inicializar_sistema+0x12>
+ 43a:	01 96       	adiw	r24, 0x01	; 1
+ 43c:	80 3c       	cpi	r24, 0xC0	; 192
+ 43e:	91 05       	cpc	r25, r1
+ 440:	c0 f3       	brcs	.-16     	; 0x432 <inicializar_sistema+0x12>
 		buffer_matriz[i] = 0;
 	}
 }
- 27c:	08 95       	ret
+ 442:	08 95       	ret
+
+Disassembly of section .text.inicializar_i2c:
+
+000004f4 <inicializar_i2c>:
+
+void inicializar_i2c(void) {
+	TWSR = 0x00;
+ 4f4:	10 92 b9 00 	sts	0x00B9, r1	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+	TWBR = 72;
+ 4f8:	88 e4       	ldi	r24, 0x48	; 72
+ 4fa:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <__TEXT_REGION_LENGTH__+0x7f80b8>
+	TWCR = (1 << TWEN);
+ 4fe:	84 e0       	ldi	r24, 0x04	; 4
+ 500:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 504:	08 95       	ret
+
+Disassembly of section .text.i2c_inicio:
+
+00000506 <i2c_inicio>:
+}
+
+void i2c_inicio(void) {
+	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
+ 506:	84 ea       	ldi	r24, 0xA4	; 164
+ 508:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 50c:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 510:	88 23       	and	r24, r24
+ 512:	e4 f7       	brge	.-8      	; 0x50c <i2c_inicio+0x6>
+}
+ 514:	08 95       	ret
+
+Disassembly of section .text.i2c_parar:
+
+000004a4 <i2c_parar>:
+
+void i2c_parar(void) {
+	TWCR = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+ 4a4:	84 e9       	ldi	r24, 0x94	; 148
+ 4a6:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 4aa:	8f e8       	ldi	r24, 0x8F	; 143
+ 4ac:	91 e0       	ldi	r25, 0x01	; 1
+ 4ae:	01 97       	sbiw	r24, 0x01	; 1
+ 4b0:	f1 f7       	brne	.-4      	; 0x4ae <i2c_parar+0xa>
+ 4b2:	00 c0       	rjmp	.+0      	; 0x4b4 <i2c_parar+0x10>
+ 4b4:	00 00       	nop
+ 4b6:	08 95       	ret
+
+Disassembly of section .text.i2c_escribir:
+
+00000444 <i2c_escribir>:
+	_delay_us(100);
+}
+
+uint8_t i2c_escribir(uint8_t dato) {
+	TWDR = dato;
+ 444:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+	TWCR = (1 << TWINT) | (1 << TWEN);
+ 448:	84 e8       	ldi	r24, 0x84	; 132
+ 44a:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 44e:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 452:	88 23       	and	r24, r24
+ 454:	e4 f7       	brge	.-8      	; 0x44e <i2c_escribir+0xa>
+	return (TWSR & 0xF8);
+ 456:	80 91 b9 00 	lds	r24, 0x00B9	; 0x8000b9 <__TEXT_REGION_LENGTH__+0x7f80b9>
+}
+ 45a:	88 7f       	andi	r24, 0xF8	; 248
+ 45c:	08 95       	ret
+
+Disassembly of section .text.i2c_leer_ack:
+
+000004b8 <i2c_leer_ack>:
+
+uint8_t i2c_leer_ack(void) {
+	TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWEA);
+ 4b8:	84 ec       	ldi	r24, 0xC4	; 196
+ 4ba:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 4be:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 4c2:	88 23       	and	r24, r24
+ 4c4:	e4 f7       	brge	.-8      	; 0x4be <i2c_leer_ack+0x6>
+	return TWDR;
+ 4c6:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+}
+ 4ca:	08 95       	ret
+
+Disassembly of section .text.i2c_leer_nack:
+
+000004cc <i2c_leer_nack>:
+
+uint8_t i2c_leer_nack(void) {
+	TWCR = (1 << TWINT) | (1 << TWEN);
+ 4cc:	84 e8       	ldi	r24, 0x84	; 132
+ 4ce:	80 93 bc 00 	sts	0x00BC, r24	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+	while (!(TWCR & (1 << TWINT)));
+ 4d2:	80 91 bc 00 	lds	r24, 0x00BC	; 0x8000bc <__TEXT_REGION_LENGTH__+0x7f80bc>
+ 4d6:	88 23       	and	r24, r24
+ 4d8:	e4 f7       	brge	.-8      	; 0x4d2 <i2c_leer_nack+0x6>
+	return TWDR;
+ 4da:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <__TEXT_REGION_LENGTH__+0x7f80bb>
+}
+ 4de:	08 95       	ret
+
+Disassembly of section .text.inicializar_mpu6050:
+
+0000035a <inicializar_mpu6050>:
+
+void inicializar_mpu6050(void) {
+	i2c_inicio();
+ 35a:	0e 94 83 02 	call	0x506	; 0x506 <i2c_inicio>
+	i2c_escribir((DIRECCION_MPU6050 << 1) | 0);
+ 35e:	80 ed       	ldi	r24, 0xD0	; 208
+ 360:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+	i2c_escribir(MPU6050_PWR_MGMT_1);
+ 364:	8b e6       	ldi	r24, 0x6B	; 107
+ 366:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+	i2c_escribir(0x00);
+ 36a:	80 e0       	ldi	r24, 0x00	; 0
+ 36c:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+	i2c_parar();
+ 370:	0e 94 52 02 	call	0x4a4	; 0x4a4 <i2c_parar>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 374:	2f ef       	ldi	r18, 0xFF	; 255
+ 376:	81 ee       	ldi	r24, 0xE1	; 225
+ 378:	94 e0       	ldi	r25, 0x04	; 4
+ 37a:	21 50       	subi	r18, 0x01	; 1
+ 37c:	80 40       	sbci	r24, 0x00	; 0
+ 37e:	90 40       	sbci	r25, 0x00	; 0
+ 380:	e1 f7       	brne	.-8      	; 0x37a <inicializar_mpu6050+0x20>
+ 382:	00 c0       	rjmp	.+0      	; 0x384 <inicializar_mpu6050+0x2a>
+ 384:	00 00       	nop
+	_delay_ms(100);
+	
+	i2c_inicio();
+ 386:	0e 94 83 02 	call	0x506	; 0x506 <i2c_inicio>
+	i2c_escribir((DIRECCION_MPU6050 << 1) | 0);
+ 38a:	80 ed       	ldi	r24, 0xD0	; 208
+ 38c:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+	i2c_escribir(MPU6050_ACCEL_CONFIG);
+ 390:	8c e1       	ldi	r24, 0x1C	; 28
+ 392:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+	i2c_escribir(0x08);
+ 396:	88 e0       	ldi	r24, 0x08	; 8
+ 398:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+	i2c_parar();
+ 39c:	0e 94 52 02 	call	0x4a4	; 0x4a4 <i2c_parar>
+ 3a0:	8f e3       	ldi	r24, 0x3F	; 63
+ 3a2:	9c e9       	ldi	r25, 0x9C	; 156
+ 3a4:	01 97       	sbiw	r24, 0x01	; 1
+ 3a6:	f1 f7       	brne	.-4      	; 0x3a4 <inicializar_mpu6050+0x4a>
+ 3a8:	00 c0       	rjmp	.+0      	; 0x3aa <inicializar_mpu6050+0x50>
+ 3aa:	00 00       	nop
+ 3ac:	08 95       	ret
+
+Disassembly of section .text.mpu6050_leer_aceleracion:
+
+000001da <mpu6050_leer_aceleracion>:
+	_delay_ms(10);
+}
+
+uint8_t mpu6050_leer_aceleracion(int16_t *ax, int16_t *ay, int16_t *az) {
+ 1da:	8f 92       	push	r8
+ 1dc:	9f 92       	push	r9
+ 1de:	af 92       	push	r10
+ 1e0:	bf 92       	push	r11
+ 1e2:	cf 92       	push	r12
+ 1e4:	df 92       	push	r13
+ 1e6:	ef 92       	push	r14
+ 1e8:	ff 92       	push	r15
+ 1ea:	0f 93       	push	r16
+ 1ec:	1f 93       	push	r17
+ 1ee:	cf 93       	push	r28
+ 1f0:	df 93       	push	r29
+ 1f2:	5c 01       	movw	r10, r24
+ 1f4:	7b 01       	movw	r14, r22
+ 1f6:	8a 01       	movw	r16, r20
+	uint8_t datos[6];
+	
+	i2c_inicio();
+ 1f8:	0e 94 83 02 	call	0x506	; 0x506 <i2c_inicio>
+	if (i2c_escribir((DIRECCION_MPU6050 << 1) | 0) != 0x18) {
+ 1fc:	80 ed       	ldi	r24, 0xD0	; 208
+ 1fe:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+ 202:	88 31       	cpi	r24, 0x18	; 24
+ 204:	21 f0       	breq	.+8      	; 0x20e <mpu6050_leer_aceleracion+0x34>
+		i2c_parar();
+ 206:	0e 94 52 02 	call	0x4a4	; 0x4a4 <i2c_parar>
+		return 0;
+ 20a:	80 e0       	ldi	r24, 0x00	; 0
+ 20c:	3b c0       	rjmp	.+118    	; 0x284 <mpu6050_leer_aceleracion+0xaa>
+	}
+	if (i2c_escribir(MPU6050_ACCEL_XOUT_H) != 0x28) {
+ 20e:	8b e3       	ldi	r24, 0x3B	; 59
+ 210:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+ 214:	88 32       	cpi	r24, 0x28	; 40
+ 216:	21 f0       	breq	.+8      	; 0x220 <mpu6050_leer_aceleracion+0x46>
+		i2c_parar();
+ 218:	0e 94 52 02 	call	0x4a4	; 0x4a4 <i2c_parar>
+		return 0;
+ 21c:	80 e0       	ldi	r24, 0x00	; 0
+ 21e:	32 c0       	rjmp	.+100    	; 0x284 <mpu6050_leer_aceleracion+0xaa>
+	}
+	
+	i2c_inicio();
+ 220:	0e 94 83 02 	call	0x506	; 0x506 <i2c_inicio>
+	i2c_escribir((DIRECCION_MPU6050 << 1) | 1);
+ 224:	81 ed       	ldi	r24, 0xD1	; 209
+ 226:	0e 94 22 02 	call	0x444	; 0x444 <i2c_escribir>
+	
+	datos[0] = i2c_leer_ack();
+ 22a:	0e 94 5c 02 	call	0x4b8	; 0x4b8 <i2c_leer_ack>
+ 22e:	98 2e       	mov	r9, r24
+	datos[1] = i2c_leer_ack();
+ 230:	0e 94 5c 02 	call	0x4b8	; 0x4b8 <i2c_leer_ack>
+ 234:	88 2e       	mov	r8, r24
+	datos[2] = i2c_leer_ack();
+ 236:	0e 94 5c 02 	call	0x4b8	; 0x4b8 <i2c_leer_ack>
+ 23a:	d8 2f       	mov	r29, r24
+	datos[3] = i2c_leer_ack();
+ 23c:	0e 94 5c 02 	call	0x4b8	; 0x4b8 <i2c_leer_ack>
+ 240:	c8 2e       	mov	r12, r24
+	datos[4] = i2c_leer_ack();
+ 242:	0e 94 5c 02 	call	0x4b8	; 0x4b8 <i2c_leer_ack>
+ 246:	c8 2f       	mov	r28, r24
+	datos[5] = i2c_leer_nack();
+ 248:	0e 94 66 02 	call	0x4cc	; 0x4cc <i2c_leer_nack>
+ 24c:	d8 2e       	mov	r13, r24
+	i2c_parar();
+ 24e:	0e 94 52 02 	call	0x4a4	; 0x4a4 <i2c_parar>
+	
+	*ax = (int16_t)((datos[0] << 8) | datos[1]);
+ 252:	89 2d       	mov	r24, r9
+ 254:	90 e0       	ldi	r25, 0x00	; 0
+ 256:	98 2f       	mov	r25, r24
+ 258:	88 27       	eor	r24, r24
+ 25a:	88 29       	or	r24, r8
+ 25c:	f5 01       	movw	r30, r10
+ 25e:	91 83       	std	Z+1, r25	; 0x01
+ 260:	80 83       	st	Z, r24
+	*ay = (int16_t)((datos[2] << 8) | datos[3]);
+ 262:	8d 2f       	mov	r24, r29
+ 264:	90 e0       	ldi	r25, 0x00	; 0
+ 266:	98 2f       	mov	r25, r24
+ 268:	88 27       	eor	r24, r24
+ 26a:	8c 29       	or	r24, r12
+ 26c:	f7 01       	movw	r30, r14
+ 26e:	91 83       	std	Z+1, r25	; 0x01
+ 270:	80 83       	st	Z, r24
+	*az = (int16_t)((datos[4] << 8) | datos[5]);
+ 272:	8c 2f       	mov	r24, r28
+ 274:	90 e0       	ldi	r25, 0x00	; 0
+ 276:	98 2f       	mov	r25, r24
+ 278:	88 27       	eor	r24, r24
+ 27a:	8d 29       	or	r24, r13
+ 27c:	f8 01       	movw	r30, r16
+ 27e:	91 83       	std	Z+1, r25	; 0x01
+ 280:	80 83       	st	Z, r24
+	
+	return 1;
+ 282:	81 e0       	ldi	r24, 0x01	; 1
+}
+ 284:	df 91       	pop	r29
+ 286:	cf 91       	pop	r28
+ 288:	1f 91       	pop	r17
+ 28a:	0f 91       	pop	r16
+ 28c:	ff 90       	pop	r15
+ 28e:	ef 90       	pop	r14
+ 290:	df 90       	pop	r13
+ 292:	cf 90       	pop	r12
+ 294:	bf 90       	pop	r11
+ 296:	af 90       	pop	r10
+ 298:	9f 90       	pop	r9
+ 29a:	8f 90       	pop	r8
+ 29c:	08 95       	ret
 
 Disassembly of section .text.matriz_enviar_byte:
 
-00000184 <matriz_enviar_byte>:
+0000029e <matriz_enviar_byte>:
 
 void matriz_enviar_byte(uint8_t byte) {
 	cli();
- 184:	f8 94       	cli
+ 29e:	f8 94       	cli
 	
 	for (uint8_t bit = 0; bit < 8; bit++) {
- 186:	90 e0       	ldi	r25, 0x00	; 0
- 188:	2a c0       	rjmp	.+84     	; 0x1de <matriz_enviar_byte+0x5a>
+ 2a0:	90 e0       	ldi	r25, 0x00	; 0
+ 2a2:	2a c0       	rjmp	.+84     	; 0x2f8 <matriz_enviar_byte+0x5a>
 		if (byte & 0x80) {
- 18a:	88 23       	and	r24, r24
- 18c:	a4 f4       	brge	.+40     	; 0x1b6 <matriz_enviar_byte+0x32>
+ 2a4:	88 23       	and	r24, r24
+ 2a6:	a4 f4       	brge	.+40     	; 0x2d0 <matriz_enviar_byte+0x32>
 			PUERTO_MATRIZ |= (1 << PIN_MATRIZ);
- 18e:	25 b1       	in	r18, 0x05	; 5
- 190:	21 60       	ori	r18, 0x01	; 1
- 192:	25 b9       	out	0x05, r18	; 5
+ 2a8:	25 b1       	in	r18, 0x05	; 5
+ 2aa:	21 60       	ori	r18, 0x01	; 1
+ 2ac:	25 b9       	out	0x05, r18	; 5
 	...
 			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
 			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
@@ -227,214 +531,292 @@ void matriz_enviar_byte(uint8_t byte) {
 			::
 			);
 			PUERTO_MATRIZ &= ~(1 << PIN_MATRIZ);
- 1a8:	25 b1       	in	r18, 0x05	; 5
- 1aa:	2e 7f       	andi	r18, 0xFE	; 254
- 1ac:	25 b9       	out	0x05, r18	; 5
+ 2c2:	25 b1       	in	r18, 0x05	; 5
+ 2c4:	2e 7f       	andi	r18, 0xFE	; 254
+ 2c6:	25 b9       	out	0x05, r18	; 5
 			__asm__ __volatile__(
- 1ae:	00 00       	nop
- 1b0:	00 00       	nop
- 1b2:	00 00       	nop
- 1b4:	12 c0       	rjmp	.+36     	; 0x1da <matriz_enviar_byte+0x56>
+ 2c8:	00 00       	nop
+ 2ca:	00 00       	nop
+ 2cc:	00 00       	nop
+ 2ce:	12 c0       	rjmp	.+36     	; 0x2f4 <matriz_enviar_byte+0x56>
 			"nop\n\t" "nop\n\t" "nop\n\t"
 			::
 			);
 			} else {
 			PUERTO_MATRIZ |= (1 << PIN_MATRIZ);
- 1b6:	25 b1       	in	r18, 0x05	; 5
- 1b8:	21 60       	ori	r18, 0x01	; 1
- 1ba:	25 b9       	out	0x05, r18	; 5
+ 2d0:	25 b1       	in	r18, 0x05	; 5
+ 2d2:	21 60       	ori	r18, 0x01	; 1
+ 2d4:	25 b9       	out	0x05, r18	; 5
 			__asm__ __volatile__(
- 1bc:	00 00       	nop
- 1be:	00 00       	nop
- 1c0:	00 00       	nop
+ 2d6:	00 00       	nop
+ 2d8:	00 00       	nop
+ 2da:	00 00       	nop
 			"nop\n\t" "nop\n\t" "nop\n\t"
 			::
 			);
 			PUERTO_MATRIZ &= ~(1 << PIN_MATRIZ);
- 1c2:	25 b1       	in	r18, 0x05	; 5
- 1c4:	2e 7f       	andi	r18, 0xFE	; 254
- 1c6:	25 b9       	out	0x05, r18	; 5
+ 2dc:	25 b1       	in	r18, 0x05	; 5
+ 2de:	2e 7f       	andi	r18, 0xFE	; 254
+ 2e0:	25 b9       	out	0x05, r18	; 5
 	...
 			__asm__ __volatile__(
- 1d8:	00 00       	nop
+ 2f2:	00 00       	nop
 			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
 			"nop\n\t"
 			::
 			);
 		}
 		byte <<= 1;
- 1da:	88 0f       	add	r24, r24
+ 2f4:	88 0f       	add	r24, r24
 }
 
 void matriz_enviar_byte(uint8_t byte) {
 	cli();
 	
 	for (uint8_t bit = 0; bit < 8; bit++) {
- 1dc:	9f 5f       	subi	r25, 0xFF	; 255
- 1de:	98 30       	cpi	r25, 0x08	; 8
- 1e0:	08 f4       	brcc	.+2      	; 0x1e4 <matriz_enviar_byte+0x60>
- 1e2:	d3 cf       	rjmp	.-90     	; 0x18a <matriz_enviar_byte+0x6>
+ 2f6:	9f 5f       	subi	r25, 0xFF	; 255
+ 2f8:	98 30       	cpi	r25, 0x08	; 8
+ 2fa:	08 f4       	brcc	.+2      	; 0x2fe <matriz_enviar_byte+0x60>
+ 2fc:	d3 cf       	rjmp	.-90     	; 0x2a4 <matriz_enviar_byte+0x6>
 			);
 		}
 		byte <<= 1;
 	}
 	
 	sei();
- 1e4:	78 94       	sei
- 1e6:	08 95       	ret
+ 2fe:	78 94       	sei
+ 300:	08 95       	ret
 
 Disassembly of section .text.actualizar_matriz:
 
-0000022a <actualizar_matriz>:
+000003f0 <actualizar_matriz>:
 }
 
 void actualizar_matriz(void) {
- 22a:	cf 93       	push	r28
- 22c:	df 93       	push	r29
+ 3f0:	cf 93       	push	r28
+ 3f2:	df 93       	push	r29
 	for (uint16_t i = 0; i < NUM_LEDS * 3; i++) {
- 22e:	c0 e0       	ldi	r28, 0x00	; 0
- 230:	d0 e0       	ldi	r29, 0x00	; 0
- 232:	07 c0       	rjmp	.+14     	; 0x242 <actualizar_matriz+0x18>
+ 3f4:	c0 e0       	ldi	r28, 0x00	; 0
+ 3f6:	d0 e0       	ldi	r29, 0x00	; 0
+ 3f8:	07 c0       	rjmp	.+14     	; 0x408 <__EEPROM_REGION_LENGTH__+0x8>
 		matriz_enviar_byte(buffer_matriz[i]);
- 234:	fe 01       	movw	r30, r28
- 236:	e0 50       	subi	r30, 0x00	; 0
- 238:	ff 4f       	sbci	r31, 0xFF	; 255
- 23a:	80 81       	ld	r24, Z
- 23c:	0e 94 c2 00 	call	0x184	; 0x184 <matriz_enviar_byte>
+ 3fa:	fe 01       	movw	r30, r28
+ 3fc:	e0 50       	subi	r30, 0x00	; 0
+ 3fe:	ff 4f       	sbci	r31, 0xFF	; 255
+ 400:	80 81       	ld	r24, Z
+ 402:	0e 94 4f 01 	call	0x29e	; 0x29e <matriz_enviar_byte>
 	
 	sei();
 }
 
 void actualizar_matriz(void) {
 	for (uint16_t i = 0; i < NUM_LEDS * 3; i++) {
- 240:	21 96       	adiw	r28, 0x01	; 1
- 242:	c0 3c       	cpi	r28, 0xC0	; 192
- 244:	d1 05       	cpc	r29, r1
- 246:	b0 f3       	brcs	.-20     	; 0x234 <actualizar_matriz+0xa>
+ 406:	21 96       	adiw	r28, 0x01	; 1
+ 408:	c0 3c       	cpi	r28, 0xC0	; 192
+ 40a:	d1 05       	cpc	r29, r1
+ 40c:	b0 f3       	brcs	.-20     	; 0x3fa <actualizar_matriz+0xa>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 248:	8f ee       	ldi	r24, 0xEF	; 239
- 24a:	90 e0       	ldi	r25, 0x00	; 0
- 24c:	01 97       	sbiw	r24, 0x01	; 1
- 24e:	f1 f7       	brne	.-4      	; 0x24c <actualizar_matriz+0x22>
- 250:	00 c0       	rjmp	.+0      	; 0x252 <actualizar_matriz+0x28>
- 252:	00 00       	nop
+ 40e:	8f ee       	ldi	r24, 0xEF	; 239
+ 410:	90 e0       	ldi	r25, 0x00	; 0
+ 412:	01 97       	sbiw	r24, 0x01	; 1
+ 414:	f1 f7       	brne	.-4      	; 0x412 <__EEPROM_REGION_LENGTH__+0x12>
+ 416:	00 c0       	rjmp	.+0      	; 0x418 <__EEPROM_REGION_LENGTH__+0x18>
+ 418:	00 00       	nop
 		matriz_enviar_byte(buffer_matriz[i]);
 	}
 	
 	_delay_us(60);
 }
- 254:	df 91       	pop	r29
- 256:	cf 91       	pop	r28
- 258:	08 95       	ret
+ 41a:	df 91       	pop	r29
+ 41c:	cf 91       	pop	r28
+ 41e:	08 95       	ret
 
 Disassembly of section .text.limpiar_matriz:
 
-0000027e <limpiar_matriz>:
+0000045e <limpiar_matriz>:
 
 void limpiar_matriz(void) {
 	for (uint16_t i = 0; i < NUM_LEDS * 3; i++) {
- 27e:	80 e0       	ldi	r24, 0x00	; 0
- 280:	90 e0       	ldi	r25, 0x00	; 0
- 282:	05 c0       	rjmp	.+10     	; 0x28e <limpiar_matriz+0x10>
+ 45e:	80 e0       	ldi	r24, 0x00	; 0
+ 460:	90 e0       	ldi	r25, 0x00	; 0
+ 462:	05 c0       	rjmp	.+10     	; 0x46e <limpiar_matriz+0x10>
 		buffer_matriz[i] = 0;
- 284:	fc 01       	movw	r30, r24
- 286:	e0 50       	subi	r30, 0x00	; 0
- 288:	ff 4f       	sbci	r31, 0xFF	; 255
- 28a:	10 82       	st	Z, r1
+ 464:	fc 01       	movw	r30, r24
+ 466:	e0 50       	subi	r30, 0x00	; 0
+ 468:	ff 4f       	sbci	r31, 0xFF	; 255
+ 46a:	10 82       	st	Z, r1
 	
 	_delay_us(60);
 }
 
 void limpiar_matriz(void) {
 	for (uint16_t i = 0; i < NUM_LEDS * 3; i++) {
- 28c:	01 96       	adiw	r24, 0x01	; 1
- 28e:	80 3c       	cpi	r24, 0xC0	; 192
- 290:	91 05       	cpc	r25, r1
- 292:	c0 f3       	brcs	.-16     	; 0x284 <limpiar_matriz+0x6>
+ 46c:	01 96       	adiw	r24, 0x01	; 1
+ 46e:	80 3c       	cpi	r24, 0xC0	; 192
+ 470:	91 05       	cpc	r25, r1
+ 472:	c0 f3       	brcs	.-16     	; 0x464 <limpiar_matriz+0x6>
 		buffer_matriz[i] = 0;
 	}
 }
- 294:	08 95       	ret
+ 474:	08 95       	ret
 
 Disassembly of section .text.xy_a_indice:
 
-00000296 <xy_a_indice>:
+00000476 <xy_a_indice>:
 	buffer_matriz[posicion + 2] = color.b;
 }
 
 uint16_t xy_a_indice(uint8_t x, uint8_t y) {
 
 	uint16_t indice = y * ANCHO_MATRIZ + x;
- 296:	70 e0       	ldi	r23, 0x00	; 0
- 298:	66 0f       	add	r22, r22
- 29a:	77 1f       	adc	r23, r23
- 29c:	66 0f       	add	r22, r22
- 29e:	77 1f       	adc	r23, r23
- 2a0:	66 0f       	add	r22, r22
- 2a2:	77 1f       	adc	r23, r23
+ 476:	70 e0       	ldi	r23, 0x00	; 0
+ 478:	66 0f       	add	r22, r22
+ 47a:	77 1f       	adc	r23, r23
+ 47c:	66 0f       	add	r22, r22
+ 47e:	77 1f       	adc	r23, r23
+ 480:	66 0f       	add	r22, r22
+ 482:	77 1f       	adc	r23, r23
 	
 	return indice;
- 2a4:	9b 01       	movw	r18, r22
- 2a6:	28 0f       	add	r18, r24
- 2a8:	31 1d       	adc	r19, r1
- 2aa:	c9 01       	movw	r24, r18
- 2ac:	08 95       	ret
+}
+ 484:	9b 01       	movw	r18, r22
+ 486:	28 0f       	add	r18, r24
+ 488:	31 1d       	adc	r19, r1
+ 48a:	c9 01       	movw	r24, r18
+ 48c:	08 95       	ret
 
 Disassembly of section .text.establecer_pixel_matriz:
 
-000001e8 <establecer_pixel_matriz>:
+000003ae <establecer_pixel_matriz>:
 	for (uint16_t i = 0; i < NUM_LEDS * 3; i++) {
 		buffer_matriz[i] = 0;
 	}
 }
 
 void establecer_pixel_matriz(uint8_t x, uint8_t y, Color_GRB color) {
- 1e8:	1f 93       	push	r17
- 1ea:	cf 93       	push	r28
- 1ec:	df 93       	push	r29
+ 3ae:	1f 93       	push	r17
+ 3b0:	cf 93       	push	r28
+ 3b2:	df 93       	push	r29
 	if (x >= ANCHO_MATRIZ || y >= ALTO_MATRIZ) return;
- 1ee:	88 30       	cpi	r24, 0x08	; 8
- 1f0:	c0 f4       	brcc	.+48     	; 0x222 <establecer_pixel_matriz+0x3a>
- 1f2:	68 30       	cpi	r22, 0x08	; 8
- 1f4:	b0 f4       	brcc	.+44     	; 0x222 <establecer_pixel_matriz+0x3a>
- 1f6:	14 2f       	mov	r17, r20
- 1f8:	c3 2f       	mov	r28, r19
- 1fa:	d2 2f       	mov	r29, r18
+ 3b4:	88 30       	cpi	r24, 0x08	; 8
+ 3b6:	c0 f4       	brcc	.+48     	; 0x3e8 <establecer_pixel_matriz+0x3a>
+ 3b8:	68 30       	cpi	r22, 0x08	; 8
+ 3ba:	b0 f4       	brcc	.+44     	; 0x3e8 <establecer_pixel_matriz+0x3a>
+ 3bc:	14 2f       	mov	r17, r20
+ 3be:	c3 2f       	mov	r28, r19
+ 3c0:	d2 2f       	mov	r29, r18
 	
 	uint16_t indice = xy_a_indice(x, y);
- 1fc:	0e 94 4b 01 	call	0x296	; 0x296 <xy_a_indice>
+ 3c2:	0e 94 3b 02 	call	0x476	; 0x476 <xy_a_indice>
 	uint16_t posicion = indice * 3;
- 200:	9c 01       	movw	r18, r24
- 202:	22 0f       	add	r18, r18
- 204:	33 1f       	adc	r19, r19
- 206:	82 0f       	add	r24, r18
- 208:	93 1f       	adc	r25, r19
+ 3c6:	9c 01       	movw	r18, r24
+ 3c8:	22 0f       	add	r18, r18
+ 3ca:	33 1f       	adc	r19, r19
+ 3cc:	82 0f       	add	r24, r18
+ 3ce:	93 1f       	adc	r25, r19
 	
 	buffer_matriz[posicion]     = color.g;
- 20a:	fc 01       	movw	r30, r24
- 20c:	e0 50       	subi	r30, 0x00	; 0
- 20e:	ff 4f       	sbci	r31, 0xFF	; 255
- 210:	d0 83       	st	Z, r29
+ 3d0:	fc 01       	movw	r30, r24
+ 3d2:	e0 50       	subi	r30, 0x00	; 0
+ 3d4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3d6:	d0 83       	st	Z, r29
 	buffer_matriz[posicion + 1] = color.r;
- 212:	fc 01       	movw	r30, r24
- 214:	ef 5f       	subi	r30, 0xFF	; 255
- 216:	fe 4f       	sbci	r31, 0xFE	; 254
- 218:	c0 83       	st	Z, r28
+ 3d8:	fc 01       	movw	r30, r24
+ 3da:	ef 5f       	subi	r30, 0xFF	; 255
+ 3dc:	fe 4f       	sbci	r31, 0xFE	; 254
+ 3de:	c0 83       	st	Z, r28
 	buffer_matriz[posicion + 2] = color.b;
- 21a:	fc 01       	movw	r30, r24
- 21c:	ee 5f       	subi	r30, 0xFE	; 254
- 21e:	fe 4f       	sbci	r31, 0xFE	; 254
- 220:	10 83       	st	Z, r17
+ 3e0:	fc 01       	movw	r30, r24
+ 3e2:	ee 5f       	subi	r30, 0xFE	; 254
+ 3e4:	fe 4f       	sbci	r31, 0xFE	; 254
+ 3e6:	10 83       	st	Z, r17
 }
- 222:	df 91       	pop	r29
- 224:	cf 91       	pop	r28
- 226:	1f 91       	pop	r17
- 228:	08 95       	ret
+ 3e8:	df 91       	pop	r29
+ 3ea:	cf 91       	pop	r28
+ 3ec:	1f 91       	pop	r17
+ 3ee:	08 95       	ret
+
+Disassembly of section .text.actualizar_posicion_led:
+
+00000302 <actualizar_posicion_led>:
+}
+
+void actualizar_posicion_led(int16_t ax, int16_t ay) {
+	#define UMBRAL_MOVIMIENTO 1200
+	
+	int8_t nueva_x = pos_x;
+ 302:	30 91 c2 01 	lds	r19, 0x01C2	; 0x8001c2 <pos_x>
+	int8_t nueva_y = pos_y;
+ 306:	20 91 c1 01 	lds	r18, 0x01C1	; 0x8001c1 <pos_y>
+	
+	
+	int16_t eje_x = ay;
+	int16_t eje_y = -ax;
+ 30a:	91 95       	neg	r25
+ 30c:	81 95       	neg	r24
+ 30e:	91 09       	sbc	r25, r1
+	
+	
+	
+	if (eje_x > UMBRAL_MOVIMIENTO) {
+ 310:	61 3b       	cpi	r22, 0xB1	; 177
+ 312:	44 e0       	ldi	r20, 0x04	; 4
+ 314:	74 07       	cpc	r23, r20
+ 316:	14 f0       	brlt	.+4      	; 0x31c <actualizar_posicion_led+0x1a>
+		nueva_x++;
+ 318:	3f 5f       	subi	r19, 0xFF	; 255
+ 31a:	04 c0       	rjmp	.+8      	; 0x324 <actualizar_posicion_led+0x22>
+		} else if (eje_x < -UMBRAL_MOVIMIENTO) {
+ 31c:	60 35       	cpi	r22, 0x50	; 80
+ 31e:	7b 4f       	sbci	r23, 0xFB	; 251
+ 320:	0c f4       	brge	.+2      	; 0x324 <actualizar_posicion_led+0x22>
+		nueva_x--;
+ 322:	31 50       	subi	r19, 0x01	; 1
+	}
+	
+	if (eje_y > UMBRAL_MOVIMIENTO) {
+ 324:	81 3b       	cpi	r24, 0xB1	; 177
+ 326:	44 e0       	ldi	r20, 0x04	; 4
+ 328:	94 07       	cpc	r25, r20
+ 32a:	14 f0       	brlt	.+4      	; 0x330 <actualizar_posicion_led+0x2e>
+		nueva_y++;
+ 32c:	2f 5f       	subi	r18, 0xFF	; 255
+ 32e:	04 c0       	rjmp	.+8      	; 0x338 <actualizar_posicion_led+0x36>
+		} else if (eje_y < -UMBRAL_MOVIMIENTO) {
+ 330:	80 35       	cpi	r24, 0x50	; 80
+ 332:	9b 4f       	sbci	r25, 0xFB	; 251
+ 334:	0c f4       	brge	.+2      	; 0x338 <actualizar_posicion_led+0x36>
+		nueva_y--;
+ 336:	21 50       	subi	r18, 0x01	; 1
+	}
+	
+	if (nueva_x < 0) nueva_x = 0;
+ 338:	33 23       	and	r19, r19
+ 33a:	0c f4       	brge	.+2      	; 0x33e <actualizar_posicion_led+0x3c>
+ 33c:	30 e0       	ldi	r19, 0x00	; 0
+	if (nueva_x >= ANCHO_MATRIZ) nueva_x = ANCHO_MATRIZ - 1;
+ 33e:	38 30       	cpi	r19, 0x08	; 8
+ 340:	0c f0       	brlt	.+2      	; 0x344 <actualizar_posicion_led+0x42>
+ 342:	37 e0       	ldi	r19, 0x07	; 7
+	if (nueva_y < 0) nueva_y = 0;
+ 344:	22 23       	and	r18, r18
+ 346:	0c f4       	brge	.+2      	; 0x34a <actualizar_posicion_led+0x48>
+ 348:	20 e0       	ldi	r18, 0x00	; 0
+	if (nueva_y >= ALTO_MATRIZ) nueva_y = ALTO_MATRIZ - 1;
+ 34a:	28 30       	cpi	r18, 0x08	; 8
+ 34c:	0c f0       	brlt	.+2      	; 0x350 <actualizar_posicion_led+0x4e>
+ 34e:	27 e0       	ldi	r18, 0x07	; 7
+	
+	pos_x = nueva_x;
+ 350:	30 93 c2 01 	sts	0x01C2, r19	; 0x8001c2 <pos_x>
+	pos_y = nueva_y;
+ 354:	20 93 c1 01 	sts	0x01C1, r18	; 0x8001c1 <pos_y>
+ 358:	08 95       	ret
 
 Disassembly of section .text.main:
 
@@ -442,137 +824,208 @@ Disassembly of section .text.main:
 void limpiar_matriz(void);
 void establecer_pixel_matriz(uint8_t x, uint8_t y, Color_GRB color);
 uint16_t xy_a_indice(uint8_t x, uint8_t y);
+void actualizar_posicion_led(int16_t ax, int16_t ay);
 
 int main(void) {
+  da:	cf 93       	push	r28
+  dc:	df 93       	push	r29
+  de:	00 d0       	rcall	.+0      	; 0xe0 <main+0x6>
+  e0:	00 d0       	rcall	.+0      	; 0xe2 <main+0x8>
+  e2:	00 d0       	rcall	.+0      	; 0xe4 <main+0xa>
+  e4:	cd b7       	in	r28, 0x3d	; 61
+  e6:	de b7       	in	r29, 0x3e	; 62
 	inicializar_sistema();
-  da:	0e 94 2d 01 	call	0x25a	; 0x25a <inicializar_sistema>
+  e8:	0e 94 10 02 	call	0x420	; 0x420 <inicializar_sistema>
+	inicializar_i2c();
+  ec:	0e 94 7a 02 	call	0x4f4	; 0x4f4 <inicializar_i2c>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  de:	2f ef       	ldi	r18, 0xFF	; 255
-  e0:	81 ee       	ldi	r24, 0xE1	; 225
-  e2:	94 e0       	ldi	r25, 0x04	; 4
-  e4:	21 50       	subi	r18, 0x01	; 1
-  e6:	80 40       	sbci	r24, 0x00	; 0
-  e8:	90 40       	sbci	r25, 0x00	; 0
-  ea:	e1 f7       	brne	.-8      	; 0xe4 <main+0xa>
-  ec:	00 c0       	rjmp	.+0      	; 0xee <main+0x14>
-  ee:	00 00       	nop
+  f0:	2f ef       	ldi	r18, 0xFF	; 255
+  f2:	81 ee       	ldi	r24, 0xE1	; 225
+  f4:	94 e0       	ldi	r25, 0x04	; 4
+  f6:	21 50       	subi	r18, 0x01	; 1
+  f8:	80 40       	sbci	r24, 0x00	; 0
+  fa:	90 40       	sbci	r25, 0x00	; 0
+  fc:	e1 f7       	brne	.-8      	; 0xf6 <main+0x1c>
+  fe:	00 c0       	rjmp	.+0      	; 0x100 <main+0x26>
+ 100:	00 00       	nop
+	_delay_ms(100);
+	inicializar_mpu6050();
+ 102:	0e 94 ad 01 	call	0x35a	; 0x35a <inicializar_mpu6050>
+ 106:	2f ef       	ldi	r18, 0xFF	; 255
+ 108:	81 ee       	ldi	r24, 0xE1	; 225
+ 10a:	94 e0       	ldi	r25, 0x04	; 4
+ 10c:	21 50       	subi	r18, 0x01	; 1
+ 10e:	80 40       	sbci	r24, 0x00	; 0
+ 110:	90 40       	sbci	r25, 0x00	; 0
+ 112:	e1 f7       	brne	.-8      	; 0x10c <main+0x32>
+ 114:	00 c0       	rjmp	.+0      	; 0x116 <main+0x3c>
+ 116:	00 00       	nop
 	_delay_ms(100);
 	
+	int16_t ax, ay, az;
+	uint8_t contador_actualizacion = 0;
+	
 	limpiar_matriz();
-  f0:	0e 94 3f 01 	call	0x27e	; 0x27e <limpiar_matriz>
+ 118:	0e 94 2f 02 	call	0x45e	; 0x45e <limpiar_matriz>
 	establecer_pixel_matriz(pos_x, pos_y, colores[indice_color]);
-  f4:	80 91 c0 01 	lds	r24, 0x01C0	; 0x8001c0 <_end>
-  f8:	c0 91 c1 01 	lds	r28, 0x01C1	; 0x8001c1 <pos_y>
-  fc:	b0 91 c2 01 	lds	r27, 0x01C2	; 0x8001c2 <pos_x>
- 100:	90 e0       	ldi	r25, 0x00	; 0
- 102:	9c 01       	movw	r18, r24
- 104:	22 0f       	add	r18, r18
- 106:	33 1f       	adc	r19, r19
- 108:	82 0f       	add	r24, r18
- 10a:	93 1f       	adc	r25, r19
- 10c:	09 2e       	mov	r0, r25
- 10e:	00 0c       	add	r0, r0
- 110:	aa 0b       	sbc	r26, r26
- 112:	88 53       	subi	r24, 0x38	; 56
- 114:	9f 4f       	sbci	r25, 0xFF	; 255
- 116:	af 4f       	sbci	r26, 0xFF	; 255
- 118:	fc 01       	movw	r30, r24
- 11a:	5a 2f       	mov	r21, r26
- 11c:	0e 94 62 01 	call	0x2c4	; 0x2c4 <__xload_3>
- 120:	9b 01       	movw	r18, r22
- 122:	48 2f       	mov	r20, r24
- 124:	6c 2f       	mov	r22, r28
- 126:	8b 2f       	mov	r24, r27
- 128:	0e 94 f4 00 	call	0x1e8	; 0x1e8 <establecer_pixel_matriz>
+ 11c:	80 91 c0 01 	lds	r24, 0x01C0	; 0x8001c0 <_end>
+ 120:	10 91 c1 01 	lds	r17, 0x01C1	; 0x8001c1 <pos_y>
+ 124:	b0 91 c2 01 	lds	r27, 0x01C2	; 0x8001c2 <pos_x>
+ 128:	90 e0       	ldi	r25, 0x00	; 0
+ 12a:	9c 01       	movw	r18, r24
+ 12c:	22 0f       	add	r18, r18
+ 12e:	33 1f       	adc	r19, r19
+ 130:	82 0f       	add	r24, r18
+ 132:	93 1f       	adc	r25, r19
+ 134:	09 2e       	mov	r0, r25
+ 136:	00 0c       	add	r0, r0
+ 138:	aa 0b       	sbc	r26, r26
+ 13a:	88 53       	subi	r24, 0x38	; 56
+ 13c:	9f 4f       	sbci	r25, 0xFF	; 255
+ 13e:	af 4f       	sbci	r26, 0xFF	; 255
+ 140:	fc 01       	movw	r30, r24
+ 142:	5a 2f       	mov	r21, r26
+ 144:	0e 94 70 02 	call	0x4e0	; 0x4e0 <__xload_3>
+ 148:	9b 01       	movw	r18, r22
+ 14a:	48 2f       	mov	r20, r24
+ 14c:	61 2f       	mov	r22, r17
+ 14e:	8b 2f       	mov	r24, r27
+ 150:	0e 94 d7 01 	call	0x3ae	; 0x3ae <establecer_pixel_matriz>
 	actualizar_matriz();
- 12c:	0e 94 15 01 	call	0x22a	; 0x22a <actualizar_matriz>
+ 154:	0e 94 f8 01 	call	0x3f0	; 0x3f0 <actualizar_matriz>
+	_delay_ms(100);
+	inicializar_mpu6050();
+	_delay_ms(100);
+	
+	int16_t ax, ay, az;
+	uint8_t contador_actualizacion = 0;
+ 158:	00 e0       	ldi	r16, 0x00	; 0
+	limpiar_matriz();
+	establecer_pixel_matriz(pos_x, pos_y, colores[indice_color]);
+	actualizar_matriz();
 	
 	while (1) {
+		if (mpu6050_leer_aceleracion(&ax, &ay, &az)) {
+ 15a:	ae 01       	movw	r20, r28
+ 15c:	4b 5f       	subi	r20, 0xFB	; 251
+ 15e:	5f 4f       	sbci	r21, 0xFF	; 255
+ 160:	be 01       	movw	r22, r28
+ 162:	6d 5f       	subi	r22, 0xFD	; 253
+ 164:	7f 4f       	sbci	r23, 0xFF	; 255
+ 166:	ce 01       	movw	r24, r28
+ 168:	01 96       	adiw	r24, 0x01	; 1
+ 16a:	0e 94 ed 00 	call	0x1da	; 0x1da <mpu6050_leer_aceleracion>
+ 16e:	88 23       	and	r24, r24
+ 170:	51 f0       	breq	.+20     	; 0x186 <main+0xac>
+			
+			contador_actualizacion++;
+ 172:	0f 5f       	subi	r16, 0xFF	; 255
+			if (contador_actualizacion >= 2) {
+ 174:	02 30       	cpi	r16, 0x02	; 2
+ 176:	38 f0       	brcs	.+14     	; 0x186 <main+0xac>
+				contador_actualizacion = 0;
+				actualizar_posicion_led(ax, ay);
+ 178:	6b 81       	ldd	r22, Y+3	; 0x03
+ 17a:	7c 81       	ldd	r23, Y+4	; 0x04
+ 17c:	89 81       	ldd	r24, Y+1	; 0x01
+ 17e:	9a 81       	ldd	r25, Y+2	; 0x02
+ 180:	0e 94 81 01 	call	0x302	; 0x302 <actualizar_posicion_led>
+	while (1) {
+		if (mpu6050_leer_aceleracion(&ax, &ay, &az)) {
+			
+			contador_actualizacion++;
+			if (contador_actualizacion >= 2) {
+				contador_actualizacion = 0;
+ 184:	00 e0       	ldi	r16, 0x00	; 0
+				actualizar_posicion_led(ax, ay);
+			}
+		}
+		
 		limpiar_matriz();
- 130:	0e 94 3f 01 	call	0x27e	; 0x27e <limpiar_matriz>
+ 186:	0e 94 2f 02 	call	0x45e	; 0x45e <limpiar_matriz>
 		establecer_pixel_matriz(pos_x, pos_y, colores[indice_color]);
- 134:	80 91 c0 01 	lds	r24, 0x01C0	; 0x8001c0 <_end>
- 138:	c0 91 c1 01 	lds	r28, 0x01C1	; 0x8001c1 <pos_y>
- 13c:	b0 91 c2 01 	lds	r27, 0x01C2	; 0x8001c2 <pos_x>
- 140:	90 e0       	ldi	r25, 0x00	; 0
- 142:	9c 01       	movw	r18, r24
- 144:	22 0f       	add	r18, r18
- 146:	33 1f       	adc	r19, r19
- 148:	82 0f       	add	r24, r18
- 14a:	93 1f       	adc	r25, r19
- 14c:	09 2e       	mov	r0, r25
- 14e:	00 0c       	add	r0, r0
- 150:	aa 0b       	sbc	r26, r26
- 152:	88 53       	subi	r24, 0x38	; 56
- 154:	9f 4f       	sbci	r25, 0xFF	; 255
- 156:	af 4f       	sbci	r26, 0xFF	; 255
- 158:	fc 01       	movw	r30, r24
- 15a:	5a 2f       	mov	r21, r26
- 15c:	0e 94 62 01 	call	0x2c4	; 0x2c4 <__xload_3>
- 160:	9b 01       	movw	r18, r22
- 162:	48 2f       	mov	r20, r24
- 164:	6c 2f       	mov	r22, r28
- 166:	8b 2f       	mov	r24, r27
- 168:	0e 94 f4 00 	call	0x1e8	; 0x1e8 <establecer_pixel_matriz>
+ 18a:	80 91 c0 01 	lds	r24, 0x01C0	; 0x8001c0 <_end>
+ 18e:	10 91 c1 01 	lds	r17, 0x01C1	; 0x8001c1 <pos_y>
+ 192:	b0 91 c2 01 	lds	r27, 0x01C2	; 0x8001c2 <pos_x>
+ 196:	90 e0       	ldi	r25, 0x00	; 0
+ 198:	9c 01       	movw	r18, r24
+ 19a:	22 0f       	add	r18, r18
+ 19c:	33 1f       	adc	r19, r19
+ 19e:	82 0f       	add	r24, r18
+ 1a0:	93 1f       	adc	r25, r19
+ 1a2:	09 2e       	mov	r0, r25
+ 1a4:	00 0c       	add	r0, r0
+ 1a6:	aa 0b       	sbc	r26, r26
+ 1a8:	88 53       	subi	r24, 0x38	; 56
+ 1aa:	9f 4f       	sbci	r25, 0xFF	; 255
+ 1ac:	af 4f       	sbci	r26, 0xFF	; 255
+ 1ae:	fc 01       	movw	r30, r24
+ 1b0:	5a 2f       	mov	r21, r26
+ 1b2:	0e 94 70 02 	call	0x4e0	; 0x4e0 <__xload_3>
+ 1b6:	9b 01       	movw	r18, r22
+ 1b8:	48 2f       	mov	r20, r24
+ 1ba:	61 2f       	mov	r22, r17
+ 1bc:	8b 2f       	mov	r24, r27
+ 1be:	0e 94 d7 01 	call	0x3ae	; 0x3ae <establecer_pixel_matriz>
 		actualizar_matriz();
- 16c:	0e 94 15 01 	call	0x22a	; 0x22a <actualizar_matriz>
- 170:	2f ef       	ldi	r18, 0xFF	; 255
- 172:	86 e7       	ldi	r24, 0x76	; 118
- 174:	91 e0       	ldi	r25, 0x01	; 1
- 176:	21 50       	subi	r18, 0x01	; 1
- 178:	80 40       	sbci	r24, 0x00	; 0
- 17a:	90 40       	sbci	r25, 0x00	; 0
- 17c:	e1 f7       	brne	.-8      	; 0x176 <main+0x9c>
- 17e:	00 c0       	rjmp	.+0      	; 0x180 <main+0xa6>
- 180:	00 00       	nop
- 182:	d6 cf       	rjmp	.-84     	; 0x130 <main+0x56>
+ 1c2:	0e 94 f8 01 	call	0x3f0	; 0x3f0 <actualizar_matriz>
+ 1c6:	2f ef       	ldi	r18, 0xFF	; 255
+ 1c8:	86 e7       	ldi	r24, 0x76	; 118
+ 1ca:	91 e0       	ldi	r25, 0x01	; 1
+ 1cc:	21 50       	subi	r18, 0x01	; 1
+ 1ce:	80 40       	sbci	r24, 0x00	; 0
+ 1d0:	90 40       	sbci	r25, 0x00	; 0
+ 1d2:	e1 f7       	brne	.-8      	; 0x1cc <main+0xf2>
+ 1d4:	00 c0       	rjmp	.+0      	; 0x1d6 <main+0xfc>
+ 1d6:	00 00       	nop
+ 1d8:	c0 cf       	rjmp	.-128    	; 0x15a <main+0x80>
 
 Disassembly of section .text.libgcc:
 
-000002c4 <__xload_3>:
- 2c4:	57 fd       	sbrc	r21, 7
- 2c6:	04 c0       	rjmp	.+8      	; 0x2d0 <__xload_3+0xc>
- 2c8:	65 91       	lpm	r22, Z+
- 2ca:	75 91       	lpm	r23, Z+
- 2cc:	85 91       	lpm	r24, Z+
- 2ce:	08 95       	ret
- 2d0:	61 91       	ld	r22, Z+
- 2d2:	71 91       	ld	r23, Z+
- 2d4:	81 91       	ld	r24, Z+
- 2d6:	08 95       	ret
+000004e0 <__xload_3>:
+ 4e0:	57 fd       	sbrc	r21, 7
+ 4e2:	04 c0       	rjmp	.+8      	; 0x4ec <__xload_3+0xc>
+ 4e4:	65 91       	lpm	r22, Z+
+ 4e6:	75 91       	lpm	r23, Z+
+ 4e8:	85 91       	lpm	r24, Z+
+ 4ea:	08 95       	ret
+ 4ec:	61 91       	ld	r22, Z+
+ 4ee:	71 91       	ld	r23, Z+
+ 4f0:	81 91       	ld	r24, Z+
+ 4f2:	08 95       	ret
 
 Disassembly of section .text.__dummy_fini:
 
-000002e0 <_fini>:
- 2e0:	08 95       	ret
+0000051e <_fini>:
+ 51e:	08 95       	ret
 
 Disassembly of section .text.__dummy_funcs_on_exit:
 
-000002e2 <__funcs_on_exit>:
- 2e2:	08 95       	ret
+00000520 <__funcs_on_exit>:
+ 520:	08 95       	ret
 
 Disassembly of section .text.__dummy_simulator_exit:
 
-000002e4 <__simulator_exit>:
- 2e4:	08 95       	ret
+00000522 <__simulator_exit>:
+ 522:	08 95       	ret
 
 Disassembly of section .text.exit:
 
-000002ae <exit>:
- 2ae:	ec 01       	movw	r28, r24
- 2b0:	0e 94 71 01 	call	0x2e2	; 0x2e2 <__funcs_on_exit>
- 2b4:	0e 94 70 01 	call	0x2e0	; 0x2e0 <_fini>
- 2b8:	ce 01       	movw	r24, r28
- 2ba:	0e 94 72 01 	call	0x2e4	; 0x2e4 <__simulator_exit>
- 2be:	ce 01       	movw	r24, r28
- 2c0:	0e 94 6e 01 	call	0x2dc	; 0x2dc <_Exit>
+0000048e <exit>:
+ 48e:	ec 01       	movw	r28, r24
+ 490:	0e 94 90 02 	call	0x520	; 0x520 <__funcs_on_exit>
+ 494:	0e 94 8f 02 	call	0x51e	; 0x51e <_fini>
+ 498:	ce 01       	movw	r24, r28
+ 49a:	0e 94 91 02 	call	0x522	; 0x522 <__simulator_exit>
+ 49e:	ce 01       	movw	r24, r28
+ 4a0:	0e 94 8d 02 	call	0x51a	; 0x51a <_Exit>
 
 Disassembly of section .text._Exit:
 
-000002dc <_Exit>:
- 2dc:	0e 94 62 00 	call	0xc4	; 0xc4 <_exit>
+0000051a <_Exit>:
+ 51a:	0e 94 62 00 	call	0xc4	; 0xc4 <_exit>
