@@ -7,8 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-// Configuración básica para poder ver el estado por el terminal.
-/* UART 9600 8N1 */
+/* ===== UART 9600 8N1 ===== */
 static void uart_init(void){
 	UBRR0H = 0; UBRR0L = 103;
 	UCSR0A = 0;
@@ -23,65 +22,164 @@ static void uart_printf(const char* fmt, ...){
 	uart_print(buf);
 }
 
-/* SPI MASTER (Configuración de pines) */
+/* ===== SPI MASTER (PB5 SCK, PB3 MOSI, PB4 MISO, PB2 SS) ===== */
 static void spi_master_init(void){
-	// SCK, MOSI, SS como salidas
 	DDRB |= (1<<PB5)|(1<<PB3)|(1<<PB2);
-	DDRB &= ~(1<<PB4); // MISO como entrada
-	PORTB |= (1<<PB2); // SS en alto (chip deseleccionado)
-	// Habilitar SPI, Modo Master, Velocidad fosc/64
-	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR1);
+	DDRB &= ~(1<<PB4);
+	PORTB |= (1<<PB2);
+	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR1); // fosc/64
 }
 static inline uint8_t spi_txrx(uint8_t b){ SPDR=b; while(!(SPSR&(1<<SPIF))); return SPDR; }
-
-// Envía 4 bytes y maneja la línea SS (Slave Select)
 static void spi_send4(uint8_t b0,uint8_t b1,uint8_t b2,uint8_t b3){
-	PORTB &= ~(1<<PB2); // SS a bajo
+	PORTB &= ~(1<<PB2);
 	spi_txrx(b0); spi_txrx(b1); spi_txrx(b2); spi_txrx(b3);
-	PORTB |=  (1<<PB2); // SS a alto
+	PORTB |=  (1<<PB2);
 }
 
-/* ADC (Lectura de Sensores Analógicos) */
+/* ===== ADC (AVcc) ===== */
 static void adc_init(void){
-	ADMUX = (1<<REFS0); // Referencia AVcc
-	ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1); // Habilitar y Prescaler /64
+	ADMUX = (1<<REFS0);
+	ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1); // /64
 }
 static uint16_t adc_read(uint8_t ch){
-	ADMUX = (ADMUX & 0xF0) | (ch & 0x0F); // Seleccionar canal
-	ADCSRA |= (1<<ADSC); // Iniciar conversión
+	ADMUX = (ADMUX & 0xF0) | (ch & 0x0F);
+	ADCSRA |= (1<<ADSC);
 	while (ADCSRA & (1<<ADSC));
 	return ADC;
 }
 
-// Función simple de mapeo (no es crítica ahora, pero es útil)
+/* ===== DHT11 en PD4 ===== */
+#define DHT_PIN PD4
+static bool dht11_read(uint8_t *t, uint8_t *h){
+	uint8_t d[5]={0};
+	DDRD |= (1<<DHT_PIN); PORTD &= ~(1<<DHT_PIN); _delay_ms(20);
+	PORTD |= (1<<DHT_PIN); _delay_us(40);
+	DDRD &= ~(1<<DHT_PIN); PORTD |= (1<<DHT_PIN);
+	uint16_t to=0;
+	while(PIND&(1<<DHT_PIN)){ if(++to>200) return false; _delay_us(1); }
+	to=0; while(!(PIND&(1<<DHT_PIN))){ if(++to>200) return false; _delay_us(1); }
+	to=0; while(PIND&(1<<DHT_PIN)){ if(++to>200) return false; _delay_us(1); }
+	for(uint8_t i=0;i<40;i++){
+		to=0; while(!(PIND&(1<<DHT_PIN))){ if(++to>200) return false; _delay_us(1); }
+		uint16_t w=0; while(PIND&(1<<DHT_PIN)){ if(++w>255) break; _delay_us(1); }
+		d[i/8]<<=1; if(w>40) d[i/8]|=1;
+	}
+	if((uint8_t)(d[0]+d[1]+d[2]+d[3])!=d[4]) return false;
+	*h=d[0]; *t=d[2]; return true;
+}
+
 static inline uint8_t map_u16_to_u8(uint16_t v, uint16_t in_min, uint16_t in_max){
 	if(v<=in_min) return 0; if(v>=in_max) return 255;
 	uint32_t num=(uint32_t)(v-in_min)*255UL; return (uint8_t)(num/(in_max-in_min));
 }
 
-/* MAIN */
+/* ===== LCD I²C — MAP2 fijo (código que te quedó andando) ===== */
+#define LCD_ADDR            0x27    // si no se ve texto, cambiá a 0x3F
+#define LCD_BL_ACTIVE_LOW   0
+
+static void i2c_init(void){ TWSR=0x00; TWBR=72; }
+static uint8_t i2c_start(uint8_t addr){
+	TWCR=(1<<TWINT)|(1<<TWSTA)|(1<<TWEN); while(!(TWCR&(1<<TWINT)));
+	TWDR=addr; TWCR=(1<<TWINT)|(1<<TWEN);  while(!(TWCR&(1<<TWINT)));
+	uint8_t st=TWSR&0xF8; return (st==0x18 || st==0x40);
+}
+static void i2c_write(uint8_t d){ TWDR=d; TWCR=(1<<TWINT)|(1<<TWEN); while(!(TWCR&(1<<TWINT))); }
+static void i2c_stop(void){ TWCR=(1<<TWINT)|(1<<TWEN)|(1<<TWSTO); }
+
+#define P_RS 0
+#define P_RW 1
+#define P_EN 2
+#define P_BL 3
+#define P_D4 4
+#define P_D5 5
+#define P_D6 6
+#define P_D7 7
+static inline uint8_t lcd_build(uint8_t nib, uint8_t rs, uint8_t rw, uint8_t backlight_on){
+	uint8_t b = 0;
+	if(nib & 0x1) b |= (1<<P_D4);
+	if(nib & 0x2) b |= (1<<P_D5);
+	if(nib & 0x4) b |= (1<<P_D6);
+	if(nib & 0x8) b |= (1<<P_D7);
+	if(rs)        b |= (1<<P_RS);
+	if(rw)        b |= (1<<P_RW);
+	if(LCD_BL_ACTIVE_LOW){ if(backlight_on) b &= ~(1<<P_BL); else b |= (1<<P_BL); }
+	else                   { if(backlight_on) b |=  (1<<P_BL); else b &= ~(1<<P_BL); }
+	return b;
+}
+static void lcd_pulse_en(uint8_t base){
+	i2c_write(base | (1<<P_EN));  _delay_us(1);
+	i2c_write(base & ~(1<<P_EN)); _delay_us(40);
+}
+static void lcd_send_nibble(uint8_t nib, uint8_t rs, uint8_t backlight_on){
+	if(!i2c_start((LCD_ADDR<<1)|0)) return;
+	uint8_t base = lcd_build(nib, rs, 0, backlight_on);
+	lcd_pulse_en(base);
+	i2c_stop();
+}
+static void lcd_send(uint8_t v, uint8_t rs){
+	lcd_send_nibble((v>>4)&0x0F, rs, 1);
+	lcd_send_nibble( v     &0x0F, rs, 1);
+}
+static void lcd_cmd(uint8_t c){ lcd_send(c,0); }
+static void lcd_data(uint8_t d){ lcd_send(d,1); }
+static void lcd_init_parallel(void){
+	i2c_init(); _delay_ms(40);
+	lcd_send_nibble(0x03,0,1); _delay_ms(5);
+	lcd_send_nibble(0x03,0,1); _delay_ms(5);
+	lcd_send_nibble(0x03,0,1); _delay_ms(5);
+	lcd_send_nibble(0x02,0,1); _delay_ms(5);
+	lcd_cmd(0x28); lcd_cmd(0x0C); lcd_cmd(0x06);
+	lcd_cmd(0x01); _delay_ms(3);
+}
+static void lcd_clear(void){ lcd_cmd(0x01); _delay_ms(3); }
+static void lcd_goto_xy(uint8_t c, uint8_t r){ lcd_cmd(0x80 | (r?0x40:0x00) | c); }
+static void lcd_print(const char* s){ while(*s) lcd_data(*s++); }
+static void lcd_printf(const char* fmt,...){
+	char b[32]; va_list ap; va_start(ap,fmt); vsnprintf(b,sizeof b,fmt,ap); va_end(ap); lcd_print(b);
+}
+
+/* ===== MAIN ===== */
 int main(void){
 	uart_init();
-	uart_print("\r\n[MASTER] Iniciando SPI y ADC\r\n");
+	uart_print("\r\n[MASTER] Boot @9600 8N1\r\n");
 
 	spi_master_init();
 	adc_init();
 
-	uart_print("[MASTER] Listo. Leyendo potenciometros y enviando.\r\n");
+	/* DHT idle */
+	DDRD &= ~(1<<DHT_PIN); PORTD |= (1<<DHT_PIN);
+
+	/* LCD I²C */
+	lcd_init_parallel();
+	lcd_goto_xy(0,0); lcd_print("SPI Maestro");
+	lcd_goto_xy(0,1); lcd_print("Modo: Manual");
+
+	uart_print("[MASTER] SPI ready, ADC ready.\r\n");
+
+	uint8_t T=25,H=50;
+	uint16_t tick=0, lcdTick=0;
 
 	for(;;){
-		uint16_t pot = adc_read(0);      // Leo el Potenciómetro (A0)
-		uint16_t ldr = adc_read(1);      // Leo el LDR (A1)
+		uint16_t pot = adc_read(0);     // A0
+		uint16_t ldr = adc_read(1);     // A1
 
-		// Mapeo los valores del ADC (0-1023) a 8 bits (0-255)
-		uint8_t buzzVal = map_u16_to_u8(pot, 0,1023);
-		uint8_t pwmLED  = map_u16_to_u8(ldr, 0,1023);
+		if(++tick>=10){ tick=0; uint8_t t,h; if(dht11_read(&t,&h)){T=t;H=h;} }
+
+		// pot controla BUZZER (pitch), ldr controla LED, pot controla también servo
+		uint8_t buzzVal = map_u16_to_u8(pot, 0,1023);   // 0..255 -> nota
+		uint8_t pwmLED  = map_u16_to_u8(ldr, 0,1023);   // brillo
 		uint8_t servoAng= (uint8_t)((uint32_t)pot*180UL/1023UL);
 
-		uart_printf("[MASTER] pot=%4u ldr=%4u | buzz=%3u led=%3u servo=%3u\r\n",
-		pot, ldr, buzzVal, pwmLED, servoAng);
+		uart_printf("[MASTER] pot=%4u ldr=%4u | buzz=%3u led=%3u servo=%3u | T=%u H=%u\r\n",
+		pot, ldr, buzzVal, pwmLED, servoAng, T, H);
 
-		// Envío el frame: [modo=0, buzzVal, pwmLED, servoAng]
+		if(++lcdTick >= 4){
+			lcdTick = 0;
+			lcd_goto_xy(0,0); lcd_printf("BZ:%3u L:%3u   ", buzzVal, pwmLED);
+			lcd_goto_xy(0,1); lcd_printf("T:%2u H:%2u S:%3u", T, H, servoAng);
+		}
+
+		// Frame: [modo=0, buzzerVal, ledPWM, servoAngle]
 		spi_send4(0, buzzVal, pwmLED, servoAng);
 
 		_delay_ms(150);

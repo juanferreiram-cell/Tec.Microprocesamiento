@@ -1,5 +1,5 @@
 
-EsclavoSPI.elf:     file format elf32-avr
+EsclavoI2C.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -302,7 +302,7 @@ Disassembly of section .text:
 Disassembly of section .text:
 
 00003314 <__bad_interrupt>:
-    3314:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+    3314:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
 
 Disassembly of section .text.uart_init:
 

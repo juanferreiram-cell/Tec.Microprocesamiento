@@ -1071,7 +1071,7 @@ END GROUP
 
 .debug_macro
  *(.debug_macro)
-OUTPUT(EsclavoSPI.elf elf32-avr)
+OUTPUT(EsclavoI2C.elf elf32-avr)
 LOAD linker stubs
 LOAD data_init
 
