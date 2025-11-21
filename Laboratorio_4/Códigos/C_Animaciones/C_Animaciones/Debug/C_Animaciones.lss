@@ -1,0 +1,579 @@
+
+C_Animaciones.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000005ac  2**0
+                  ALLOC, LOAD, DATA
+  1 .text         000000c2  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          000000c0  00800100  00800100  000005ac  2**0
+                  ALLOC
+  3 .comment      0000002f  00000000  00000000  000005ac  2**0
+                  CONTENTS, READONLY
+  4 .stack.descriptors.hdr 0000000e  00000000  00000000  000005db  2**0
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000080  00000000  00000000  000005e9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000f7a  00000000  00000000  00000669  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007ca  00000000  00000000  000015e3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000598  00000000  00000000  00001dad  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000150  00000000  00000000  00002348  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000022e  00000000  00000000  00002498  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000003ab  00000000  00000000  000026c6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000070  00000000  00000000  00002a71  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .text         00000004  0000050a  0000050a  0000059e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 14 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00002ae4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .text.uart_inicializar 00000018  000004c0  000004c0  00000554  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 16 .text.uart_transmitir 0000000e  000004ee  000004ee  00000582  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 17 .text.uart_imprimir 0000002c  000003f2  000003f2  00000486  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 18 .text.ws2812_enviar_byte 00000066  000002ec  000002ec  00000380  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 19 .text.ws2812_actualizar 00000052  00000352  00000352  000003e6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 20 .text.ws2812_inicializar 0000000e  000004fc  000004fc  00000590  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 21 .text.limpiar_matriz 00000024  0000049c  0000049c  00000530  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 22 .text.mostrar_rojo 0000002a  0000041e  0000041e  000004b2  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .text.mostrar_verde 0000002a  00000448  00000448  000004dc  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 24 .text.mostrar_azul 0000002a  00000472  00000472  00000506  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 25 .progmemx.data 00000138  000000c2  000000c2  00000156  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, PROGMEMX
+ 26 .text.prueba_colores 0000007e  000001fa  000001fa  0000028e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 27 .text.__vector_18 00000074  00000278  00000278  0000030c  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 28 .text.main    0000004e  000003a4  000003a4  00000438  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 29 .text.__dummy_fini 00000002  00000512  00000512  000005a6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 30 .text.__dummy_funcs_on_exit 00000002  00000514  00000514  000005a8  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 31 .text.__dummy_simulator_exit 00000002  00000516  00000516  000005aa  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 32 .text.exit    00000016  000004d8  000004d8  0000056c  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 33 .text._Exit   00000004  0000050e  0000050e  000005a2  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 37 00 	jmp	0x6e	; 0x6e <__ctors_end>
+   4:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+   8:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+   c:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  10:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  14:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  18:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  1c:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  20:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  24:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  28:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  2c:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  30:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  34:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  38:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  3c:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  40:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  44:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  48:	0c 94 3c 01 	jmp	0x278	; 0x278 <__vector_18>
+  4c:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  50:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  54:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  58:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  5c:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  60:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+  64:	0c 94 85 02 	jmp	0x50a	; 0x50a <__bad_interrupt>
+
+00000068 <.dinit>:
+  68:	01 00       	.word	0x0001	; ????
+  6a:	01 c0       	rjmp	.+2      	; 0x6e <__ctors_end>
+  6c:	80 00       	.word	0x0080	; ????
+
+0000006e <__ctors_end>:
+  6e:	11 24       	eor	r1, r1
+  70:	1f be       	out	0x3f, r1	; 63
+  72:	cf ef       	ldi	r28, 0xFF	; 255
+  74:	d8 e0       	ldi	r29, 0x08	; 8
+  76:	de bf       	out	0x3e, r29	; 62
+  78:	cd bf       	out	0x3d, r28	; 61
+
+0000007a <__do_copy_data>:
+  7a:	e8 e6       	ldi	r30, 0x68	; 104
+  7c:	f0 e0       	ldi	r31, 0x00	; 0
+  7e:	40 e0       	ldi	r20, 0x00	; 0
+  80:	17 c0       	rjmp	.+46     	; 0xb0 <__do_clear_bss+0x8>
+  82:	b5 91       	lpm	r27, Z+
+  84:	a5 91       	lpm	r26, Z+
+  86:	35 91       	lpm	r19, Z+
+  88:	25 91       	lpm	r18, Z+
+  8a:	05 91       	lpm	r16, Z+
+  8c:	07 fd       	sbrc	r16, 7
+  8e:	0c c0       	rjmp	.+24     	; 0xa8 <__do_clear_bss>
+  90:	95 91       	lpm	r25, Z+
+  92:	85 91       	lpm	r24, Z+
+  94:	ef 01       	movw	r28, r30
+  96:	f9 2f       	mov	r31, r25
+  98:	e8 2f       	mov	r30, r24
+  9a:	05 90       	lpm	r0, Z+
+  9c:	0d 92       	st	X+, r0
+  9e:	a2 17       	cp	r26, r18
+  a0:	b3 07       	cpc	r27, r19
+  a2:	d9 f7       	brne	.-10     	; 0x9a <__do_copy_data+0x20>
+  a4:	fe 01       	movw	r30, r28
+  a6:	04 c0       	rjmp	.+8      	; 0xb0 <__do_clear_bss+0x8>
+
+000000a8 <__do_clear_bss>:
+  a8:	1d 92       	st	X+, r1
+  aa:	a2 17       	cp	r26, r18
+  ac:	b3 07       	cpc	r27, r19
+  ae:	e1 f7       	brne	.-8      	; 0xa8 <__do_clear_bss>
+  b0:	ed 36       	cpi	r30, 0x6D	; 109
+  b2:	f4 07       	cpc	r31, r20
+  b4:	31 f7       	brne	.-52     	; 0x82 <__do_copy_data+0x8>
+  b6:	0e 94 d2 01 	call	0x3a4	; 0x3a4 <main>
+  ba:	0c 94 6c 02 	jmp	0x4d8	; 0x4d8 <exit>
+
+000000be <_exit>:
+  be:	f8 94       	cli
+
+000000c0 <__stop_program>:
+  c0:	ff cf       	rjmp	.-2      	; 0xc0 <__stop_program>
+
+Disassembly of section .text:
+
+0000050a <__bad_interrupt>:
+ 50a:	0c 94 00 00 	jmp	0	; 0x0 <__TEXT_REGION_ORIGIN__>
+
+Disassembly of section .text.uart_inicializar:
+
+000004c0 <uart_inicializar>:
+ 4c0:	10 92 c5 00 	sts	0x00C5, r1	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7f80c5>
+ 4c4:	87 e6       	ldi	r24, 0x67	; 103
+ 4c6:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7f80c4>
+ 4ca:	88 e9       	ldi	r24, 0x98	; 152
+ 4cc:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7f80c1>
+ 4d0:	86 e0       	ldi	r24, 0x06	; 6
+ 4d2:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7f80c2>
+ 4d6:	08 95       	ret
+
+Disassembly of section .text.uart_transmitir:
+
+000004ee <uart_transmitir>:
+ 4ee:	90 91 c0 00 	lds	r25, 0x00C0	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7f80c0>
+ 4f2:	95 ff       	sbrs	r25, 5
+ 4f4:	fc cf       	rjmp	.-8      	; 0x4ee <uart_transmitir>
+ 4f6:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 4fa:	08 95       	ret
+
+Disassembly of section .text.uart_imprimir:
+
+000003f2 <uart_imprimir>:
+ 3f2:	cf 92       	push	r12
+ 3f4:	df 92       	push	r13
+ 3f6:	ef 92       	push	r14
+ 3f8:	6b 01       	movw	r12, r22
+ 3fa:	e8 2e       	mov	r14, r24
+ 3fc:	06 c0       	rjmp	.+12     	; 0x40a <__EEPROM_REGION_LENGTH__+0xa>
+ 3fe:	9f ef       	ldi	r25, 0xFF	; 255
+ 400:	c9 1a       	sub	r12, r25
+ 402:	d9 0a       	sbc	r13, r25
+ 404:	e9 0a       	sbc	r14, r25
+ 406:	0e 94 77 02 	call	0x4ee	; 0x4ee <uart_transmitir>
+ 40a:	f6 01       	movw	r30, r12
+ 40c:	84 91       	lpm	r24, Z
+ 40e:	e7 fc       	sbrc	r14, 7
+ 410:	80 81       	ld	r24, Z
+ 412:	81 11       	cpse	r24, r1
+ 414:	f4 cf       	rjmp	.-24     	; 0x3fe <uart_imprimir+0xc>
+ 416:	ef 90       	pop	r14
+ 418:	df 90       	pop	r13
+ 41a:	cf 90       	pop	r12
+ 41c:	08 95       	ret
+
+Disassembly of section .text.ws2812_enviar_byte:
+
+000002ec <ws2812_enviar_byte>:
+ 2ec:	90 e0       	ldi	r25, 0x00	; 0
+ 2ee:	2d c0       	rjmp	.+90     	; 0x34a <ws2812_enviar_byte+0x5e>
+ 2f0:	88 23       	and	r24, r24
+ 2f2:	ac f4       	brge	.+42     	; 0x31e <ws2812_enviar_byte+0x32>
+ 2f4:	25 b1       	in	r18, 0x05	; 5
+ 2f6:	21 60       	ori	r18, 0x01	; 1
+ 2f8:	25 b9       	out	0x05, r18	; 5
+	...
+ 30e:	25 b1       	in	r18, 0x05	; 5
+ 310:	2e 7f       	andi	r18, 0xFE	; 254
+ 312:	25 b9       	out	0x05, r18	; 5
+	...
+ 31c:	14 c0       	rjmp	.+40     	; 0x346 <ws2812_enviar_byte+0x5a>
+ 31e:	25 b1       	in	r18, 0x05	; 5
+ 320:	21 60       	ori	r18, 0x01	; 1
+ 322:	25 b9       	out	0x05, r18	; 5
+	...
+ 32c:	25 b1       	in	r18, 0x05	; 5
+ 32e:	2e 7f       	andi	r18, 0xFE	; 254
+ 330:	25 b9       	out	0x05, r18	; 5
+	...
+ 346:	88 0f       	add	r24, r24
+ 348:	9f 5f       	subi	r25, 0xFF	; 255
+ 34a:	98 30       	cpi	r25, 0x08	; 8
+ 34c:	08 f4       	brcc	.+2      	; 0x350 <ws2812_enviar_byte+0x64>
+ 34e:	d0 cf       	rjmp	.-96     	; 0x2f0 <ws2812_enviar_byte+0x4>
+ 350:	08 95       	ret
+
+Disassembly of section .text.ws2812_actualizar:
+
+00000352 <ws2812_actualizar>:
+ 352:	0f 93       	push	r16
+ 354:	1f 93       	push	r17
+ 356:	cf 93       	push	r28
+ 358:	df 93       	push	r29
+ 35a:	f8 94       	cli
+ 35c:	00 e0       	ldi	r16, 0x00	; 0
+ 35e:	10 e0       	ldi	r17, 0x00	; 0
+ 360:	12 c0       	rjmp	.+36     	; 0x386 <ws2812_actualizar+0x34>
+ 362:	e8 01       	movw	r28, r16
+ 364:	cc 0f       	add	r28, r28
+ 366:	dd 1f       	adc	r29, r29
+ 368:	c0 0f       	add	r28, r16
+ 36a:	d1 1f       	adc	r29, r17
+ 36c:	c0 50       	subi	r28, 0x00	; 0
+ 36e:	df 4f       	sbci	r29, 0xFF	; 255
+ 370:	88 81       	ld	r24, Y
+ 372:	0e 94 76 01 	call	0x2ec	; 0x2ec <ws2812_enviar_byte>
+ 376:	89 81       	ldd	r24, Y+1	; 0x01
+ 378:	0e 94 76 01 	call	0x2ec	; 0x2ec <ws2812_enviar_byte>
+ 37c:	8a 81       	ldd	r24, Y+2	; 0x02
+ 37e:	0e 94 76 01 	call	0x2ec	; 0x2ec <ws2812_enviar_byte>
+ 382:	0f 5f       	subi	r16, 0xFF	; 255
+ 384:	1f 4f       	sbci	r17, 0xFF	; 255
+ 386:	00 34       	cpi	r16, 0x40	; 64
+ 388:	11 05       	cpc	r17, r1
+ 38a:	58 f3       	brcs	.-42     	; 0x362 <ws2812_actualizar+0x10>
+ 38c:	78 94       	sei
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 38e:	8f ee       	ldi	r24, 0xEF	; 239
+ 390:	90 e0       	ldi	r25, 0x00	; 0
+ 392:	01 97       	sbiw	r24, 0x01	; 1
+ 394:	f1 f7       	brne	.-4      	; 0x392 <ws2812_actualizar+0x40>
+ 396:	00 c0       	rjmp	.+0      	; 0x398 <ws2812_actualizar+0x46>
+ 398:	00 00       	nop
+ 39a:	df 91       	pop	r29
+ 39c:	cf 91       	pop	r28
+ 39e:	1f 91       	pop	r17
+ 3a0:	0f 91       	pop	r16
+ 3a2:	08 95       	ret
+
+Disassembly of section .text.ws2812_inicializar:
+
+000004fc <ws2812_inicializar>:
+ 4fc:	84 b1       	in	r24, 0x04	; 4
+ 4fe:	81 60       	ori	r24, 0x01	; 1
+ 500:	84 b9       	out	0x04, r24	; 4
+ 502:	85 b1       	in	r24, 0x05	; 5
+ 504:	8e 7f       	andi	r24, 0xFE	; 254
+ 506:	85 b9       	out	0x05, r24	; 5
+ 508:	08 95       	ret
+
+Disassembly of section .text.limpiar_matriz:
+
+0000049c <limpiar_matriz>:
+ 49c:	80 e0       	ldi	r24, 0x00	; 0
+ 49e:	90 e0       	ldi	r25, 0x00	; 0
+ 4a0:	0b c0       	rjmp	.+22     	; 0x4b8 <limpiar_matriz+0x1c>
+ 4a2:	fc 01       	movw	r30, r24
+ 4a4:	ee 0f       	add	r30, r30
+ 4a6:	ff 1f       	adc	r31, r31
+ 4a8:	e8 0f       	add	r30, r24
+ 4aa:	f9 1f       	adc	r31, r25
+ 4ac:	e0 50       	subi	r30, 0x00	; 0
+ 4ae:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4b0:	11 82       	std	Z+1, r1	; 0x01
+ 4b2:	10 82       	st	Z, r1
+ 4b4:	12 82       	std	Z+2, r1	; 0x02
+ 4b6:	01 96       	adiw	r24, 0x01	; 1
+ 4b8:	80 34       	cpi	r24, 0x40	; 64
+ 4ba:	91 05       	cpc	r25, r1
+ 4bc:	90 f3       	brcs	.-28     	; 0x4a2 <limpiar_matriz+0x6>
+ 4be:	08 95       	ret
+
+Disassembly of section .text.mostrar_rojo:
+
+0000041e <mostrar_rojo>:
+ 41e:	80 e0       	ldi	r24, 0x00	; 0
+ 420:	90 e0       	ldi	r25, 0x00	; 0
+ 422:	0c c0       	rjmp	.+24     	; 0x43c <mostrar_rojo+0x1e>
+ 424:	fc 01       	movw	r30, r24
+ 426:	ee 0f       	add	r30, r30
+ 428:	ff 1f       	adc	r31, r31
+ 42a:	e8 0f       	add	r30, r24
+ 42c:	f9 1f       	adc	r31, r25
+ 42e:	e0 50       	subi	r30, 0x00	; 0
+ 430:	ff 4f       	sbci	r31, 0xFF	; 255
+ 432:	10 82       	st	Z, r1
+ 434:	2f ef       	ldi	r18, 0xFF	; 255
+ 436:	21 83       	std	Z+1, r18	; 0x01
+ 438:	12 82       	std	Z+2, r1	; 0x02
+ 43a:	01 96       	adiw	r24, 0x01	; 1
+ 43c:	80 34       	cpi	r24, 0x40	; 64
+ 43e:	91 05       	cpc	r25, r1
+ 440:	88 f3       	brcs	.-30     	; 0x424 <mostrar_rojo+0x6>
+ 442:	0e 94 a9 01 	call	0x352	; 0x352 <ws2812_actualizar>
+ 446:	08 95       	ret
+
+Disassembly of section .text.mostrar_verde:
+
+00000448 <mostrar_verde>:
+ 448:	80 e0       	ldi	r24, 0x00	; 0
+ 44a:	90 e0       	ldi	r25, 0x00	; 0
+ 44c:	0c c0       	rjmp	.+24     	; 0x466 <mostrar_verde+0x1e>
+ 44e:	fc 01       	movw	r30, r24
+ 450:	ee 0f       	add	r30, r30
+ 452:	ff 1f       	adc	r31, r31
+ 454:	e8 0f       	add	r30, r24
+ 456:	f9 1f       	adc	r31, r25
+ 458:	e0 50       	subi	r30, 0x00	; 0
+ 45a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 45c:	2f ef       	ldi	r18, 0xFF	; 255
+ 45e:	20 83       	st	Z, r18
+ 460:	11 82       	std	Z+1, r1	; 0x01
+ 462:	12 82       	std	Z+2, r1	; 0x02
+ 464:	01 96       	adiw	r24, 0x01	; 1
+ 466:	80 34       	cpi	r24, 0x40	; 64
+ 468:	91 05       	cpc	r25, r1
+ 46a:	88 f3       	brcs	.-30     	; 0x44e <mostrar_verde+0x6>
+ 46c:	0e 94 a9 01 	call	0x352	; 0x352 <ws2812_actualizar>
+ 470:	08 95       	ret
+
+Disassembly of section .text.mostrar_azul:
+
+00000472 <mostrar_azul>:
+ 472:	80 e0       	ldi	r24, 0x00	; 0
+ 474:	90 e0       	ldi	r25, 0x00	; 0
+ 476:	0c c0       	rjmp	.+24     	; 0x490 <mostrar_azul+0x1e>
+ 478:	fc 01       	movw	r30, r24
+ 47a:	ee 0f       	add	r30, r30
+ 47c:	ff 1f       	adc	r31, r31
+ 47e:	e8 0f       	add	r30, r24
+ 480:	f9 1f       	adc	r31, r25
+ 482:	e0 50       	subi	r30, 0x00	; 0
+ 484:	ff 4f       	sbci	r31, 0xFF	; 255
+ 486:	10 82       	st	Z, r1
+ 488:	11 82       	std	Z+1, r1	; 0x01
+ 48a:	2f ef       	ldi	r18, 0xFF	; 255
+ 48c:	22 83       	std	Z+2, r18	; 0x02
+ 48e:	01 96       	adiw	r24, 0x01	; 1
+ 490:	80 34       	cpi	r24, 0x40	; 64
+ 492:	91 05       	cpc	r25, r1
+ 494:	88 f3       	brcs	.-30     	; 0x478 <mostrar_azul+0x6>
+ 496:	0e 94 a9 01 	call	0x352	; 0x352 <ws2812_actualizar>
+ 49a:	08 95       	ret
+
+Disassembly of section .text.prueba_colores:
+
+000001fa <prueba_colores>:
+ 1fa:	62 ec       	ldi	r22, 0xC2	; 194
+ 1fc:	70 e0       	ldi	r23, 0x00	; 0
+ 1fe:	80 e0       	ldi	r24, 0x00	; 0
+ 200:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 204:	62 ee       	ldi	r22, 0xE2	; 226
+ 206:	70 e0       	ldi	r23, 0x00	; 0
+ 208:	80 e0       	ldi	r24, 0x00	; 0
+ 20a:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 20e:	0e 94 0f 02 	call	0x41e	; 0x41e <mostrar_rojo>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 212:	2f ef       	ldi	r18, 0xFF	; 255
+ 214:	83 ed       	ldi	r24, 0xD3	; 211
+ 216:	90 e3       	ldi	r25, 0x30	; 48
+ 218:	21 50       	subi	r18, 0x01	; 1
+ 21a:	80 40       	sbci	r24, 0x00	; 0
+ 21c:	90 40       	sbci	r25, 0x00	; 0
+ 21e:	e1 f7       	brne	.-8      	; 0x218 <prueba_colores+0x1e>
+ 220:	00 c0       	rjmp	.+0      	; 0x222 <prueba_colores+0x28>
+ 222:	00 00       	nop
+ 224:	60 ef       	ldi	r22, 0xF0	; 240
+ 226:	70 e0       	ldi	r23, 0x00	; 0
+ 228:	80 e0       	ldi	r24, 0x00	; 0
+ 22a:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 22e:	0e 94 24 02 	call	0x448	; 0x448 <mostrar_verde>
+ 232:	2f ef       	ldi	r18, 0xFF	; 255
+ 234:	83 ed       	ldi	r24, 0xD3	; 211
+ 236:	90 e3       	ldi	r25, 0x30	; 48
+ 238:	21 50       	subi	r18, 0x01	; 1
+ 23a:	80 40       	sbci	r24, 0x00	; 0
+ 23c:	90 40       	sbci	r25, 0x00	; 0
+ 23e:	e1 f7       	brne	.-8      	; 0x238 <prueba_colores+0x3e>
+ 240:	00 c0       	rjmp	.+0      	; 0x242 <prueba_colores+0x48>
+ 242:	00 00       	nop
+ 244:	6f ef       	ldi	r22, 0xFF	; 255
+ 246:	70 e0       	ldi	r23, 0x00	; 0
+ 248:	80 e0       	ldi	r24, 0x00	; 0
+ 24a:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 24e:	0e 94 39 02 	call	0x472	; 0x472 <mostrar_azul>
+ 252:	2f ef       	ldi	r18, 0xFF	; 255
+ 254:	83 ed       	ldi	r24, 0xD3	; 211
+ 256:	90 e3       	ldi	r25, 0x30	; 48
+ 258:	21 50       	subi	r18, 0x01	; 1
+ 25a:	80 40       	sbci	r24, 0x00	; 0
+ 25c:	90 40       	sbci	r25, 0x00	; 0
+ 25e:	e1 f7       	brne	.-8      	; 0x258 <prueba_colores+0x5e>
+ 260:	00 c0       	rjmp	.+0      	; 0x262 <prueba_colores+0x68>
+ 262:	00 00       	nop
+ 264:	0e 94 4e 02 	call	0x49c	; 0x49c <limpiar_matriz>
+ 268:	0e 94 a9 01 	call	0x352	; 0x352 <ws2812_actualizar>
+ 26c:	6d e0       	ldi	r22, 0x0D	; 13
+ 26e:	71 e0       	ldi	r23, 0x01	; 1
+ 270:	80 e0       	ldi	r24, 0x00	; 0
+ 272:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 276:	08 95       	ret
+
+Disassembly of section .text.__vector_18:
+
+00000278 <__vector_18>:
+ 278:	1f 92       	push	r1
+ 27a:	0f 92       	push	r0
+ 27c:	0f b6       	in	r0, 0x3f	; 63
+ 27e:	0f 92       	push	r0
+ 280:	11 24       	eor	r1, r1
+ 282:	2f 93       	push	r18
+ 284:	3f 93       	push	r19
+ 286:	4f 93       	push	r20
+ 288:	5f 93       	push	r21
+ 28a:	6f 93       	push	r22
+ 28c:	7f 93       	push	r23
+ 28e:	8f 93       	push	r24
+ 290:	9f 93       	push	r25
+ 292:	af 93       	push	r26
+ 294:	bf 93       	push	r27
+ 296:	ef 93       	push	r30
+ 298:	ff 93       	push	r31
+ 29a:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7f80c6>
+ 29e:	83 34       	cpi	r24, 0x43	; 67
+ 2a0:	11 f0       	breq	.+4      	; 0x2a6 <__vector_18+0x2e>
+ 2a2:	83 36       	cpi	r24, 0x63	; 99
+ 2a4:	41 f4       	brne	.+16     	; 0x2b6 <__vector_18+0x3e>
+ 2a6:	0e 94 fd 00 	call	0x1fa	; 0x1fa <prueba_colores>
+ 2aa:	6e e2       	ldi	r22, 0x2E	; 46
+ 2ac:	71 e0       	ldi	r23, 0x01	; 1
+ 2ae:	80 e0       	ldi	r24, 0x00	; 0
+ 2b0:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 2b4:	0a c0       	rjmp	.+20     	; 0x2ca <__vector_18+0x52>
+ 2b6:	63 e4       	ldi	r22, 0x43	; 67
+ 2b8:	71 e0       	ldi	r23, 0x01	; 1
+ 2ba:	80 e0       	ldi	r24, 0x00	; 0
+ 2bc:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 2c0:	6d e5       	ldi	r22, 0x5D	; 93
+ 2c2:	71 e0       	ldi	r23, 0x01	; 1
+ 2c4:	80 e0       	ldi	r24, 0x00	; 0
+ 2c6:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 2ca:	ff 91       	pop	r31
+ 2cc:	ef 91       	pop	r30
+ 2ce:	bf 91       	pop	r27
+ 2d0:	af 91       	pop	r26
+ 2d2:	9f 91       	pop	r25
+ 2d4:	8f 91       	pop	r24
+ 2d6:	7f 91       	pop	r23
+ 2d8:	6f 91       	pop	r22
+ 2da:	5f 91       	pop	r21
+ 2dc:	4f 91       	pop	r20
+ 2de:	3f 91       	pop	r19
+ 2e0:	2f 91       	pop	r18
+ 2e2:	0f 90       	pop	r0
+ 2e4:	0f be       	out	0x3f, r0	; 63
+ 2e6:	0f 90       	pop	r0
+ 2e8:	1f 90       	pop	r1
+ 2ea:	18 95       	reti
+
+Disassembly of section .text.main:
+
+000003a4 <main>:
+ 3a4:	0e 94 7e 02 	call	0x4fc	; 0x4fc <ws2812_inicializar>
+ 3a8:	0e 94 60 02 	call	0x4c0	; 0x4c0 <uart_inicializar>
+ 3ac:	78 94       	sei
+ 3ae:	0e 94 4e 02 	call	0x49c	; 0x49c <limpiar_matriz>
+ 3b2:	0e 94 a9 01 	call	0x352	; 0x352 <ws2812_actualizar>
+ 3b6:	65 e7       	ldi	r22, 0x75	; 117
+ 3b8:	71 e0       	ldi	r23, 0x01	; 1
+ 3ba:	80 e0       	ldi	r24, 0x00	; 0
+ 3bc:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 3c0:	6d e9       	ldi	r22, 0x9D	; 157
+ 3c2:	71 e0       	ldi	r23, 0x01	; 1
+ 3c4:	80 e0       	ldi	r24, 0x00	; 0
+ 3c6:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 3ca:	65 eb       	ldi	r22, 0xB5	; 181
+ 3cc:	71 e0       	ldi	r23, 0x01	; 1
+ 3ce:	80 e0       	ldi	r24, 0x00	; 0
+ 3d0:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 3d4:	63 ee       	ldi	r22, 0xE3	; 227
+ 3d6:	71 e0       	ldi	r23, 0x01	; 1
+ 3d8:	80 e0       	ldi	r24, 0x00	; 0
+ 3da:	0e 94 f9 01 	call	0x3f2	; 0x3f2 <uart_imprimir>
+ 3de:	2f ef       	ldi	r18, 0xFF	; 255
+ 3e0:	81 ee       	ldi	r24, 0xE1	; 225
+ 3e2:	94 e0       	ldi	r25, 0x04	; 4
+ 3e4:	21 50       	subi	r18, 0x01	; 1
+ 3e6:	80 40       	sbci	r24, 0x00	; 0
+ 3e8:	90 40       	sbci	r25, 0x00	; 0
+ 3ea:	e1 f7       	brne	.-8      	; 0x3e4 <main+0x40>
+ 3ec:	00 c0       	rjmp	.+0      	; 0x3ee <main+0x4a>
+ 3ee:	00 00       	nop
+ 3f0:	f6 cf       	rjmp	.-20     	; 0x3de <main+0x3a>
+
+Disassembly of section .text.__dummy_fini:
+
+00000512 <_fini>:
+ 512:	08 95       	ret
+
+Disassembly of section .text.__dummy_funcs_on_exit:
+
+00000514 <__funcs_on_exit>:
+ 514:	08 95       	ret
+
+Disassembly of section .text.__dummy_simulator_exit:
+
+00000516 <__simulator_exit>:
+ 516:	08 95       	ret
+
+Disassembly of section .text.exit:
+
+000004d8 <exit>:
+ 4d8:	ec 01       	movw	r28, r24
+ 4da:	0e 94 8a 02 	call	0x514	; 0x514 <__funcs_on_exit>
+ 4de:	0e 94 89 02 	call	0x512	; 0x512 <_fini>
+ 4e2:	ce 01       	movw	r24, r28
+ 4e4:	0e 94 8b 02 	call	0x516	; 0x516 <__simulator_exit>
+ 4e8:	ce 01       	movw	r24, r28
+ 4ea:	0e 94 87 02 	call	0x50e	; 0x50e <_Exit>
+
+Disassembly of section .text._Exit:
+
+0000050e <_Exit>:
+ 50e:	0e 94 5f 00 	call	0xbe	; 0xbe <_exit>

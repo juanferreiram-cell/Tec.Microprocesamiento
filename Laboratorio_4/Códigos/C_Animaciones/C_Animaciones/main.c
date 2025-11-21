@@ -1,0 +1,178 @@
+#define F_CPU 16000000UL
+#define BAUD 9600
+#define MYUBRR ((F_CPU/16/BAUD)-1)
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+
+#define WS2812_PORT PORTB
+#define WS2812_DDR DDRB
+#define WS2812_PIN PB0
+
+#define NUM_LEDS 64
+
+typedef struct {
+	uint8_t g;
+	uint8_t r;
+	uint8_t b;
+} RGB;
+
+RGB leds[NUM_LEDS];
+
+void uart_inicializar(void) {
+	UBRR0H = (uint8_t)(MYUBRR >> 8);
+	UBRR0L = (uint8_t)MYUBRR;
+	UCSR0B = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);
+	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
+}
+
+void uart_transmitir(uint8_t data) {
+	while (!(UCSR0A & (1 << UDRE0)));
+	UDR0 = data;
+}
+
+void uart_imprimir(const char* str) {
+	while(*str) {
+		uart_transmitir(*str++);
+	}
+}
+
+void ws2812_enviar_byte(uint8_t byte) {
+	for(uint8_t i = 0; i < 8; i++) {
+		if(byte & 0x80) {
+			WS2812_PORT |= (1 << WS2812_PIN);
+			__asm__ __volatile__(
+			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
+			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
+			"nop\n\t" "nop\n\t"
+			);
+			WS2812_PORT &= ~(1 << WS2812_PIN);
+			__asm__ __volatile__(
+			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
+			);
+			} else {
+			WS2812_PORT |= (1 << WS2812_PIN);
+			__asm__ __volatile__(
+			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
+			);
+			WS2812_PORT &= ~(1 << WS2812_PIN);
+			__asm__ __volatile__(
+			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
+			"nop\n\t" "nop\n\t" "nop\n\t" "nop\n\t"
+			"nop\n\t" "nop\n\t"
+			);
+		}
+		byte <<= 1;
+	}
+}
+
+void ws2812_actualizar(void) {
+	cli();
+	for(uint16_t i = 0; i < NUM_LEDS; i++) {
+		ws2812_enviar_byte(leds[i].g);
+		ws2812_enviar_byte(leds[i].r);
+		ws2812_enviar_byte(leds[i].b);
+	}
+	sei();
+	_delay_us(60);
+}
+
+void ws2812_inicializar(void) {
+	WS2812_DDR |= (1 << WS2812_PIN);
+	WS2812_PORT &= ~(1 << WS2812_PIN);
+}
+
+void limpiar_matriz(void) {
+	for(uint16_t i = 0; i < NUM_LEDS; i++) {
+		leds[i].r = 0;
+		leds[i].g = 0;
+		leds[i].b = 0;
+	}
+}
+
+void mostrar_rojo(void) {
+	for(uint16_t i = 0; i < NUM_LEDS; i++) {
+		leds[i].g = 0;
+		leds[i].r = 255;
+		leds[i].b = 0;
+	}
+	ws2812_actualizar();
+}
+
+void mostrar_verde(void) {
+	for(uint16_t i = 0; i < NUM_LEDS; i++) {
+		leds[i].g = 255;
+		leds[i].r = 0;
+		leds[i].b = 0;
+	}
+	ws2812_actualizar();
+}
+
+void mostrar_azul(void) {
+	for(uint16_t i = 0; i < NUM_LEDS; i++) {
+		leds[i].g = 0;
+		leds[i].r = 0;
+		leds[i].b = 255;
+	}
+	ws2812_actualizar();
+}
+
+void prueba_colores(void) {
+	uart_imprimir("\r\nIniciando prueba de colores\r\n");
+	
+	uart_imprimir("Color: ROJO\r\n");
+	mostrar_rojo();
+	_delay_ms(1000);
+	
+	uart_imprimir("Color: VERDE\r\n");
+	mostrar_verde();
+	_delay_ms(1000);
+	
+	uart_imprimir("Color: AZUL\r\n");
+	mostrar_azul();
+	_delay_ms(1000);
+	
+	limpiar_matriz();
+	ws2812_actualizar();
+	
+	uart_imprimir("Prueba de colores completada\r\n\r\n");
+}
+
+ISR(USART_RX_vect) {
+	uint8_t recibido = UDR0;
+	
+	switch(recibido) {
+		case 'C':
+		case 'c':
+		prueba_colores();
+		uart_imprimir("Esperando comandos\r\n");
+		break;
+		
+		default:
+		uart_imprimir("ERROR: Comando invalido\r\n");
+		uart_imprimir("Comando disponible: C\r\n");
+		break;
+	}
+}
+
+int main(void) {
+	ws2812_inicializar();
+	uart_inicializar();
+	
+	sei();
+	
+	limpiar_matriz();
+	ws2812_actualizar();
+	
+	uart_imprimir("Sistema de Matriz LED RGB - Version 1\r\n");
+	uart_imprimir("Comandos disponibles:\r\n");
+	uart_imprimir("  C - Prueba de colores (Rojo, Verde, Azul)\r\n");
+	uart_imprimir("Esperando comandos\r\n\r\n");
+	
+	while(1) {
+		_delay_ms(100);
+	}
+	
+	return 0;
+}
